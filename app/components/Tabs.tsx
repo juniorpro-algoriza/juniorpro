@@ -1,8 +1,29 @@
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
+import {
+  TabGroup,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  type TabGroupProps as HeadlessTabGroupProps,
+} from "@headlessui/react";
+import { twMerge } from "tailwind-merge";
 
-export const Tabs = () => {
+interface TabGroupProps extends HeadlessTabGroupProps {
+  className?: string;
+}
+
+interface TabsProps {
+  tabGroupProps: TabGroupProps;
+}
+
+export const Tabs = ({ tabGroupProps }: TabsProps) => {
+  const tabGroupClassName = tabGroupProps?.className;
+
   return (
-    <TabGroup>
+    <TabGroup
+      className={twMerge(tabGroupStyle, tabGroupClassName)}
+      {...tabGroupProps}
+    >
       <TabList>
         <Tab>Tab 1</Tab>
         <Tab>Tab 2</Tab>
@@ -16,3 +37,5 @@ export const Tabs = () => {
     </TabGroup>
   );
 };
+
+const tabGroupStyle = "border border-black";
