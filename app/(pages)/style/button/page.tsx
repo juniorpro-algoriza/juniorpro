@@ -1,10 +1,10 @@
-import { Button } from "@headlessui/react";
+import { Button } from "@components";
 
 const ButtonStylePage = () => {
   return (
-    <main>
+    <>
       <Button>Button</Button>
-    </main>
+    </>
   );
 };
 
