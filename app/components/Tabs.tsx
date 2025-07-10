@@ -1,41 +1,64 @@
+'use client';
+
 import {
+  Tab,
   TabGroup,
   TabList,
-  Tab,
-  TabPanels,
   TabPanel,
+  TabPanels,
   type TabGroupProps as HeadlessTabGroupProps,
-} from "@headlessui/react";
-import { twMerge } from "tailwind-merge";
+} from '@headlessui/react';
+import { twMerge } from 'tailwind-merge';
 
-interface TabGroupProps extends HeadlessTabGroupProps {
+interface TabItem {
+  name: string;
+  link: string;
+  content?: string;
+}
+
+interface TabsProps extends Omit<HeadlessTabGroupProps, 'children'> {
+  tabs: TabItem[];
   className?: string;
+  showContent?: boolean;
 }
 
-interface TabsProps {
-  tabGroupProps?: TabGroupProps;
-}
-
-export const Tabs = ({ tabGroupProps }: TabsProps) => {
-  const tabGroupClassName = tabGroupProps?.className;
+export const Tabs = ({
+  tabs,
+  className,
+  showContent = true,
+  ...props
+}: TabsProps) => {
+  // const handleTabClick = (link: string) => {
+  //   window.location.href = link;
+  // };
 
   return (
-    <TabGroup
-      className={twMerge(tabGroupStyle, tabGroupClassName)}
-      {...tabGroupProps}
-    >
-      <TabList>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-        <Tab>Tab 3</Tab>
+    <TabGroup className={twMerge(tabsStyle, className)} {...props}>
+      <TabList className={tabListStyle}>
+        {tabs.map((tab, index) => (
+          <Tab
+            key={index}
+            className={tabStyle}
+            // onClick={() => handleTabClick(tab.link)}
+          >
+            {tab.name}
+          </Tab>
+        ))}
       </TabList>
-      <TabPanels>
-        <TabPanel>Content 1</TabPanel>
-        <TabPanel>Content 2</TabPanel>
-        <TabPanel>Content 3</TabPanel>
-      </TabPanels>
+      {showContent && (
+        <TabPanels className='mt-4'>
+          {tabs.map((tab, index) => (
+            <TabPanel key={index} className='p-4'>
+              {tab.content || `Content for ${tab.name}`}
+            </TabPanel>
+          ))}
+        </TabPanels>
+      )}
     </TabGroup>
   );
 };
 
-const tabGroupStyle = "border border-black";
+const tabsStyle = 'w-fit';
+const tabListStyle = 'flex bg-gray-100 rounded-full p-1 gap-1';
+const tabStyle =
+  'px-6 py-2 rounded-full font-medium transition-colors data-[selected]:bg-white data-[selected]:text-[#5879DC] data-[selected]:shadow-sm text-[#7E8CA0] hover:text-gray-700 cursor-pointer focus:outline-none focus:ring-0 border-0';
