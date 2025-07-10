@@ -13,7 +13,7 @@ interface TabGroupProps extends HeadlessTabGroupProps {
 }
 
 interface TabsProps {
-  tabGroupProps: TabGroupProps;
+  tabGroupProps?: TabGroupProps;
 }
 
 export const Tabs = ({ tabGroupProps }: TabsProps) => {
