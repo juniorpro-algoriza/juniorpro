@@ -3,10 +3,13 @@ const StylePage = () => {
     <main>
       <ul>
         <li>
-          <a href="/style/button">Button</a>
+          <a href='/style/button'>Button</a>
         </li>
         <li>
-          <a href="/style/tabs">Tabs</a>
+          <a href='/style/input'>Input</a>
+        </li>
+        <li>
+          <a href='/style/tabs'>Tabs</a>
         </li>
       </ul>
     </main>
