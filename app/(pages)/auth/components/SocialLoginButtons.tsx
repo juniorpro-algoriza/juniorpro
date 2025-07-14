@@ -1,4 +1,5 @@
 import { Button } from "@components";
+import { AppleIcon, GoogleIcon } from "@icons";
 
 export const SocialLoginButtons = () => (
   <div className="mb-6">
@@ -6,14 +7,14 @@ export const SocialLoginButtons = () => (
       <Button
         variant="secondary"
         className="w-full text-[#737F8E] hover:text-[#737F8E] justify-center bg-white border border-[#E2E6EE] hover:bg-gray-50 rounded-xl shadow text-sm"
-        // icon={<Google size={24} />}
+        icon={<GoogleIcon />}
       >
         Login With Google
       </Button>
       <Button
         variant="secondary"
         className="w-full text-[#737F8E] hover:text-[#737F8E] justify-center items-center bg-white border border-[#E2E6EE] hover:bg-gray-50 rounded-xl shadow text-sm"
-        // icon={<Apple size={24} className="text-black mb-1" />}
+        icon={<AppleIcon />}
       >
         Login With Apple
       </Button>
