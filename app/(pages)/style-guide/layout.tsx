@@ -6,7 +6,10 @@ interface StylePagesLayoutProps {
 
 const StylePagesLayout = ({ children }: StylePagesLayoutProps) => {
   return (
-    <main className="flex h-screen items-center justify-center">
+    <main
+      data-theme="dark"
+      className="flex h-screen items-center justify-center"
+    >
       {children}
     </main>
   );

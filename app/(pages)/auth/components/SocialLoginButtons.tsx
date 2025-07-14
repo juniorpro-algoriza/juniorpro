@@ -2,11 +2,11 @@ import { Button } from "@components";
 import { AppleIcon, GoogleIcon } from "@icons";
 
 export const SocialLoginButtons = () => (
-  <div className="mb-6">
-    <div className="grid grid-cols-2 gap-4 mb-4">
+  <div className="pb-6">
+    <div className="grid grid-cols-2 gap-4 pb-4">
       <Button
         variant="secondary"
-        className="w-full text-[#737F8E] hover:text-[#737F8E] justify-center bg-white border border-[#E2E6EE] hover:bg-gray-50 rounded-xl shadow text-sm"
+        className="w-full text-primary hover:text-[#737F8E] justify-center bg-white border border-[#E2E6EE] hover:bg-gray-50 rounded-xl shadow text-sm"
         icon={<GoogleIcon />}
       >
         Login With Google

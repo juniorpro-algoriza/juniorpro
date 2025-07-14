@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 export const Logo = () => (
-  <div className="mb-10">
+  <div>
     <Image
-      src={"/Juniorpro.svg"}
+      src={"/images/logo.svg"}
       alt="Junior Pro Logo"
       width={150}
       height={45}

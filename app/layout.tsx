@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import type { ReactNode } from "react";
-import { jetBrainsMono } from "../fonts";
+import { jetBrainsMono } from "./fonts";
 
 interface RootLayoutProps {
   children: ReactNode;
