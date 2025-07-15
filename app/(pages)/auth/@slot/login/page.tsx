@@ -1,5 +1,4 @@
 import {
-  HeroSection,
   LoginForm,
   Logo,
   RegisterLink,
@@ -9,18 +8,12 @@ import {
 
 const LoginSlot = () => {
   return (
-    <div className="bg-gray-50 flex">
-      {/* Left Side */}
-      <div className="w-1/2 flex-col flex">
-        <Logo />
-        <WelcomeMessage />
-        <SocialLoginButtons />
-        <LoginForm />
-        <RegisterLink />
-      </div>
-
-      {/* Right Side */}
-      <HeroSection />
+    <div className="space-y-6">
+      <Logo />
+      <WelcomeMessage />
+      <SocialLoginButtons />
+      <LoginForm />
+      <RegisterLink />
     </div>
   );
 };

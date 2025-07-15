@@ -1,3 +1,4 @@
+// TODO: make sure colors are correct from globals.css
 import {
   Description,
   Field,
@@ -36,7 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    // TODO: move this to the end of the file.
+    // TODO: move this to the end of the file, use the same pattern you used in he buton component
     const inputClasses = twMerge(
       // Base styles
       "w-full px-3 py-3.5 rounded-lg border transition-all duration-200 outline-none",
@@ -62,20 +63,22 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       className
     );
 
+    // TODO: move all classes to their own variable below
     return (
       <Field className={twMerge("flex flex-col space-y-1", containerClassName)}>
         {label && (
           <Label className="text-sm font-medium text-gray-700">{label}</Label>
         )}
 
+        {/* TODO: divide these into their own component in the same file */}
         <div className="relative">
           {/* Left Icon */}
           {leftIcon && (
+            // TODO: move all classes to their own variable below
             <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
               {leftIcon}
             </div>
           )}
-
           {/* Input */}
           <HeadlessInput
             ref={ref}
@@ -84,7 +87,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className={inputClasses}
             {...props}
           />
-
           {/* Right Icon */}
           {rightIcon && (
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -94,6 +96,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {/* Error or Helper Text */}
+        {/* TODO: use the nullish collasing operator instead: ?? instead of || */}
         {(error || helperText) && (
           <Description
             className={twMerge(
@@ -101,6 +104,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               error ? "text-red-600" : "text-gray-500"
             )}
           >
+            {/* TODO: use the nullish collasing operator instead: ?? instead of || */}
             {error || helperText}
           </Description>
         )}

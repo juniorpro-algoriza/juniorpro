@@ -32,5 +32,6 @@ const TabItem = ({ link, title }: TabItem) => {
 };
 
 const tabListStyle = "flex bg-gray-100 rounded-full p-1 gap-1";
+// TODO: replace colors [#xxxxxx] with their name in globals.css
 const tabStyle =
   "px-6 py-2 rounded-full font-medium transition-colors data-[selected]:bg-white data-[selected]:text-[#5879DC] data-[selected]:shadow-sm text-[#7E8CA0] hover:text-gray-700 cursor-pointer focus:outline-none focus:ring-0 border-0";

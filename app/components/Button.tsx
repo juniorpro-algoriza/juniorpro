@@ -35,7 +35,7 @@ export const Button = ({
       )}
       {...props}
     >
-      {/* TODO: use padding instead of margins*/}
+      {/* ! TODO: use padding instead of margins*/}
       {icon && iconPosition === "left" && (
         <span className={twMerge("flex items-center", children && "mr-2")}>
           {icon}

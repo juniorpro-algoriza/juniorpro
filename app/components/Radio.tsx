@@ -5,6 +5,7 @@ import {
   RadioGroup,
 } from "@headlessui/react";
 
+// TODO: remove this and add props to radio instead!
 const plans = ["Startup", "Business", "Enterprise"];
 
 export const Radio = () => {
