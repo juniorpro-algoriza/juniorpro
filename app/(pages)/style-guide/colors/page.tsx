@@ -1,10 +1,9 @@
 // TODO: Add all colors from design
 import { twMerge } from "tailwind-merge";
-import { containerStyle } from "../styles";
 
 const ColorsPage = () => {
   return (
-    <div className={containerStyle}>
+    <div className="flex items-center justify-center gap-4 flex-wrap">
       {colors.map((c) => {
         const className = twMerge(colorBlockStyle, c);
         return (
