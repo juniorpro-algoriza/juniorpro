@@ -18,7 +18,7 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
 
 export default RootLayout;
 
-const bodyStyle = twMerge("antialiased", jetBrainsMono.variable);
+const bodyStyle = twMerge("antialiased", jetBrainsMono.className);
 
 export const metadata: Metadata = {
   title: "Junior Pro",
