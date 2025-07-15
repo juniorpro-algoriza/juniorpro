@@ -6,7 +6,8 @@
 // TODO: add text on top of image
 
 import Image from "next/image";
-import loginBg from "../../../../public/images/hero-img.jpg";
+// import loginBg from "../../../../public/images/hero-img.jpg";
+import loginBg from "../../../../public/images/dummy.png";
 
 export const HeroImage = () => {
   return (
