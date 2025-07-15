@@ -1,3 +1,4 @@
+// TODO: Add all colors from design
 import { twMerge } from "tailwind-merge";
 
 const ColorsPage = () => {
