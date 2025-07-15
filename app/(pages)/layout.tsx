@@ -9,9 +9,7 @@ const PagesLayout = ({ children }: Readonly<PagesLayoutProps>) => {
   return (
     <>
       <Nav />
-      <div className="px-4">
-        {children}
-      </div>
+      {children}
     </>
   );
 };

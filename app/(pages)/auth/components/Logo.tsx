@@ -6,7 +6,7 @@ import Link from "next/link";
 // ! see: https://nextjs.org/docs/app/api-reference/components/image#unoptimized
 
 export const Logo = () => (
-  <Link href="/">
+  <Link className="block" href="/">
     <Image
       unoptimized
       className="block"

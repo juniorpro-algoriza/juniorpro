@@ -11,7 +11,7 @@ import loginBg from "../../../../public/images/dummy.png";
 
 export const HeroImage = () => {
   return (
-    <div className="h-screen items-center hidden lg:flex">
+    <div className="items-center h-screen hidden lg:flex">
       <Image
         className="rounded-4xl max-h-[90vh]"
         src={loginBg}

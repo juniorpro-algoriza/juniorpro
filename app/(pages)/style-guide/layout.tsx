@@ -11,13 +11,8 @@ const links = ["button", "input", "tabs", "colors"];
 const StylePagesLayout = ({ children }: StylePagesLayoutProps) => {
   return (
     <>
-      <nav className="border border-black py-4 px-2">
+      <nav className="border border-black py-4 px-4">
         <ul className="flex gap-2">
-          <li>
-            <Link className={linkStyle} href="/">
-              Home
-            </Link>
-          </li>
           {links.map((l) => {
             return (
               <li key={l}>
