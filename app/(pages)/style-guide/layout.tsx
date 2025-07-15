@@ -5,28 +5,31 @@ interface StylePagesLayoutProps {
   children: ReactNode;
 }
 
+const links = ["button", "input", "tabs", "colors"];
+
 const StylePagesLayout = ({ children }: StylePagesLayoutProps) => {
   return (
-    <main className="flex h-screen items-center justify-center">
-      <nav>
+    <>
+      <nav className="border border-black py-4 px-2">
         <ul className="flex gap-2">
-          <li>
-            <Link href="/style-guide/button">Button</Link>
-          </li>
-          <li>
-            <Link href="/style-guide/input">Input</Link>
-          </li>
-          <li>
-            <Link href="/style-guide/tabs">Tabs</Link>
-          </li>
-          <li>
-            <Link href="/style-guide/colors">Colors</Link>
-          </li>
+          {links.map((l) => {
+            return (
+              <li key={l}>
+                <Link className={linkStyle} href={`/style-guide/${l}`}>
+                  {l}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
-      {children}
-    </main>
+      <div className="flex items-center justify-center flex-col py-4">
+        {children}
+      </div>
+    </>
   );
 };
 
 export default StylePagesLayout;
+
+const linkStyle = "underline text-blue-500 capitalize";
