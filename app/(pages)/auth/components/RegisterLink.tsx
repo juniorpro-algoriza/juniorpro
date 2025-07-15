@@ -3,7 +3,7 @@ export const RegisterLink = () => (
   // ! Never use mt-x as it caused scroll, instead manage the spacing in the parent component using
   // ! space-y-x and gap-x
   // <div className="mt-6 text-center">
-  <p className="text-sm text-gray-600">
+  <p className="text-sm text-gray-600 text-center">
     {/* ! TODO: Remove `{"  "}`, be carful not to add it, use padding instead */}
     Don't Have An Account? {/* ! TODO: Replace text-[#xxxxxx] */}
     <a href="#" className="text-[#5879DC] font-medium">
