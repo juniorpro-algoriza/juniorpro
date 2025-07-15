@@ -7,17 +7,13 @@ export const SocialLoginButtons = () => (
   <>
     <div className="grid grid-cols-2 gap-4">
       <Button
-        variant="secondary"
-        // TODO: classes should be in the button component itself and not here.
-        className="w-full text-primary hover:text-[#737F8E] justify-center bg-white border border-[#E2E6EE] hover:bg-gray-50 rounded-xl shadow text-sm"
+        variant="tertiary"
         icon={<GoogleIcon />}
       >
         Login With Google
       </Button>
       <Button
-        variant="secondary"
-        // TODO: classes should be in the button component itself and not here.
-        className="w-full text-[#737F8E] hover:text-[#737F8E] justify-center items-center bg-white border border-[#E2E6EE] hover:bg-gray-50 rounded-xl shadow text-sm"
+        variant="tertiary"
         icon={<AppleIcon />}
       >
         Login With Apple
