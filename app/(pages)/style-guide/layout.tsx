@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { linkStyle } from "./styles";
 
 interface StylePagesLayoutProps {
   children: ReactNode;
@@ -37,4 +38,3 @@ const StylePagesLayout = ({ children }: StylePagesLayoutProps) => {
 
 export default StylePagesLayout;
 
-const linkStyle = "underline text-blue-500 capitalize";
