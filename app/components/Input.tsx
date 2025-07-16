@@ -1,14 +1,11 @@
-// TODO: make sure colors are correct from globals.css
 import {
   Description,
   Field,
   Input as HeadlessInput,
   Label,
-} from "@headlessui/react";
-// TODO: Do NOT import React into any file!
-// ! remove this and import `ReactNode` type from react
-import React, { forwardRef, InputHTMLAttributes } from "react";
-import { twMerge } from "tailwind-merge";
+} from '@headlessui/react';
+import { forwardRef, InputHTMLAttributes } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -20,6 +17,20 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   containerClassName?: string;
 }
+
+interface IconContainerProps {
+  children: React.ReactNode;
+  position: 'left' | 'right';
+}
+
+const IconContainer = ({ children, position }: IconContainerProps) => {
+  const iconClasses = twMerge(
+    'absolute top-1/2 transform -translate-y-1/2 text-gray-400',
+    position === 'left' ? 'left-3' : 'right-3'
+  );
+
+  return <div className={iconClasses}>{children}</div>;
+};
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
@@ -37,47 +48,53 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    // TODO: move this to the end of the file, use the same pattern you used in he buton component
+    const containerClasses = twMerge(
+      'flex flex-col space-y-1',
+      containerClassName
+    );
+
+    const labelClasses = 'text-sm font-medium text-gray-700';
+
+    const inputWrapperClasses = 'relative';
+
+    const descriptionClasses = twMerge(
+      'text-sm',
+      error ? 'text-red-600' : 'text-gray-500'
+    );
+
     const inputClasses = twMerge(
       // Base styles
-      "w-full px-3 py-3.5 rounded-lg border transition-all duration-200 outline-none",
-      "placeholder:text-gray-400 text-[#96A0B6] font-semibold",
+      'w-full px-3 py-3.5 rounded-lg border transition-all duration-200 outline-none',
+      'placeholder:text-gray-400 text-cadetGray font-semibold',
 
       // Default state
-      "border-[#DFE1E8] bg-white",
+      'border-platinum bg-white',
 
       // Hover state
-      "hover:border-[#808D9E]",
+      'hover:border-storm-400',
 
       // Error state
-      error && "border-red-500 ring-2 ring-red-100",
+      error && 'border-red-500 ring-2 ring-red-100',
 
       // Disabled state
       disabled &&
-        "bg-white opacity-60 border-[#DFE1E8] text-gray-500 cursor-not-allowed",
+        'bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed',
 
       // Icon padding
-      leftIcon && "pl-10",
-      rightIcon && "pr-10",
+      leftIcon && 'pl-10',
+      rightIcon && 'pr-10',
 
       className
     );
 
-    // TODO: move all classes to their own variable below
     return (
-      <Field className={twMerge("flex flex-col space-y-1", containerClassName)}>
-        {label && (
-          <Label className="text-sm font-medium text-gray-700">{label}</Label>
-        )}
+      <Field className={containerClasses}>
+        {label && <Label className={labelClasses}>{label}</Label>}
 
-        {/* TODO: divide these into their own component in the same file */}
-        <div className="relative">
+        <div className={inputWrapperClasses}>
           {/* Left Icon */}
           {leftIcon && (
-            // TODO: move all classes to their own variable below
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              {leftIcon}
-            </div>
+            <IconContainer position='left'>{leftIcon}</IconContainer>
           )}
           {/* Input */}
           <HeadlessInput
@@ -89,23 +106,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           {/* Right Icon */}
           {rightIcon && (
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              {rightIcon}
-            </div>
+            <IconContainer position='right'>{rightIcon}</IconContainer>
           )}
         </div>
 
         {/* Error or Helper Text */}
-        {/* TODO: use the nullish collasing operator instead: ?? instead of || */}
-        {(error || helperText) && (
-          <Description
-            className={twMerge(
-              "text-sm",
-              error ? "text-red-600" : "text-gray-500"
-            )}
-          >
-            {/* TODO: use the nullish collasing operator instead: ?? instead of || */}
-            {error || helperText}
+        {(error ?? helperText) && (
+          <Description className={descriptionClasses}>
+            {error ?? helperText}
           </Description>
         )}
       </Field>
@@ -113,6 +121,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export { Input };
