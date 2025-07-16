@@ -1,41 +1,35 @@
-// TODO: use next/image component instead of making the image a background image
-// See why: https://nextjs.org/docs/app/api-reference/components/image
-// Import the image from the public folder and use the import instead.
 // TODO: get image file from ui/ux team as the image in figma is 500x750
 // we need an image that is the same size as design
-// TODO: add text on top of image
 
-import Image from "next/image";
+import Image from 'next/image';
 // import loginBg from "../../../../public/images/hero-img.jpg";
-import loginBg from "../../../../public/images/dummy.png";
+import loginBg from '../../../../public/images/hero-img.jpg';
 
 export const HeroImage = () => {
   return (
-    <div className="items-center h-screen hidden lg:flex">
-      <Image
-        className="rounded-4xl max-h-[90vh]"
-        src={loginBg}
-        alt=""
-        priority={true}
-        placeholder="blur"
-      />
+    <div className='items-center h-screen hidden lg:flex'>
+      <div className='relative'>
+        <Image
+          className='rounded-4xl max-h-[90vh] opacity-30 w-[740px] h-[854px]'
+          src={loginBg}
+          alt=''
+          priority={true}
+          placeholder='blur'
+        />
+        {/* Text overlay */}
+        <div className='absolute inset-0 flex items-center justify-center'>
+          <div className='flex flex-col items-center justify-center text-center'>
+            <div className='flex flex-col items-start'>
+              <h1 className='text-[40px] font-medium text-midnight mb-2'>
+                Challenge starts here
+              </h1>
+              <p className='text-[32px] font-medium text-start text-slategray max-w-md'>
+                Create an account to Join Our Community
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
-// (
-//   <div className="w-1/2 relative overflow-hidden">
-//     <div className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-xl m-6 opacity-30 bg-[url(/images/login-bg.jpg)]"></div>
-//     <div className="relative z-10 flex flex-col items-center justify-center h-full text-center p-12">
-//       <div className="flex flex-col items-start">
-//         {/* TODO: replace text-[#xxxxxx] */}
-//         <h1 className="text-[40px] font-medium text-[#2B3453] mb-2 leading-tight">
-//           Challenge starts here
-//         </h1>
-//         {/* TODO: replace text-[#xxxxxx] */}
-//         <p className="text-[32px] font-medium text-start text-[#737F8E] max-w-md leading-relaxed">
-//           Create an account to Join Our Community
-//         </p>
-//       </div>
-//     </div>
-//   </div>
-// );
