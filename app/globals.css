@@ -1,5 +1,4 @@
-/* TODO: Add colors here from figma */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-primary-50: #f5f0fc;
@@ -7,33 +6,97 @@
   --color-primary-200: #e7ddf9;
   --color-primary-300: #e7ddf9;
   --color-primary-400: #5f1ad5;
-  --color-primary-500: #ffffff;
-  --color-primary-600: #ffffff;
-  --color-primary-700: #ffffff;
-  --color-primary-800: #ffffff;
-  --color-primary-900: #ffffff;
-  --color-primary-950: #ffffff;
+  --color-primary-500: #5617c0;
+  --color-primary-600: #4c15aa;
+  --color-primary-700: #4714a0;
+  --color-primary-800: #391080;
+  --color-primary-900: #2b0c60;
+  --color-primary-1000: #21094b;
 
   --color-secondary-50: #f7fcef;
   --color-secondary-100: #f4fbe8;
-  --color-secondary-200: #ffffff;
-  --color-secondary-300: #ffffff;
-  --color-secondary-400: #ffffff;
-  --color-secondary-500: #ffffff;
-  --color-secondary-600: #ffffff;
-  --color-secondary-700: #ffffff;
-  --color-secondary-800: #ffffff;
-  --color-secondary-900: #ffffff;
-  --color-secondary-950: #ffffff;
+  --color-secondary-200: #eef9dd;
+  --color-secondary-300: #ddf2b8;
+  --color-secondary-400: #90d51a;
+  --color-secondary-500: #82c017;
+  --color-secondary-600: #73aa15;
+  --color-secondary-700: #6ca014;
+  --color-secondary-800: #568010;
+  --color-secondary-900: #41600c;
+  --color-secondary-1000: #324b09;
+
+  --color-success-50: #ecfaf2;
+  --color-success-100: #e3f7ec;
+  --color-success-200: #c4eed8;
+  --color-success-300: #83dcac;
+  --color-success-400: #41c980;
+  --color-success-500: #3bb573;
+  --color-success-600: #34a166;
+  --color-success-700: #319760;
+  --color-success-800: #27794d;
+  --color-success-900: #1d5a3a;
+  --color-success-1000: #17462d;
+
+  --color-rejected-50: #fef5f5;
+  --color-rejected-100: #fef0f0;
+  --color-rejected-200: #fcdfdf;
+  --color-rejected-300: #f8bdbd;
+  --color-rejected-400: #f59999;
+  --color-rejected-500: #dd8a8a;
+  --color-rejected-600: #c47a7a;
+  --color-rejected-700: #b87373;
+  --color-rejected-800: #935c5c;
+  --color-rejected-900: #6e4545;
+  --color-rejected-1000: #563636;
+
+  --color-gray-50: #f2f2f2;
+  --color-gray-100: #ececec;
+  --color-gray-200: #d8d8d8;
+  --color-gray-300: #acacac;
+  --color-gray-400: #808080;
+  --color-gray-500: #737373;
+  --color-gray-600: #666666;
+  --color-gray-700: #606060;
+  --color-gray-800: #4d4d4d;
+  --color-gray-900: #3a3a3a;
+  --color-gray-1000: #2d2d2d;
+
+  --color-storm-50: #f2f4f5;
+  --color-storm-100: #eceef0;
+  --color-storm-200: #d8dce1;
+  --color-storm-300: #acb5c0;
+  --color-storm-400: #808d9e;
+  --color-storm-500: #737f8e;
+  --color-storm-600: #66717e;
+  --color-storm-700: #606a77;
+  --color-storm-800: #4d555f;
+  --color-storm-900: #3a3f47;
+  --color-storm-1000: #2d3137;
+
+  --color-danger-300: #f29292;
+  --color-danger-350: #fd6f6f;
+  --color-danger-400: #eb5757;
+  --color-danger-500: #eb5757;
+
+  --color-border-primary: #f1f3f9;
+  --color-border-secondary: #e2e6ee;
+
+  --color-tertiary: #854aea;
+  --color-midnight: #2b3453;
+  --color-slategray: #737f8e;
+  --color-cadetGray: #96a0b6;
+  --color-unitedBlue: #5879dc;
+  --color-shadowBlue: #7e8ca0;
+  --color-platinum: #dfe1e8;
 }
 
 /* !! Themes */
 @layer base {
-  [data-theme="dark"] {
+  [data-theme='dark'] {
     --color-primary-50: #ffffff;
   }
 
-  [data-theme="other"] {
+  /* [data-theme='other'] {
     --color-primary-50: #ffffff;
-  }
+  } */
 }

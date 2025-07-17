@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import type { ReactNode } from "react";
-import { jetBrainsMono } from "./fonts";
-import { twMerge } from "tailwind-merge";
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { ibmPlexSansArabic } from './fonts';
+import './globals.css';
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface RootLayoutProps {
 
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={bodyStyle}>{children}</body>
     </html>
   );
@@ -18,9 +18,9 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
 
 export default RootLayout;
 
-const bodyStyle = twMerge("antialiased", jetBrainsMono.className);
+const bodyStyle = twMerge('antialiased', ibmPlexSansArabic.className);
 
 export const metadata: Metadata = {
-  title: "Junior Pro",
-  description: "Junior Pro - Your Path to Junior Developer Success",
+  title: 'Junior Pro',
+  description: 'Junior Pro - Your Path to Junior Developer Success',
 };

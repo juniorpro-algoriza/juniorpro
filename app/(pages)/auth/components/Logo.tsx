@@ -1,17 +1,14 @@
-import Image from "next/image";
-import logoImage from "../../../../public/images/logo.svg";
-import Link from "next/link";
-
-// TODO: small image should have the unoptimized prop
-// ! see: https://nextjs.org/docs/app/api-reference/components/image#unoptimized
+import Image from 'next/image';
+import Link from 'next/link';
+import logoImage from '../../../../public/images/logo.svg';
 
 export const Logo = () => (
-  <Link className="block" href="/">
+  <Link className='block' href='/'>
     <Image
       unoptimized
-      className="block"
+      className='block'
       src={logoImage}
-      alt="Junior Pro Logo"
+      alt='Junior Pro Logo'
       width={150}
       height={45}
     />
