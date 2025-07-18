@@ -1,5 +1,9 @@
-export const WelcomeMessage = () => (
+interface WelcomeMessageProps {
+  content: string;
+}
+
+export const WelcomeMessage = ({ content }: WelcomeMessageProps) => (
   <h2 className='text-2xl font-medium text-midnight tracking-wider '>
-    Hello! Welcome back
+    {content}
   </h2>
 );
