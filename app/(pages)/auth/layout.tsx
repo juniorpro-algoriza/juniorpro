@@ -9,7 +9,7 @@ interface AuthLayoutProps {
 
 const AuthLayout = ({ slot }: Readonly<AuthLayoutProps>) => {
   return (
-    <main className="flex gap-20 items-center justify-center">
+    <main className="flex gap-20 items-center justify-center px-4">
       {slot}
       <HeroImage />
     </main>

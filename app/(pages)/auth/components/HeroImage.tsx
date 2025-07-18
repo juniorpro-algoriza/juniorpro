@@ -2,12 +2,12 @@
 // we need an image that is the same size as design
 
 import Image from 'next/image';
-// import loginBg from "../../../../public/images/hero-img.jpg";
+// import loginBg from "@public/images/hero-img.jpg";
 import loginBg from '@public/images/hero-img.jpg';
 
 export const HeroImage = () => {
   return (
-    <div className='items-center h-screen hidden lg:flex'>
+    <div className='items-center h-screen hidden 2xl:flex'>
       <div className='relative'>
         <Image
           className='rounded-4xl max-h-[90vh] opacity-30 w-[740px] h-[854px]'

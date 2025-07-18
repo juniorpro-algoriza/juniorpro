@@ -1,6 +1,7 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
+  /* ! Colors */
   --color-primary-50: #f5f0fc;
   --color-primary-100: #efe8fb;
   --color-primary-200: #e7ddf9;
@@ -88,11 +89,14 @@
   --color-unitedBlue: #5879dc;
   --color-shadowBlue: #7e8ca0;
   --color-platinum: #dfe1e8;
+
+  /* ! Breakpoints */
+  --breakpoint-2xl: 1440px;
 }
 
 /* !! Themes */
 @layer base {
-  [data-theme='dark'] {
+  [data-theme="dark"] {
     --color-primary-50: #ffffff;
   }
 
