@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { ibmPlexSansArabic } from './fonts';
+import { ibmPlexSansArabic } from '@lib';
 import './globals.css';
 
 interface RootLayoutProps {

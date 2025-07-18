@@ -1,3 +1,4 @@
+// TODO: Replace tabs with radio buttons
 import { Tabs } from '@components';
 
 export const RegisterTab = () => {
