@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 // import loginBg from "../../../../public/images/hero-img.jpg";
-import loginBg from '../../../../public/images/hero-img.jpg';
+import loginBg from '@public/images/hero-img.jpg';
 
 export const HeroImage = () => {
   return (
@@ -17,19 +17,25 @@ export const HeroImage = () => {
           placeholder='blur'
         />
         {/* Text overlay */}
-        <div className='absolute inset-0 flex items-center justify-center'>
-          <div className='flex flex-col items-center justify-center text-center'>
-            <div className='flex flex-col items-start'>
-              <h1 className='text-[40px] font-medium text-midnight mb-2'>
-                Challenge starts here
-              </h1>
-              <p className='text-[32px] font-medium text-start text-slategray max-w-md'>
-                Create an account to Join Our Community
-              </p>
-            </div>
-          </div>
-        </div>
+        <TextOverlay />
       </div>
     </div>
   );
 };
+
+const TextOverlay = () => {
+  return (
+    <div className='absolute inset-0 flex items-center justify-center'>
+      <div className='flex flex-col items-center justify-center text-center'>
+        <div className='flex flex-col items-start'>
+          <h1 className='text-[40px] font-medium text-midnight mb-2'>
+            Challenge starts here
+          </h1>
+          <p className='text-[32px] font-medium text-start text-slategray max-w-md'>
+            Create an account to Join Our Community
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}

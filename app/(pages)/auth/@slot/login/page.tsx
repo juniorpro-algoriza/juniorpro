@@ -8,7 +8,7 @@ import {
 
 const LoginSlot = () => {
   return (
-    <div className='space-y-6 px-2'>
+    <div className='space-y-6'>
       <Logo />
       <WelcomeMessage content='Hello! Welcome back' />
       <SocialLoginButtons />
