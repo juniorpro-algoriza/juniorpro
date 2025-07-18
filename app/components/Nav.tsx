@@ -11,9 +11,11 @@ export const Nav = () => {
 
     return (
         <div className="px-[91px] pt-8">
-            <nav className="justify-between flex items-center p-4 shadow-lg 60 rounded-4xl">
+            <nav className="justify-between bg-white flex items-center pr-4 pl-10 py-5 shadow-lg 60 rounded-4xl">
                 <div>
-                    <Logo />
+                    <Link href="/home">
+                        <Logo />
+                    </Link>
                 </div>
                 <ul className="flex gap-4">
                     {links.map((link) => (
