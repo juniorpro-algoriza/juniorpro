@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const Nav = () => {
     const path = usePathname();
@@ -17,7 +17,7 @@ export const Nav = () => {
                         <Logo />
                     </Link>
                 </div>
-                <ul className="flex gap-4">
+                <ul className="flex gap-10">
                     {links.map((link) => (
                         <li key={link.href}>
                             <Link href={link.href} className="">
