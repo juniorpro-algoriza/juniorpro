@@ -1,4 +1,11 @@
 import { Button, Input } from '@components';
+import {
+  AmazonIcon,
+  AppleIcon,
+  GoogleIcon,
+  MetaIcon,
+  MicrosoftIcon,
+} from '@icons';
 import NotFoundIcon from '@public/images/404 Error.svg';
 import AboutUsImage from '@public/images/aboutus 1.svg';
 import bgGraphic from '@public/images/bg-graphic.png';
@@ -7,6 +14,7 @@ import CSSIcon from '@public/images/Css3.svg';
 import GitIcon from '@public/images/gitlab-2.svg';
 import greenCheckMark from '@public/images/green-check-mark.png';
 import HTMLIcon from '@public/images/Html.svg';
+import IBMIcon from '@public/images/IBM-Icon.svg';
 import MetalCodeIcon from '@public/images/Metal_Code.svg';
 import rightBlueArrow from '@public/images/right-blue-arrow.png';
 import VSCodeIcon from '@public/images/Visual Studio Code.svg';
@@ -360,7 +368,53 @@ const HomePage = () => {
       {/* Section 4: Featured Projects */}
       <FeaturedProjectsSection />
 
-      {/* Section 5: CTA Section */}
+      {/* Section 5: Trusted Organizations */}
+      <section className='px-4 py-16 bg-white'>
+        <div className='max-w-6xl mx-auto text-center'>
+          <p className='text-4xl font-medium text-maastricht-blue mb-12'>
+            Trusted by leading organizations
+          </p>
+
+          <div className='flex justify-center items-center gap-8 md:gap-12 lg:gap-16'>
+            {/* Google */}
+            <div className='flex items-center gap-2 text-gray-500'>
+              <GoogleIcon />
+              <span className='text-2xl font-medium'>Google</span>
+            </div>
+
+            {/* Apple */}
+            <div className='flex items-center gap-2 text-gray-500'>
+              <AppleIcon />
+              <span className='text-2xl font-medium'>Apple</span>
+            </div>
+
+            {/* Amazon */}
+            <div className='flex items-center gap-2 text-gray-500'>
+              <AmazonIcon />
+              <span className='text-2xl font-medium'>Amazon</span>
+            </div>
+
+            {/* Meta */}
+            <div className='flex items-center gap-2 text-gray-500'>
+              <MetaIcon />
+              <span className='text-2xl font-medium'>Meta</span>
+            </div>
+
+            {/* Microsoft */}
+            <div className='flex items-center gap-2 text-gray-500'>
+              <MicrosoftIcon />
+              <span className='text-2xl font-medium'>Microsoft</span>
+            </div>
+
+            {/* IBM */}
+            <div className='flex items-center gap-2 text-gray-500'>
+              <Image src={IBMIcon} alt='IBM Icon' />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: CTA Section */}
       <section className='px-4 pt-12 bg-orange-50 relative overflow-hidden'>
         <div className='max-w-6xl mx-auto'>
           <div className='grid lg:grid-cols-2 gap-12 items-center'>
