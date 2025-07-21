@@ -13,6 +13,7 @@ import VSCodeIcon from '@public/images/Visual Studio Code.svg';
 import { ChevronRight, Sparkles, Star } from 'lucide-react';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
+import FeaturedProjectsSection from './components/FeaturedProjectsSection';
 
 const heroText = [
   {
@@ -356,7 +357,10 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Section 4: CTA Section */}
+      {/* Section 4: Featured Projects */}
+      <FeaturedProjectsSection />
+
+      {/* Section 5: CTA Section */}
       <section className='px-4 pt-12 bg-orange-50 relative overflow-hidden'>
         <div className='max-w-6xl mx-auto'>
           <div className='grid lg:grid-cols-2 gap-12 items-center'>
