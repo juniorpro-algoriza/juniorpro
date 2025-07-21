@@ -1,8 +1,10 @@
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
-import { twMerge } from 'tailwind-merge';
-import { ibmPlexSansArabic } from '@lib';
-import './globals.css';
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
+import { ibmPlexSansArabic } from "@lib";
+import "./globals.css";
+import { Toaster } from "sonner";
+import NextTopLoader from "nextjs-toploader";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -10,17 +12,22 @@ interface RootLayoutProps {
 
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
-    <html lang='en'>
-      <body className={bodyStyle}>{children}</body>
+    <html lang="en">
+      <body className={bodyStyle}>
+        <Toaster richColors position="top-center" />
+        <NextTopLoader />
+
+        {children}
+      </body>
     </html>
   );
 };
 
 export default RootLayout;
 
-const bodyStyle = twMerge('antialiased', ibmPlexSansArabic.className);
+const bodyStyle = twMerge("antialiased", ibmPlexSansArabic.className);
 
 export const metadata: Metadata = {
-  title: 'Junior Pro',
-  description: 'Junior Pro - Your Path to Junior Developer Success',
+  title: "Junior Pro",
+  description: "Junior Pro - Your Path to Junior Developer Success",
 };

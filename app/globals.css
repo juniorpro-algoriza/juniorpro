@@ -94,6 +94,8 @@
   --color-muted-text: #3f3f3f;
   --color-light-red: #fdedd5;
   --color-bright-red: #eb6300;
+  --color-violet-normal: #3962dc;
+  --color-violet-hover: #a06cfa;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;
