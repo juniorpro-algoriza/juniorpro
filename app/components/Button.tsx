@@ -57,13 +57,13 @@ const button = cva({
     "cursor-pointer",
     "font-medium rounded-lg transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-offset-2",
-    "disabled:opacity-50 disabled:cursor-not-allowed",
+    "disabled:opacity-50 disabled:cursor-not-allowed min-w-max",
   ],
   variants: {
     intent: {
       unset: null,
       primary:
-        "bg-primary-400 text-white hover:bg-primary-500 focus:ring-primary-200 disabled:bg-primary-400 disabled:text-white",
+        "bg-violet-normal text-white hover:bg-violet-hover focus:ring-primary-200 disabled:bg-primary-400 disabled:text-white",
       secondary:
         "bg-primary-100 text-tertiary hover:bg-primary-200 focus:ring-primary-200 disabled:bg-tertiary disabled:text-white",
       tertiary:
