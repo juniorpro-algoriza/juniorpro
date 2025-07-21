@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { ibmPlexSansArabic } from "@lib";
 import "./globals.css";
 import { Toaster } from "sonner";
+import NextTopLoader from "nextjs-toploader";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -14,6 +15,8 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
     <html lang="en">
       <body className={bodyStyle}>
         <Toaster richColors position="top-center" />
+        <NextTopLoader />
+
         {children}
       </body>
     </html>

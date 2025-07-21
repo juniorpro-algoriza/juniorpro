@@ -13,8 +13,12 @@ export const RegisterForm = () => (
       type="password"
       placeholder="Enter Password"
     />
-    <Button intent="primary" className="w-full rounded-xl" size="large">
-      Login
+    <Button
+      intent="primary"
+      className="w-full rounded-xl bg-unitedBlue"
+      size="large"
+    >
+      Sign Up
     </Button>
   </>
 );
