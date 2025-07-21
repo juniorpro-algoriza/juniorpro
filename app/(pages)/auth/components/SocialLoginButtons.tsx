@@ -6,13 +6,13 @@ export const SocialLoginButtons = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <Button
         intent="tertiary"
-        className="text-storm-500 rounded-xl px-14 py-4 border-border-secondary"
+        className="text-storm-500 rounded-xl px-14 border-border-secondary"
         icon={<GoogleIcon />}
       >
         Login With Google
       </Button>
       <Button
-        className="text-storm-500 px-14 rounded-xl py-4 border-border-secondary"
+        className="text-storm-500 px-14 rounded-xl border-border-secondary"
         intent="tertiary"
         icon={<AppleIcon />}
       >
