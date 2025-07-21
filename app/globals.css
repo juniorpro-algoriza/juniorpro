@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* ! Colors */
@@ -84,7 +84,6 @@
 
   --color-tertiary: #854aea;
   --color-midnight: #2b3453;
-  --color-slategray: #737f8e;
   --color-cadetGray: #96a0b6;
   --color-unitedBlue: #5879dc;
   --color-shadowBlue: #7e8ca0;
@@ -102,7 +101,7 @@
 
 /* !! Themes */
 @layer base {
-  [data-theme="dark"] {
+  [data-theme='dark'] {
     --color-primary-50: #ffffff;
   }
 
