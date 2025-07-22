@@ -1,4 +1,11 @@
+import NotFoundIcon from '@public/images/404 Error.svg';
 import avatarImage from '@public/images/avatar.svg';
+import CSharp from '@public/images/C Sharp.svg';
+import CSSIcon from '@public/images/Css3.svg';
+import GitIcon from '@public/images/gitlab-2.svg';
+import HTMLIcon from '@public/images/Html.svg';
+import MetalCodeIcon from '@public/images/Metal_Code.svg';
+import VSCodeIcon from '@public/images/Visual Studio Code.svg';
 
 export const projectsData = [
   {
@@ -134,4 +141,29 @@ export const testimonials = [
     age: '15 Years',
     avatar: avatarImage,
   },
+];
+
+export const heroText = [
+  { number: '1K+', text: 'Projects Available' },
+  { number: '5K+', text: 'Active Students' },
+  { number: '200+', text: 'Expert Mentors' },
+  { number: '4.9/5', text: 'Student Rating' },
+];
+
+export const floatingIcons = [
+  { src: CSSIcon, alt: 'CSS Icon', position: 'top-40 left-36' },
+  { src: GitIcon, alt: 'Git Icon', position: 'top-80 left-24' },
+  { src: NotFoundIcon, alt: '404 Error', position: 'top-96 left-72' },
+  { src: CSharp, alt: 'C# Icon', position: 'top-[512px] left-36' },
+  { src: VSCodeIcon, alt: 'VSCode', position: 'top-28 right-56' },
+  { src: HTMLIcon, alt: 'HTML Icon', position: 'top-64 right-40' },
+  { src: MetalCodeIcon, alt: 'Metal Code Icon', position: 'top-92 right-60' },
+];
+
+export const heroSteps = [
+  'Complete your first task',
+  'Complete your second task',
+  'Complete your third task',
+  'Complete your fourth task',
+  'Complete your fifth task',
 ];
