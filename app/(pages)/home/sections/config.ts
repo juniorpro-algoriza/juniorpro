@@ -1,3 +1,5 @@
+import avatarImage from '@public/images/avatar.svg';
+
 export const projectsData = [
   {
     id: 1,
@@ -101,5 +103,35 @@ export const featuredProjectTabs = [
   {
     title: 'Coding',
     link: '/home#coding',
+  },
+];
+
+export const testimonials = [
+  {
+    id: 1,
+    title: 'From Curious Beginner to Tech Competition Winner',
+    content:
+      "Jason started with simple HTML projects at age 11. Three years later, he's won his regional coding competition with an app that helps elderly people in his community connect with volunteer helpers. Jason credits JuniorPro's step-by-step projects and mentor feedback for giving him the confidence to pursue his ideas.",
+    name: 'Jason Patel',
+    age: '14 Years',
+    avatar: avatarImage,
+  },
+  {
+    id: 2,
+    title: 'From Complete Novice to Full-Stack Developer',
+    content:
+      'Emma had never written a line of code before joining JuniorPro. Within 18 months, she built her first web application and landed her dream internship at a tech startup. The structured learning path and amazing community support made all the difference in her journey.',
+    name: 'Emma Rodriguez',
+    age: '16 Years',
+    avatar: avatarImage,
+  },
+  {
+    id: 3,
+    title: 'Building Apps That Change Communities',
+    content:
+      "Marcus created an app that helps students in his school find study groups and share resources. What started as a simple project idea became a tool used by over 500 students. JuniorPro's mentorship program helped him turn his vision into reality.",
+    name: 'Marcus Chen',
+    age: '15 Years',
+    avatar: avatarImage,
   },
 ];

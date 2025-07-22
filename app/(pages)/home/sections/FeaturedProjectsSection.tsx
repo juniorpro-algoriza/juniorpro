@@ -3,10 +3,10 @@
 import { Tabs } from '@components';
 import { ChevronRight } from 'lucide-react';
 import { useState } from 'react';
+import { ProjectCard } from '../components';
 import { featuredProjectTabs, projectsData } from './config';
-import { ProjectCard } from './ProjectCard';
 
-const FeaturedProjectsSection = () => {
+export const FeaturedProjectsSection = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
@@ -124,5 +124,3 @@ const FeaturedProjectsSection = () => {
     </section>
   );
 };
-
-export default FeaturedProjectsSection;
