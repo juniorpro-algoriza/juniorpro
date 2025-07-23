@@ -3,20 +3,18 @@ import {
   TabGroup,
   TabList,
   type TabGroupProps as HeadlessTabGroupProps,
-} from "@headlessui/react";
-import Link from "next/link";
-import type { TabItem } from "./types/TabItem";
-import { cx } from "cva";
+} from '@headlessui/react';
+import Link from 'next/link';
+import type { TabItem } from './types/TabItem';
 
 interface TabsProps extends HeadlessTabGroupProps {
   tabItems: TabItem[];
-  tabListClassName?: string;
 }
 
-export const Tabs = ({ tabItems, tabListClassName, ...props }: TabsProps) => {
+export const Tabs = ({ tabItems, ...props }: TabsProps) => {
   return (
-    <TabGroup {...props} className="w-full px-4 flex lg:justify-center">
-      <TabList className={cx(defaultTabListClassName, tabListClassName)}>
+    <TabGroup {...props}>
+      <TabList className={tabListStyle}>
         {tabItems.map(({ link, title }) => (
           <TabItem key={link} link={link} title={title} />
         ))}
@@ -28,13 +26,13 @@ export const Tabs = ({ tabItems, tabListClassName, ...props }: TabsProps) => {
 const TabItem = ({ link, title }: TabItem) => {
   return (
     <Link key={link} href={link}>
-      <Tab className={tabClassName}>{title}</Tab>
+      <Tab className={tabStyle}>{title}</Tab>
     </Link>
   );
 };
 
-const defaultTabListClassName =
-  "flex py-2 px-4 justify-center w-full flex-wrap text-sm md:text-base lg:text-lg bg-gray-100 rounded-full p-1 gap-1 items-center";
+const tabListStyle =
+  'flex item-center justify-center w-fit bg-gray-100 rounded-full p-1 gap-1';
 
-const tabClassName =
-  "xl:px-6 px-4 py-2 xl:py-4 min-w-max rounded-full font-medium transition-colors data-[selected]:bg-white data-[selected]:text-unitedBlue data-[selected]:shadow-sm text-shadowBlue hover:text-gray-700 cursor-pointer focus:outline-none focus:ring-0 border-0";
+const tabStyle =
+  'px-6 py-2 rounded-full font-medium transition-colors data-[selected]:bg-white data-[selected]:text-unitedBlue data-[selected]:shadow-sm text-shadowBlue hover:text-gray-700 cursor-pointer focus:outline-none focus:ring-0 border-0';
