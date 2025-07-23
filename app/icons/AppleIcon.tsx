@@ -1,6 +1,7 @@
-export const AppleIcon = () => {
+export const AppleIcon = ({ ...props }) => {
   return (
     <svg
+      {...props}
       width="15"
       height="18"
       viewBox="0 0 15 18"

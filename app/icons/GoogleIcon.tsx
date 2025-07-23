@@ -1,6 +1,7 @@
-export const GoogleIcon = () => {
+export const GoogleIcon = ({ ...props }) => {
   return (
     <svg
+      {...props}
       width="21"
       height="20"
       viewBox="0 0 21 20"
