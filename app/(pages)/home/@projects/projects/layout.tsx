@@ -1,4 +1,3 @@
-import { Tabs } from "@components";
 import type { ReactNode } from "react";
 
 interface HomePageProjectsLayout {

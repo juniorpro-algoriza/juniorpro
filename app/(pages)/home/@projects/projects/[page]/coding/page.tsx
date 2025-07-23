@@ -21,6 +21,7 @@ const CodingProjectsSlot = async ({ params }: CodingProjectsSlotProps) => {
 
   return (
     <ProjectsSlider
+      projectType="coding"
       projects={data}
       currentPage={currentPage}
       hasNextPage={hasNextPage}

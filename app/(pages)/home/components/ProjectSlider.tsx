@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Project } from "../types";
+import { Project, ProjectType } from "../types";
 import { cx } from "@lib";
 
 interface ProjectsSliderProps {
@@ -9,6 +9,7 @@ interface ProjectsSliderProps {
   pageNum: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
+  projectType: ProjectType;
 }
 
 export const ProjectsSlider = ({
@@ -18,9 +19,10 @@ export const ProjectsSlider = ({
   hasNextPage,
   hasPrevPage,
   totalPages,
+  projectType,
 }: ProjectsSliderProps) => {
   return (
-    <section>
+    <section className="p-4">
       <div>
         {projects.map(({ id, title }) => {
           return <h1 key={id}>{id + "-" + title}</h1>;
@@ -32,14 +34,18 @@ export const ProjectsSlider = ({
         </p>
         <div className="flex gap-2">
           <Link
-            href={hasPrevPage ? `/home/projects/${pageNum - 1}/all` : ""}
-            className={cx(!hasPrevPage && disabledClassName)}
+            href={
+              hasPrevPage ? `/home/projects/${pageNum - 1}/${projectType}` : ""
+            }
+            className={cx(linkClassName, !hasPrevPage && disabledClassName)}
           >
             Previous
           </Link>
           <Link
-            href={hasNextPage ? `/home/projects/${pageNum + 1}/all` : ""}
-            className={cx(!hasNextPage && disabledClassName)}
+            href={
+              hasNextPage ? `/home/projects/${pageNum + 1}/${projectType}` : ""
+            }
+            className={cx(linkClassName, !hasNextPage && disabledClassName)}
           >
             Next
           </Link>
@@ -50,3 +56,4 @@ export const ProjectsSlider = ({
 };
 
 const disabledClassName = "cursor-not-allowed";
+const linkClassName = "underline text-blue-500";

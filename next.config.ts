@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/home/projects/1/all",
         permanent: true,
       },
+      {
+        source: "/home",
+        destination: "/home/projects/1/all",
+        permanent: true,
+      },
     ];
   },
 };

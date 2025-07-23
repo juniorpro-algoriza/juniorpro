@@ -1,3 +1,5 @@
+import { ProjectType } from "./ProjectType";
+
 export type Project = {
   id: string;
   title: string;
@@ -5,6 +7,6 @@ export type Project = {
   imageUrl: string;
   description: string;
   rating: number;
-  projectType: "web" | "team" | "solo" | "coding";
+  projectType: ProjectType;
   isFree: boolean;
 };

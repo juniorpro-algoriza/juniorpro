@@ -1,11 +1,11 @@
 "use server";
 
-import { Project } from "../types";
+import type { Project, ProjectType } from "../types";
 
 type GetAllProjectsParams = {
   pageNum: number;
   limit: number;
-  projectType: "all" | "web" | "coding" | "solo" | "team";
+  projectType: ProjectType;
 };
 
 export const getProjects = async ({
@@ -44,7 +44,7 @@ const dummyData: Project[] = [
     imageUrl: "/images/featued-Project-image.svg",
     description: "A solo project to build skills.",
     rating: 4 + (i % 2),
-    projectType: "solo" as const,
+    projectType: "solo" as ProjectType,
     isFree: i % 2 === 0,
   })),
 
@@ -56,7 +56,7 @@ const dummyData: Project[] = [
     imageUrl: "/images/featued-Project-image.svg",
     description: "A web development project.",
     rating: 3 + (i % 3),
-    projectType: "web" as const,
+    projectType: "web" as ProjectType,
     isFree: i % 2 !== 0,
   })),
 
@@ -68,7 +68,7 @@ const dummyData: Project[] = [
     imageUrl: "/images/featued-Project-image.svg",
     description: "A project for teams to collaborate.",
     rating: 4 + (i % 2),
-    projectType: "team" as const,
+    projectType: "team" as ProjectType,
     isFree: i % 3 === 0,
   })),
 
@@ -80,7 +80,7 @@ const dummyData: Project[] = [
     imageUrl: "/images/featued-Project-image.svg",
     description: "Solve coding challenges and learn.",
     rating: 5 - (i % 3),
-    projectType: "coding" as const,
+    projectType: "coding" as ProjectType,
     isFree: i % 2 === 0,
   })),
 ];
