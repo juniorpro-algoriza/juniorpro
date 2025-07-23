@@ -9,7 +9,7 @@ export const Projects = async () => {
     <>
       <ProjectsHeader />
       <TabGroup className="pt-8">
-        <div className="flex justify-center">
+        <div className="flex justify-center px-4">
           <TabList className={tabListClassName}>
             {projects.map(({ name }) => {
               return (
