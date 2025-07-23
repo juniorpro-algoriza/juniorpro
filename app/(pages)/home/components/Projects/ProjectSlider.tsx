@@ -5,31 +5,18 @@ import { cx } from "cva";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { Project, ProjectType } from "../types";
 import { ProjectCard } from "./ProjectCard";
+import type { Project } from "../../types";
 
 interface ProjectsSliderProps {
   projects: Project[];
-  currentPage: number;
-  totalPages: number;
-  pageNum: number;
-  hasNextPage: boolean;
-  hasPrevPage: boolean;
-  projectType: ProjectType;
 }
 
-export const ProjectsSlider = ({
-  projects,
-  // currentPage,
-  // pageNum,
-  // hasNextPage,
-  // hasPrevPage,
-  // totalPages,
-  // projectType,
-}: ProjectsSliderProps) => {
+export const ProjectsSlider = ({ projects }: ProjectsSliderProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "start",
+    dragFree: true,
     slidesToScroll: 1,
     breakpoints: {
       "(min-width: 640px)": { slidesToScroll: 2 },
