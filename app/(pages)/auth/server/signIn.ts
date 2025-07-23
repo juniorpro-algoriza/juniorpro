@@ -1,6 +1,6 @@
 "use server";
 
-import { ActionState } from "./types"
+import type { ActionState } from "@server/types"
 import z from "zod"
 
 const Schema = z.object({

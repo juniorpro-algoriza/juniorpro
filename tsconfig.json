@@ -25,6 +25,7 @@
       "@lib": ["./app/lib"],
       "@server": ["./app/server"],
       "@server/lib": ["./app/server/lib"],
+      "@server/types": ["./app/server/types"],
       "@types": ["./app/types"]
     }
   },

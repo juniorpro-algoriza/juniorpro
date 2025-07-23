@@ -1,11 +1,11 @@
 "use client";
 
 import { Button, Input } from "@components";
-import { signIn } from "@server";
 import { initialState } from "@server/lib";
 import { Loader } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
+import { signIn } from "../server";
 
 export const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
