@@ -2,16 +2,22 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react"; // Added useRef and useCallback
 import useEmblaCarousel from "embla-carousel-react";
 import { testimonials } from "../config";
 
 export const TestimonialsSection = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    watchDrag: false,
+    watchDrag: false, // Keep this false as we're implementing custom drag
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // State and ref for custom drag behavior
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const dragCurrentX = useRef(0);
+  const containerRef = useRef(null); // Ref to the Embla container for event listeners
 
   // Sync selected index when Embla fires select event
   useEffect(() => {
@@ -29,17 +35,76 @@ export const TestimonialsSection = () => {
     };
   }, [emblaApi]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollTo(
       (selectedIndex - 1 + testimonials.length) % testimonials.length
     );
-  };
+  }, [emblaApi, selectedIndex]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollTo((selectedIndex + 1) % testimonials.length);
-  };
+  }, [emblaApi, selectedIndex]);
+
+  // --- Custom Drag Logic ---
+
+  const handlePointerDown = useCallback(
+    (event: { clientX: number; touches: { clientX: number }[] }) => {
+      setIsDragging(true);
+      // Use clientX for both mouse and touch events
+      dragStartX.current = event.clientX || event.touches[0].clientX;
+      dragCurrentX.current = dragStartX.current; // Initialize currentX
+    },
+    []
+  );
+
+  const handlePointerMove = useCallback(
+    (event: { clientX: number; touches: { clientX: number }[] }) => {
+      if (!isDragging) return;
+      dragCurrentX.current = event.clientX || event.touches[0].clientX;
+    },
+    [isDragging]
+  );
+
+  const handlePointerUp = useCallback(() => {
+    if (!isDragging) return; // Only proceed if a drag was in progress
+    setIsDragging(false);
+
+    const dragThreshold = 50; // Pixels to determine a significant drag
+
+    const dragDistance = dragCurrentX.current - dragStartX.current;
+
+    if (dragDistance > dragThreshold) {
+      // Dragged right, go to previous
+      handlePrev();
+    } else if (dragDistance < -dragThreshold) {
+      // Dragged left, go to next
+      handleNext();
+    }
+  }, [isDragging, handlePrev, handleNext]);
+
+  // Attach event listeners to the Embla container
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const container = containerRef.current as any;
+    if (!container) return;
+
+    // Use pointer events for unified mouse and touch handling
+    container.addEventListener("pointerdown", handlePointerDown);
+    container.addEventListener("pointermove", handlePointerMove);
+    container.addEventListener("pointerup", handlePointerUp);
+    container.addEventListener("pointerleave", handlePointerUp); // End drag if pointer leaves the element
+
+    return () => {
+      container.removeEventListener("pointerdown", handlePointerDown);
+      container.removeEventListener("pointermove", handlePointerMove);
+      container.removeEventListener("pointerup", handlePointerUp);
+      container.removeEventListener("pointerleave", handlePointerUp);
+    };
+  }, [handlePointerDown, handlePointerMove, handlePointerUp]);
+
+  // --- End Custom Drag Logic ---
 
   return (
     <section className="px-4 py-20 bg-white">
@@ -51,7 +116,11 @@ export const TestimonialsSection = () => {
         {/* Embla container */}
         <div
           className="relative max-w-4xl mx-auto h-[400px] overflow-hidden"
-          ref={emblaRef}
+          ref={(node) => {
+            emblaRef(node);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            containerRef.current = node as any; // Assign to containerRef as well
+          }}
         >
           {/* Stacked Cards */}
           <div className="relative w-full h-full">
@@ -87,7 +156,7 @@ export const TestimonialsSection = () => {
               return (
                 <div
                   key={testimonial.id}
-                  className="absolute inset-0 flex justify-center items-center transition-all duration-500 ease-out"
+                  className="absolute cursor-move inset-0 flex justify-center items-center transition-all duration-500 ease-out"
                   style={{
                     zIndex,
                     transform: `${transform} scale(${scale})`,
@@ -104,7 +173,7 @@ export const TestimonialsSection = () => {
                         “{testimonial.title}”
                       </h3>
 
-                      <p className="text-gray-600 leading-7">
+                      <p className="text-gray-600 leading-7 select-none">
                         {testimonial.content}
                       </p>
 
