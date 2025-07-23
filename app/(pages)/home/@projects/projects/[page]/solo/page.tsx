@@ -1,5 +1,5 @@
-import { getProjects } from "../../../../server";
 import { ProjectsSlider } from "../../../../components/ProjectSlider";
+import { getProjects } from "../../../../server";
 
 type Params = {
   page: string;

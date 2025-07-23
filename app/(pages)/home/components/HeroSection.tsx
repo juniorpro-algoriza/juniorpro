@@ -4,7 +4,7 @@ import { floatingIcons, heroText } from "../config";
 
 export const HeroSection = () => {
   return (
-    <section className="px-4 py-20 overflow-hidden">
+    <section className="px-4 py-16 overflow-hidden">
       {/* Floating Technology Icons */}
       <div className="hidden lg:block">
         {floatingIcons.map((icon, index) => (

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const PremiumTasksSection = () => {
   return (
-    <section className="px-4 py-16 sm:py-20 bg-white relative">
+    <section className="px-4 pt-16 bg-white relative">
       <div className="max-w-6xl mx-auto">
         <div className="grid gap-12 lg:gap-20 lg:grid-cols-2 items-start">
           {/* Left Column - Dashboard Visual */}

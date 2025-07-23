@@ -104,10 +104,8 @@ export const TestimonialsSection = () => {
     };
   }, [handlePointerDown, handlePointerMove, handlePointerUp]);
 
-  // --- End Custom Drag Logic ---
-
   return (
-    <section className="px-4 py-20 bg-white">
+    <section className="px-4 pt-16 bg-white">
       <div className="max-w-6xl mx-auto text-center space-y-6">
         <h2 className="text-3xl md:text-[32px] font-medium">
           From Curious Beginner to Tech Competition Winner
@@ -115,7 +113,7 @@ export const TestimonialsSection = () => {
 
         {/* Embla container */}
         <div
-          className="relative max-w-4xl mx-auto h-[400px] overflow-hidden"
+          className="relative max-w-4xl mx-auto h-[600px] lg:h-[400px] overflow-hidden"
           ref={(node) => {
             emblaRef(node);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

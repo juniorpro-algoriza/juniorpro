@@ -7,7 +7,7 @@ import { heroSteps } from "../config";
 
 export const HowItWorkSection = () => {
   return (
-    <section className="px-4 py-20 bg-white relative">
+    <section className="px-4 py-16 bg-white relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-20">
