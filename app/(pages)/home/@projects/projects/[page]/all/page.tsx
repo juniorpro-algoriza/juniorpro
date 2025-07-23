@@ -1,5 +1,5 @@
-import { getProjects } from "../../../../server";
 import { ProjectsSlider } from "../../../../components/ProjectSlider";
+import { getProjects } from "../../../../server";
 
 type Params = {
   page: string;
@@ -14,7 +14,7 @@ const AllProjectsSlot = async ({ params }: AllProjectsSlotProps) => {
 
   const { data, hasNextPage, hasPrevPage, currentPage, totalPages } =
     await getProjects({
-      limit: 4,
+      limit: 10,
       pageNum,
       projectType: "all",
     });
