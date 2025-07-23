@@ -1,3 +1,5 @@
+// TODO: Style radio groups
+// ! Add style to /app/styles/index.ts
 import { Field, Radio, RadioGroup } from "@headlessui/react";
 
 export const RegisterTab = () => {
