@@ -29,7 +29,7 @@ export const ProjectCard = ({
           alt="card image"
           width={100}
           height={100}
-          className="w-full h-full object-cover rounded-xl"
+          className="w-[330px] h-[183px] object-cover rounded-xl"
         />
         <span className="absolute top-2 left-2 bg-violet-50 text-unitedBlue text-xs font-medium px-3 py-1 rounded-full z-10">
           {category}
