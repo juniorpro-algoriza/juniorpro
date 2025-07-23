@@ -1,16 +1,6 @@
+// TODO: Add tabs
 const TabsStylePage = () => {
-  // const authTabs = [
-  //   {
-  //     title: "Beta",
-  //     link: "#!",
-  //   },
-  //   {
-  //     title: "Alpha",
-  //     link: "#2",
-  //   },
-  // ];
-
-  return <>{/* <Tabs tabItems={authTabs} /> */}</>;
+  return <></>;
 };
 
 export default TabsStylePage;
