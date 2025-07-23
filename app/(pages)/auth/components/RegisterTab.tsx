@@ -1,24 +1,21 @@
-// TODO: Replace tabs with radio buttons
-import { Tabs } from '@components';
+import { Field, Radio, RadioGroup } from "@headlessui/react";
 
 export const RegisterTab = () => {
-  const RegisterTabs = [
-    {
-      title: 'Register as contributor',
-      link: '/auth/register/#1',
-    },
-    {
-      title: 'Register as junior',
-      link: '/auth/register/#2',
-    },
+  const options = [
+    { title: "Register as contributor", value: "contributor" },
+    { title: "Register as junior", value: "junior" },
   ];
-
   return (
     <>
-      <Tabs
-        className='flex items-center justify-center'
-        tabItems={RegisterTabs}
-      />
+      <RadioGroup>
+        {options.map(({ title, value }) => {
+          return (
+            <Field key={value}>
+              <Radio value={value}>{title}</Radio>
+            </Field>
+          );
+        })}
+      </RadioGroup>
     </>
   );
 };
