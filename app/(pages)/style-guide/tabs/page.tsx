@@ -4,11 +4,11 @@ const TabsStylePage = () => {
   const authTabs = [
     {
       title: "Beta",
-      link: "/style-guide/tabs/#2",
+      link: "#!",
     },
     {
       title: "Alpha",
-      link: "/style-guide/tabs/#1",
+      link: "#2",
     },
   ];
 

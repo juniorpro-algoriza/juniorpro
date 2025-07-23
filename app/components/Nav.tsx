@@ -10,7 +10,7 @@ export const Nav = () => {
   }
 
   return (
-    <div className="xl:px-[91px] p-4 pt-8 text-xs lg:text-base">
+    <div className="xl:px-[91px] p-4 pt-8 text-base lg:text-lg xl:text-xl">
       <nav className="justify-between bg-white flex items-center pr-4 pl-10 py-5 shadow-lg 60 rounded-4xl">
         <div className="hidden xl:block">
           <Link href="/home">
