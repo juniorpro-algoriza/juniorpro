@@ -20,7 +20,7 @@ export const Projects = async () => {
             })}
           </TabList>
         </div>
-        <TabPanels>
+        <TabPanels className="pt-10">
           {projects.map(({ projects, name }) => {
             return (
               <TabPanel key={name}>
