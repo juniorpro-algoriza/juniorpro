@@ -15,7 +15,7 @@ interface TabsProps extends HeadlessTabGroupProps {
 
 export const Tabs = ({ tabItems, tabListClassName, ...props }: TabsProps) => {
   return (
-    <TabGroup {...props} className="w-full px-4 pt-16 flex lg:justify-center">
+    <TabGroup {...props} className="w-full px-4 pt-16 flex justify-center">
       <TabList className={cx(defaultTabListClassName, tabListClassName)}>
         {tabItems.map(({ link, title }) => (
           <TabItem key={link} link={link} title={title} />

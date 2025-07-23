@@ -14,7 +14,7 @@ const SoloProjectsSlot = async ({ params }: SoloProjectsSlotProps) => {
 
   const { data, hasNextPage, hasPrevPage, currentPage, totalPages } =
     await getProjects({
-      limit: 10,
+      limit: 4,
       pageNum,
       projectType: "solo",
     });

@@ -7,7 +7,7 @@ export const ProjectsTabs = async () => {
   return (
     <>
       <ProjectsHeader />
-      <div className="flex items-center pt-16 px-4 justify-center bg-white">
+      <div className="flex items-center px-4 justify-center bg-white">
         <Tabs tabItems={tabItems} />
       </div>
     </>

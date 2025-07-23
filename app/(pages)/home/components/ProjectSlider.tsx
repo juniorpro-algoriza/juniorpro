@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { Button } from '@components';
-import { cx } from 'cva';
-import useEmblaCarousel from 'embla-carousel-react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { Project, ProjectType } from '../types';
-import { ProjectCard } from './ProjectCard';
+import { Button } from "@components";
+import { cx } from "cva";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { Project, ProjectType } from "../types";
+import { ProjectCard } from "./ProjectCard";
 
 interface ProjectsSliderProps {
   projects: Project[];
@@ -20,20 +20,20 @@ interface ProjectsSliderProps {
 
 export const ProjectsSlider = ({
   projects,
-  currentPage,
-  pageNum,
-  hasNextPage,
-  hasPrevPage,
-  totalPages,
-  projectType,
+  // currentPage,
+  // pageNum,
+  // hasNextPage,
+  // hasPrevPage,
+  // totalPages,
+  // projectType,
 }: ProjectsSliderProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
-    align: 'start',
+    align: "start",
     slidesToScroll: 1,
     breakpoints: {
-      '(min-width: 640px)': { slidesToScroll: 2 },
-      '(min-width: 1024px)': { slidesToScroll: 3 },
+      "(min-width: 640px)": { slidesToScroll: 2 },
+      "(min-width: 1024px)": { slidesToScroll: 3 },
     },
   });
 
@@ -57,14 +57,14 @@ export const ProjectsSlider = ({
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
-    emblaApi.on('select', onSelect);
+    emblaApi.on("select", onSelect);
   }, [emblaApi, onSelect]);
 
   return (
-    <section className='p-4 bg-white'>
+    <section className="p-4 bg-white">
       {/* Embla Carousel */}
-      <div className='overflow-hidden' ref={emblaRef}>
-        <div className='flex gap-4'>
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-4">
           {projects.map((project) => (
             <ProjectCard
               key={project.id}
@@ -81,41 +81,41 @@ export const ProjectsSlider = ({
       </div>
 
       {/* Navigation Buttons */}
-      <div className='flex justify-between items-center py-4'>
-        <div className='flex gap-2 py-6'>
+      <div className="flex justify-between items-center py-4">
+        <div className="flex gap-2 py-6">
           <Button
-            intent='unset'
+            intent="unset"
             onClick={scrollPrev}
             disabled={!canScrollPrev}
             className={cx(
-              'p-2 rounded-full border-2 transition-all duration-200',
+              "p-2 rounded-full border-2 transition-all duration-200",
               canScrollPrev
-                ? 'border-blue-500 text-blue-500 hover:bg-blue-50'
-                : 'border-gray-300 text-gray-300 cursor-not-allowed'
+                ? "border-blue-500 text-blue-500 hover:bg-blue-50"
+                : "border-gray-300 text-gray-300 cursor-not-allowed"
             )}
           >
             <ChevronLeft size={12} />
           </Button>
           <Button
-            intent='unset'
+            intent="unset"
             onClick={scrollNext}
             disabled={!canScrollNext}
             className={cx(
-              'p-2 rounded-full border-2 transition-all duration-200',
+              "p-2 rounded-full border-2 transition-all duration-200",
               canScrollNext
-                ? 'border-blue-500 text-blue-500 hover:bg-blue-50'
-                : 'border-gray-300 text-gray-300 cursor-not-allowed'
+                ? "border-blue-500 text-blue-500 hover:bg-blue-50"
+                : "border-gray-300 text-gray-300 cursor-not-allowed"
             )}
           >
             <ChevronRight size={12} />
           </Button>
         </div>
         <Button
-          intent='tertiary'
-          iconPosition='right'
-          size='small'
-          className='border-none text-unitedBlue'
-          icon={<ChevronRight className='w-4 h-4' />}
+          intent="tertiary"
+          iconPosition="right"
+          size="small"
+          className="border-none text-unitedBlue"
+          icon={<ChevronRight className="w-4 h-4" />}
         >
           View All
         </Button>
