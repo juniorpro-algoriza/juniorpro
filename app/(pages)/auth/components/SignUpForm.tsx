@@ -12,10 +12,12 @@ export const SignUpForm = () => {
   const [state, formAction, isPending] = useActionState(signUp, initialState);
 
   useEffect(() => {
-    const { error } = state;
+    const { error, success } = state;
 
     if (error) toast.error(error, { id: "register-error" });
     else toast.dismiss("register-error");
+
+    if (success) toast.success("Signed up");
   }, [state]);
 
   return (
