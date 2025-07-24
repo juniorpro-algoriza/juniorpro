@@ -4,23 +4,80 @@ import { Button } from "@components";
 import { cx } from "cva";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ProjectCard } from "./ProjectCard";
 import type { Project } from "../../types";
+import type { EmblaCarouselType, EngineType } from "embla-carousel";
 
 interface ProjectsSliderProps {
   projects: Project[];
 }
 
-export const ProjectsSlider = ({ projects }: ProjectsSliderProps) => {
+const mockApiCall = (
+  minWait: number,
+  maxWait: number,
+  callback: () => void
+): void => {
+  const min = Math.ceil(minWait);
+  const max = Math.floor(maxWait);
+  const wait = Math.floor(Math.random() * (max - min + 1)) + min;
+  setTimeout(callback, wait);
+};
+
+export const ProjectsSlider = ({
+  projects: initialProjects,
+}: ProjectsSliderProps) => {
+  const scrollListenerRef = useRef<() => void>(() => undefined);
+  const listenForScrollRef = useRef(true);
+  const hasMoreToLoadRef = useRef(true);
+  const [projectSlides, setProjectSlides] = useState(initialProjects);
+  const [hasMoreToLoad, setHasMoreToLoad] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "start",
     dragFree: true,
-    slidesToScroll: 1,
-    breakpoints: {
-      "(min-width: 640px)": { slidesToScroll: 2 },
-      "(min-width: 1024px)": { slidesToScroll: 3 },
+    watchSlides: (emblaApi) => {
+      const reloadEmbla = (): void => {
+        const oldEngine = emblaApi.internalEngine();
+
+        emblaApi.reInit();
+        const newEngine = emblaApi.internalEngine();
+        const copyEngineModules: (keyof EngineType)[] = [
+          "scrollBody",
+          "location",
+          "offsetLocation",
+          "previousLocation",
+          "target",
+        ];
+        copyEngineModules.forEach((engineModule) => {
+          Object.assign(newEngine[engineModule], oldEngine[engineModule]);
+        });
+
+        newEngine.translate.to(oldEngine.location.get());
+        const { index } = newEngine.scrollTarget.byDistance(0, false);
+        newEngine.index.set(index);
+        newEngine.animation.start();
+
+        setLoadingMore(false);
+        listenForScrollRef.current = true;
+      };
+
+      const reloadAfterPointerUp = (): void => {
+        emblaApi.off("pointerUp", reloadAfterPointerUp);
+        reloadEmbla();
+      };
+
+      const engine = emblaApi.internalEngine();
+
+      if (hasMoreToLoadRef.current && engine.dragHandler.pointerDown()) {
+        const boundsActive = engine.limit.reachedMax(engine.target.get());
+        engine.scrollBounds.toggleActive(boundsActive);
+        emblaApi.on("pointerUp", reloadAfterPointerUp);
+      } else {
+        reloadEmbla();
+      }
     },
   });
 
@@ -41,29 +98,110 @@ export const ProjectsSlider = ({ projects }: ProjectsSliderProps) => {
     setCanScrollNext(emblaApi.canScrollNext());
   }, [emblaApi]);
 
+  const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
+    if (!listenForScrollRef.current) return;
+
+    setLoadingMore((loadingMore) => {
+      // Check if we're at the end and can load more
+      const lastSlide = emblaApi.slideNodes().length - 1;
+      const lastSlideInView = emblaApi.slidesInView().includes(lastSlide);
+      const canLoadMore = !loadingMore && lastSlideInView;
+
+      console.log({
+        lastSlide,
+        lastSlideInView,
+        canLoadMore,
+      });
+
+      if (canLoadMore) {
+        listenForScrollRef.current = false;
+
+        mockApiCall(1000, 2000, () => {
+          setProjectSlides((currentSlides) => {
+            if (currentSlides.length >= 50) {
+              setHasMoreToLoad(false);
+              return currentSlides;
+            }
+
+            const last = currentSlides[currentSlides.length - 1];
+            const newProj = {
+              ...last,
+              id: `${last.id}-${Date.now()}`,
+              title: `new ${currentSlides.length + 1}`,
+            };
+
+            return [...currentSlides, newProj];
+          });
+        });
+      }
+
+      return loadingMore;
+    });
+  }, []);
+
+  const addScrollListener = useCallback(
+    (emblaApi: EmblaCarouselType) => {
+      scrollListenerRef.current = () => onScroll(emblaApi);
+      emblaApi?.on("scroll", scrollListenerRef.current);
+    },
+    [onScroll]
+  );
+
   useEffect(() => {
     if (!emblaApi) return;
+
     onSelect();
     emblaApi.on("select", onSelect);
-  }, [emblaApi, onSelect]);
+    addScrollListener(emblaApi);
+
+    const onResize = () => emblaApi.reInit();
+    window.addEventListener("resize", onResize);
+    emblaApi.on("destroy", () =>
+      window.removeEventListener("resize", onResize)
+    );
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      emblaApi.off("select", onSelect);
+      emblaApi.off("scroll", scrollListenerRef.current);
+    };
+  }, [emblaApi, onSelect, addScrollListener]);
+
+  useEffect(() => {
+    hasMoreToLoadRef.current = hasMoreToLoad;
+  }, [hasMoreToLoad]);
 
   return (
     <section className="p-4 bg-white">
       {/* Embla Carousel */}
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-4">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              category={project.category}
-              image={project.imageUrl}
-              description={project.description}
-              rating={project.rating}
-              projectType={project.projectType}
-              isFree={project.isFree}
-              title={project.title}
-            />
+          {projectSlides.map((project, index) => (
+            <div
+              key={`${project.id}-${index}`}
+              className="flex-[0_0_auto] min-w-0"
+            >
+              <ProjectCard
+                category={project.category}
+                image={project.imageUrl}
+                description={project.description}
+                rating={project.rating}
+                projectType={project.projectType}
+                isFree={project.isFree}
+                title={project.title}
+              />
+            </div>
           ))}
+          {hasMoreToLoad && (
+            <div
+              className={cx(
+                "flex items-center justify-center min-w-[200px] flex-[0_0_auto]",
+                loadingMore ? "opacity-50" : ""
+              )}
+            >
+              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
         </div>
       </div>
 
