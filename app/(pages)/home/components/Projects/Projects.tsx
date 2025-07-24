@@ -1,7 +1,7 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { ProjectsHeader } from "./ProjectsHeader";
 import { tabClassName, tabListClassName } from "@styles";
-import { ProjectsSlider } from "./ProjectSlider";
+import { ProjectsCarousel } from "./ProjectSlider";
 import { ProjectType } from "../../types";
 
 export const Projects = async () => {
@@ -24,7 +24,7 @@ export const Projects = async () => {
           {projects.map(({ projects, name }) => {
             return (
               <TabPanel key={name}>
-                <ProjectsSlider projects={projects} />
+                <ProjectsCarousel projects={projects} />
               </TabPanel>
             );
           })}

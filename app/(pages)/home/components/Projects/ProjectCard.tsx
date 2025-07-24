@@ -1,31 +1,31 @@
 import { Button } from "@components";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import { Project } from "../../types";
 
 interface ProjectCardProps {
-  category: string;
-  image: string;
-  description: string;
-  rating?: number;
-  projectType?: string;
-  isFree?: boolean;
-  title?: string;
+  project: Project;
 }
 
-export const ProjectCard = ({
-  category,
-  image,
-  description,
-  rating = 5,
-  projectType = "Solo",
-  isFree = false,
-  title,
-}: ProjectCardProps) => {
+export const ProjectCard = ({ project }: ProjectCardProps) => {
+  const {
+    id,
+    category,
+    description,
+    imageUrl,
+    isFree,
+    projectType,
+    rating,
+    title,
+  } = project;
   return (
-    <div className="bg-white rounded-2xl p-3 shadow-lg hover:shadow-xl border border-[#F0F0F0] transition-all duration-300 group flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_25%]">
+    <div
+      data-id={id}
+      className="bg-white rounded-2xl p-3 shadow-lg hover:shadow-xl border border-[#F0F0F0] transition-all duration-300 group flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_25%]"
+    >
       <div className="relative">
         <Image
-          src={image}
+          src={imageUrl}
           alt="card image"
           width={100}
           height={100}
