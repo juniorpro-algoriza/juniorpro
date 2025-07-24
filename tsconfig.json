@@ -28,7 +28,8 @@
       "@server/types": ["./app/server/types"],
       "@types": ["./app/types"],
       "@utils": ["./app/utils"],
-      "@styles": ["./app/styles"]
+      "@styles": ["./app/styles"],
+      "@components/client": ["./app/components/client"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

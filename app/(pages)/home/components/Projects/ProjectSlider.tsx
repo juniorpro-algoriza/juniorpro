@@ -1,6 +1,6 @@
 "use client";
 
-import { InfiniteCarousel } from "@components";
+import { InfiniteCarousel } from "@components/client";
 import { Project } from "../../types";
 import { ProjectCard } from "./ProjectCard";
 
@@ -17,7 +17,7 @@ export const ProjectsSlider = ({
         const newProject = {
           ...last,
           id: `${last.id}-${Date.now()}`,
-          title: `New Project ${Date.now()}`,
+          title: `Project ${initialProjects.length + 1}`,
         };
         resolve([newProject]);
       }, 1500);
