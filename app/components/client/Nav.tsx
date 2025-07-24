@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export const Nav = () => {
   const path = usePathname();
-  if (path === "/auth/login" || path === "/auth/register") {
+  if (path === "/auth/login" || path === "/auth/sign-up") {
     return null;
   }
 
@@ -41,7 +41,7 @@ export const Nav = () => {
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/auth/register", label: "Register" },
+  { href: "/auth/sign-up", label: "Register" },
   { href: "/style-guide", label: "Style Guide" },
 ];
 

@@ -1,19 +1,19 @@
 import {
   LoginForm,
   Logo,
-  RegisterLink,
+  SignUpLink,
   SocialLoginButtons,
   WelcomeMessage,
-} from '../../components';
+} from "../../components";
 
 const LoginSlot = () => {
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <Logo />
-      <WelcomeMessage content='Hello! Welcome back' />
+      <WelcomeMessage content="Hello! Welcome back" />
       <SocialLoginButtons />
       <LoginForm />
-      <RegisterLink />
+      <SignUpLink />
     </div>
   );
 };
