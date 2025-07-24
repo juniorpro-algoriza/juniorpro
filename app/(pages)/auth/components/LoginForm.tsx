@@ -18,7 +18,7 @@ export const LoginForm = () => {
   }, [state]);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} className='space-y-2'>
       <Input
         name="email"
         label="Email"
