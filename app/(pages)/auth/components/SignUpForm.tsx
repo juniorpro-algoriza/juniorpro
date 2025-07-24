@@ -1,12 +1,12 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
 import { initialState } from "@server/lib";
-import { SignUpInputs } from "./SignUpInputs";
+import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
-import { SocialLoginButtons } from "./SocialLoginButtons";
-import { SignUpRadio } from "./SignUpRadio";
 import { signUp } from "../server";
+import { SignUpInputs } from "./SignUpInputs";
+import { SignUpRadio } from "./SignUpRadio";
+import { SocialLoginButtons } from "./SocialLoginButtons";
 
 export const SignUpForm = () => {
   const [state, formAction, isPending] = useActionState(signUp, initialState);
@@ -21,7 +21,7 @@ export const SignUpForm = () => {
   }, [state]);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} className='space-y-3'>
       <SignUpRadio />
       <SocialLoginButtons />
       <SignUpInputs isPending={isPending} />
