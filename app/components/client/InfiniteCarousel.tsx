@@ -24,7 +24,7 @@ interface InfiniteCarouselProps<T> {
   getItemKey: (item: T, index: number) => string;
 
   /** Function to load more items - should return a promise that resolves to new items */
-  loadMore: () => Promise<T[]>;
+  loadMore: ({ numItems }: { numItems: number }) => Promise<T[]>;
 
   /** Maximum number of items to load (optional, defaults to 50) */
   maxItems?: number;
@@ -252,7 +252,9 @@ export function InfiniteCarousel<T>({
        */
       const executeItemLoading = async () => {
         try {
-          const newItems = await loadMore();
+          const newItems = await loadMore({
+            numItems: items.length,
+          });
 
           setItems((currentItems) => {
             const updatedItems = [...currentItems, ...newItems];
@@ -279,6 +281,7 @@ export function InfiniteCarousel<T>({
       // Execute the loading immediately
       executeItemLoading();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [loadingMore, loadMore, maxItems]
   );
 
