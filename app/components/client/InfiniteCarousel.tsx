@@ -1,7 +1,7 @@
 import { Button } from "@components";
 import { cx } from "cva";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, ReactNode } from "react";
 import type {
   EmblaCarouselType,
@@ -64,14 +64,6 @@ interface InfiniteCarouselProps<T> {
 // UTILITY FUNCTIONS
 // ============================================================================
 
-/**
- * Default loading spinner component
- */
-const DefaultLoadingSpinner = () => (
-  <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-);
-
-// ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
@@ -82,7 +74,9 @@ export function InfiniteCarousel<T>({
   loadMore,
   maxItems = 50,
   hasMore: initialHasMore = true,
-  loadingSpinner = <DefaultLoadingSpinner />,
+  loadingSpinner = (
+    <LoaderCircle className="animate-spin text-blue-500 w-16 h-16" />
+  ),
   carouselOptions = {},
   className = "",
   showNavigation = true,

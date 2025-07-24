@@ -9,16 +9,24 @@ export const ProjectsCarousel = ({
 }: {
   projects: Project[];
 }) => {
-  const loadMoreProjects = async (): Promise<Project[]> => {
+  const loadMoreProjects = async ({
+    numItems,
+  }: {
+    numItems: number;
+  }): Promise<Project[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         const last = initialProjects[initialProjects.length - 1];
-        const newProject = {
-          ...last,
-          id: `${last.id}-${Date.now()}`,
-          title: `Project ${initialProjects.length + 1}`,
-        };
-        resolve([newProject]);
+        const arr = Array.from({ length: 6 }, (_, i) => i);
+        const projectsNew = arr.map((i) => {
+          const newProject = {
+            ...last,
+            id: `project-${numItems + i}`,
+            title: `Project ${numItems + i}`,
+          };
+          return newProject;
+        });
+        resolve(projectsNew);
       }, 1500);
     });
   };
