@@ -1,4 +1,4 @@
-import React, { ReactNode, Ref } from "react";
+import type { ReactNode, Ref } from "react";
 import {
   Button as HeadlessButton,
   ButtonProps as HeadlessButtonProps,
