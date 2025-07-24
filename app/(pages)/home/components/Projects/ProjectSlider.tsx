@@ -43,7 +43,6 @@ export const ProjectsSlider = ({
       maxItems={50}
       viewAllText="View All Projects"
       onViewAll={() => {
-        // Handle view all click
         console.log("View all projects clicked");
       }}
     />

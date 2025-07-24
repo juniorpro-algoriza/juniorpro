@@ -1,6 +1,6 @@
-import { Footer } from '@components';
-import { ReactNode } from 'react';
-import { Nav } from '../components/Nav';
+import { Footer } from "@components";
+import { ReactNode } from "react";
+import { Nav } from "@components/client";
 
 interface PagesLayoutProps {
   children: ReactNode;
