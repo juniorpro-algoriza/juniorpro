@@ -98,46 +98,54 @@ export const ProjectsSlider = ({
     setCanScrollNext(emblaApi.canScrollNext());
   }, [emblaApi]);
 
-  const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
-    if (!listenForScrollRef.current) return;
+  const onScroll = useCallback(
+    (emblaApi: EmblaCarouselType) => {
+      if (!listenForScrollRef.current) return;
 
-    setLoadingMore((loadingMore) => {
-      // Check if we're at the end and can load more
       const lastSlide = emblaApi.slideNodes().length - 1;
       const lastSlideInView = emblaApi.slidesInView().includes(lastSlide);
-      const canLoadMore = !loadingMore && lastSlideInView;
+
+      // Only proceed if last slide is in view and we're not already loading
+      if (!lastSlideInView || loadingMore) return;
 
       console.log({
         lastSlide,
         lastSlideInView,
-        canLoadMore,
+        loadingMore,
+        slidesLength: emblaApi.slideNodes().length,
       });
 
-      if (canLoadMore) {
-        listenForScrollRef.current = false;
+      // Disable listening for scroll events during loading
+      listenForScrollRef.current = false;
+      setLoadingMore(true);
 
-        mockApiCall(1000, 2000, () => {
-          setProjectSlides((currentSlides) => {
-            if (currentSlides.length >= 50) {
-              setHasMoreToLoad(false);
-              return currentSlides;
+      mockApiCall(1000, 2000, () => {
+        setProjectSlides((currentSlides) => {
+          if (currentSlides.length >= 50) {
+            setHasMoreToLoad(false);
+            setLoadingMore(false);
+            // Remove scroll listener when we reach the limit
+            if (emblaApi) {
+              emblaApi.off("scroll", scrollListenerRef.current);
             }
+            return currentSlides;
+          }
 
-            const last = currentSlides[currentSlides.length - 1];
-            const newProj = {
-              ...last,
-              id: `${last.id}-${Date.now()}`,
-              title: `new ${currentSlides.length + 1}`,
-            };
+          const last = currentSlides[currentSlides.length - 1];
+          const newProj = {
+            ...last,
+            id: `${last.id}-${Date.now()}`,
+            title: `new ${currentSlides.length + 1}`,
+          };
 
-            return [...currentSlides, newProj];
-          });
+          // The loading state and scroll listener will be re-enabled
+          // in the watchSlides callback after reInit
+          return [...currentSlides, newProj];
         });
-      }
-
-      return loadingMore;
-    });
-  }, []);
+      });
+    },
+    [loadingMore]
+  );
 
   const addScrollListener = useCallback(
     (emblaApi: EmblaCarouselType) => {
