@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export const TrustedOrganizationsSection = () => {
   return (
-    <section className="px-4 pt-16 bg-white">
+    <section className="px-4 py-16 bg-white">
       <div className="max-w-6xl mx-auto text-center">
         <p className="text-2xl sm:text-3xl md:text-4xl font-medium text-maastricht-blue mb-12">
           Trusted by leading organizations
