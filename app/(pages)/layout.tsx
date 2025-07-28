@@ -1,6 +1,5 @@
-import { Footer } from "@components";
-import { ReactNode } from "react";
-import { Nav } from "@components/client";
+import { ReactNode } from 'react';
+import { SidebarLayout, SidebarProvider } from '../components/client/Sidebar';
 
 interface PagesLayoutProps {
   children: ReactNode;
@@ -9,9 +8,11 @@ interface PagesLayoutProps {
 const PagesLayout = ({ children }: Readonly<PagesLayoutProps>) => {
   return (
     <>
-      <Nav />
-      {children}
-      <Footer />
+      {/* <Nav /> */}
+      <SidebarProvider>
+        <SidebarLayout>{children}</SidebarLayout>
+      </SidebarProvider>
+      {/* <Footer /> */}
     </>
   );
 };
