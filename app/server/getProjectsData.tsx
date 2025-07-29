@@ -1,6 +1,6 @@
 'use server';
 
-export const getDashboardProjects = async () => {
+export const getProjectsData = async () => {
   return dummyData;
 };
 

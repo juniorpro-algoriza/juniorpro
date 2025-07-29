@@ -1,6 +1,6 @@
 'use server';
 
-export const getDashboardPoints = async () => {
+export const getPointsData = async () => {
   return dummyData;
 };
 
