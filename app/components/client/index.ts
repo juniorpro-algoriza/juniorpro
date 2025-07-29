@@ -1,4 +1,6 @@
-"use client";
+'use client';
 
-export { InfiniteCarousel } from "./InfiniteCarousel";
-export { Nav } from "./Nav";
+export { EmptyData } from './EmptyData';
+export { InfiniteCarousel } from './InfiniteCarousel';
+export { Nav } from './Nav';
+
