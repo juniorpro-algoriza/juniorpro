@@ -1,0 +1,23 @@
+'use client';
+
+import { Button } from '@components';
+import { ChevronsLeft, Menu } from 'lucide-react';
+import { useSidebar } from './SidebarContext';
+
+export const SidebarToggleButton = () => {
+  const { isOpen, isMobile, toggleSidebar } = useSidebar();
+
+  return (
+    <Button
+      intent='unset'
+      onClick={toggleSidebar}
+      className={`
+        fixed top-4 z-30 bg-white border border-bright-gray ${isOpen ? 'p-1 rounded-full' : 'p-2 rounded-lg'} shadow-md cursor-pointer transition-all duration-300
+        ${isOpen && !isMobile ? 'left-[270px]' : 'left-4'}
+      `}
+      aria-label='Toggle sidebar'
+    >
+      {isOpen ? <ChevronsLeft size={20} /> : <Menu />}
+    </Button>
+  );
+};
