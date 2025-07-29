@@ -1,11 +1,11 @@
 import { Button } from '@components';
+import { getJuniorsData } from '@server';
 import { ChevronRight, Eye } from 'lucide-react';
 import Link from 'next/link';
-import { getDashboardJuniors } from '../server';
-import { EmptyData } from './EmptyData';
+import { EmptyData } from '../../../components/client/EmptyData';
 
 export const DashboardJuniors = async () => {
-  const juniorsData = await getDashboardJuniors();
+  const juniorsData = await getJuniorsData();
 
   return (
     <div className='mt-6'>
@@ -33,10 +33,10 @@ export const DashboardJuniors = async () => {
           </div>
         </div>
 
-        <div className='overflow-x-auto p-6'>
+        <div className='px-6 overflow-auto max-h-60'>
           {juniorsData.length ? (
-            <table className='w-full shadow-sm'>
-              <thead className='bg-[#F1F5FF] p-6'>
+            <table className='w-full table-auto'>
+              <thead className='bg-[#F1F5FF] sticky top-0 z-50'>
                 <tr className='rounded-2xl'>
                   <th className='px-6 py-3 text-left font-medium rounded-tl-lg'>
                     Name
@@ -57,10 +57,8 @@ export const DashboardJuniors = async () => {
                 {juniorsData.map((junior) => (
                   <tr key={junior.id} className='hover:bg-gray-50'>
                     <td className='px-6 py-4 whitespace-nowrap text-left'>
-                      <div className='flex items-center'>
-                        <div className='text-sm font-medium text-[#40444C]'>
-                          {junior.name}
-                        </div>
+                      <div className='text-sm font-medium text-[#40444C]'>
+                        {junior.name}
                       </div>
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>

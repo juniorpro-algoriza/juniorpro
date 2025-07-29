@@ -1,12 +1,12 @@
 import { Button } from '@components';
+import { EmptyData } from '@components/client';
+import { getProjectsData } from '@server';
 import { Calendar, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getDashboardProjects } from '../server';
-import { EmptyData } from './EmptyData';
 
 export const DashboardProjects = async () => {
-  const projectsData = await getDashboardProjects();
+  const projectsData = await getProjectsData();
 
   return (
     <div className='bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-6 space-y-4'>

@@ -1,13 +1,12 @@
 import { Button } from '@components';
+import { EmptyData } from '@components/client';
 import { DiamondIcon, WalletIcon } from '@icons';
+import { getPointsData } from '@server';
 import { ChevronRight, Plus } from 'lucide-react';
 import Link from 'next/link';
-import { getDashboardPoints } from '../server';
-import { EmptyData } from './EmptyData';
 
 export const DashboardPoints = async () => {
-  const { pointsBalance, cashBalance, allocations } =
-    await getDashboardPoints();
+  const { pointsBalance, cashBalance, allocations } = await getPointsData();
 
   return (
     <div className='bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-6 space-y-4'>
