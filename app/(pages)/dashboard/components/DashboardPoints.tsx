@@ -21,7 +21,7 @@ export const DashboardPoints = async () => {
                 intent='tertiary'
                 iconPosition='right'
                 size='small'
-                className='border-none text-unitedBlue'
+                className='border-none text-violet-normal'
                 icon={<ChevronRight className='w-4 h-4' />}
               >
                 View All
@@ -70,14 +70,14 @@ export const DashboardPoints = async () => {
               >
                 <div className='flex flex-col gap-2'>
                   <p className='font-medium'>{name}</p>
-                  <p className='text-2xl font-medium text-unitedBlue'>
+                  <p className='text-2xl font-medium text-violet-normal'>
                     {points}
                   </p>
                 </div>
                 <Button
                   intent='tertiary'
                   size='small'
-                  className='text-unitedBlue border-unitedBlue p-2'
+                  className='text-violet-normal border-violet-normal p-2'
                 >
                   <Plus className='w-4 h-4' />
                 </Button>

@@ -106,7 +106,7 @@ export const PremiumTasksSection = () => {
           {/* Right Column - Content */}
           <div className="space-y-6 text-center lg:text-left px-2">
             <div>
-              <p className="text-lg font-bold text-unitedBlue mb-2 sm:mb-4">
+              <p className="text-lg font-bold text-violet-normal mb-2 sm:mb-4">
                 Premium Tasks
               </p>
               <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight text-muted-text mb-4 sm:mb-6">
@@ -124,7 +124,7 @@ export const PremiumTasksSection = () => {
               </p>
             </div>
 
-            <button className="font-bold text-base sm:text-lg text-unitedBlue flex gap-1.5 sm:gap-2 items-center hover:gap-3 transition-all duration-300 group mx-auto lg:mx-0">
+            <button className="font-bold text-base sm:text-lg text-violet-normal flex gap-1.5 sm:gap-2 items-center hover:gap-3 transition-all duration-300 group mx-auto lg:mx-0">
               <span>Explore Premium Tasks</span>
               <Image
                 src={rightBlueArrow}

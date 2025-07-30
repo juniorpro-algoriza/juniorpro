@@ -43,7 +43,7 @@ export const LoginForm = () => {
         disabled={isPending}
         type="submit"
         intent="primary"
-        className="w-full rounded-xl bg-unitedBlue"
+        className="w-full rounded-xl bg-violet-normal"
         size="large"
       >
         Login

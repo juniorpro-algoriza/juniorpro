@@ -1,9 +1,9 @@
 "use client";
 
+import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState, useRef, useCallback } from "react"; // Added useRef and useCallback
-import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect, useRef, useState } from "react"; // Added useRef and useCallback
 import { testimonials } from "../config";
 
 export const TestimonialsSection = () => {
@@ -184,7 +184,7 @@ export const TestimonialsSection = () => {
                           height={48}
                         />
                         <div className="text-left space-y-1">
-                          <p className="font-medium text-unitedBlue">
+                          <p className="font-medium text-violet-normal">
                             {testimonial.name}
                           </p>
                           <p className="text-gray-500">{testimonial.age}</p>
@@ -202,18 +202,18 @@ export const TestimonialsSection = () => {
         <div className="flex justify-center gap-3 mt-4">
           <button
             onClick={handlePrev}
-            className="bg-white rounded-full p-2 border border-unitedBlue transition-all duration-300 hover:scale-110"
+            className="bg-white rounded-full p-2 border border-violet-normal transition-all duration-300 hover:scale-110"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-4 h-4 text-unitedBlue" />
+            <ChevronLeft className="w-4 h-4 text-violet-normal" />
           </button>
 
           <button
             onClick={handleNext}
-            className="bg-white rounded-full p-2 border border-unitedBlue transition-all duration-300 hover:scale-110"
+            className="bg-white rounded-full p-2 border border-violet-normal transition-all duration-300 hover:scale-110"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-4 h-4 text-unitedBlue" />
+            <ChevronRight className="w-4 h-4 text-violet-normal" />
           </button>
         </div>
       </div>
