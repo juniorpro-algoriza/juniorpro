@@ -1,8 +1,7 @@
-import { Button } from '@components';
+import { Button, Table } from '@components';
 import { getJuniorsData } from '@server';
-import { ChevronRight, Eye } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { EmptyData } from '../../../components/client/EmptyData';
 
 export const DashboardJuniors = async () => {
   const juniorsData = await getJuniorsData();
@@ -21,7 +20,7 @@ export const DashboardJuniors = async () => {
                   intent='tertiary'
                   iconPosition='right'
                   size='small'
-                  className='border-none text-unitedBlue'
+                  className='border-none text-violet-normal'
                   icon={<ChevronRight className='w-4 h-4' />}
                 >
                   View All
@@ -33,68 +32,17 @@ export const DashboardJuniors = async () => {
           </div>
         </div>
 
-        <div className='px-6 overflow-auto max-h-60'>
-          {juniorsData.length ? (
-            <table className='w-full table-auto'>
-              <thead className='bg-[#F1F5FF] sticky top-0 z-50'>
-                <tr className='rounded-2xl'>
-                  <th className='px-6 py-3 text-left font-medium rounded-tl-lg'>
-                    Name
-                  </th>
-                  <th className='px-6 py-3 text-left font-medium'>Points</th>
-                  <th className='px-6 py-3 text-left font-medium'>
-                    Active Projects
-                  </th>
-                  <th className='px-6 py-3 text-left font-medium'>
-                    Completed Projects
-                  </th>
-                  <th className='px-6 py-3 text-left font-medium rounded-tr-lg'>
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody className='bg-white divide-y divide-bright-gray'>
-                {juniorsData.map((junior) => (
-                  <tr key={junior.id} className='hover:bg-gray-50'>
-                    <td className='px-6 py-4 whitespace-nowrap text-left'>
-                      <div className='text-sm font-medium text-[#40444C]'>
-                        {junior.name}
-                      </div>
-                    </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
-                      <div className='text-sm text-[#40444C]'>
-                        {junior.points}
-                      </div>
-                    </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
-                      <div className='text-sm text-[#40444C]'>
-                        {junior.activeProjects}
-                      </div>
-                    </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
-                      <div className='text-sm text-[#40444C]'>
-                        {junior.completedProjects}
-                      </div>
-                    </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
-                      <Button
-                        intent='tertiary'
-                        iconPosition='left'
-                        size='small'
-                        className='border-none text-unitedBlue p-0'
-                        icon={<Eye className='w-4 h-4' />}
-                      >
-                        View
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <EmptyData description='No juniors added yet' />
-          )}
-        </div>
+        <Table
+          columns={[
+            { header: 'Name', key: 'name' },
+            { header: 'Points', key: 'points' },
+            { header: 'Active Projects', key: 'activeProjects' },
+            { header: 'Completed Projects', key: 'completedProjects' },
+          ]}
+          data={juniorsData}
+          tableHeight='max-h-60'
+          emptyMessage='No juniors added yet'
+        />
       </div>
     </div>
   );
