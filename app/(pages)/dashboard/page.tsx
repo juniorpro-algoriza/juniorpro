@@ -1,8 +1,27 @@
+import {
+  DashboardHeader,
+  DashboardJuniors,
+  DashboardPoints,
+  DashboardProjects,
+} from './components';
+
 const DashboardPage = () => {
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
-      <h1 className='text-2xl font-bold'>Dashboard</h1>
-      <p className='mt-4 text-gray-600'>Welcome to your dashboard!</p>
+    <div className='min-h-screen p-6 bg-stone-50'>
+      {/* Header */}
+      <DashboardHeader />
+
+      {/* Main Content Grid */}
+      <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
+        {/* Left Column - Points Allocation */}
+        <DashboardPoints />
+
+        {/* Right Column - Projects */}
+        <DashboardProjects />
+      </div>
+
+      {/* Juniors Table */}
+      <DashboardJuniors />
     </div>
   );
 };

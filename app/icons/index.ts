@@ -9,4 +9,5 @@ export { MetaIcon } from './MetaIcon';
 export { MicrosoftIcon } from './MicrosoftIcon';
 export { SettingsIcon } from './SettingsIcon';
 export { UserIcon } from './UserIcon';
+export { WalletIcon } from './WalletIcon';
 

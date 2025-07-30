@@ -100,6 +100,10 @@
   --color-maastricht-blue: #001b42;
   --color-bright-gray: #e6e7ec;
   --color-yankees-blue: #202637;
+  --color-carrot-orange: #df972a;
+  --color-dark-electric-blue: #626c83;
+  --color-antiflash-white: #f0f0f0;
+  --color-carolina-blue-opacity: #58A8DC1F;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;
