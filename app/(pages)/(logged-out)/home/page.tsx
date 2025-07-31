@@ -1,3 +1,4 @@
+import { Footer, Nav } from "@components";
 import {
   CTASection,
   HeroSection,
@@ -11,6 +12,7 @@ import {
 const HomePage = () => {
   return (
     <>
+      <Nav />
       {/* Background */}
       <div className="bg-linear-to-b h-[720px] absolute from-light-blue to-white inset-0 -z-10"></div>
       {/* Section 1: Hero Section */}
@@ -27,6 +29,7 @@ const HomePage = () => {
       <TrustedOrganizationsSection />
       {/* Section 7: CTA Section */}
       <CTASection />
+      <Footer />
     </>
   );
 };

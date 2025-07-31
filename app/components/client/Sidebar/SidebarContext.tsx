@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 import {
-    createContext,
-    ReactNode,
-    useContext,
-    useEffect,
-    useState,
-} from 'react';
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const SidebarContext = createContext<{
   isOpen: boolean;
@@ -32,15 +32,15 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
     };
 
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   return (
     <SidebarContext.Provider value={{ isOpen, isMobile, toggleSidebar }}>
-      <div className='w-full overflow-x-hidden'>{children}</div>
+      <div className="w-full overflow-x-hidden">{children}</div>
     </SidebarContext.Provider>
   );
 };

@@ -16,7 +16,6 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
       <body className={bodyStyle}>
         <Toaster richColors position="top-center" />
         <NextTopLoader />
-
         {children}
       </body>
     </html>
