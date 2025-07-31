@@ -16,7 +16,7 @@ interface TableProps<T> {
   emptyMessage?: string;
 }
 
-export const Table = <T extends Record<string, any>>({
+export const Table = <T extends Record<string, unknown>>({
   columns,
   data,
   tableHeight = 'max-h-96',
@@ -46,13 +46,16 @@ export const Table = <T extends Record<string, any>>({
               renderRow ? (
                 renderRow(item)
               ) : (
-                <tr key={item.id ?? idx} className='hover:bg-gray-50'>
+                <tr
+                  key={(item as { id?: string | number })?.id ?? idx}
+                  className='hover:bg-gray-50'
+                >
                   {columns.map((col) => (
                     <td
                       key={col.key}
                       className='px-6 py-4 whitespace-nowrap text-sm text-[#40444C]'
                     >
-                      {item[col.key]}
+                      {(item as Record<string, unknown>)[col.key] as ReactNode}
                     </td>
                   ))}
                 </tr>
