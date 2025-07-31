@@ -2,23 +2,24 @@
 
 import { Button, Input, Select } from '@components';
 import {
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-    Tab,
-    TabGroup,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Transition,
-    TransitionChild,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Transition,
+  TransitionChild,
 } from '@headlessui/react';
+import { Age, Grade } from '@server/types';
 import { X } from 'lucide-react';
 import { Fragment, useState } from 'react';
 
 interface AddJuniorDialogProps {
-  juniorsAge: any[];
-  juniorsGrade: any[];
+  juniorsAge: Age[];
+  juniorsGrade: Grade[];
   isOpen: boolean;
   onClose: () => void;
 }

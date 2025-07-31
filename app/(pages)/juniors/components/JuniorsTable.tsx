@@ -1,14 +1,15 @@
 'use client';
 
 import { Button, Input, Table } from '@components';
+import { Age, Grade, Junior } from '@server/types';
 import { ListFilter, Search } from 'lucide-react';
 import { useState } from 'react';
 import { JuniorDialog } from './JuniorsDialog';
 
 interface JuniorsTableProps {
-  juniorsData: any[];
-  juniorsAge: any[];
-  juniorsGrade: any[];
+  juniorsData: Junior[];
+  juniorsAge: Age[];
+  juniorsGrade: Grade[];
 }
 
 export const JuniorsTable = ({
