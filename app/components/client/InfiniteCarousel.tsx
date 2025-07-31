@@ -1,13 +1,13 @@
 import { Button } from "@components";
 import { cx } from "cva";
-import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
-import { useCallback, useEffect, useRef, useState, ReactNode } from "react";
 import type {
   EmblaCarouselType,
   EmblaOptionsType,
   EngineType,
 } from "embla-carousel";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 // ============================================================================
 // TYPE DEFINITIONS
@@ -409,7 +409,7 @@ export function InfiniteCarousel<T>({
       intent="tertiary"
       iconPosition="right"
       size="small"
-      className="border-none text-unitedBlue"
+      className="border-none text-violet-normal"
       icon={<ChevronRight className="w-4 h-4" />}
       onClick={onViewAll}
     >

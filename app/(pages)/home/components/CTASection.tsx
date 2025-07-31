@@ -29,7 +29,7 @@ export const CTASection = () => {
                 iconPosition="right"
                 size="large"
                 icon={<ChevronRight />}
-                className="bg-transparent text-unitedBlue border-none hover:bg-transparent"
+                className="bg-transparent text-violet-normal border-none hover:bg-transparent"
               >
                 Browse Project
               </Button>

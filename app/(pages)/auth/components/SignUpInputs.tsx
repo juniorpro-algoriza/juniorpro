@@ -50,7 +50,7 @@ export const SignUpInputs: FC<{ isPending: boolean }> = ({ isPending }) => {
         disabled={isPending}
         type="submit"
         intent="primary"
-        className="w-full rounded-xl bg-unitedBlue"
+        className="w-full rounded-xl bg-violet-normal"
         size="large"
       >
         Sign Up

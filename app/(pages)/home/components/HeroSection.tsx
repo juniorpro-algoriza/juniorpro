@@ -43,7 +43,7 @@ export const HeroSection = () => {
             />
             <Button
               variant="primary"
-              className="absolute right-2 top-2 rounded-4xl bg-unitedBlue py-3.5 px-6 hover:bg-opacity-90 transition-all duration-300"
+              className="absolute right-2 top-2 rounded-4xl bg-violet-normal py-3.5 px-6 hover:bg-opacity-90 transition-all duration-300"
             >
               Find Now
             </Button>

@@ -11,7 +11,7 @@ export const HowItWorkSection = () => {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <p className="text-lg text-unitedBlue mb-3">How it works</p>
+          <p className="text-lg text-violet-normal mb-3">How it works</p>
           <h2 className="font-bold text-4xl md:text-5xl text-muted-text">
             How JuniorPro Works
           </h2>
@@ -22,7 +22,7 @@ export const HowItWorkSection = () => {
           {/* Left Column - Text Content */}
           <div className="space-y-6 text-center lg:text-start">
             <div>
-              <p className="text-lg font-bold text-unitedBlue mb-4">
+              <p className="text-lg font-bold text-violet-normal mb-4">
                 Free Projects
               </p>
               <h3 className="font-bold text-3xl md:text-4xl lg:text-5xl leading-tight text-muted-text mb-6">
@@ -36,7 +36,7 @@ export const HowItWorkSection = () => {
               </p>
             </div>
 
-            <button className="font-bold text-lg text-unitedBlue flex gap-2 items-center hover:gap-3 transition-all duration-300 group mx-auto lg:mx-0">
+            <button className="font-bold text-lg text-violet-normal flex gap-2 items-center hover:gap-3 transition-all duration-300 group mx-auto lg:mx-0">
               <span>Start Free Tasks</span>
               <Image
                 src={rightBlueArrow}

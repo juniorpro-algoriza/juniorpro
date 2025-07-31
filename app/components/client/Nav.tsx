@@ -29,7 +29,7 @@ export const Nav = () => {
         <div>
           <Link
             href="/auth/login"
-            className="rounded-4xl text-white bg-unitedBlue xl:py-3 xl:px-8 px-2 py-1"
+            className="rounded-4xl text-white bg-violet-normal xl:py-3 xl:px-8 px-2 py-1"
           >
             Login
           </Link>

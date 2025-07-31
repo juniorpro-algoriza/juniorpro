@@ -51,7 +51,7 @@ export const SidebarNav = () => {
                 onClick={closeSidebar}
                 className={`
                   flex items-center space-x-3 px-2 py-3 rounded-xl text-sm transition-all duration-200 
-                  ${active ? 'bg-violet-light text-unitedBlue' : 'text-yankees-blue hover:bg-gray-100'}
+                  ${active ? 'bg-violet-light text-violet-normal' : 'text-yankees-blue hover:bg-gray-100'}
                 `}
               >
                 <Icon />

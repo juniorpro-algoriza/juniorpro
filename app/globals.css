@@ -85,7 +85,6 @@
   --color-tertiary: #854aea;
   --color-midnight: #2b3453;
   --color-cadetGray: #96a0b6;
-  --color-unitedBlue: #5879dc;
   --color-shadowBlue: #7e8ca0;
   --color-platinum: #dfe1e8;
   --color-semi-blue: #375375;
@@ -94,7 +93,7 @@
   --color-muted-text: #3f3f3f;
   --color-light-red: #fdedd5;
   --color-bright-red: #eb6300;
-  --color-violet-normal: #3962dc;
+  --color-violet-normal: #5879dc;
   --color-violet-hover: #a06cfa;
   --color-violet-light: #eef2ff;
   --color-maastricht-blue: #001b42;
@@ -103,7 +102,7 @@
   --color-carrot-orange: #df972a;
   --color-dark-electric-blue: #626c83;
   --color-antiflash-white: #f0f0f0;
-  --color-carolina-blue-opacity: #58A8DC1F;
+  --color-carolina-blue-opacity: #58a8dc1f;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;

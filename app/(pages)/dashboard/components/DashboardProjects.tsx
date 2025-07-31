@@ -21,7 +21,7 @@ export const DashboardProjects = async () => {
                 intent='tertiary'
                 iconPosition='right'
                 size='small'
-                className='border-none text-unitedBlue'
+                className='border-none text-violet-normal'
                 icon={<ChevronRight className='w-4 h-4' />}
               >
                 View All
@@ -47,7 +47,7 @@ export const DashboardProjects = async () => {
                     className='w-fit h-full object-cover rounded-lg'
                   />
                   <div className='flex flex-col space-y-2 text-sm justify-center'>
-                    <h2 className='text-unitedBlue font-medium '>
+                    <h2 className='text-violet-normal font-medium '>
                       {project.title}
                     </h2>
 
@@ -74,7 +74,7 @@ export const DashboardProjects = async () => {
                     <Button
                       intent='unset'
                       size='small'
-                      className='border border-unitedBlue text-unitedBlue'
+                      className='border border-violet-normal text-violet-normal'
                     >
                       Report
                     </Button>

@@ -31,7 +31,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           height={100}
           className='w-[330px] h-[183px] object-cover rounded-xl'
         />
-        <span className='absolute top-2 left-2 bg-violet-50 text-unitedBlue text-xs font-medium px-3 py-1 rounded-full z-10'>
+        <span className='absolute top-2 left-2 bg-violet-50 text-violet-normal text-xs font-medium px-3 py-1 rounded-full z-10'>
           {category}
         </span>
       </div>
@@ -61,7 +61,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
       <Button
         intent='unset'
-        className='w-full text-unitedBlue border border-unitedBlue'
+        className='w-full text-violet-normal border border-violet-normal'
       >
         Start
       </Button>

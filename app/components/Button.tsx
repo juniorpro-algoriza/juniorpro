@@ -1,10 +1,10 @@
-import type { ReactNode, Ref } from "react";
 import {
   Button as HeadlessButton,
   ButtonProps as HeadlessButtonProps,
 } from "@headlessui/react";
 import { cva, cx } from "@lib";
 import { VariantProps } from "cva";
+import type { ReactNode, Ref } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "tertiary" | "destructive";
 type ButtonSize = "small" | "medium" | "large";
@@ -49,7 +49,7 @@ export function Button({
   );
 }
 
-export type { ButtonVariant, ButtonSize, IconPosition };
+export type { ButtonSize, ButtonVariant, IconPosition };
 
 const button = cva({
   base: [
