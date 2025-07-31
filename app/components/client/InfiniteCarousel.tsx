@@ -6,12 +6,22 @@ import type {
   EngineType,
 } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  LoaderCircleIcon,
+} from "lucide-react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-// ============================================================================
-// TYPE DEFINITIONS
-// ============================================================================
+//! ============================================================================
+// ! TYPE DEFINITIONS
+//! ============================================================================
 
 interface InfiniteCarouselProps<T> {
   /** Initial items to display in the carousel */
@@ -60,14 +70,11 @@ interface InfiniteCarouselProps<T> {
   };
 }
 
-// ============================================================================
-// UTILITY FUNCTIONS
-// ============================================================================
+//! ============================================================================
+//! MAIN COMPONENT
+//! ============================================================================
 
-// MAIN COMPONENT
-// ============================================================================
-
-export function InfiniteCarousel<T>({
+export const InfiniteCarousel = <T,>({
   items: initialItems,
   renderItem,
   getItemKey,
@@ -75,7 +82,7 @@ export function InfiniteCarousel<T>({
   maxItems = 50,
   hasMore: initialHasMore = true,
   loadingSpinner = (
-    <LoaderCircle className="animate-spin text-blue-500 w-16 h-16" />
+    <LoaderCircleIcon className="animate-spin text-blue-500 w-16 h-16" />
   ),
   carouselOptions = {},
   className = "",
@@ -84,10 +91,10 @@ export function InfiniteCarousel<T>({
   viewAllText = "View All",
   onViewAll,
   navigationButtonProps = {},
-}: InfiniteCarouselProps<T>) {
-  // ========================================================================
-  // STATE AND REFS
-  // ========================================================================
+}: InfiniteCarouselProps<T>) => {
+  //! ========================================================================
+  //! STATE AND REFS
+  //! ========================================================================
 
   // Ref to store the scroll listener function
   const scrollListenerRef = useRef<() => void>(() => undefined);
@@ -382,7 +389,7 @@ export function InfiniteCarousel<T>({
           navClassName
         )}
       >
-        <ChevronLeft size={navIconSize} />
+        <ChevronLeftIcon size={navIconSize} />
       </Button>
       <Button
         intent="unset"
@@ -396,7 +403,7 @@ export function InfiniteCarousel<T>({
           navClassName
         )}
       >
-        <ChevronRight size={navIconSize} />
+        <ChevronRightIcon size={navIconSize} />
       </Button>
     </div>
   );
@@ -410,7 +417,7 @@ export function InfiniteCarousel<T>({
       iconPosition="right"
       size="small"
       className="border-none text-violet-normal"
-      icon={<ChevronRight className="w-4 h-4" />}
+      icon={<ChevronRightIcon className="w-4 h-4" />}
       onClick={onViewAll}
     >
       {viewAllText}
@@ -440,4 +447,4 @@ export function InfiniteCarousel<T>({
       )}
     </section>
   );
-}
+};
