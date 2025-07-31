@@ -40,7 +40,7 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SidebarContext.Provider value={{ isOpen, isMobile, toggleSidebar }}>
-      <div className="w-full overflow-x-hidden">{children}</div>
+      <div className="w-full">{children}</div>
     </SidebarContext.Provider>
   );
 };
