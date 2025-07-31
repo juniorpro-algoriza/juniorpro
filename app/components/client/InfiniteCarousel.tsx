@@ -1,9 +1,9 @@
 import { Button } from "@components";
 import { cx } from "cva";
 import type {
-    EmblaCarouselType,
-    EmblaOptionsType,
-    EngineType,
+  EmblaCarouselType,
+  EmblaOptionsType,
+  EngineType,
 } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
