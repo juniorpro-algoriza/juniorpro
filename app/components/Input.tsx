@@ -3,9 +3,11 @@ import {
   Field,
   Input as HeadlessInput,
   Label,
-} from '@headlessui/react';
-import { forwardRef, InputHTMLAttributes } from 'react';
-import { twMerge } from 'tailwind-merge';
+} from "@headlessui/react";
+// TODO: remove forwardRef and use ref prop
+// check: https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop
+import { forwardRef, InputHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -20,13 +22,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 interface IconContainerProps {
   children: React.ReactNode;
-  position: 'left' | 'right';
+  position: "left" | "right";
 }
 
 const IconContainer = ({ children, position }: IconContainerProps) => {
   const iconClasses = twMerge(
-    'absolute top-1/2 transform -translate-y-1/2 text-gray-400',
-    position === 'left' ? 'left-3' : 'right-3'
+    "absolute top-1/2 transform -translate-y-1/2 text-gray-400",
+    position === "left" ? "left-3" : "right-3"
   );
 
   return <div className={iconClasses}>{children}</div>;
@@ -49,37 +51,38 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const containerClasses = twMerge(
-      'flex flex-col space-y-2',
+      "flex flex-col space-y-2",
       containerClassName
     );
 
-    const labelClasses = 'text-sm font-medium text-midnight';
+    // TODO: use cva, check file://./Button.tsx
+    const labelClasses = "text-sm font-medium text-midnight";
 
-    const inputWrapperClasses = 'relative';
+    const inputWrapperClasses = "relative";
 
     const descriptionClasses = twMerge(
-      'text-sm',
-      error ? 'text-red-600' : 'text-gray-500'
+      "text-sm",
+      error ? "text-red-600" : "text-gray-500"
     );
 
     const inputClasses = twMerge(
       // Base styles
-      'w-full px-3 py-2 focus:ring-2 focus:ring-violet-normal rounded-lg border transition-all duration-200 outline-none',
-      'placeholder:text-cadetGray placeholder:text-sm text-cadetGray',
+      "w-full px-3 py-2 focus:ring-2 focus:ring-violet-normal rounded-lg border transition-all duration-200 outline-none",
+      "placeholder:text-cadetGray placeholder:text-sm text-cadetGray",
 
       // Default state
-      'border-border-primary bg-white',
+      "border-border-primary bg-white",
 
       // Error state
-      error && 'border-red-500 ring-2 ring-red-100',
+      error && "border-red-500 ring-2 ring-red-100",
 
       // Disabled state
       disabled &&
-        'bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed',
+        "bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed",
 
       // Icon padding
-      leftIcon && 'pl-10',
-      rightIcon && 'pr-10',
+      leftIcon && "pl-10",
+      rightIcon && "pr-10",
 
       className
     );
@@ -91,7 +94,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className={inputWrapperClasses}>
           {/* Left Icon */}
           {leftIcon && (
-            <IconContainer position='left'>{leftIcon}</IconContainer>
+            <IconContainer position="left">{leftIcon}</IconContainer>
           )}
           {/* Input */}
           <HeadlessInput
@@ -103,7 +106,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           {/* Right Icon */}
           {rightIcon && (
-            <IconContainer position='right'>{rightIcon}</IconContainer>
+            <IconContainer position="right">{rightIcon}</IconContainer>
           )}
         </div>
 
@@ -118,6 +121,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export { Input };

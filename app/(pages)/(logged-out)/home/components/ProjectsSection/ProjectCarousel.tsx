@@ -1,10 +1,10 @@
 "use client";
 
 import { InfiniteCarousel } from "@components/client";
-import { Project, ProjectType } from "../../types";
 import { capitalize, pickRandom, sleep } from "@utils";
 import { getRandomUniqueId } from "@utils/server";
 import { ProjectCard } from "@components";
+import type { Project, ProjectType } from "@types";
 
 interface ProjectCarouselProps {
   projects: Project[];
@@ -17,7 +17,16 @@ export const ProjectsCarousel = ({
   return (
     <InfiniteCarousel
       items={initialProjects}
-      renderItem={(project) => <ProjectCard project={project} />}
+      renderItem={(project) => (
+        <ProjectCard
+          project={project}
+          badgeText="projectType"
+          showDescription={true}
+          showBadgeNextToDueDate={false}
+          showDueDate={false}
+          showJuniors={false}
+        />
+      )}
       getItemKey={(project) => project.id}
       loadMore={async () =>
         await loadMoreProjects({ initialProjects, projectType })

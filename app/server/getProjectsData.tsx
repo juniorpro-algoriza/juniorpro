@@ -1,4 +1,5 @@
-'use server';
+// TODO: Delete this file
+"use server";
 
 export const getProjectsData = async () => {
   return dummyData;
@@ -7,18 +8,18 @@ export const getProjectsData = async () => {
 const dummyData = [
   {
     id: 1,
-    title: 'Python Turtle Graphics',
-    date: '2025-05-15',
-    status: 'In Progress',
-    junior: 'Alex',
-    image: '/images/featued-Project-image.svg',
+    title: "Python Turtle Graphics",
+    date: "2025-05-15",
+    status: "In Progress",
+    junior: "Alex",
+    image: "/images/featued-Project-image.svg",
   },
   {
     id: 2,
-    title: 'Python Turtle Graphics',
-    date: '2025-05-15',
-    status: 'In Progress',
-    junior: 'Alex',
-    image: '/images/featued-Project-image.svg',
+    title: "Python Turtle Graphics",
+    date: "2025-05-15",
+    status: "In Progress",
+    junior: "Alex",
+    image: "/images/featued-Project-image.svg",
   },
 ];

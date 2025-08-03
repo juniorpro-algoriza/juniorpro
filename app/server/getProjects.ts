@@ -1,6 +1,6 @@
 "use server";
 
-import type { Project, ProjectType } from "../types";
+import type { Project, ProjectStatus, ProjectType } from "../types";
 
 type GetAllProjectsParams = {
   pageNum: number;
@@ -53,6 +53,9 @@ const dummyData: Project[] = [
     rating: 4 + (i % 2),
     projectType: "solo" as ProjectType,
     isFree: i % 2 === 0,
+    status: "not-started" as ProjectStatus,
+    dueDate: new Date(),
+    juniors: ["anas"],
   })),
 
   // 10 web
@@ -65,6 +68,9 @@ const dummyData: Project[] = [
     rating: 3 + (i % 3),
     projectType: "web" as ProjectType,
     isFree: i % 2 !== 0,
+    status: "not-started" as ProjectStatus,
+    dueDate: new Date(),
+    juniors: ["anas"],
   })),
 
   // 10 team
@@ -77,6 +83,9 @@ const dummyData: Project[] = [
     rating: 4 + (i % 2),
     projectType: "team" as ProjectType,
     isFree: i % 3 === 0,
+    status: "not-started" as ProjectStatus,
+    dueDate: new Date(),
+    juniors: ["anas"],
   })),
 
   // 10 coding
@@ -89,5 +98,8 @@ const dummyData: Project[] = [
     rating: 5 - (i % 3),
     projectType: "coding" as ProjectType,
     isFree: i % 2 === 0,
+    status: "not-started" as ProjectStatus,
+    dueDate: new Date(),
+    juniors: ["anas"],
   })),
 ];

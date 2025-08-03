@@ -6,12 +6,12 @@ interface StylePagesLayoutProps {
   children: ReactNode;
 }
 
-const links = ["button", "input", "tabs", "colors"];
+const links = ["button", "input", "tabs", "colors", "select"];
 
 const StylePagesLayout = ({ children }: StylePagesLayoutProps) => {
   return (
     <div className="py-8">
-      <nav className="border border-black py-4 px-4">
+      <nav className="px-4 py-4 border border-black">
         <ul className="flex gap-2">
           {links.map((l) => {
             return (
@@ -24,7 +24,7 @@ const StylePagesLayout = ({ children }: StylePagesLayoutProps) => {
           })}
         </ul>
       </nav>
-      <div className="flex items-center justify-center flex-col py-4">
+      <div className="flex flex-col items-center justify-center py-4">
         {children}
       </div>
     </div>
@@ -32,4 +32,3 @@ const StylePagesLayout = ({ children }: StylePagesLayoutProps) => {
 };
 
 export default StylePagesLayout;
-

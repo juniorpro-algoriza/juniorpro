@@ -103,8 +103,12 @@
   --color-dark-electric-blue: #626c83;
   --color-antiflash-white: #f0f0f0;
   --color-carolina-blue-opacity: #58a8dc1f;
+  --color-dark-blue: #141b34;
+  --color-content-secondary: #626c83;
 
   --color-content-secondary: #626c83;
+  --color-light-orange: #ffd5b94d;
+  --color-dark-orange: #df972a;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;

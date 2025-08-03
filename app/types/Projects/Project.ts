@@ -1,4 +1,5 @@
-import { ProjectType } from "./ProjectType";
+import type { ProjectStatus } from "./ProjectStatus";
+import type { ProjectType } from "./ProjectType";
 
 export type Project = {
   id: string;
@@ -9,4 +10,7 @@ export type Project = {
   rating: number;
   projectType: ProjectType;
   isFree: boolean;
+  status: ProjectStatus;
+  dueDate?: Date;
+  juniors: string[];
 };
