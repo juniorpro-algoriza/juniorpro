@@ -7,12 +7,19 @@ type GetAllProjectsParams = {
   limit: number;
   projectType: ProjectType;
 };
+type ReturnType = {
+  data: Project[];
+  currentPage: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+};
 
 export const getProjects = async ({
   pageNum,
   limit,
   projectType,
-}: GetAllProjectsParams) => {
+}: GetAllProjectsParams): Promise<ReturnType> => {
   let filteredData = dummyData;
 
   if (projectType !== "all") {

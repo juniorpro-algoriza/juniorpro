@@ -3,7 +3,7 @@ import {
   ButtonProps as HeadlessButtonProps,
 } from "@headlessui/react";
 import { cva, cx } from "@lib";
-import { VariantProps } from "cva";
+import type { VariantProps } from "cva";
 import type { ReactNode, Ref } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "tertiary" | "destructive";

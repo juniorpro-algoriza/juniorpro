@@ -4,4 +4,3 @@ export { PremiumTasksSection } from "./PremiumTasksSection";
 export { HowItWorkSection } from "./HowItWorksSection";
 export { HeroSection } from "./HeroSection";
 export { CTASection } from "./CTASection";
-export { Projects } from "./Projects";

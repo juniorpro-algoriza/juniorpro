@@ -6,6 +6,7 @@ const JuniorsPage = async () => {
   const juniorsData = await getJuniorsData();
   const juniorsAge = await getJuniorsAge();
   const juniorsGradeLevel = await getJuniorsGrades();
+
   return (
     <div className="min-h-screen px-6 py-3 bg-stone-50">
       {/* Header */}

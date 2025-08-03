@@ -2,9 +2,9 @@
 
 import { InfiniteCarousel } from "@components/client";
 import { Project, ProjectType } from "../../types";
-import { ProjectCard } from "./ProjectCard";
 import { capitalize, pickRandom, sleep } from "@utils";
 import { getRandomUniqueId } from "@utils/server";
+import { ProjectCard } from "@components";
 
 interface ProjectCarouselProps {
   projects: Project[];

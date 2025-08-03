@@ -4,3 +4,4 @@ export { Input } from "./Input";
 export { Select } from "./Select";
 export { Table } from "./Table";
 export { Nav } from "./Nav";
+export { ProjectCard } from "./ProjectCard";

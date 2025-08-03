@@ -6,7 +6,7 @@ import { Project, ProjectType } from "../../types";
 import { getProjects } from "../../server";
 import { twMerge } from "tailwind-merge";
 
-export const Projects = async () => {
+export const ProjectsSection = async () => {
   const { data: allProjects } = await getProjects({
     limit: 10,
     pageNum: 1,

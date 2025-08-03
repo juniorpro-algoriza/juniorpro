@@ -1,2 +1,2 @@
-export type { Project } from "./Project";
-export type { ProjectType } from "./ProjectType";
+export type { Project } from "./Projects/Project";
+export type { ProjectType } from "./Projects/ProjectType";

@@ -4,10 +4,10 @@ import {
   HeroSection,
   HowItWorkSection,
   PremiumTasksSection,
-  Projects,
   TestimonialsSection,
   TrustedOrganizationsSection,
 } from "./components";
+import { ProjectsSection } from "./components/ProjectsSection";
 
 const HomePage = () => {
   return (
@@ -22,7 +22,7 @@ const HomePage = () => {
       {/* Section 3: Premium Tasks */}
       <PremiumTasksSection />
       {/* Section 4: Featured Projects */}
-      <Projects />
+      <ProjectsSection />
       {/* Section 5: Feedback Testimonials */}
       <TestimonialsSection />
       {/* Section 6: Trusted Organizations */}
