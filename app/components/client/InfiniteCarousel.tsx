@@ -6,6 +6,7 @@ import type {
   EngineType,
 } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -194,7 +195,9 @@ export const InfiniteCarousel = <T,>({
   };
 
   // Initialize Embla carousel with configured options
-  const [emblaRef, emblaApi] = useEmblaCarousel(defaultCarouselOptions);
+  const [emblaRef, emblaApi] = useEmblaCarousel(defaultCarouselOptions, [
+    WheelGesturesPlugin(),
+  ]);
 
   // ========================================================================
   // NAVIGATION FUNCTIONS
