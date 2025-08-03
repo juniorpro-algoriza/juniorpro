@@ -1,6 +1,6 @@
 import { Button } from '@components';
-import { Check } from 'lucide-react';
-import { Plan } from '../types';
+import { CheckIcon } from 'lucide-react';
+import type { Plan } from '../types';
 
 interface PurchaseCardProps {
   plan: Plan;
@@ -62,7 +62,7 @@ export const PurchaseCard = ({ plan }: PurchaseCardProps) => {
                     : 'border-violet-normal bg-violet-normal'
                 }`}
               >
-                <Check
+                <CheckIcon
                   className={`w-4 h-4 ${
                     isStandard ? 'text-violet-normal' : 'text-white'
                   }`}

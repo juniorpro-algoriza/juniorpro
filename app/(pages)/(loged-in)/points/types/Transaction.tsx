@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 export type Transaction = {
   id: number;
-  type: string;
+  transactionType: string;
   title: string;
   date: string;
   dueDate: string;

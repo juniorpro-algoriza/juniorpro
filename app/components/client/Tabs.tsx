@@ -2,7 +2,7 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useState } from 'react';
-import { TabData } from '../types';
+import type { TabData } from '../types';
 
 interface TabsProps {
   tabs: TabData[];

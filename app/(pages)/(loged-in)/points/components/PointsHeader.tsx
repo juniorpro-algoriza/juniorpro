@@ -1,5 +1,5 @@
 import { Button } from '@components';
-import { Bell } from 'lucide-react';
+import { BellIcon } from 'lucide-react';
 
 export const PointsHeader = () => {
   return (
@@ -19,7 +19,7 @@ export const PointsHeader = () => {
             size='medium'
             className='bg-white shadow rounded-[40px] p-3'
           >
-            <Bell size={20} className='text-cadetGray' />
+            <BellIcon size={20} className='text-cadetGray' />
           </Button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 'use server';
 
-import { Plan } from '../types';
+import type { Plan } from '../types';
 
 export const getPointsPlans = async () => {
   return dummyData;
