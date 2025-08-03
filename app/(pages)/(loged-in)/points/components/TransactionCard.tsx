@@ -16,7 +16,9 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
         <div className='flex items-center space-x-4'>
           <div
             className={`p-2 rounded-lg ${
-              transaction.type === 'purchase' ? 'bg-green-100' : 'bg-blue-100'
+              transaction.transactionType === 'purchase'
+                ? 'bg-green-100'
+                : 'bg-blue-100'
             }`}
           >
             {transaction.icon}
@@ -47,7 +49,7 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
           )}
 
           <div className='text-right'>
-            {transaction.type === 'purchase' ? (
+            {transaction.transactionType === 'purchase' ? (
               <div>
                 <div className='flex items-center text-success-400 font-medium space-x-1'>
                   <span>
