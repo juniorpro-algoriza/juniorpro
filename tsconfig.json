@@ -28,6 +28,7 @@
       "@server/types": ["./app/server/types"],
       "@types": ["./app/types"],
       "@utils": ["./app/utils"],
+      "@utils/server": ["./app/utils/server"],
       "@styles": ["./app/styles"],
       "@components/client": ["./app/components/client"]
     }

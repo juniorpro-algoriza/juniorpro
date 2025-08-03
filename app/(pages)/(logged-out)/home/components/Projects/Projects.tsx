@@ -2,29 +2,90 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { ProjectsHeader } from "./ProjectsHeader";
 import { tabClassName, tabListClassName } from "@styles";
 import { ProjectsCarousel } from "./ProjectCarousel";
-import { ProjectType } from "../../types";
+import { Project, ProjectType } from "../../types";
+import { getProjects } from "../../server";
+import { twMerge } from "tailwind-merge";
 
 export const Projects = async () => {
+  const { data: allProjects } = await getProjects({
+    limit: 10,
+    pageNum: 1,
+    projectType: "all",
+  });
+
+  const { data: soloProjects } = await getProjects({
+    limit: 10,
+    pageNum: 1,
+    projectType: "solo",
+  });
+
+  const { data: teamProjects } = await getProjects({
+    limit: 10,
+    pageNum: 1,
+    projectType: "team",
+  });
+
+  const { data: webProjects } = await getProjects({
+    limit: 10,
+    pageNum: 1,
+    projectType: "web",
+  });
+
+  const { data: codingProjects } = await getProjects({
+    limit: 10,
+    pageNum: 1,
+    projectType: "coding",
+  });
+
+  const projects: { projectType: ProjectType; items: Project[] }[] = [
+    {
+      projectType: "all",
+      items: allProjects,
+    },
+    {
+      projectType: "solo",
+      items: soloProjects,
+    },
+    {
+      projectType: "team",
+      items: teamProjects,
+    },
+    {
+      projectType: "web",
+      items: webProjects,
+    },
+    {
+      projectType: "coding",
+      items: codingProjects,
+    },
+  ];
+
   return (
     <>
       <ProjectsHeader />
       <TabGroup className="pt-8">
         <div className="flex justify-center px-4">
           <TabList className={tabListClassName}>
-            {projects.map(({ name }) => {
+            {projects.map(({ projectType }) => {
               return (
-                <Tab className={tabClassName} key={name}>
-                  {name}
+                <Tab
+                  className={twMerge(tabClassName, "capitalize")}
+                  key={projectType}
+                >
+                  {projectType}
                 </Tab>
               );
             })}
           </TabList>
         </div>
         <TabPanels className="pt-10">
-          {projects.map(({ projects, name }) => {
+          {projects.map(({ items, projectType }) => {
             return (
-              <TabPanel key={name}>
-                <ProjectsCarousel projects={projects} />
+              <TabPanel key={projectType}>
+                <ProjectsCarousel
+                  projects={items}
+                  projectType={projectType === "all" ? undefined : projectType}
+                />
               </TabPanel>
             );
           })}
@@ -33,431 +94,3 @@ export const Projects = async () => {
     </>
   );
 };
-
-const projects = [
-  {
-    name: "All",
-    projects: [
-      {
-        id: "1",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "2",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "3",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "4",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "5",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "6",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "7",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "8",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-    ],
-  },
-  {
-    name: "Solo Projects",
-    projects: [
-      {
-        id: "1",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "2",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "3",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "4",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "5",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "6",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "7",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "8",
-        category: "Solo",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-    ],
-  },
-  {
-    name: "Team Projects",
-    projects: [
-      {
-        id: "1",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "2",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "3",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "4",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "5",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "6",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "7",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "8",
-        category: "Team",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-    ],
-  },
-  {
-    name: "Web Devlopement",
-    projects: [
-      {
-        id: "1",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "2",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "3",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "4",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "5",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "6",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "7",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "8",
-        category: "Web Devlopement",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-    ],
-  },
-  {
-    name: "Coding",
-    projects: [
-      {
-        id: "1",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "2",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "3",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "4",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "5",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "6",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "7",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-      {
-        id: "8",
-        category: "Coding",
-        imageUrl: "/images/featued-Project-image.svg",
-        description: "Your first website with flask (Part 1,2,3)",
-        rating: 4,
-        projectType: "solo" as ProjectType,
-        isFree: true,
-        title: "Build Your first website",
-      },
-    ],
-  },
-];
