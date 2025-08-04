@@ -3,13 +3,14 @@ import {
   Field,
   Input as HeadlessInput,
   Label,
-} from "@headlessui/react";
-// TODO: remove forwardRef and use ref prop
-// check: https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop
-import { forwardRef, InputHTMLAttributes } from "react";
-import { twMerge } from "tailwind-merge";
+} from '@headlessui/react';
+import { cva, cx } from '@lib';
+import type { VariantProps } from 'cva';
+import { InputHTMLAttributes } from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof input> {
   label?: string;
   placeholder?: string;
   error?: string;
@@ -18,109 +19,152 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   rightIcon?: React.ReactNode;
   className?: string;
   containerClassName?: string;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 interface IconContainerProps {
   children: React.ReactNode;
-  position: "left" | "right";
+  position: 'left' | 'right';
 }
 
 const IconContainer = ({ children, position }: IconContainerProps) => {
-  const iconClasses = twMerge(
-    "absolute top-1/2 transform -translate-y-1/2 text-gray-400",
-    position === "left" ? "left-3" : "right-3"
+  const iconClasses = cx(
+    'absolute top-1/2 transform -translate-y-1/2 text-gray-400',
+    position === 'left' ? 'left-3' : 'right-3'
   );
 
   return <div className={iconClasses}>{children}</div>;
 };
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      label,
-      placeholder,
-      error,
-      helperText,
-      leftIcon,
-      rightIcon,
-      className,
-      containerClassName,
-      disabled,
-      ...props
-    },
-    ref
-  ) => {
-    const containerClasses = twMerge(
-      "flex flex-col space-y-2",
-      containerClassName
-    );
+const Input = ({
+  label,
+  placeholder,
+  error,
+  helperText,
+  leftIcon,
+  rightIcon,
+  className,
+  containerClassName,
+  disabled = false,
+  state,
+  ref,
+  ...props
+}: InputProps) => {
+  const containerClasses = cx('flex flex-col space-y-2', containerClassName);
 
-    // TODO: use cva, check file://./Button.tsx
-    const labelClasses = "text-sm font-medium text-midnight";
+  // Determine input state based on props if not explicitly provided
+  const inputState =
+    state || (error ? 'error' : disabled ? 'disabled' : 'default');
 
-    const inputWrapperClasses = "relative";
+  const inputWrapperClasses = 'relative';
 
-    const descriptionClasses = twMerge(
-      "text-sm",
-      error ? "text-red-600" : "text-gray-500"
-    );
+  const inputClasses = cx(
+    input({
+      state: inputState,
+      hasLeftIcon: !!leftIcon,
+      hasRightIcon: !!rightIcon,
+    }),
+    className
+  );
 
-    const inputClasses = twMerge(
-      // Base styles
-      "w-full px-3 py-2 focus:ring-2 focus:ring-violet-normal rounded-lg border transition-all duration-200 outline-none",
-      "placeholder:text-cadetGray placeholder:text-sm text-cadetGray",
+  return (
+    <Field className={containerClasses}>
+      {label && <Label className={labelVariants({ disabled })}>{label}</Label>}
 
-      // Default state
-      "border-border-primary bg-white",
-
-      // Error state
-      error && "border-red-500 ring-2 ring-red-100",
-
-      // Disabled state
-      disabled &&
-        "bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed",
-
-      // Icon padding
-      leftIcon && "pl-10",
-      rightIcon && "pr-10",
-
-      className
-    );
-
-    return (
-      <Field className={containerClasses}>
-        {label && <Label className={labelClasses}>{label}</Label>}
-
-        <div className={inputWrapperClasses}>
-          {/* Left Icon */}
-          {leftIcon && (
-            <IconContainer position="left">{leftIcon}</IconContainer>
-          )}
-          {/* Input */}
-          <HeadlessInput
-            ref={ref}
-            placeholder={placeholder}
-            disabled={disabled}
-            className={inputClasses}
-            {...props}
-          />
-          {/* Right Icon */}
-          {rightIcon && (
-            <IconContainer position="right">{rightIcon}</IconContainer>
-          )}
-        </div>
-
-        {/* Error or Helper Text */}
-        {(error ?? helperText) && (
-          <Description className={descriptionClasses}>
-            {error ?? helperText}
-          </Description>
+      <div className={inputWrapperClasses}>
+        {/* Left Icon */}
+        {leftIcon && <IconContainer position='left'>{leftIcon}</IconContainer>}
+        {/* Input */}
+        <HeadlessInput
+          ref={ref}
+          placeholder={placeholder}
+          disabled={disabled}
+          className={inputClasses}
+          {...props}
+        />
+        {/* Right Icon */}
+        {rightIcon && (
+          <IconContainer position='right'>{rightIcon}</IconContainer>
         )}
-      </Field>
-    );
-  }
-);
+      </div>
 
-Input.displayName = "Input";
+      {/* Error or Helper Text */}
+      {(error ?? helperText) && (
+        <Description
+          className={descriptionVariants({ type: error ? 'error' : 'helper' })}
+        >
+          {error ?? helperText}
+        </Description>
+      )}
+    </Field>
+  );
+};
+
+Input.displayName = 'Input';
 
 export { Input };
+
+const input = cva({
+  base: [
+    'w-full',
+    'px-3',
+    'py-2',
+    'focus:ring-2',
+    'focus:ring-violet-normal',
+    'rounded-lg',
+    'border',
+    'transition-all',
+    'duration-200',
+    'outline-none',
+    'placeholder:text-cadetGray',
+    'placeholder:text-sm',
+    'text-cadetGray',
+  ],
+  variants: {
+    state: {
+      default: 'border-border-primary bg-white',
+      error: 'border-red-500 ring-2 ring-red-100',
+      disabled:
+        'bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed',
+    },
+    hasLeftIcon: {
+      true: 'pl-10',
+      false: '',
+    },
+    hasRightIcon: {
+      true: 'pr-10',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    state: 'default',
+    hasLeftIcon: false,
+    hasRightIcon: false,
+  },
+});
+
+const labelVariants = cva({
+  base: 'text-sm font-medium',
+  variants: {
+    disabled: {
+      true: 'text-gray-400',
+      false: 'text-midnight',
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
+});
+
+const descriptionVariants = cva({
+  base: 'text-sm',
+  variants: {
+    type: {
+      error: 'text-red-600',
+      helper: 'text-gray-500',
+    },
+  },
+  defaultVariants: {
+    type: 'helper',
+  },
+});
