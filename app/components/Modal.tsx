@@ -1,11 +1,79 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+  Description,
+} from "@headlessui/react";
+import { sleep } from "@utils";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, type ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface ModalProps {
-  children?: ReactNode;
+  children: ReactNode;
+  title?: string;
+  description?: string;
+  containerClassName?: string;
+  panelClassName?: string;
 }
 
-export const Modal = ({ children }: ModalProps) => {
-  return <div id='modal' className='h-screen w-screen bg-black fixed inset-0 z-20'>{children}</div>;
+export const Modal = ({
+  children,
+  title,
+  description,
+  containerClassName,
+  panelClassName,
+}: ModalProps) => {
+  const router = useRouter();
+  const [containerStyle, setContainerStyle] = useState("");
+  const [panelStyle, setPanelStyle] = useState("");
+
+  const onClose = async () => {
+    setContainerStyle("opacity-0");
+    setPanelStyle("translate-y-full");
+    await sleep(0.5);
+    router.back();
+  };
+
+  useEffect(() => {
+    setContainerStyle("opacity-100 ");
+    setPanelStyle("translate-y-0");
+  }, []);
+
+  return (
+    <>
+      <Dialog
+        open={true}
+        autoFocus={false}
+        transition={true}
+        static={true}
+        onClose={onClose}
+        className={twMerge(
+          "fixed inset-0 transition-all duration-500 z-50 opacity-0",
+          containerStyle,
+          containerClassName
+        )}
+      >
+        <DialogBackdrop className="fixed inset-0 bg-black/30" />
+
+        {/* Full-screen container to center the panel */}
+        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+          <DialogPanel
+            className={twMerge(
+              "transform transition-all translate-y-full duration-500 max-w-lg space-y-4 bg-white p-12",
+              panelStyle,
+              panelClassName
+            )}
+          >
+            {title && <DialogTitle className="font-bold">{title}</DialogTitle>}
+            {description && <Description>{description}</Description>}
+            {children}
+          </DialogPanel>
+        </div>
+      </Dialog>
+    </>
+  );
 };

@@ -1,6 +1,6 @@
 export const modalPaths = {
-  ConfirmationModal: {
-    title: "Confirmation",
-    href: "/modal/ConfirmationModal",
+  TestModal: {
+    title: "TestModTal",
+    href: "/modal/test",
   },
-} as const
+} as const;
