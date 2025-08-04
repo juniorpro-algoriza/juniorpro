@@ -18,9 +18,9 @@ export const Nav = () => {
             <Logo />
           </Link>
         </div>
-        <ul className="flex xl:gap-4 gap-2">
+        <ul className="flex xl:gap-4 gap-2 flex-wrap">
           {links.map((link) => (
-            <li key={link.href}>
+            <li key={link.href} className="w-1/3 md:w-fit">
               <Link href={link.href}>{link.label}</Link>
             </li>
           ))}
