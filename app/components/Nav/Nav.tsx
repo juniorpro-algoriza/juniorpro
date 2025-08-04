@@ -25,7 +25,7 @@ export const Nav = () => {
             </li>
           ))}
           <li>
-            <ModalLink name="TestModal">Test Modalt</ModalLink>
+            <ModalLink name="TestModal">Test Modal</ModalLink>
           </li>
         </ul>
         <div>
