@@ -1,6 +1,6 @@
 export const modalPaths = {
-  TestModal: {
-    title: "TestModTal",
-    href: "/modal/test",
+  AddJunior: {
+    title: 'AddJunior',
+    href: '/modal/AddJunior',
   },
 } as const;
