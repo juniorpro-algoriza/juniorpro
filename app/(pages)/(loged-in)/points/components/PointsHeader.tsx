@@ -1,13 +1,19 @@
+'use client';
+
+import { useSidebar } from '@atoms';
 import { Button } from '@components';
 import { BellIcon } from 'lucide-react';
 
 export const PointsHeader = () => {
+  const { isOpen } = useSidebar();
   return (
     <div className='pb-8'>
       <div>
         <div className='flex items-center justify-between w-full pb-6 border-b border-border-secondary'>
           <div className='flex items-end text-xs gap-2'>
-            <h1 className='pl-12 text-[28px] font-medium text-yankees-blue mt-2'>
+            <h1
+              className={`${!isOpen && 'pl-12'} text-[28px] font-medium text-yankees-blue mt-2`}
+            >
               Points
             </h1>
             <p className='pb-2 '>
