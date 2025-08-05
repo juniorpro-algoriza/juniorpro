@@ -96,7 +96,11 @@ export const AddJunior = async () => {
         </CloseButton>
       </div>
 
-      <Tabs tabs={tabsData} defaultSelectedIndex={0} />
+      <Tabs
+        tabs={tabsData}
+        defaultSelectedIndex={0}
+        tabListClassName='flex space-x-1 rounded-full bg-gray-100 p-1.5 mb-3 w-full'
+      />
 
       <div className='flex gap-3 mt-6'>
         <Button intent='primary' className='flex-1'>
