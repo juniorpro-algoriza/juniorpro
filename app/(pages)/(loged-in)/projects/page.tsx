@@ -1,7 +1,7 @@
 import { ProjectCard } from "@components";
-import { ProjectsHeader } from "./components";
-import { getProjects } from "@server";
 import { Select } from "@components/client";
+import { getProjects } from "@server";
+import { ProjectsHeader } from "./components";
 
 const ProjectsPage = async () => {
   const { data: projects } = await getProjects({
@@ -42,6 +42,8 @@ const ProjectsPage = async () => {
                   showJuniors={true}
                   badgeText="status"
                   showBadgeNextToDueDate={false}
+                  showBadge={false}
+                  showRating={false}
                 />
               </div>
             );
