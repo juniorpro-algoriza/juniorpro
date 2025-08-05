@@ -1,11 +1,8 @@
-import { getJuniorsAge, getJuniorsData, getJuniorsGrades } from '@server';
-import { JuniorsHeader } from './components';
-import { JuniorsTable } from './components/JuniorsTable';
+import { getJuniorsData } from '@server';
+import { JuniorsHeader, JuniorsTable } from './components';
 
 const JuniorsPage = async () => {
   const juniorsData = await getJuniorsData();
-  const juniorsAge = await getJuniorsAge();
-  const juniorsGradeLevel = await getJuniorsGrades();
 
   return (
     <div className='min-h-screen px-6 py-3 bg-stone-50'>
@@ -13,11 +10,7 @@ const JuniorsPage = async () => {
       <JuniorsHeader />
 
       {/* Juniors Table */}
-      <JuniorsTable
-        juniorsData={juniorsData}
-        juniorsAge={juniorsAge}
-        juniorsGrade={juniorsGradeLevel}
-      />
+      <JuniorsTable juniorsData={juniorsData} />
     </div>
   );
 };

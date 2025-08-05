@@ -1,26 +1,15 @@
 'use client';
 
 import { Button, Input, Table } from '@components';
-import type { Age, Grade, Junior } from '@server/types';
+import type { Junior } from '@server/types';
 import { ListFilter, SearchIcon } from 'lucide-react';
-import { useState } from 'react';
-import { JuniorDialog } from './JuniorsDialog';
+import { ModalLink } from '../../../../components/ModalLink';
 
 interface JuniorsTableProps {
   juniorsData: Junior[];
-  juniorsAge: Age[];
-  juniorsGrade: Grade[];
 }
 
-export const JuniorsTable = ({
-  juniorsData,
-  juniorsAge,
-  juniorsGrade,
-}: JuniorsTableProps) => {
-  // TODO , remove state, use intercepting routes, check monshaat for example
-  // https://nextjs.org/docs/app/api-reference/file-conventions/intercepting-routes#modals
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+export const JuniorsTable = ({ juniorsData }: JuniorsTableProps) => {
   return (
     <div className='mt-6'>
       <div className='bg-white rounded-[20px] drop-shadow-xl border border-border-primary'>
@@ -30,13 +19,12 @@ export const JuniorsTable = ({
               Juniors ({juniorsData.length})
             </h3>
             <div className='flex justify-center gap-2.5'>
-              <Button
-                intent='primary'
-                className='text-sm'
-                onClick={() => setIsDialogOpen(true)}
-              >
-                Add Junior
-              </Button>
+              <ModalLink name='AddJunior'>
+                <Button intent='primary' className='text-sm' size='large'>
+                  Add Junior
+                </Button>
+              </ModalLink>
+
               <Input
                 placeholder='Search for Juniors'
                 leftIcon={<SearchIcon size={20} />}
@@ -63,15 +51,6 @@ export const JuniorsTable = ({
           emptyMessage='No juniors added yet'
         />
       </div>
-
-      {/* TODO: make this a link instead */}
-      {/* check https://nextjs.org/docs/app/api-reference/file-conventions/intercepting-routes#modals */}
-      <JuniorDialog
-        juniorsAge={juniorsAge}
-        juniorsGrade={juniorsGrade}
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-      />
     </div>
   );
 };
