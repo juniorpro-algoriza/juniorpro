@@ -1,8 +1,7 @@
 'use client';
 
 import { useSidebar } from '@atoms';
-import { Button } from '@components';
-import { Bell } from 'lucide-react';
+import { Notifications } from '../../components';
 
 export const DashboardHeader = () => {
   const { isOpen } = useSidebar();
@@ -15,13 +14,7 @@ export const DashboardHeader = () => {
           >
             Dashboard
           </h1>
-          <Button
-            intent='unset'
-            size='medium'
-            className='bg-white shadow rounded-[40px] p-3'
-          >
-            <Bell size={20} className='text-cadetGray' />
-          </Button>
+          <Notifications />
         </div>
 
         <div className='flex items-center space-x-2 mt-4'>

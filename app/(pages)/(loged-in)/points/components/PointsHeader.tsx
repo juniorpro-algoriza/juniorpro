@@ -1,8 +1,7 @@
 'use client';
 
 import { useSidebar } from '@atoms';
-import { Button } from '@components';
-import { BellIcon } from 'lucide-react';
+import { Notifications } from '../../components';
 
 export const PointsHeader = () => {
   const { isOpen } = useSidebar();
@@ -20,13 +19,7 @@ export const PointsHeader = () => {
               Dashboard / <span className='text-content-secondary'>Points</span>
             </p>
           </div>
-          <Button
-            intent='unset'
-            size='medium'
-            className='bg-white shadow rounded-[40px] p-3'
-          >
-            <BellIcon size={20} className='text-cadetGray' />
-          </Button>
+          <Notifications />
         </div>
       </div>
     </div>
