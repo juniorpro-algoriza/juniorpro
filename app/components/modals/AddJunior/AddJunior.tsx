@@ -1,6 +1,8 @@
 import { Select, Tabs } from '@components/client';
+import { CloseButton } from '@headlessui/react';
 import { getJuniorsAge, getJuniorsGrades } from '@server';
 import { XIcon } from 'lucide-react';
+import { Fragment } from 'react';
 import { Button } from '../../Button';
 import { Input } from '../../Input';
 import { Modal } from '../../Modal';
@@ -84,12 +86,14 @@ export const AddJunior = async () => {
         <h3 className='text-lg font-medium leading-6 text-midnight'>
           Add a Junior
         </h3>
-        <Button
-          intent='unset'
-          className='border border-border-secondary p-1.5 rounded-lg'
-        >
-          <XIcon size={18} />
-        </Button>
+        <CloseButton as={Fragment}>
+          <Button
+            intent='unset'
+            className='border border-border-secondary p-1.5 rounded-lg'
+          >
+            <XIcon size={18} />
+          </Button>
+        </CloseButton>
       </div>
 
       <Tabs tabs={tabsData} defaultSelectedIndex={0} />
@@ -98,9 +102,12 @@ export const AddJunior = async () => {
         <Button intent='primary' className='flex-1'>
           Create
         </Button>
-        <Button intent='secondary' className='flex-1 text-dark-electric-blue'>
-          Cancel
-        </Button>
+
+        <CloseButton as={Fragment}>
+          <Button intent='secondary' className='flex-1 text-dark-electric-blue'>
+            Cancel
+          </Button>
+        </CloseButton>
       </div>
     </Modal>
   );
