@@ -1,16 +1,16 @@
 'use client';
 
+import { useSidebar } from '@atoms';
 import {
-    DiamondIcon,
-    DocumentIcon,
-    HomeIcon,
-    LogoutIcon,
-    SettingsIcon,
-    UserIcon,
+  DiamondIcon,
+  DocumentIcon,
+  HomeIcon,
+  LogoutIcon,
+  SettingsIcon,
+  UserIcon,
 } from '@icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useSidebar } from './SidebarContext';
 
 const menuItems = [
   { href: '/dashboard', icon: HomeIcon, label: 'Dashboard' },
