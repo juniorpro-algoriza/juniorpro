@@ -16,6 +16,7 @@ export const ProjectsCarousel = ({
 }: ProjectCarouselProps) => {
   return (
     <InfiniteCarousel
+    className='p-4'
       items={initialProjects}
       renderItem={(project) => (
         <ProjectCard
@@ -23,7 +24,7 @@ export const ProjectsCarousel = ({
           badgeText='projectType'
           showDescription={true}
           showBadgeNextToDueDate={false}
-          showDueDate={false}
+          showDueDate={true}
           showJuniors={false}
           showBadge={false}
           showRating={false}
@@ -34,7 +35,7 @@ export const ProjectsCarousel = ({
         await loadMoreProjects({ initialProjects, projectType })
       }
       maxItems={50}
-      viewAllText='View All Projects'
+      viewAllText='View All'
       onViewAll={() => {
         console.log('View all projects clicked');
       }}
