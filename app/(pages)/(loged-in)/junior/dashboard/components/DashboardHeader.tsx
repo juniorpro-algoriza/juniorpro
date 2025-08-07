@@ -1,7 +1,7 @@
 'use client';
 
 import { useSidebar } from '@atoms';
-import { Notifications } from '../../components';
+import { Notifications } from '../../../components';
 
 export const DashboardHeader = () => {
   const { isOpen } = useSidebar();
@@ -23,7 +23,7 @@ export const DashboardHeader = () => {
           </h2>
         </div>
         <p className='text-storm-500 text-xl mt-1'>
-          Manage your juniors' profiles and monitor their progress
+          Ready to continue your learning adventure?
         </p>
       </div>
     </div>

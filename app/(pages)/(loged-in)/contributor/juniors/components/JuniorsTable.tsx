@@ -3,7 +3,7 @@
 import { Button, Input, Table } from '@components';
 import type { Junior } from '@server/types';
 import { ListFilter, SearchIcon } from 'lucide-react';
-import { ModalLink } from '../../../../components/ModalLink';
+import { ModalLink } from '../../../../../components/ModalLink';
 
 interface JuniorsTableProps {
   juniorsData: Junior[];

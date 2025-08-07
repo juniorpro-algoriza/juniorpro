@@ -1,9 +1,9 @@
 'use client';
 
 import { useSidebar } from '@atoms';
-import { Notifications } from '../../components';
+import { Notifications } from '../../../components';
 
-export const ProjectsHeader = () => {
+export const PointsHeader = () => {
   const { isOpen } = useSidebar();
   return (
     <div className='pb-8'>
@@ -13,10 +13,10 @@ export const ProjectsHeader = () => {
             <h1
               className={`${!isOpen && 'pl-12'} text-[28px] font-medium text-yankees-blue mt-2`}
             >
-              Projects
+              Points
             </h1>
             <p className='pb-2 '>
-              Projects / <span className='text-content-secondary'>Junior</span>
+              Dashboard / <span className='text-content-secondary'>Points</span>
             </p>
           </div>
           <Notifications />

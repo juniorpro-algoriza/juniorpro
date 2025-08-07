@@ -1,7 +1,7 @@
 'use client';
 
 import { useSidebar } from '@atoms';
-import { Notifications } from '../../components';
+import { Notifications } from '../../../components';
 
 export const JuniorsHeader = () => {
   const { isOpen } = useSidebar();
