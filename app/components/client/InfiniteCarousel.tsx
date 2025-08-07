@@ -1,24 +1,24 @@
-import { Button } from "@components";
-import { cx } from "cva";
+import { Button } from '@components';
+import { cx } from 'cva';
 import type {
   EmblaCarouselType,
   EmblaOptionsType,
   EngineType,
-} from "embla-carousel";
-import useEmblaCarousel from "embla-carousel-react";
-import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
+} from 'embla-carousel';
+import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   LoaderCircleIcon,
-} from "lucide-react";
+} from 'lucide-react';
 import {
   type ReactNode,
   useCallback,
   useEffect,
   useRef,
   useState,
-} from "react";
+} from 'react';
 
 //! ============================================================================
 // ! TYPE DEFINITIONS
@@ -83,13 +83,13 @@ export const InfiniteCarousel = <T,>({
   maxItems = 50,
   hasMore: initialHasMore = true,
   loadingSpinner = (
-    <LoaderCircleIcon className="animate-spin text-blue-500 w-16 h-16" />
+    <LoaderCircleIcon className='animate-spin text-blue-500 w-16 h-16' />
   ),
   carouselOptions = {},
-  className = "",
+  className = '',
   showNavigation = true,
   showViewAll = true,
-  viewAllText = "View All",
+  viewAllText = 'View All',
   onViewAll,
   navigationButtonProps = {},
 }: InfiniteCarouselProps<T>) => {
@@ -129,7 +129,7 @@ export const InfiniteCarousel = <T,>({
    */
   const defaultCarouselOptions: EmblaOptionsType = {
     loop: false,
-    align: "start",
+    align: 'start',
     dragFree: true,
 
     // Custom slide watcher to handle dynamic content updates
@@ -146,11 +146,11 @@ export const InfiniteCarousel = <T,>({
 
         // Copy important engine modules from old to new engine
         const engineModulesToCopy: (keyof EngineType)[] = [
-          "scrollBody",
-          "location",
-          "offsetLocation",
-          "previousLocation",
-          "target",
+          'scrollBody',
+          'location',
+          'offsetLocation',
+          'previousLocation',
+          'target',
         ];
 
         engineModulesToCopy.forEach((moduleKey) => {
@@ -172,7 +172,7 @@ export const InfiniteCarousel = <T,>({
        * Handles carousel reload after pointer/drag interaction ends
        */
       const handleReloadAfterPointerUp = (): void => {
-        emblaApi.off("pointerUp", handleReloadAfterPointerUp);
+        emblaApi.off('pointerUp', handleReloadAfterPointerUp);
         reloadCarousel();
       };
 
@@ -183,7 +183,7 @@ export const InfiniteCarousel = <T,>({
         // If user is actively dragging, wait for pointer up
         const boundsActive = engine.limit.reachedMax(engine.target.get());
         engine.scrollBounds.toggleActive(boundsActive);
-        emblaApi.on("pointerUp", handleReloadAfterPointerUp);
+        emblaApi.on('pointerUp', handleReloadAfterPointerUp);
       } else {
         // If no active interaction, reload immediately
         reloadCarousel();
@@ -268,14 +268,14 @@ export const InfiniteCarousel = <T,>({
               setHasMoreToLoad(false);
               // Remove scroll listener when max items reached
               if (emblaApi) {
-                emblaApi.off("scroll", scrollListenerRef.current);
+                emblaApi.off('scroll', scrollListenerRef.current);
               }
             }
 
             return updatedItems;
           });
         } catch (error) {
-          console.error("Failed to load more items:", error);
+          console.error('Failed to load more items:', error);
           // Re-enable scroll listening on error
           setLoadingMore(false);
           listenForScrollRef.current = true;
@@ -295,7 +295,7 @@ export const InfiniteCarousel = <T,>({
   const addScrollListener = useCallback(
     (emblaApi: EmblaCarouselType) => {
       scrollListenerRef.current = () => handleScroll(emblaApi);
-      emblaApi?.on("scroll", scrollListenerRef.current);
+      emblaApi?.on('scroll', scrollListenerRef.current);
     },
     [handleScroll]
   );
@@ -314,23 +314,23 @@ export const InfiniteCarousel = <T,>({
     updateNavigationState();
 
     // Set up event listeners
-    emblaApi.on("select", updateNavigationState);
+    emblaApi.on('select', updateNavigationState);
     addScrollListener(emblaApi);
 
     // Handle window resize events
     const handleResize = () => emblaApi.reInit();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Cleanup resize listener on carousel destroy
-    emblaApi.on("destroy", () =>
-      window.removeEventListener("resize", handleResize)
+    emblaApi.on('destroy', () =>
+      window.removeEventListener('resize', handleResize)
     );
 
     // Cleanup function
     return () => {
-      window.removeEventListener("resize", handleResize);
-      emblaApi.off("select", updateNavigationState);
-      emblaApi.off("scroll", scrollListenerRef.current);
+      window.removeEventListener('resize', handleResize);
+      emblaApi.off('select', updateNavigationState);
+      emblaApi.off('scroll', scrollListenerRef.current);
     };
   }, [emblaApi, updateNavigationState, addScrollListener]);
 
@@ -346,7 +346,7 @@ export const InfiniteCarousel = <T,>({
   // ========================================================================
 
   // Extract navigation button properties with defaults
-  const { className: navClassName = "", size: navIconSize = 12 } =
+  const { className: navClassName = '', size: navIconSize = 12 } =
     navigationButtonProps;
 
   /**
@@ -356,7 +356,7 @@ export const InfiniteCarousel = <T,>({
     <>
       {/* Render actual items */}
       {items.map((item, index) => (
-        <div key={getItemKey(item, index)} className="flex-[0_0_auto] min-w-0">
+        <div key={getItemKey(item, index)} className='flex-[0_0_auto] min-w-0'>
           {renderItem(item, index)}
         </div>
       ))}
@@ -365,8 +365,8 @@ export const InfiniteCarousel = <T,>({
       {hasMoreToLoad && (
         <div
           className={cx(
-            "flex items-center justify-center min-w-[200px] flex-[0_0_auto]",
-            loadingMore ? "opacity-50" : ""
+            'flex items-center justify-center min-w-[200px] flex-[0_0_auto]',
+            loadingMore ? 'opacity-50' : ''
           )}
         >
           {loadingSpinner}
@@ -379,30 +379,30 @@ export const InfiniteCarousel = <T,>({
    * Renders navigation buttons
    */
   const renderNavigationButtons = () => (
-    <div className="flex gap-2 py-6">
+    <div className='flex gap-2 py-6'>
       <Button
-        intent="unset"
+        intent='unset'
         onClick={scrollPrev}
         disabled={!canScrollPrev}
         className={cx(
-          "p-2 rounded-full border-2 transition-all duration-200",
+          'p-2 rounded-full border-2 transition-all duration-200',
           canScrollPrev
-            ? "border-blue-500 text-blue-500 hover:bg-blue-50"
-            : "border-gray-300 text-gray-300 cursor-not-allowed",
+            ? 'border-blue-500 text-blue-500 hover:bg-blue-50'
+            : 'border-gray-300 text-gray-300 cursor-not-allowed',
           navClassName
         )}
       >
         <ChevronLeftIcon size={navIconSize} />
       </Button>
       <Button
-        intent="unset"
+        intent='unset'
         onClick={scrollNext}
         disabled={!canScrollNext}
         className={cx(
-          "p-2 rounded-full border-2 transition-all duration-200",
+          'p-2 rounded-full border-2 transition-all duration-200',
           canScrollNext
-            ? "border-blue-500 text-blue-500 hover:bg-blue-50"
-            : "border-gray-300 text-gray-300 cursor-not-allowed",
+            ? 'border-blue-500 text-blue-500 hover:bg-blue-50'
+            : 'border-gray-300 text-gray-300 cursor-not-allowed',
           navClassName
         )}
       >
@@ -416,11 +416,11 @@ export const InfiniteCarousel = <T,>({
    */
   const renderViewAllButton = () => (
     <Button
-      intent="tertiary"
-      iconPosition="right"
-      size="small"
-      className="border-none text-violet-normal"
-      icon={<ChevronRightIcon className="w-4 h-4" />}
+      intent='tertiary'
+      iconPosition='right'
+      size='small'
+      className='border-none text-violet-normal'
+      icon={<ChevronRightIcon className='w-4 h-4' />}
       onClick={onViewAll}
     >
       {viewAllText}
@@ -432,15 +432,15 @@ export const InfiniteCarousel = <T,>({
   // ========================================================================
 
   return (
-    <section className={cx("p-4 bg-white", className)}>
+    <section className={cx('bg-white', className)}>
       {/* Carousel Container */}
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4">{renderCarouselSlides()}</div>
+      <div className='overflow-hidden' ref={emblaRef}>
+        <div className='flex gap-4'>{renderCarouselSlides()}</div>
       </div>
 
       {/* Navigation Controls */}
       {(showNavigation || showViewAll) && (
-        <div className="flex justify-between items-center py-4">
+        <div className='flex justify-between items-center py-4'>
           {/* Left side - Navigation buttons or spacer */}
           {showNavigation ? renderNavigationButtons() : <div />}
 
