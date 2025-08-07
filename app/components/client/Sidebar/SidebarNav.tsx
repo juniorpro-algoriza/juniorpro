@@ -2,6 +2,8 @@
 
 import { useSidebar } from '@atoms';
 import {
+  CalendarIcon,
+  ChatIcon,
   DiamondIcon,
   DocumentIcon,
   HomeIcon,
@@ -12,25 +14,31 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const menuItems = [
-  { href: '/dashboard', icon: HomeIcon, label: 'Dashboard' },
-  { href: '/juniors', icon: UserIcon, label: 'Juniors' },
-  {
-    href: '/projects',
-    icon: DocumentIcon,
-    label: 'Projects',
-  },
-  { href: '/points', icon: DiamondIcon, label: 'Points' },
-  {
-    href: '/profile',
-    icon: SettingsIcon,
-    label: 'My Profile',
-  },
+const contributorMenuItems = [
+  { href: '/contributor/dashboard', icon: HomeIcon, label: 'Dashboard' },
+  { href: '/contributor/juniors', icon: UserIcon, label: 'Juniors' },
+  { href: '/contributor/projects', icon: DocumentIcon, label: 'Projects' },
+  { href: '/contributor/points', icon: DiamondIcon, label: 'Points' },
+  { href: '/contributor/profile', icon: SettingsIcon, label: 'My Profile' },
+];
+
+const juniorMenuItems = [
+  { href: '/junior/dashboard', icon: HomeIcon, label: 'Dashboard' },
+  { href: '/junior/chat', icon: ChatIcon, label: 'Chat' },
+  { href: '/junior/schedule', icon: CalendarIcon, label: 'Schedule' },
+  { href: '/junior/profile', icon: SettingsIcon, label: 'My Profile' },
 ];
 
 export const SidebarNav = () => {
   const pathname = usePathname();
   const { isMobile, toggleSidebar } = useSidebar();
+
+  const userRole = pathname.startsWith('/contributor')
+    ? 'contributor'
+    : 'junior';
+
+  const menuItems =
+    userRole === 'contributor' ? contributorMenuItems : juniorMenuItems;
 
   const isActive = (href: string) => pathname === href;
 
