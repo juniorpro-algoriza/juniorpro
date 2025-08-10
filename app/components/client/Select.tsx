@@ -19,6 +19,7 @@ interface SelectProps {
   disabled?: boolean;
   error?: string;
   required?: boolean;
+  placeholder?: string;
 }
 
 export const Select = ({
