@@ -30,7 +30,8 @@
       "@utils": ["./app/utils"],
       "@utils/server": ["./app/utils/server"],
       "@styles": ["./app/styles"],
-      "@components/client": ["./app/components/client"]
+      "@components/client": ["./app/components/client"],
+      "@atoms": ["./app/atoms"]
     }
   },
   "include": [

@@ -16,7 +16,7 @@ export const ProjectsCarousel = ({
 }: ProjectCarouselProps) => {
   return (
     <InfiniteCarousel
-    className='p-4'
+      className='py-4'
       items={initialProjects}
       renderItem={(project) => (
         <ProjectCard

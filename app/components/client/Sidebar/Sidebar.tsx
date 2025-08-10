@@ -2,7 +2,8 @@
 
 import logoImage from '@public/images/logo.svg';
 import Image from 'next/image';
-import { useSidebar } from './SidebarContext';
+
+import { useSidebar } from '@atoms';
 import { SidebarNav } from './SidebarNav';
 import { SidebarToggleButton } from './SidebarToggleButton';
 import { SidebarUserInfo } from './SidebarUserInfo';

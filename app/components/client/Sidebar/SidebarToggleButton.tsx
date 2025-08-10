@@ -1,8 +1,8 @@
 'use client';
 
+import { useSidebar } from '@atoms';
 import { Button } from '@components';
 import { ChevronsLeft, Menu } from 'lucide-react';
-import { useSidebar } from './SidebarContext';
 
 export const SidebarToggleButton = () => {
   const { isOpen, isMobile, toggleSidebar } = useSidebar();

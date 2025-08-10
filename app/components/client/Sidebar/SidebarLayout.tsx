@@ -1,8 +1,8 @@
 "use client";
 
+import { useSidebar } from "@atoms";
 import { ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
-import { useSidebar } from "./SidebarContext";
 
 export const SidebarLayout = ({ children }: { children: ReactNode }) => {
   const { isOpen, isMobile } = useSidebar();

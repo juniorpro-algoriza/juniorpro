@@ -1,28 +1,11 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useSidebar } from '@atoms';
+import { ReactNode, useEffect } from 'react';
 
-const SidebarContext = createContext<{
-  isOpen: boolean;
-  isMobile: boolean;
-  toggleSidebar: () => void;
-}>({
-  isOpen: false,
-  isMobile: false,
-  toggleSidebar: () => {},
-});
-
-export const useSidebar = () => useContext(SidebarContext);
-
-export const SidebarProvider = ({ children }: { children: ReactNode }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+// Screen size detection hook
+export const useScreenSize = () => {
+  const { setIsMobile, setIsOpen } = useSidebar();
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -32,15 +15,14 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
     };
 
     checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, [setIsMobile, setIsOpen]);
+};
 
-  const toggleSidebar = () => setIsOpen((prev) => !prev);
+// Simple wrapper component to initialize screen size detection
+export const SidebarProvider = ({ children }: { children: ReactNode }) => {
+  useScreenSize();
 
-  return (
-    <SidebarContext.Provider value={{ isOpen, isMobile, toggleSidebar }}>
-      <div className="w-full">{children}</div>
-    </SidebarContext.Provider>
-  );
+  return <div className='w-full'>{children}</div>;
 };

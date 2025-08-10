@@ -1,5 +1,5 @@
 import { Tabs } from '@components/client';
-import type { TabData } from '../../../../components/types';
+import type { TabData } from '../../../../../components/types';
 import { getPointsPlans, getPointsTransactions } from '../server';
 import { PurchaseCard } from './PurchaseCard';
 import { TransactionCard } from './TransactionCard';
@@ -43,7 +43,7 @@ export const PurchasePoints = async () => {
 
   return (
     <div>
-      <Tabs tabs={tabsData} defaultSelectedIndex={0} />
+      <Tabs tabs={tabsData} defaultSelectedIndex={0} tabStyle='w-fit px-4' />
     </div>
   );
 };

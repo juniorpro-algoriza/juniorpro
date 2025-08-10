@@ -12,6 +12,7 @@ interface TabsProps {
   tabClassName?: string | ((selected: boolean) => string);
   tabPanelsClassName?: string;
   tabPanelClassName?: string;
+  tabStyle?: string;
 }
 
 export const Tabs: React.FC<TabsProps> = ({
@@ -22,6 +23,7 @@ export const Tabs: React.FC<TabsProps> = ({
   tabClassName = '',
   tabPanelsClassName = '',
   tabPanelClassName = '',
+  tabStyle = '',
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
 
@@ -35,7 +37,7 @@ export const Tabs: React.FC<TabsProps> = ({
   const defaultTabListClass =
     'flex space-x-1 rounded-full bg-gray-100 p-1.5 mb-3 w-fit';
   const defaultTabClass = (selected: boolean) =>
-    `w-fit rounded-full px-6 py-2.5 font-medium leading-5 transition-all focus:ring-2 focus:ring-violet-normal
+    ` ${tabStyle || 'w-full'} rounded-full py-2.5 text-sm font-medium leading-5 transition-all
     ${
       selected
         ? 'bg-white text-violet-normal shadow'
