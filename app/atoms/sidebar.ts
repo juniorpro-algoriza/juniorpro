@@ -1,5 +1,5 @@
 // atoms/sidebar.ts
-import { atom } from 'jotai';
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 
 // Base atoms
 export const isMobileAtom = atom(false);
@@ -16,9 +16,6 @@ export const sidebarStateAtom = atom((get) => ({
   isOpen: get(isOpenAtom),
   isMobile: get(isMobileAtom),
 }));
-
-// Hook for easier usage
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 
 export const useSidebar = () => {
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);

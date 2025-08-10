@@ -43,7 +43,7 @@ export const PurchasePoints = async () => {
 
   return (
     <div>
-      <Tabs tabs={tabsData} defaultSelectedIndex={0} tabStyle='w-fit px-4' />
+      <Tabs tabs={tabsData} selectedIndex={0} tabStyle='w-fit px-4' />
     </div>
   );
 };

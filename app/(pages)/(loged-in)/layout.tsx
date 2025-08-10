@@ -1,5 +1,5 @@
+import { SidebarLayout } from '@components/client';
 import type { ReactNode } from 'react';
-import { SidebarLayout } from '../../components/client/Sidebar';
 
 interface LoggedInLayoutProps {
   children: ReactNode;

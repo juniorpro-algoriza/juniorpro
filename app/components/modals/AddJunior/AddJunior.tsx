@@ -1,12 +1,10 @@
+import { Button, Input, Modal } from '@components';
 import { Select, Tabs } from '@components/client';
 import { CloseButton } from '@headlessui/react';
 import { getJuniorsAge, getJuniorsGrades } from '@server';
 import { XIcon } from 'lucide-react';
 import { Fragment } from 'react';
-import { Button } from '../../Button';
-import { Input } from '../../Input';
-import { Modal } from '../../Modal';
-import { TabData } from '../../types';
+import type { TabData } from '../../types';
 
 export const AddJunior = async () => {
   const juniorsAge = await getJuniorsAge();
@@ -98,7 +96,7 @@ export const AddJunior = async () => {
 
       <Tabs
         tabs={tabsData}
-        defaultSelectedIndex={0}
+        selectedIndex={0}
         tabListClassName='flex space-x-1 rounded-full bg-gray-100 p-1.5 mb-3 w-full'
       />
 
