@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
 @theme {
   /* ! Colors */
   --color-primary-50: #f5f0fc;
@@ -109,9 +109,11 @@
   --color-light-orange: #ffd5b94d;
   --color-dark-orange: #df972a;
 
-  --color-light-red: #FFF4F4;
-  --color-light-green: #72DC6017;
-  --color-light-carrot-orange: #FFF7EC;
+  --color-light-red: #fff4f4;
+  --color-light-green: #72dc6017;
+  --color-light-carrot-orange: #fff7ec;
+  --color-sucess-normal: #41c980;
+  --color-sucess-hover: #e3f7ec;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;
@@ -122,11 +124,11 @@
 
 /* !! Themes */
 @layer base {
-  [data-theme='dark'] {
+  [data-theme="dark"] {
     --color-primary-50: #ffffff;
   }
 
-  [data-theme='other'] {
+  [data-theme="other"] {
     --color-primary-50: #ffffff;
   }
 }

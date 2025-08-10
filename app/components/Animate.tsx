@@ -6,11 +6,16 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 interface AnimateProps {
   children: ReactNode;
   className?: string;
+  duration?: number;
 }
-export const Animate = ({ children, className }: AnimateProps) => {
+export const Animate = ({
+  children,
+  className,
+  duration = 500,
+}: AnimateProps) => {
   //   const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
   const [parent] = useAutoAnimate({
-    duration: 500,
+    duration,
   });
   return (
     <div ref={parent} className={className} dir="rtl">

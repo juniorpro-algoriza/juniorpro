@@ -1,34 +1,65 @@
 import { ProjectCard } from "@components";
-import { Select } from "@components/client";
 import { getProjects } from "@server";
-import { ProjectsHeader } from "./components";
+import { JuniorsDropdown, ProjectsHeader, SearchInput } from "./components";
+import type { Project } from "@types";
+import { pickRandom } from "@utils";
 
-const ProjectsPage = async () => {
+interface ProjectsPageProps {
+  searchParams: Promise<{ junior: string; query: string }>;
+}
+
+const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
+  const junior = (await searchParams).junior;
+  const searchQuery = (await searchParams).query;
+
   const { data: projects } = await getProjects({
-    limit: 10,
+    limit: 30,
     pageNum: 1,
     projectType: "all",
+    juniors: junior[0] === "all juniors" ? [] : [junior],
+    shouldIncludeProject: (p: Project) => {
+      if (searchQuery) {
+        const projectTitle = p.title;
+        return projectTitle.toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      return true;
+    },
   });
+
+  const juniors = ["all juniors", "anas", "marwa", "adam"];
+
+  const completedProjects: Project[] = projects.map((p) => ({
+    ...p,
+    status: "completed",
+  }));
+
+  let allProjects: Project[] = completedProjects;
+  if (junior === "all juniors") {
+    allProjects = completedProjects
+      .map((p) => ({
+        ...p,
+        juniors: ["Marwa", "Anas ", pickRandom(["Adam", "Samy"])],
+      }))
+      .filter((_, index) => {
+        return index % 5 === 0;
+      });
+  }
 
   return (
     <main className="min-h-screen px-6 py-3 bg-stone-50">
       <ProjectsHeader />
       <div className="shadow-soft">
-        <div className="flex justify-between items-center">
-          <h2 className="relative px-1 py-2 text-2xl font-medium xl:py-8 md:py-4 xl:px-6 md:px-2 left-2">
+        <div className="flex justify-between items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2 ">
+          <h2 className="relative text-2xl font-medium left-2 top-1">
             Projects ({projects.length})
           </h2>
-          <Select
-            description=""
-            label=""
-            options={[
-              { value: "anas", label: "Anas" },
-              { value: "One", label: "One" },
-            ]}
-          />
+          <div className="flex items-center gap-2">
+            <JuniorsDropdown juniors={juniors} />
+            <SearchInput />
+          </div>
         </div>
         <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6">
-          {projects.map((p) => {
+          {allProjects.map((p) => {
             return (
               <div
                 key={p.id}
@@ -42,7 +73,7 @@ const ProjectsPage = async () => {
                   showJuniors={true}
                   badgeText="status"
                   showBadgeNextToDueDate={false}
-                  showBadge={false}
+                  showBadge={true}
                   showRating={false}
                 />
               </div>

@@ -3,9 +3,11 @@
 import type { Project, ProjectStatus, ProjectType } from "../types";
 
 type GetAllProjectsParams = {
+  shouldIncludeProject?: (project: Project) => boolean;
   pageNum: number;
   limit: number;
   projectType: ProjectType;
+  juniors?: string[];
 };
 type ReturnType = {
   data: Project[];
@@ -16,9 +18,11 @@ type ReturnType = {
 };
 
 export const getProjects = async ({
+  shouldIncludeProject,
   pageNum,
   limit,
   projectType,
+  juniors,
 }: GetAllProjectsParams): Promise<ReturnType> => {
   let filteredData = dummyData;
 
@@ -34,7 +38,9 @@ export const getProjects = async ({
   const paginatedData: Project[] = filteredData.slice(startIndex, endIndex);
 
   return {
-    data: paginatedData,
+    data: paginatedData
+      .map((p) => ({ ...p, juniors: juniors ?? [] }))
+      .filter((p) => (shouldIncludeProject ? shouldIncludeProject(p) : true)),
     currentPage: pageNum,
     totalPages: Math.ceil(filteredData.length / limit),
     hasNextPage: endIndex < filteredData.length,
