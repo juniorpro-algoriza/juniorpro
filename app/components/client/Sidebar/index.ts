@@ -1,3 +1,3 @@
-export { Sidebar } from "./Sidebar";
-export { SidebarProvider } from "./SidebarContext";
-export { SidebarLayout } from "./SidebarLayout";
+export { Sidebar } from './Sidebar';
+export { SidebarLayout } from './SidebarLayout';
+

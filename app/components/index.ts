@@ -1,7 +1,10 @@
-export { Button } from "./Button";
-export { Footer } from "./Footer";
-export { Input } from "./Input";
-export { Table } from "./Table";
-export { Nav } from "./Nav";
-export { ProjectCard } from "./ProjectCard";
-export { Animate } from "./Animate";
+export { Animate } from './Animate';
+export { Button } from './Button';
+export { Footer } from './Footer';
+export { Input } from './Input';
+export { Modal } from './Modal';
+export { ModalLink } from './ModalLink';
+export { Nav } from './Nav';
+export { ProjectCard } from './ProjectCard';
+export { Table } from './Table';
+
