@@ -1,3 +1,5 @@
+'use client';
+
 import { useSidebar } from '@atoms';
 import { cx } from '@lib';
 import { Notifications } from '../../components';
