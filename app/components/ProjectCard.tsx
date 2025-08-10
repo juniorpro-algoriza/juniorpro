@@ -53,7 +53,7 @@ export const ProjectCard = ({
   return (
     <div
       data-id={id}
-      className={`bg-white rounded-2xl p-3 shadow-lg hover:shadow-xl border border-antiflash-white transition-all duration-300 group flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_25%] ${className}`}
+      className={`bg-white rounded-2xl space-y-3 p-3 shadow-lg hover:shadow-xl border border-antiflash-white transition-all duration-300 group flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_25%] ${className}`}
     >
       <Header category={category} imageUrl={imageUrl} />
       {showRating && <Rating rating={rating} />}

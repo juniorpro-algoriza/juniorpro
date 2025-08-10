@@ -1,5 +1,5 @@
 import { Tabs } from '@components/client';
-import type { TabData } from '../../../../components/types';
+import type { TabData } from '../../../../../components/types';
 import { getPointsPlans, getPointsTransactions } from '../server';
 import { PurchaseCard } from './PurchaseCard';
 import { TransactionCard } from './TransactionCard';
