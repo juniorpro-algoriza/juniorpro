@@ -117,7 +117,7 @@ const input = cva({
     'duration-200',
     'outline-none',
     'placeholder:text-cadetGray',
-    'placeholder:text-sm',
+    'placeholder:font-medium',
     'text-cadetGray',
   ],
   variants: {
