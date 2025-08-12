@@ -1,14 +1,29 @@
+'use client';
+
 import { Button, Input, Modal } from '@components';
 import { Select, Tabs } from '@components/client';
 import { CloseButton } from '@headlessui/react';
 import { getJuniorsAge, getJuniorsGrades } from '@server';
+import { Age, Grade } from '@server/types';
 import { XIcon } from 'lucide-react';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import type { TabData } from '../../types';
 
-export const AddJunior = async () => {
-  const juniorsAge = await getJuniorsAge();
-  const juniorsGrade = await getJuniorsGrades();
+export const AddJunior = () => {
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [juniorsAge, setJuniorsAge] = useState<Age[]>([]);
+  const [juniorsGrade, setJuniorsGrade] = useState<Grade[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const ageData = await getJuniorsAge();
+      const gradeData = await getJuniorsGrades();
+      setJuniorsAge(ageData);
+      setJuniorsGrade(gradeData);
+    };
+    fetchData();
+  }, []);
+
   const tabsData: TabData[] = [
     {
       name: 'Create Account',
@@ -78,6 +93,7 @@ export const AddJunior = async () => {
       ),
     },
   ];
+
   return (
     <Modal panelClassName='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
       <div className='flex items-center justify-between mb-3 border-b border-storm-200 pb-2'>
@@ -96,7 +112,8 @@ export const AddJunior = async () => {
 
       <Tabs
         tabs={tabsData}
-        selectedIndex={0}
+        selectedIndex={selectedTab}
+        onTabChange={setSelectedTab}
         tabListClassName='flex space-x-1 rounded-full bg-gray-100 p-1.5 mb-3 w-full'
       />
 
