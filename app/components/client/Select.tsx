@@ -32,7 +32,7 @@ export const Select = ({
   required = false,
 }: SelectProps) => {
   return (
-    <Field className="w-fit">
+    <Field className="w-full">
       <Label className="block text-sm font-medium text-gray-900 mb-2">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
