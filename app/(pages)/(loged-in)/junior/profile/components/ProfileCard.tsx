@@ -1,4 +1,4 @@
-import { Button } from '@components';
+import { Button, ModalLink } from '@components';
 import { DocumentIcon } from '@icons';
 import profileAvatarImage from '@public/images/profile-avartar.svg';
 import skyBg from '@public/images/sky.svg';
@@ -73,9 +73,11 @@ export const ProfileCard = ({
               </div>
             </div>
           </div>
-          <Button intent='primary' className='mt-6'>
-            Edit Profile
-          </Button>
+          <ModalLink name='EditProfile'>
+            <Button intent='primary' className='mt-6'>
+              Edit Profile
+            </Button>
+          </ModalLink>
         </div>
       </div>
       <div className='relative -top-16'>
