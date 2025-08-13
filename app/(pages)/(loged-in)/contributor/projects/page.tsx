@@ -2,7 +2,8 @@ import { ProjectCard } from '@components';
 import { getProjects } from '@server';
 import type { Project } from '@types';
 import { pickRandom } from '@utils';
-import { JuniorsDropdown, ProjectsHeader, SearchInput } from './components';
+import { SearchInput } from '../../components/client';
+import { JuniorsDropdown, ProjectsHeader } from './components';
 
 interface ProjectsPageProps {
   searchParams: Promise<{ junior: string; query: string }>;
