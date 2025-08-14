@@ -28,7 +28,7 @@ export const ProductManagerTable = ({
     { header: "Email", key: "email" },
     { header: "Status", key: "status" },
     { header: "Projects", key: "projects" },
-    { header: "Project Content", key: "projectContent" },
+    { header: "Practice Content", key: "practiceContent" },
     { header: "Contributors", key: "contributors" },
     { header: "Joined On", key: "joinedOn" },
     {

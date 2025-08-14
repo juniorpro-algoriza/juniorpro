@@ -3,7 +3,7 @@ export type ProductManager = {
   email: string;
   status: string;
   projects: number;
-  practiceZone: number;
+  practiceContent: number;
   contributors: number;
   joinedOn: string;
 };
