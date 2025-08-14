@@ -1,9 +1,15 @@
-import type { ReactNode } from 'react';
-import { EmptyData } from './client/EmptyData';
+import type { ReactNode } from "react";
+import { EmptyData } from "./client/EmptyData";
+import Link from "next/link";
 
 interface Column {
   header: string;
   key: string;
+  isAction?: boolean;
+  actionLabel?: string;
+  actionIcon?: ReactNode;
+  href?: string;
+  actionClassName?: string;
 }
 
 interface TableProps<T> {
@@ -17,43 +23,58 @@ interface TableProps<T> {
 export const Table = <T extends Record<string, unknown>>({
   columns,
   data,
-  tableHeight = 'max-h-96',
+  tableHeight = "max-h-96",
   renderRow,
-  emptyMessage = 'No data available',
+  emptyMessage = "No data available",
 }: TableProps<T>) => {
   return (
     <div className={`overflow-auto px-6 ${tableHeight}`}>
       {data.length ? (
-        <table className='w-full table-auto'>
-          <thead className='bg-[#F1F5FF] sticky top-0 z-50'>
-            <tr className='rounded-2xl'>
+        <table className="w-full table-auto">
+          <thead className="bg-[#F1F5FF] sticky top-0 z-50">
+            <tr className="rounded-2xl">
               {columns.map((col, index) => (
                 <th
                   key={col.key}
                   className={`px-6 py-3 text-left font-medium ${
-                    index === 0 ? 'rounded-tl-lg' : ''
-                  } ${index === columns.length - 1 ? 'rounded-tr-lg' : ''}`}
+                    index === 0 ? "rounded-tl-lg" : ""
+                  } ${index === columns.length - 1 ? "rounded-tr-lg" : ""}`}
                 >
                   {col.header}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className='bg-white divide-y divide-bright-gray'>
+          <tbody className="bg-white divide-y divide-bright-gray">
             {data.map((item, idx) =>
               renderRow ? (
                 renderRow(item)
               ) : (
                 <tr
                   key={(item as { id?: string | number })?.id ?? idx}
-                  className='hover:bg-gray-50'
+                  className="hover:bg-gray-50"
                 >
                   {columns.map((col) => (
                     <td
                       key={col.key}
-                      className='px-6 py-4 whitespace-nowrap text-sm text-[#40444C]'
+                      className="px-6 py-4 whitespace-nowrap text-sm text-[#40444C]"
                     >
-                      {(item as Record<string, unknown>)[col.key] as ReactNode}
+                      {col.isAction ? (
+                        <Link
+                          href={col.href || "#"}
+                          className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium  ${
+                            col.actionClassName ||
+                            "text-[#5879DC] hover:text-blue-700 hover:bg-gray-50"
+                          }`}
+                        >
+                          {col.actionIcon && <span>{col.actionIcon}</span>}
+                          {col.actionLabel || "Action"}
+                        </Link>
+                      ) : (
+                        ((item as Record<string, unknown>)[
+                          col.key
+                        ] as ReactNode)
+                      )}
                     </td>
                   ))}
                 </tr>

@@ -10,6 +10,7 @@ interface ProjectCardProps {
   showDescription: boolean;
   showDueDate: boolean;
   showJuniors: boolean;
+  showJuniorCount: boolean;
   showRating: boolean;
   showBadge: boolean;
   showBadgeNextToDueDate: boolean;
@@ -23,6 +24,7 @@ export const ProjectCard = ({
   showBadge,
   showDueDate,
   showJuniors,
+  showJuniorCount,
   showRating,
   showBadgeNextToDueDate,
   className,
@@ -39,6 +41,7 @@ export const ProjectCard = ({
     status,
     dueDate,
     juniors,
+    juniorsCount,
   } = project;
 
   //! TODO: When api is ready determine buttonText based on project status
@@ -73,7 +76,10 @@ export const ProjectCard = ({
           <DueDate dueDate={dueDate} />
         )}
 
-        {showJuniors && <Juniors juniors={juniors} />}
+        {showJuniors && juniors && <Juniors juniors={juniors} />}
+        {showJuniorCount && juniorsCount && (
+          <JuniorsCount juniorsCount={juniorsCount} />
+        )}
 
         <Button
           intent="unset"
@@ -99,9 +105,11 @@ const Header = ({ imageUrl = "", category = "" }) => {
         // w-[330px] h-[183px]
         className="object-cover w-full rounded-xl max-h-[200px]"
       />
-      <span className="absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal">
-        {category}
-      </span>
+      {category && (
+        <span className="absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal">
+          {category}
+        </span>
+      )}
     </div>
   );
 };
@@ -119,11 +127,11 @@ const Rating = ({ rating = 0 }) => {
   );
 };
 
-interface BadeProps {
+interface BadgeProps {
   isFree: boolean;
   text: BadgeText;
 }
-const Badge = ({ isFree, text }: BadeProps) => {
+const Badge = ({ isFree, text }: BadgeProps) => {
   let badgeClassName = "";
 
   if (text === "Certifcate Earned")
@@ -202,6 +210,15 @@ const Juniors = ({ juniors }: { juniors: string[] }) => {
       <span className="font-medium capitalize">
         {juniors[0] === "all juniors" ? ["Anas, Marwa"] : juniors.join(", ")}
       </span>
+    </p>
+  );
+};
+
+const JuniorsCount = ({ juniorsCount }: { juniorsCount: number }) => {
+  return (
+    <p className="pb-2 space-x-1">
+      <span className="text-content-secondary">Juniors:</span>
+      <span className="font-medium">{juniorsCount}</span>
     </p>
   );
 };

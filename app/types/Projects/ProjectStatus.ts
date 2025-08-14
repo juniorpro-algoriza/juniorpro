@@ -1,1 +1,5 @@
-export type ProjectStatus = "in-progress" | "completed" | "not-started";
+export type ProjectStatus =
+  | "active"
+  | "in-progress"
+  | "completed"
+  | "not-started";
