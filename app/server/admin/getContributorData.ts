@@ -34,5 +34,21 @@ export const getContributorData = async (): Promise<Contributor[]> => {
       wallet: 400,
       joinedOn: "2023-02-05",
     },
+    {
+      name: "Harry Potter",
+      email: "harry.potter@example.com",
+      status: "pending",
+      juniors: 4,
+      wallet: 400,
+      joinedOn: "2023-02-05",
+    },
+    {
+      name: "Harry Potter",
+      email: "harry.potter@example.com",
+      status: "pending",
+      juniors: 4,
+      wallet: 400,
+      joinedOn: "2023-02-05",
+    },
   ];
 };
