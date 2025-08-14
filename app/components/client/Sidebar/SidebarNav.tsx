@@ -19,7 +19,7 @@ const adminMenuItems = [
   { href: "/admin/juniors", icon: UserIcon, label: "Juniors" },
   { href: "/admin/contributors", icon: UserIcon, label: "Contributors" },
   {
-    href: "/admin/projectManagers",
+    href: "/admin/project-managers",
     icon: UserIcon,
     label: "Project Managers",
   },

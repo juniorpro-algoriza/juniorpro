@@ -30,13 +30,13 @@ export const Table = <T extends Record<string, unknown>>({
   return (
     <div className={`overflow-auto px-6 ${tableHeight}`}>
       {data.length ? (
-        <table className="w-full table-auto">
+        <table className="w-full table-auto ">
           <thead className="bg-[#F1F5FF] sticky top-0 z-50">
             <tr className="rounded-2xl">
               {columns.map((col, index) => (
                 <th
                   key={col.key}
-                  className={`px-6 py-3 text-left font-medium ${
+                  className={`px-6 py-3 text-left font-medium whitespace-nowrap ${
                     index === 0 ? "rounded-tl-lg" : ""
                   } ${index === columns.length - 1 ? "rounded-tr-lg" : ""}`}
                 >
