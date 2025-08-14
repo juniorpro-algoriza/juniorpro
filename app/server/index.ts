@@ -3,4 +3,3 @@ export { getJuniorsData } from "./getJuniorsData";
 export { getJuniorsGrades } from "./getJuniorsGrades";
 export { getPointsData } from "./getPointsData";
 export { getProjects } from "./getProjects";
-

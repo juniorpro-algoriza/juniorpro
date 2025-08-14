@@ -1,4 +1,4 @@
-export type DashboardStat = {
+export type Stats = {
   label: string;
   value: number;
 };

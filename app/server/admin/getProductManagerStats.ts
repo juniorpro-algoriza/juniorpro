@@ -1,9 +1,7 @@
-import { ProductManagerStats } from "../types/admin/ProductManagerStats";
+import type { Stats } from "@server/types";
 
-export const getProductManagerStats = async (): Promise<
-  ProductManagerStats[]
-> => {
-  const dummyData: ProductManagerStats[] = [
+export const getProductManagerStats = async (): Promise<Stats[]> => {
+  const dummyData: Stats[] = [
     { label: "Active Juniors", value: 36 },
     { label: "Wallet", value: 36 },
     { label: "Today's Sessions", value: 36 },

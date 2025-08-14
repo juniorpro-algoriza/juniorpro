@@ -1,7 +1,7 @@
-import { JuniorStat } from "@server/types";
+import type { Stats } from "@server/types";
 
-export const getJuniorStats = async (): Promise<JuniorStat[]> => {
-  const dummyData: JuniorStat[] = [
+export const getJuniorStats = async (): Promise<Stats[]> => {
+  const dummyData: Stats[] = [
     { label: "Active Juniors", value: 36 },
     { label: "Pending Reviews", value: 36 },
     { label: "Today's Sessions", value: 36 },
