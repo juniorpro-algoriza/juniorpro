@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { getJuniorData } from "../../../../server/admin/getJuniorData";
+import { getJuniorData } from "../../../../server";
 import { JuniorHeader } from "./components/JuniorHeader";
 import { JuniorsTable } from "./components/JuniorsTable";
 import JuniorStats from "./components/JuniorStats";

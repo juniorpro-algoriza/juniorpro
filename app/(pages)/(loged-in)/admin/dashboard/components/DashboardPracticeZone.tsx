@@ -1,5 +1,5 @@
 import { ProjectCard } from "@components";
-import { practiceZoneProjects } from "../../../../../server/admin";
+import { practiceZoneProjects } from "../../../../../server";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 

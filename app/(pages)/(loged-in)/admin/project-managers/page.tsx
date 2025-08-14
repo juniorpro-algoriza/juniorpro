@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { getProductManagerData } from "../../../../server/admin/getProductManagerData";
+import { getProductManagerData } from "@server";
 
 import { ProductManagerHeader } from "./components/ProductManagerHeader";
 import ProductManagerStats from "./components/ProductManagerStats";

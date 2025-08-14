@@ -1,1 +1,0 @@
-export { practiceZoneProjects } from "./getPracticeZoneProjects";

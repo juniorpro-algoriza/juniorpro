@@ -1,9 +1,9 @@
 export const dynamic = "force-dynamic";
 
-import { getContributorData } from "../../../../server/admin/getContributorData";
-import { ContributorTable } from "../../components/client";
 import { ContributorHeader } from "./components/ContributorHeader";
 import ContributorStats from "./components/ContributorStats";
+import { ContributorTable } from "../../components/client";
+import { getContributorData } from "@server";
 
 const AdminContributor = async () => {
   const contributorData = await getContributorData();

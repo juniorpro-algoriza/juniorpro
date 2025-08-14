@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { getContributorData } from "../../../../server/admin/getContributorData";
+import { getContributorData } from "@server";
 import { ContributorTable } from "../../components/client";
 import { DashboardHeader } from "./components";
 import DashboardPracticeZone from "./components/DashboardPracticeZone";
