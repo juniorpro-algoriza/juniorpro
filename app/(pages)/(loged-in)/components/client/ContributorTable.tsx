@@ -4,7 +4,7 @@ import { Table } from "@components";
 import type { Contributor } from "@server/types";
 import { EyeIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-
+import { Badge } from "../../../../components/Badge";
 interface ContributorsTableProps {
   contributorData: Contributor[];
   view?: "dashboard" | "full";
@@ -14,6 +14,15 @@ export const ContributorTable = ({
   contributorData,
   view,
 }: ContributorsTableProps) => {
+  const transformedData = contributorData.map((contributor) => ({
+    ...contributor,
+    status: (
+      <Badge
+        label={contributor.status}
+        variant={contributor.status === "active" ? "green" : "orange"}
+      />
+    ),
+  }));
   const pathname = usePathname();
 
   // Determine view type based on prop or pathname (columns diff in dashboard)
@@ -85,7 +94,7 @@ export const ContributorTable = ({
 
         <Table
           columns={columns}
-          data={contributorData}
+          data={transformedData}
           emptyMessage="No contributor added yet"
         />
       </div>
