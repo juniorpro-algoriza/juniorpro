@@ -12,7 +12,7 @@ export function Badge({ label, variant = "gray", icon }: BadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1 px-4 py-[2px] rounded-full border text-sm font-medium ${styles.bg} ${styles.text} `}
+      className={`inline-flex items-center gap-1 px-4 py-1 rounded-full text-sm font-medium capitalize ${styles.bg} ${styles.text} `}
     >
       {icon && <span className="text-base">{icon}</span>}
       {label}

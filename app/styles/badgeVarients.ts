@@ -5,7 +5,11 @@ export const badgeVariants = {
   },
   yellow: {
     bg: "bg-yellow-100",
-    text: "text-yellow-700",
+    text: "text-yellow-600",
+  },
+  orange: {
+    bg: "bg-[#FCF4E8]",
+    text: "text-[#DF972A]",
   },
   red: {
     bg: "bg-red-100",

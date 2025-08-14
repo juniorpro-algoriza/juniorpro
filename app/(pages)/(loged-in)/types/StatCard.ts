@@ -1,4 +1,10 @@
-export type StatCardVariant = "info" | "danger" | "success" | "gray" | "base";
+export type StatCardVariant =
+  | "blue"
+  | "red"
+  | "green"
+  | "orange"
+  | "gray"
+  | "base";
 
 export type StatCard = {
   value: number;

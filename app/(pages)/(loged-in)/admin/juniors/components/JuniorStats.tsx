@@ -1,21 +1,20 @@
 import {
   UserIcon,
-  UsersIcon,
-  BriefcaseIcon,
-  FolderCodeIcon,
+  FileCheck2Icon,
+  FileClockIcon,
+  CalendarDaysIcon,
 } from "lucide-react";
 
 import { StatCard } from "../../../components/cards/StatCard";
-import { getDashboardStats } from "../../../../../server/admin/getDashboardStats";
+import { getJuniorStats } from "../../../../../server/admin/getJuniorStat";
 
-export default async function DashboardStats() {
-  const stats = await getDashboardStats();
-
+export default async function JuniorStats() {
+  const stats = await getJuniorStats();
   const cardConfig = {
-    Juniors: { icon: <UserIcon />, variant: "base" },
-    Contributors: { icon: <UsersIcon />, variant: "base" },
-    "Project Managers": { icon: <BriefcaseIcon />, variant: "base" },
-    "Active Projects": { icon: <FolderCodeIcon />, variant: "base" },
+    "Active Juniors": { icon: <UserIcon />, variant: "green" },
+    "Pending Reviews": { icon: <FileClockIcon />, variant: "orange" },
+    "Today's Sessions": { icon: <CalendarDaysIcon />, variant: "blue" },
+    "Waiting List": { icon: <FileCheck2Icon />, variant: "gray" },
   } as const;
 
   return (

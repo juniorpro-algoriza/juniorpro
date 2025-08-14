@@ -18,7 +18,7 @@ export const statCardStyles: Record<
     iconRadius: string;
   }
 > = {
-  info: {
+  blue: {
     border: "border border-[#E2E6EE]",
     bg: "bg-[#EEF2FF]",
     valueColor: "text-[#5879DC]",
@@ -33,7 +33,7 @@ export const statCardStyles: Record<
     iconSize: "w-6 h-6",
     iconRadius: "rounded-[8px]",
   },
-  danger: {
+  red: {
     border: "border border-[#E2E6EE]",
     bg: "bg-[#FDEEEE]",
     valueColor: "text-[#EB5757]",
@@ -48,9 +48,9 @@ export const statCardStyles: Record<
     iconSize: "w-6 h-6",
     iconRadius: "rounded-[8px]",
   },
-  success: {
+  green: {
     border: "border border-[#E2E6EE]",
-    bg: "bg-[#72DC6017]", // 7% opacity
+    bg: "bg-[#72DC6017]",
     valueColor: "text-[#3BB573]",
     labelColor: "text-[#626C83]",
     labelSize: "text-xl",
@@ -63,9 +63,24 @@ export const statCardStyles: Record<
     iconSize: "w-6 h-6",
     iconRadius: "rounded-[8px]",
   },
+  orange: {
+    border: "border border-[#E2E6EE]",
+    bg: "bg-[#FCF4E8]",
+    valueColor: "text-[#DF972A]",
+    labelColor: "text-[#626C83]",
+    labelSize: "text-xl",
+    valueSize: "text-[32px]",
+    valueWeight: "font-medium",
+    labelWeight: "font-medium",
+    iconBg: "bg-orange-100",
+    iconColor: "text-[#DF972A]",
+    iconBgSize: "w-10 h-10",
+    iconSize: "w-6 h-6",
+    iconRadius: "rounded-[8px]",
+  },
   gray: {
     border: "border border-[#E2E6EE]",
-    bg: "bg-[#E2E6EE]",
+    bg: "bg-[#F2F4F5]",
     valueColor: "text-[#3A3A3A]",
     labelColor: "text-[#626C83]",
     labelSize: "text-xl",
