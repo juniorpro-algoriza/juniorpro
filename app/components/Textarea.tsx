@@ -1,12 +1,12 @@
 import {
-    Description,
-    Field,
-    Textarea as HeadlessTextarea,
-    Label,
+  Description,
+  Field,
+  Textarea as HeadlessTextarea,
+  Label,
 } from '@headlessui/react';
 import { cva, cx } from '@lib';
 import type { VariantProps } from 'cva';
-import { TextareaHTMLAttributes } from 'react';
+import type { ReactNode, Ref, TextareaHTMLAttributes } from 'react';
 
 interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -15,11 +15,11 @@ interface TextareaProps
   placeholder?: string;
   error?: string;
   helperText?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   className?: string;
   containerClassName?: string;
-  ref?: React.Ref<HTMLTextAreaElement>;
+  ref?: Ref<HTMLTextAreaElement>;
 }
 
 interface IconContainerProps {
@@ -68,9 +68,7 @@ const Textarea = ({
 
   return (
     <Field className={containerClasses}>
-      {label && (
-        <Label className={labelVariants({ disabled })}>{label}</Label>
-      )}
+      {label && <Label className={labelVariants({ disabled })}>{label}</Label>}
 
       <div className={wrapperClasses}>
         {leftIcon && <IconContainer position='left'>{leftIcon}</IconContainer>}
@@ -84,12 +82,16 @@ const Textarea = ({
           {...props}
         />
 
-        {rightIcon && <IconContainer position='right'>{rightIcon}</IconContainer>}
+        {rightIcon && (
+          <IconContainer position='right'>{rightIcon}</IconContainer>
+        )}
       </div>
 
       {(error ?? helperText) && (
         <Description
-          className={descriptionVariants({ type: error ? 'error' : 'helper' })}
+          className={descriptionVariants({
+            textareaType: error ? 'error' : 'helper',
+          })}
         >
           {error ?? helperText}
         </Description>
@@ -159,12 +161,12 @@ const labelVariants = cva({
 const descriptionVariants = cva({
   base: 'text-sm',
   variants: {
-    type: {
+    textareaType: {
       error: 'text-red-600',
       helper: 'text-gray-500',
     },
   },
   defaultVariants: {
-    type: 'helper',
+    textareaType: 'helper',
   },
 });

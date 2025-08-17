@@ -1,2 +1,5 @@
 // app/types
-export type { Project, ProjectType, ProjectStatus } from "./Projects";
+export type { Project, ProjectStatus, ProjectType } from './Projects';
+export type { TabData } from './TabData';
+export type { TabItem } from './TabItem';
+

@@ -7,6 +7,6 @@ export const jetBrainsMono = JetBrains_Mono({
 
 export const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
   subsets: ['latin'],
-  display: 'optional',
+  display: 'swap',
   weight: ['300', '400', '500', '600', '700'], // Add the required weight property
 });

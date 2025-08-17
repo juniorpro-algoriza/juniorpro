@@ -1,15 +1,14 @@
 'use client';
 
 import { Tabs } from '@components/client';
+import type { TabData } from '@types';
 import { useEffect, useState } from 'react';
-import type { TabData } from '../../../../../components/types';
 import { getPointsPlans, getPointsTransactions } from '../server';
 import { Plan, Transaction } from '../types';
 import { PurchaseCard } from './PurchaseCard';
 import { TransactionCard } from './TransactionCard';
 
 export const PurchasePoints = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
   const [plansData, setPlansData] = useState<Plan[]>([]);
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
 
@@ -59,12 +58,7 @@ export const PurchasePoints = () => {
 
   return (
     <div>
-      <Tabs
-        tabs={tabsData}
-        selectedIndex={selectedTab}
-        onTabChange={setSelectedTab}
-        tabStyle='w-fit px-4'
-      />
+      <Tabs tabs={tabsData} tabStyle='w-fit px-4' />
     </div>
   );
 };

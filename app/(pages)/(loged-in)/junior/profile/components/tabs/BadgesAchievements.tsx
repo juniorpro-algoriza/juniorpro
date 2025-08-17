@@ -1,3 +1,4 @@
+import { getFreeTasks, getPremiumTasks, getTeamProjects } from '@server';
 import Image from 'next/image';
 
 interface Achievement {
@@ -62,27 +63,12 @@ const AchievementSection = ({
   </div>
 );
 
-export const BadgesAchievements = () => {
-  const freeTasks: Achievement[] = Array(5).fill({
-    title: 'HTML & CSS Basics',
-    date: '2025-06-15',
-    progress: 48,
-    badgeUrl: '/images/Rookie.svg',
-  });
-
-  const premiumTasks: Achievement[] = Array(3).fill({
-    title: 'HTML & CSS Basics',
-    date: '2025-06-15',
-    progress: 48,
-    badgeUrl: '/images/Expert.svg',
-  });
-
-  const teamProjects: Achievement[] = Array(2).fill({
-    title: 'HTML & CSS Basics',
-    date: '2025-06-15',
-    progress: 48,
-    badgeUrl: '/images/Mastermind.svg',
-  });
+export const BadgesAchievements = async () => {
+  const [freeTasks, premiumTasks, teamProjects] = await Promise.all([
+    getFreeTasks(),
+    getPremiumTasks(),
+    getTeamProjects(),
+  ]);
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-6'>

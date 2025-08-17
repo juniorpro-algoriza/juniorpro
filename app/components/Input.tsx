@@ -6,7 +6,7 @@ import {
 } from '@headlessui/react';
 import { cva, cx } from '@lib';
 import type { VariantProps } from 'cva';
-import { InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
@@ -15,11 +15,11 @@ interface InputProps
   placeholder?: string;
   error?: string;
   helperText?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   className?: string;
   containerClassName?: string;
-  ref?: React.Ref<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
 }
 
 interface IconContainerProps {

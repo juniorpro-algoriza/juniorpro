@@ -1,5 +1,3 @@
-'use client';
-
 import { GlobeIcon, LinkedInIcon, LocationIcon, MailIcon } from '@icons';
 import Link from 'next/link';
 
