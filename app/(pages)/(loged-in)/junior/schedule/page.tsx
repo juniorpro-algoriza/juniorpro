@@ -1,12 +1,7 @@
-'use client';
-
 import type { CalendarEvent, Meeting } from '@types';
-import { useState } from 'react';
-import { CalendarSection, ScheduleHeader, TodaysMeetings } from './components';
+import { CalendarWrapper, ScheduleHeader, TodaysMeetings } from './components';
 
-export const SchedulePage = () => {
-  const [currentDate, setCurrentDate] = useState(new Date(2024, 0, 16));
-
+const SchedulePage = () => {
   const todaysMeetings: Meeting[] = [
     {
       id: 1,
@@ -72,12 +67,6 @@ export const SchedulePage = () => {
     { id: 33, title: '4:30', date: 30, time: '4:30 PM' },
   ];
 
-  const navigateMonth = (direction: 'prev' | 'next') => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(newDate.getMonth() + (direction === 'next' ? 1 : -1));
-    setCurrentDate(newDate);
-  };
-
   return (
     <div className='min-h-screen py-3 px-6 space-y-5 bg-stone-50'>
       <ScheduleHeader />
@@ -85,11 +74,7 @@ export const SchedulePage = () => {
       <div className='flex gap-4'>
         <TodaysMeetings meetings={todaysMeetings} />
 
-        <CalendarSection
-          currentDate={currentDate}
-          calendarEvents={calendarEvents}
-          onNavigate={navigateMonth}
-        />
+        <CalendarWrapper calendarEvents={calendarEvents} />
       </div>
     </div>
   );
