@@ -2,7 +2,7 @@
 // export const dynamic = "force-dynamic";
 
 import { ContributorTable } from "../../components/client";
-import { getContributorData } from "../server/getContributorData";
+import { getContributorData } from "../server";
 import {
   DashboardHeader,
   DashboardPracticeZone,

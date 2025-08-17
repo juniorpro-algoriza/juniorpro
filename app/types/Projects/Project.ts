@@ -13,5 +13,6 @@ export type Project = {
   status: ProjectStatus;
   dueDate?: Date;
   juniors?: string[];
+  // TODO: why add a juniors count?? you can get it via Project.juniors?.length();
   juniorsCount?: number;
 };

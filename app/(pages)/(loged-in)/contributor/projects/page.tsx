@@ -1,5 +1,7 @@
 import { ProjectCard } from "@components";
-import { getProjects } from "../../../../server";
+// TODO: why change this???
+// import { getProjects } from "../../../../server";
+import { getProjects } from "@server";
 import { JuniorsDropdown, ProjectsHeader, SearchInput } from "./components";
 import type { Project } from "@types";
 import { pickRandom } from "@utils";

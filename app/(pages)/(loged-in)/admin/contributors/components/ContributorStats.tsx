@@ -5,10 +5,13 @@ import {
   WalletIcon,
 } from "lucide-react";
 
+// TODO: why have a seperate cards folder if there is onoly one card?
 import { StatCard } from "../../../components/cards/StatCard";
-import { getContributorStats } from "../../server/getContributorStats";
+import { getContributorStats } from "../../server";
 
-export default async function ContributorStats() {
+// TODO: Components should be an export const <name> = () => {}
+// export default async function ContributorStats() {
+export const ContributorStats = async () => {
   const stats = await getContributorStats();
   const cardConfig = {
     "Active Juniors": { icon: <UserIcon />, variant: "green" },
@@ -33,4 +36,4 @@ export default async function ContributorStats() {
       })}
     </div>
   );
-}
+};

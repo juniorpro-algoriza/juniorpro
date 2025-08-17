@@ -1,7 +1,9 @@
 import { Button } from "@components";
 import { EmptyData } from "@components/client";
 import { DiamondIcon, WalletIcon } from "@icons";
-import { getPointsData } from "../../../../../server";
+// TODO: import from "@server" is better
+import { getPointsData } from "@server";
+// import { getPointsData } from "../../../../../server";
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 

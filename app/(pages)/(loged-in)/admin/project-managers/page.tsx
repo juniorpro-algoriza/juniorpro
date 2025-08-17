@@ -1,7 +1,7 @@
 // TODO: why???
 // export const dynamic = "force-dynamic";
 
-import { getProductManagerData } from "../server/getProductManagerData";
+import { getProductManagerData } from "../server";
 import {
   ProductManagerHeader,
   ProductManagerStats,

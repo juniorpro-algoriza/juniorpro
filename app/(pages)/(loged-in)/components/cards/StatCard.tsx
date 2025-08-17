@@ -1,3 +1,4 @@
+// TODO: why make a seperate cards folder if there is only one card component?
 import { statCardStyles } from "../../../../styles/cardVarients";
 import { StatCard as StatCardType } from "../../types/StatCard";
 
