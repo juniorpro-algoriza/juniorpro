@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 
 import { StatCard } from "../../../components/cards/StatCard";
-import { getContributorStats } from "../../../../../server/admin/getContributorStats";
+import { getContributorStats } from "../../server/getContributorStats";
 
 export default async function ContributorStats() {
   const stats = await getContributorStats();

@@ -1,9 +1,14 @@
 import { ProjectCard } from "@components";
-import { practiceZoneProjects } from "../../../../../server";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
+import { getPracticeZoneProjects } from "../../server/getPracticeZoneProjects";
+// TODO: use getProjects() from "@server"
+// import { getProjects } from "@server";
 
-export default function DashboardPracticeZone() {
+// TODO: add export to the function defintion is better
+export const DashboardPracticeZone = async () => {
+  // TODO: use getProjects() from "@server"
+  const practiceZoneProjects = await getPracticeZoneProjects();
   return (
     <div className="bg-white border border-[#F1F3F9] rounded-[20px] p-6 space-y-6">
       {/* Header */}
@@ -11,7 +16,7 @@ export default function DashboardPracticeZone() {
         <h2 className="text-xl font-medium text-[#202637]">
           Practice Zone ({practiceZoneProjects.length})
         </h2>
-        {practiceZoneProjects.length > 2 && (
+        {getPracticeZoneProjects.length > 2 && (
           <Link
             replace
             href="/admin/practice-zone"
@@ -42,4 +47,6 @@ export default function DashboardPracticeZone() {
       </div>
     </div>
   );
-}
+};
+// TODO: do not use default imports for components
+// export default DashboardPracticeZone;

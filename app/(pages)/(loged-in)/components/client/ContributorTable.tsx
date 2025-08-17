@@ -1,10 +1,10 @@
 "use client";
 
 import { Table } from "@components";
-import type { Contributor } from "@server/types";
 import { EyeIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Badge } from "../../../../components/Badge";
+import type { Contributor } from "../../admin/types";
 interface ContributorsTableProps {
   contributorData: Contributor[];
   view?: "dashboard" | "full";
@@ -70,6 +70,7 @@ export const ContributorTable = ({
             <h3 className="text-xl font-medium text-yankees-blue">
               Contributors ({contributorData.length})
             </h3>
+            {/* TODO: why is this commented out? */}
             {/* <div className="flex justify-center gap-2.5">
               <ModalLink name="AddJunior">
                 <Button intent="primary" className="text-sm" size="large">

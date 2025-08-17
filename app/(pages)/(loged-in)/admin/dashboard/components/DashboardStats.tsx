@@ -6,9 +6,9 @@ import {
 } from "lucide-react";
 
 import { StatCard } from "../../../components/cards/StatCard";
-import { getDashboardStats } from "../../../../../server/admin/getDashboardStats";
+import { getDashboardStats } from "../../server/getDashboardStats";
 
-export default async function DashboardStats() {
+export const DashboardStats = async () => {
   const stats = await getDashboardStats();
 
   const cardConfig = {
@@ -34,4 +34,4 @@ export default async function DashboardStats() {
       })}
     </div>
   );
-}
+};

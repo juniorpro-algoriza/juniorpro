@@ -3,7 +3,7 @@
 import { Table } from "@components";
 import { EyeIcon } from "lucide-react";
 import { Badge } from "../../../../../components/Badge";
-import { ProductManager } from "../../../../../server/types/admin/ProductManager";
+import { ProductManager } from "../../types/ProductManager";
 
 interface ProductManagerTableProps {
   productManagerData: ProductManager[];

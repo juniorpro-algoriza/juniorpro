@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { ContributorHeader } from "./components/ContributorHeader";
 import ContributorStats from "./components/ContributorStats";
 import { ContributorTable } from "../../components/client";
-import { getContributorData } from "@server";
+import { getContributorData } from "../server/getContributorData";
 
 const AdminContributor = async () => {
   const contributorData = await getContributorData();

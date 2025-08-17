@@ -1,10 +1,13 @@
-export const dynamic = "force-dynamic";
+// TODO: why???
+// export const dynamic = "force-dynamic";
 
-import { getContributorData } from "@server";
 import { ContributorTable } from "../../components/client";
-import { DashboardHeader } from "./components";
-import DashboardPracticeZone from "./components/DashboardPracticeZone";
-import DashboardStats from "./components/DashboardStats";
+import { getContributorData } from "../server/getContributorData";
+import {
+  DashboardHeader,
+  DashboardPracticeZone,
+  DashboardStats,
+} from "./components";
 
 const AdminDashboard = async () => {
   const contributorData = await getContributorData();
@@ -21,4 +24,5 @@ const AdminDashboard = async () => {
   );
 };
 
+// TODO: only use default exports for pages
 export default AdminDashboard;

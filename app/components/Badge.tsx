@@ -8,6 +8,8 @@ type BadgeProps = {
 };
 
 export function Badge({ label, variant = "gray", icon }: BadgeProps) {
+  // TODO: use cva
+  // check file://./Button.tsx
   const styles = badgeVariants[variant] || badgeVariants.gray;
 
   return (

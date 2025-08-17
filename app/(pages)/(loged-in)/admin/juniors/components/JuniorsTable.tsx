@@ -3,7 +3,7 @@
 import { Button, Input, Table } from "@components";
 import { EyeIcon, ListFilter, SearchIcon } from "lucide-react";
 import { ModalLink } from "../../../../../components/ModalLink";
-import type { Junior } from "../../../../../server/types/admin/Junior";
+import type { Junior } from "../../types/Junior";
 import { Badge } from "../../../../../components/Badge";
 
 interface JuniorsTableProps {

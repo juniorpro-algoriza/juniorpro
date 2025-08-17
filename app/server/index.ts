@@ -1,11 +1,3 @@
-export { practiceZoneProjects } from "./admin/getPracticeZoneProjects";
-export { getJuniorStats } from "./admin/getJuniorStat";
-export { getJuniorData } from "./admin/getJuniorData";
-export { getContributorStats } from "./admin/getContributorStats";
-export { getContributorData } from "./admin/getContributorData";
-export { getDashboardStats } from "./admin/getDashboardStats";
-export { getProductManagerData } from "./admin/getProductManagerData";
-export { getProductManagerStats } from "./admin/getProductManagerStats";
 export { getProjects } from "./getProjects";
 export { getJuniorsAge } from "./getJuniorsAge";
 export { getJuniorsData } from "./getJuniorsData";
