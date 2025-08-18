@@ -34,15 +34,6 @@ export const ContributorTable = ({
         { header: "Name", key: "name" },
         { header: "Email", key: "email" },
         { header: "Wallet", key: "wallet" },
-        {
-          header: "Action",
-          key: "action",
-          isAction: true,
-          actionLabel: "View",
-          actionIcon: <EyeIcon size={16} />,
-          href: "/contributors",
-          width: "w-24",
-        },
       ]
     : [
         { header: "Name", key: "name" },
