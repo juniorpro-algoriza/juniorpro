@@ -2,7 +2,8 @@ import { Button } from "@components";
 import type { Project, ProjectType } from "@types";
 import { CalendarDaysIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
-import { twMerge } from "tailwind-merge";
+// import { twMerge } from "tailwind-merge";
+import { badgeVariants } from "../styles/badgeVarients";
 
 type BadgeText = "Certifcate Earned" | "In Progress" | ProjectType;
 interface ProjectCardProps {
@@ -73,7 +74,7 @@ export const ProjectCard = ({
           <DueDate dueDate={dueDate} />
         )}
 
-        {showJuniors && <Juniors juniors={juniors} />}
+        {showJuniors && juniors && <Juniors juniors={juniors} />}
 
         <Button
           intent="unset"
@@ -99,9 +100,11 @@ const Header = ({ imageUrl = "", category = "" }) => {
         // w-[330px] h-[183px]
         className="object-cover w-full rounded-xl max-h-[200px]"
       />
-      <span className="absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal">
-        {category}
-      </span>
+      {category && (
+        <span className="absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal">
+          {category}
+        </span>
+      )}
     </div>
   );
 };
@@ -119,32 +122,30 @@ const Rating = ({ rating = 0 }) => {
   );
 };
 
-interface BadeProps {
+interface BadgeProps {
   isFree: boolean;
   text: BadgeText;
 }
-const Badge = ({ isFree, text }: BadeProps) => {
-  let badgeClassName = "";
 
-  if (text === "Certifcate Earned")
-    badgeClassName = "bg-sucess-hover text-sucess-normal";
+const Badge = ({ isFree, text }: BadgeProps) => {
+  let statusVariant: keyof typeof badgeVariants = "gray";
+  if (text === "Certifcate Earned") statusVariant = "green";
+  if (text === "In Progress") statusVariant = "yellow";
+
+  const priceVariant: keyof typeof badgeVariants = isFree ? "green" : "red";
+
   return (
     <div className="flex items-center gap-2 pb-2">
-      <p
-        className={twMerge(
-          "px-3 py-2 text-sm capitalize bg-gray-100 rounded-full w-fit text-shadowBlue",
-          badgeClassName
-        )}
+      {/* Status badge */}
+      <span
+        className={`px-3 py-2 text-sm capitalize rounded-full w-fit  ${badgeVariants[statusVariant].bg} ${badgeVariants[statusVariant].text}`}
       >
         {text}
-      </p>
+      </span>
+
+      {/* Price badge */}
       <span
-        className={twMerge(
-          "px-3 py-2 text-sm rounded-full w-fit",
-          isFree
-            ? "bg-success-50 text-success-400"
-            : "bg-light-orange text-dark-orange"
-        )}
+        className={`px-3 py-2 text-sm rounded-full w-fit  ${badgeVariants[priceVariant].bg} ${badgeVariants[priceVariant].text}`}
       >
         {isFree ? "Free" : "Premium"}
       </span>
