@@ -1,10 +1,10 @@
-export { Animate } from './Animate';
-export { Button } from './Button';
-export { Footer } from './Footer';
-export { Input } from './Input';
-export { Modal } from './Modal';
-export { ModalLink } from './ModalLink';
-export { Nav } from './Nav';
-export { ProjectCard } from './ProjectCard';
-export { Table } from './Table';
-
+export { Animate } from "./Animate";
+export { Button } from "./Button";
+export { Footer } from "./Footer";
+export { Input } from "./Input";
+export { Modal } from "./Modal";
+export { ModalLink } from "./ModalLink";
+export { Nav } from "./Nav";
+export { ProjectCard } from "./ProjectCard";
+export { Table } from "./Table";
+export { Badge } from "./Badge";

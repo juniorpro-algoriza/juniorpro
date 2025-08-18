@@ -1,1 +1,2 @@
-export { LoggedInPageHeader } from './LoggedInPageHeader';
+export { LoggedInPageHeader } from "./LoggedInPageHeader";
+export { ContributorTable } from "./ContributorTable";

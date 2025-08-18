@@ -6,5 +6,25 @@
     ["\\b\\w*ClassName\\b\\s*=\\s*[\"'`]([^\"'`]*)[\"'`]"],
     ["\\b\\w*ClassNames\\b\\s*=\\s*[\"'`]([^\"'`]*)[\"'`]"],
     ["\\btwMerge\\b\\([^)]*?[\"'`]([^\"'`]*)[\"'`]"]
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#ffffff",
+    "activityBar.background": "#ffffff",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#df9f9f",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#ffffff",
+    "statusBar.background": "#ffd1dc",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#ff9eb5",
+    "statusBarItem.remoteBackground": "#ffd1dc",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#ffd1dc",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#ffd1dc99",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.remoteColor": "FFD1DC"
 }
