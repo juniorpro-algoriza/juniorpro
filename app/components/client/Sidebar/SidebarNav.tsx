@@ -14,20 +14,6 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const adminMenuItems = [
-  { href: "/admin/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/admin/juniors", icon: UserIcon, label: "Juniors" },
-  { href: "/admin/contributors", icon: UserIcon, label: "Contributors" },
-  {
-    href: "/admin/project-managers",
-    icon: UserIcon,
-    label: "Project Managers",
-  },
-  { href: "/admin/projects", icon: DocumentIcon, label: "Projects" },
-  { href: "/admin/schedule", icon: CalendarIcon, label: "Schedule" },
-  { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
-];
-
 const contributorMenuItems = [
   { href: "/contributor/dashboard", icon: HomeIcon, label: "Dashboard" },
   { href: "/contributor/juniors", icon: UserIcon, label: "Juniors" },
@@ -51,33 +37,12 @@ export const SidebarNav = () => {
   const pathname = usePathname();
   const { isMobile, toggleSidebar } = useSidebar();
 
-  let userRole: string;
-
-  switch (true) {
-    case pathname.startsWith("/admin"):
-      userRole = "admin";
-      break;
-    case pathname.startsWith("/contributor"):
-      userRole = "contributor";
-      break;
-    case pathname.startsWith("/junior"):
-      userRole = "junior";
-      break;
-    case pathname.startsWith("/project-manager"):
-      userRole = "projectManager";
-      break;
-    default:
-      userRole = "guest";
-  }
+  const userRole = pathname.startsWith("/contributor")
+    ? "contributor"
+    : "junior";
 
   const menuItems =
-    userRole === "admin"
-      ? adminMenuItems
-      : userRole === "contributor"
-        ? contributorMenuItems
-        : userRole === "junior"
-          ? juniorMenuItems
-          : [];
+    userRole === "contributor" ? contributorMenuItems : juniorMenuItems;
 
   const isActive = (href: string) => pathname === href;
 
