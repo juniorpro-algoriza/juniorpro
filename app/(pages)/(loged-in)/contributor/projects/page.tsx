@@ -1,6 +1,4 @@
 import { ProjectCard } from "@components";
-// TODO: why change this???
-// import { getProjects } from "../../../../server";
 import { getProjects } from "@server";
 import { JuniorsDropdown, ProjectsHeader, SearchInput } from "./components";
 import type { Project } from "@types";
@@ -72,12 +70,11 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
                   project={p}
                   showDescription={false}
                   showDueDate={true}
-                  showJuniors={false}
+                  showJuniors={true}
                   badgeText="status"
                   showBadgeNextToDueDate={false}
                   showBadge={true}
                   showRating={false}
-                  showJuniorCount={true}
                 />
               </div>
             );
