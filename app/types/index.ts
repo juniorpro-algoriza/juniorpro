@@ -1,2 +1,4 @@
 // app/types
-export type { Project, ProjectType, ProjectStatus } from "./Projects";
+export type { CalendarDay, CalendarEvent, Meeting } from './Calendar';
+export type { Project, ProjectStatus, ProjectType } from './Projects';
+
