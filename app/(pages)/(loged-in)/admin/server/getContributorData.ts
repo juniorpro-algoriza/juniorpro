@@ -1,4 +1,4 @@
-import type { Contributor } from "./types/Contributor";
+import type { Contributor } from "./types";
 
 export const getContributorData = async (): Promise<Contributor[]> => {
   return [

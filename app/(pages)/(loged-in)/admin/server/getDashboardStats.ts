@@ -1,4 +1,4 @@
-import { Stats } from ".";
+import { Stats } from "./types";
 
 export const getDashboardStats = async (): Promise<Stats[]> => {
   const dummyData: Stats[] = [
