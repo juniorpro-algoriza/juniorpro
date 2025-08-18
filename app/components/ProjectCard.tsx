@@ -4,7 +4,7 @@ import { CalendarDaysIcon, StarIcon } from 'lucide-react';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 
-type BadgeText = 'Certifcate Earned' | 'In Progress' | ProjectType;
+type BadgeText = "Certifcate Earned" | "In Progress" | ProjectType;
 interface ProjectCardProps {
   project: Project;
   showDescription: boolean;
@@ -13,7 +13,7 @@ interface ProjectCardProps {
   showRating: boolean;
   showBadge: boolean;
   showBadgeNextToDueDate: boolean;
-  badgeText: 'projectType' | 'status';
+  badgeText: "projectType" | "status";
   className?: string;
   buttonText?: string;
 }
@@ -27,7 +27,7 @@ export const ProjectCard = ({
   showRating,
   showBadgeNextToDueDate,
   className,
-  buttonText = 'Report',
+  buttonText = "Report",
 }: ProjectCardProps) => {
   const {
     id,
@@ -50,8 +50,8 @@ export const ProjectCard = ({
 
   let badgeText: BadgeText = projectType;
   // if (status === "not-started") badgeText = projectType;
-  if (status === 'completed') badgeText = 'Certifcate Earned';
-  if (status === 'in-progress') badgeText = 'In Progress';
+  if (status === "completed") badgeText = "Certifcate Earned";
+  if (status === "in-progress") badgeText = "In Progress";
 
   return (
     <div
@@ -78,8 +78,8 @@ export const ProjectCard = ({
         {showJuniors && <Juniors juniors={juniors} />}
 
         <Button
-          intent='unset'
-          className='w-full border text-violet-normal border-violet-normal'
+          intent="unset"
+          className="w-full border text-violet-normal border-violet-normal"
         >
           {/* TODO: When api is ready determine buttonText based on project status */}
           {buttonText}
@@ -89,16 +89,16 @@ export const ProjectCard = ({
   );
 };
 
-const Header = ({ imageUrl = '', category = '' }) => {
+const Header = ({ imageUrl = "", category = "" }) => {
   return (
-    <div className='relative'>
+    <div className="relative">
       <Image
         src={imageUrl}
-        alt='card image'
+        alt="card image"
         width={100}
         height={100}
         // w-[330px] h-[183px]
-        className='object-cover w-full rounded-xl max-h-[200px]'
+        className="object-cover w-full rounded-xl max-h-[200px]"
       />
       <span className='absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal'>
         {category}
@@ -109,11 +109,11 @@ const Header = ({ imageUrl = '', category = '' }) => {
 
 const Rating = ({ rating = 0 }) => {
   return (
-    <div className='flex items-center gap-1 py-2'>
+    <div className="flex items-center gap-1 py-2">
       {[...Array(5)].map((_, i) => (
         <StarIcon
           key={i}
-          className={`w-4 h-4 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
+          className={`w-4 h-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
         />
       ))}
     </div>
@@ -147,26 +147,26 @@ const Badge = ({ isFree, text }: BadeProps) => {
             : 'bg-light-orange text-dark-orange'
         )}
       >
-        {isFree ? 'Free' : 'Premium'}
+        {isFree ? "Free" : "Premium"}
       </span>
     </div>
   );
 };
 
 const Main = ({
-  badgeText = '' as BadgeText,
+  badgeText = "" as BadgeText,
   isFree = false,
-  title = '',
+  title = "",
   showDescription = true,
   showBadge = true,
-  description = '',
+  description = "",
   showBadgeNextToDueDate = false,
 }) => {
   if (showBadgeNextToDueDate) {
     return (
       <>
-        <h4 className='pb-2 font-medium'>{title}</h4>
-        <div className='flex gap-2'>
+        <h4 className="pb-2 font-medium">{title}</h4>
+        <div className="flex gap-2">
           <DueDate />
           <Badge text={badgeText} isFree={isFree} />
         </div>
@@ -178,10 +178,10 @@ const Main = ({
     <>
       {showBadge && <Badge text={badgeText} isFree={isFree} />}
 
-      <h4 className='pb-2 font-medium'>{title}</h4>
+      <h4 className="pb-2 font-medium">{title}</h4>
 
       {showDescription && (
-        <p className='pb-4 text-sm text-gray-500'>{description}</p>
+        <p className="pb-4 text-sm text-gray-500">{description}</p>
       )}
     </>
   );
@@ -189,19 +189,19 @@ const Main = ({
 
 const DueDate = ({ dueDate = new Date() }) => {
   return (
-    <div className='flex items-center gap-2 pb-2 text-content-secondary'>
+    <div className="flex items-center gap-2 pb-2 text-content-secondary">
       <CalendarDaysIcon />
-      <p>{dueDate?.toISOString().split('T')[0]}</p>
+      <p>{dueDate?.toISOString().split("T")[0]}</p>
     </div>
   );
 };
 
 const Juniors = ({ juniors }: { juniors: string[] }) => {
   return (
-    <p className='pb-2 space-x-1'>
-      <span className='text-content-secondary'>Juniors:</span>
-      <span className='font-medium capitalize'>
-        {juniors[0] === 'all juniors' ? ['Anas, Marwa'] : juniors.join(', ')}
+    <p className="pb-2 space-x-1">
+      <span className="text-content-secondary">Juniors:</span>
+      <span className="font-medium capitalize">
+        {juniors[0] === "all juniors" ? ["Anas, Marwa"] : juniors.join(", ")}
       </span>
     </p>
   );
