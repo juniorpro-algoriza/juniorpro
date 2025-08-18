@@ -4,7 +4,7 @@ import type { ProjectType } from "./ProjectType";
 export type Project = {
   id: string;
   title: string;
-  category: string;
+  category?: string;
   imageUrl: string;
   description: string;
   rating: number;
@@ -12,5 +12,7 @@ export type Project = {
   isFree: boolean;
   status: ProjectStatus;
   dueDate?: Date;
-  juniors: string[];
+  juniors?: string[];
+  // TODO: why add a juniors count?? you can get it via Project.juniors?.length();
+  juniorsCount?: number;
 };

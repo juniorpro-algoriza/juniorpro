@@ -1,10 +1,9 @@
-export { getCareerTypes } from './getCareerTypes';
-export { getFreeTasks } from './getFreeTasks';
-export { getJuniorsAge } from './getJuniorsAge';
-export { getJuniorsData } from './getJuniorsData';
-export { getJuniorsGrades } from './getJuniorsGrades';
-export { getPointsData } from './getPointsData';
-export { getPremiumTasks } from './getPremiumTasks';
-export { getProjects } from './getProjects';
-export { getTeamProjects } from './getTeamProjects';
-
+export { getCareerTypes } from "./getCareerTypes";
+export { getFreeTasks } from "./getFreeTasks";
+export { getPremiumTasks } from "./getPremiumTasks";
+export { getTeamProjects } from "./getTeamProjects";
+export { getProjects } from "./getProjects";
+export { getJuniorsAge } from "./getJuniorsAge";
+export { getJuniorsData } from "./getJuniorsData";
+export { getJuniorsGrades } from "./getJuniorsGrades";
+export { getPointsData } from "./getPointsData";
