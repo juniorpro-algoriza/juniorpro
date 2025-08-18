@@ -4,8 +4,9 @@ import { Logo } from "./Logo";
 const links = [
   { href: "/", label: "Home" },
   { href: "/auth/sign-up", label: "Register" },
-  { href: "/contributor/dashboard", label: "Dashboard Contributor" },
-  { href: "/junior/dashboard", label: "Dashboard Junior" },
+  { href: "/contributor/dashboard", label: "Contributor Dashboard " },
+  { href: "/junior/dashboard", label: "Junior Dashboard " },
+  { href: "/admin/dashboard", label: "Admin Dashboard" },
   { href: "/style-guide", label: "Style Guide" },
 ];
 
