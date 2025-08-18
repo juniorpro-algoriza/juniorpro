@@ -1,5 +1,7 @@
 import { Button, Table } from "@components";
-import { getJuniorsData } from "../../../../../server";
+// TODO: import from "@server" is better
+import { getJuniorsData } from "@server";
+// import { getJuniorsData } from "../../../../../server";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 

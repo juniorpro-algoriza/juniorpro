@@ -1,10 +1,12 @@
-export const dynamic = "force-dynamic";
+// TODO: why???
+// export const dynamic = "force-dynamic";
 
-import { getProductManagerData } from "@server";
-
-import { ProductManagerHeader } from "./components/ProductManagerHeader";
-import ProductManagerStats from "./components/ProductManagerStats";
-import { ProductManagerTable } from "./components/ProductManagerTable";
+import { getProductManagerData } from "../server";
+import {
+  ProductManagerHeader,
+  ProductManagerStats,
+  ProductManagerTable,
+} from "./components";
 
 const AdminProductManager = async () => {
   const productManagerData = await getProductManagerData();
@@ -12,9 +14,7 @@ const AdminProductManager = async () => {
   return (
     <div className="min-h-screen py-3 px-6 bg-stone-50 space-y-6">
       <ProductManagerHeader />
-
       <ProductManagerStats />
-
       <ProductManagerTable productManagerData={productManagerData} />
     </div>
   );

@@ -1,6 +1,8 @@
 import { Button, ProjectCard } from "@components";
 import { EmptyData } from "@components/client";
-import { getProjects } from "../../../../../server";
+// TODO: import from @server is better
+import { getProjects } from "@server";
+// import { getProjects } from "../../../../../server";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -28,6 +30,7 @@ export const DashboardProjects = async () => {
             showBadgeNextToDueDate={true}
             badgeText="projectType"
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            showJuniorCount={false}
           />
         );
       })}

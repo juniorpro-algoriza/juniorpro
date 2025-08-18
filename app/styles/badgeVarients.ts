@@ -1,3 +1,4 @@
+// TODO: let's move all colors to globals.css
 export const badgeVariants = {
   green: {
     bg: "bg-[#ECFAF2]",

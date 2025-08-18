@@ -1,4 +1,5 @@
-import { StatCardVariant } from "../(pages)/(loged-in)/types/StatCard";
+// TODO: let's move all colors to globals.css
+import type { StatCardVariant } from "../(pages)/(loged-in)/types/StatCard";
 
 export const statCardStyles: Record<
   StatCardVariant,

@@ -31,6 +31,7 @@ export const Table = <T extends Record<string, unknown>>({
     <div className={`overflow-auto px-6 ${tableHeight}`}>
       {data.length ? (
         <table className="w-full table-auto ">
+          {/* TODO: let's put this color in globals.css */}
           <thead className="bg-[#F1F5FF] sticky top-0 z-50">
             <tr className="rounded-2xl">
               {columns.map((col, index) => (
@@ -64,6 +65,7 @@ export const Table = <T extends Record<string, unknown>>({
                           href={col.href || "#"}
                           className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium  ${
                             col.actionClassName ||
+                            // TODO: let's put this color in globals.css
                             "text-[#5879DC] hover:text-blue-700 hover:bg-gray-50"
                           }`}
                         >

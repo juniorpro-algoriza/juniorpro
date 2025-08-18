@@ -1,9 +1,8 @@
 export const dynamic = "force-dynamic";
 
-import { getJuniorData } from "../../../../server";
-import { JuniorHeader } from "./components/JuniorHeader";
-import { JuniorsTable } from "./components/JuniorsTable";
-import JuniorStats from "./components/JuniorStats";
+import { getJuniorData } from "../server/getJuniorData";
+// TODO: having an index.ts file makes for ONLY one import statement
+import { JuniorHeader, JuniorsTable, JuniorStats } from "./components";
 
 const AdminJuniors = async () => {
   const juniorsData = await getJuniorData();

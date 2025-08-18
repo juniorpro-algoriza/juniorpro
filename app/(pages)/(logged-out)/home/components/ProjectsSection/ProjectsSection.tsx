@@ -3,8 +3,10 @@ import { ProjectsHeader } from "./ProjectsHeader";
 import { tabClassName, tabListClassName } from "@styles";
 import { ProjectsCarousel } from "./ProjectCarousel";
 import { twMerge } from "tailwind-merge";
-import { getProjects } from "../../../../../server";
 import type { Project, ProjectType } from "@types";
+// TODO: whyyyyyy??
+// import { getProjects } from "../../../../../server";
+import { getProjects } from "@server";
 
 export const ProjectsSection = async () => {
   const { data: allProjects } = await getProjects({

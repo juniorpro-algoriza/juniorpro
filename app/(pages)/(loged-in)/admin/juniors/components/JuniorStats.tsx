@@ -6,10 +6,12 @@ import {
 } from "lucide-react";
 
 import { StatCard } from "../../../components/cards/StatCard";
-import { getJuniorStats } from "../../../../../server/admin/getJuniorStat";
+import { getJuniorStats } from "../../server/getJuniorStat";
 
-export default async function JuniorStats() {
+// TODO: always use arrow functions instead of normal ones
+export const JuniorStats = async () => {
   const stats = await getJuniorStats();
+
   const cardConfig = {
     "Active Juniors": { icon: <UserIcon />, variant: "green" },
     "Pending Reviews": { icon: <FileClockIcon />, variant: "orange" },
@@ -33,4 +35,4 @@ export default async function JuniorStats() {
       })}
     </div>
   );
-}
+};

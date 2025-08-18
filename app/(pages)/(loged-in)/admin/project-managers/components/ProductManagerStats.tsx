@@ -6,9 +6,9 @@ import {
 } from "lucide-react";
 
 import { StatCard } from "../../../components/cards/StatCard";
-import { getProductManagerStats } from "../../../../../server/admin/getProductManagerStats";
+import { getProductManagerStats } from "../../server/getProductManagerStats";
 
-export default async function ProductManagerStats() {
+export const ProductManagerStats = async () => {
   const stats = await getProductManagerStats();
   const cardConfig = {
     "Active Juniors": { icon: <UserIcon />, variant: "green" },
@@ -33,4 +33,4 @@ export default async function ProductManagerStats() {
       })}
     </div>
   );
-}
+};
