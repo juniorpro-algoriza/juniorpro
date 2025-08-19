@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { getProjectManagerData } from "../server";
 import { ProjectManagerHeader } from "./components/ProjectManagerHeader";
 import { ProjectManagerStats } from "./components/ProjectManagerStats";

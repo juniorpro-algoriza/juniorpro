@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { ContributorHeader } from "./components/ContributorHeader";
 import { getContributorData } from "../server";
 import { ContributorTable } from "../../components/client";
