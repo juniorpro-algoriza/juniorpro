@@ -1,31 +1,27 @@
 export const badgeVariants = {
   green: {
-    bg: "bg-[#ECFAF2]",
-    text: "text-[#41C980]",
-  },
-  yellow: {
-    bg: "bg-yellow-100",
-    text: "text-yellow-600",
+    bg: "bg-[var(--color-success-50)]",
+    text: "text-[var(--color-success-400)]",
   },
   orange: {
-    bg: "bg-[#FCF4E8]",
-    text: "text-[#DF972A]",
+    bg: "bg-[var(--color-orange-50)]",
+    text: "text-[var(--color-orange-400)]",
   },
   red: {
-    bg: "bg-red-100",
-    text: "text-red-700",
+    bg: "bg-[var(--color-rejected-100)]",
+    text: "text-[var(--color-rejected-700)]",
   },
   blue: {
-    bg: "bg-[#EEF2FF]",
-    text: "text-[#5879DC]",
+    bg: "bg-[var(--color-violet-light)]",
+    text: "text-[var(--color-violet-normal)]",
   },
   gray: {
-    bg: "bg-[#EEF0F3]",
-    text: "text-[#7E8CA0]",
+    bg: "bg-[var(--color-gray-badge-50)]",
+    text: "text-[var(--color-gray-badge-400)]",
   },
   purple: {
-    bg: "bg-[#EDE9FF]",
-    text: "text-[#664BDE]",
+    bg: "bg-[var(--color-purple-50)]",
+    text: "text-[var(--color-purple-400)]",
   },
 } as const;
 

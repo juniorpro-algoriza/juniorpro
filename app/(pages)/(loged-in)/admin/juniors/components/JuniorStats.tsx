@@ -20,7 +20,7 @@ export const JuniorStats = async () => {
       variant: "orange",
     },
     "Today's Sessions": {
-      icon: <CalendarIcon width="25" height="25" />,
+      icon: <CalendarIcon width="25" height="25" fill="#5879DC" />,
       variant: "blue",
     },
     "Waiting List": {
