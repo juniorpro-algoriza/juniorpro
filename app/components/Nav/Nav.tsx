@@ -6,6 +6,7 @@ const links = [
   { href: "/auth/sign-up", label: "Register" },
   { href: "/contributor/dashboard", label: "Dashboard Contributor" },
   { href: "/junior/dashboard", label: "Dashboard Junior" },
+  { href: "/admin/dashboard", label: "Dashboard Admin" },
   { href: "/style-guide", label: "Style Guide" },
 ];
 
