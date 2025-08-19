@@ -20,3 +20,4 @@ export { ContributorsIcon } from "./Contributors";
 export { ProjectsIcon } from "./Projects";
 export { WaitingListIcon } from "./WaitingList";
 export { WalletIcon } from "./WalletIcon";
+export { PendingReviews } from "./PendingReviews";

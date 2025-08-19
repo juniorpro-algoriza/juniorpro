@@ -8,4 +8,5 @@ export type Junior = {
   activeProjects: number;
   completedProjects: number;
   projects?: number;
+  status: string;
 };
