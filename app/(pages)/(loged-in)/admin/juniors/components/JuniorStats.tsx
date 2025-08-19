@@ -8,7 +8,7 @@ import {
 import { StatCard } from "../../../components";
 import { getJuniorStats } from "../../server";
 
-export default async function JuniorStats() {
+export const JuniorStats = async () => {
   const stats = await getJuniorStats();
   const cardConfig = {
     "Active Juniors": { icon: <UserIcon />, variant: "green" },
@@ -33,4 +33,4 @@ export default async function JuniorStats() {
       })}
     </div>
   );
-}
+};

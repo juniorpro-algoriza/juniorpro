@@ -2,7 +2,7 @@ import { UserIcon, WaitingListIcon, CalendarIcon, WalletIcon } from "@icons";
 import { StatCard } from "../../../components";
 import { getContributorStats } from "../../server";
 
-export default async function ContributorStats() {
+export const ContributorStats = async () => {
   const stats = await getContributorStats();
   const cardConfig = {
     "Active Juniors": { icon: <UserIcon />, variant: "green" },
@@ -27,4 +27,4 @@ export default async function ContributorStats() {
       })}
     </div>
   );
-}
+};
