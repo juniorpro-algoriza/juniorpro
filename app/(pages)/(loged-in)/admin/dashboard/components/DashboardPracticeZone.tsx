@@ -7,7 +7,8 @@ export const DashboardPracticeZone = async () => {
   const { data: practiceZoneProjects } = await getProjects({
     limit: 2,
     pageNum: 1,
-    projectType: "coding",
+    projectType: "team",
+    juniors: ["lina", "anas"],
   });
 
   return (
@@ -17,7 +18,7 @@ export const DashboardPracticeZone = async () => {
         <h2 className="text-xl font-medium text-[#202637]">
           Practice Zone ({practiceZoneProjects.length})
         </h2>
-        {practiceZoneProjects.length > 2 && (
+        {practiceZoneProjects.length == 2 && (
           <Link
             replace
             href="/admin/practice-zone"
@@ -37,7 +38,8 @@ export const DashboardPracticeZone = async () => {
             project={project}
             showDescription={false}
             showDueDate={false}
-            showJuniors={false}
+            showJuniors={true}
+            showJuniorsCountOnly={true}
             showRating={false}
             showBadge={true}
             showBadgeNextToDueDate={false}

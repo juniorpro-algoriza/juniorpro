@@ -14,6 +14,7 @@ interface ProjectCardProps {
   showRating: boolean;
   showBadge: boolean;
   showBadgeNextToDueDate: boolean;
+  showJuniorsCountOnly?: boolean;
   badgeText: "projectType" | "status";
   className?: string;
 }
@@ -24,6 +25,7 @@ export const ProjectCard = ({
   showBadge,
   showDueDate,
   showJuniors,
+  showJuniorsCountOnly,
   showRating,
   showBadgeNextToDueDate,
   className,
@@ -74,7 +76,12 @@ export const ProjectCard = ({
           <DueDate dueDate={dueDate} />
         )}
 
-        {showJuniors && juniors && <Juniors juniors={juniors} />}
+        {showJuniors && juniors && (
+          <Juniors
+            juniors={juniors}
+            showJuniorsCountOnly={showJuniorsCountOnly}
+          />
+        )}
 
         <Button
           intent="unset"
@@ -130,7 +137,7 @@ interface BadgeProps {
 const Badge = ({ isFree, text }: BadgeProps) => {
   let statusVariant: keyof typeof badgeVariants = "gray";
   if (text === "Certifcate Earned") statusVariant = "green";
-  if (text === "In Progress") statusVariant = "yellow";
+  if (text === "In Progress") statusVariant = "orange";
 
   const priceVariant: keyof typeof badgeVariants = isFree ? "green" : "red";
 
@@ -195,13 +202,22 @@ const DueDate = ({ dueDate = new Date() }) => {
     </div>
   );
 };
-
-const Juniors = ({ juniors }: { juniors: string[] }) => {
+const Juniors = ({
+  juniors,
+  showJuniorsCountOnly = false,
+}: {
+  juniors: string[];
+  showJuniorsCountOnly?: boolean;
+}) => {
   return (
     <p className="pb-2 space-x-1">
       <span className="text-content-secondary">Juniors:</span>
       <span className="font-medium capitalize">
-        {juniors[0] === "all juniors" ? ["Anas, Marwa"] : juniors.join(", ")}
+        {showJuniorsCountOnly
+          ? juniors.length
+          : juniors[0] === "all juniors"
+            ? "Anas, Marwa"
+            : juniors.join(", ")}
       </span>
     </p>
   );
