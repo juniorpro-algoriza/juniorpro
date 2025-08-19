@@ -4,10 +4,13 @@ import { useSidebar } from "@atoms";
 import {
   CalendarIcon,
   ChatIcon,
+  ContributorsIcon,
   DiamondIcon,
   DocumentIcon,
   HomeIcon,
   LogoutIcon,
+  ProjectManagerIcon,
+  ProjectsIcon,
   SettingsIcon,
   UserIcon,
 } from "@icons";
@@ -17,13 +20,17 @@ import { usePathname } from "next/navigation";
 const adminMenuItems = [
   { href: "/admin/dashboard", icon: HomeIcon, label: "Dashboard" },
   { href: "/admin/juniors", icon: UserIcon, label: "Juniors" },
-  { href: "/admin/contributors", icon: UserIcon, label: "Contributors" },
+  {
+    href: "/admin/contributors",
+    icon: ContributorsIcon,
+    label: "Contributors",
+  },
   {
     href: "/admin/project-managers",
-    icon: UserIcon,
+    icon: ProjectManagerIcon,
     label: "Project Managers",
   },
-  { href: "/admin/projects", icon: DocumentIcon, label: "Projects" },
+  { href: "/admin/projects", icon: ProjectsIcon, label: "Projects" },
   { href: "/admin/schedule", icon: CalendarIcon, label: "Schedule" },
   { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
@@ -34,6 +41,7 @@ const contributorMenuItems = [
   {
     href: "/contributor/projects/?junior=anas",
     icon: DocumentIcon,
+
     label: "Projects",
   },
   { href: "/contributor/points", icon: DiamondIcon, label: "Points" },

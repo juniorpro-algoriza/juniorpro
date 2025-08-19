@@ -1,9 +1,10 @@
 import {
   UserIcon,
-  UsersIcon,
-  BriefcaseIcon,
-  FolderCodeIcon,
-} from "lucide-react";
+  ProjectsIcon,
+  ContributorsIcon,
+  ProjectManagerIcon,
+} from "@icons";
+
 import { StatCard } from "../../../components";
 import { getDashboardStats } from "../../server";
 
@@ -12,9 +13,9 @@ export const DashboardStats = async () => {
 
   const cardConfig = {
     Juniors: { icon: <UserIcon />, variant: "base" },
-    Contributors: { icon: <UsersIcon />, variant: "base" },
-    "Project Managers": { icon: <BriefcaseIcon />, variant: "base" },
-    "Active Projects": { icon: <FolderCodeIcon />, variant: "base" },
+    Contributors: { icon: <ContributorsIcon />, variant: "base" },
+    "Project Managers": { icon: <ProjectManagerIcon />, variant: "base" },
+    "Active Projects": { icon: <ProjectsIcon />, variant: "base" },
   } as const;
 
   return (
