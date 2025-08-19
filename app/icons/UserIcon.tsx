@@ -7,7 +7,7 @@ type UserIconProps = {
 export const UserIcon = ({
   width = "21",
   height = "20",
-  fill = "#96A0B6",
+  fill = "var(--color-cadetGray)",
 }: UserIconProps) => {
   return (
     <svg

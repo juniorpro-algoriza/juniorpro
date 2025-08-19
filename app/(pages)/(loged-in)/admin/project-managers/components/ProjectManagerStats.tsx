@@ -6,7 +6,9 @@ export const ProjectManagerStats = async () => {
   const stats = await getProjectManageStats();
   const cardConfig = {
     "Active Juniors": {
-      icon: <UserIcon width="25" height="25" fill="#41C980" />,
+      icon: (
+        <UserIcon width="25" height="25" fill="var( --color-success-400)" />
+      ),
       variant: "green",
     },
     Wallet: {
@@ -15,11 +17,23 @@ export const ProjectManagerStats = async () => {
     },
 
     "Today's Sessions": {
-      icon: <CalendarIcon width="25" height="25" fill="#5879DC" />,
+      icon: (
+        <CalendarIcon
+          width="25"
+          height="25"
+          fill="var( --color-violet-normal)"
+        />
+      ),
       variant: "blue",
     },
     "Waiting List": {
-      icon: <WaitingListIcon width="25" height="25" fill="#66717E" />,
+      icon: (
+        <WaitingListIcon
+          width="25"
+          height="25"
+          fill="var( --color-storm-600)"
+        />
+      ),
       variant: "gray",
     },
   } as const;

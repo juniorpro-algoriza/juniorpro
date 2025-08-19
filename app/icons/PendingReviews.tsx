@@ -7,7 +7,7 @@ interface PendingReviewsProps {
 export const PendingReviews = ({
   width = "21",
   height = "20",
-  fill = "#96A0B6",
+  fill = "var(--color-cadetGray)",
 }: PendingReviewsProps) => {
   return (
     <svg

@@ -7,7 +7,7 @@ interface ProjectsProps {
 export const ProjectsIcon = ({
   width = "21",
   height = "20",
-  fill = "#96A0B6",
+  fill = "var(--color-cadetGray)",
 }: ProjectsProps) => {
   return (
     <svg

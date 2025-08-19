@@ -7,7 +7,7 @@ interface WalletIconProps {
 export const WalletIcon = ({
   width = "21",
   height = "20",
-  fill = "#96A0B6",
+  fill = "var(--color-cadetGray)",
 }: WalletIconProps) => {
   return (
     <svg

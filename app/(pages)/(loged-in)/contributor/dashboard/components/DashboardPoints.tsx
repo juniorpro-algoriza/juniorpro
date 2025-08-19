@@ -43,7 +43,11 @@ export const DashboardPoints = async () => {
                 <p>Points Balance</p>
               </div>
               <div className="bg-carolina-blue-opacity rounded-lg p-1.5">
-                <DiamondIcon fill="#5879DC" width="25" height="25" />
+                <DiamondIcon
+                  fill="var( --color-violet-normal)"
+                  width="25"
+                  height="25"
+                />
               </div>
             </div>
           </div>

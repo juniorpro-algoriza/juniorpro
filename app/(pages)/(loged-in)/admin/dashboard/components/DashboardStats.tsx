@@ -13,19 +13,39 @@ export const DashboardStats = async () => {
 
   const cardConfig = {
     Juniors: {
-      icon: <UserIcon width="25" height="25" fill="#5879DC" />,
+      icon: (
+        <UserIcon width="25" height="25" fill="var( --color-violet-normal)" />
+      ),
       variant: "base",
     },
     Contributors: {
-      icon: <ContributorsIcon width="25" height="25" fill="#5879DC" />,
+      icon: (
+        <ContributorsIcon
+          width="25"
+          height="25"
+          fill="var( --color-violet-normal)"
+        />
+      ),
       variant: "base",
     },
     "Project Managers": {
-      icon: <ProjectManagerIcon width="25" height="25" fill="#5879DC" />,
+      icon: (
+        <ProjectManagerIcon
+          width="25"
+          height="25"
+          fill="var( --color-violet-normal)"
+        />
+      ),
       variant: "base",
     },
     "Active Projects": {
-      icon: <ProjectsIcon width="25" height="25" fill="#5879DC" />,
+      icon: (
+        <ProjectsIcon
+          width="25"
+          height="25"
+          fill="var( --color-violet-normal)"
+        />
+      ),
       variant: "base",
     },
   } as const;
