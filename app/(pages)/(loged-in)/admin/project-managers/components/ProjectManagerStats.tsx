@@ -1,19 +1,27 @@
-import {
-  UserIcon,
-  FileCheck2Icon,
-  CalendarDaysIcon,
-  WalletIcon,
-} from "lucide-react";
+import { UserIcon, CalendarIcon, WaitingListIcon, WalletIcon } from "@icons";
 import { StatCard } from "../../../components";
 import { getProjectManageStats } from "../../server";
 
 export const ProjectManagerStats = async () => {
   const stats = await getProjectManageStats();
   const cardConfig = {
-    "Active Juniors": { icon: <UserIcon />, variant: "green" },
-    Wallet: { icon: <WalletIcon />, variant: "red" },
-    "Today's Sessions": { icon: <CalendarDaysIcon />, variant: "blue" },
-    "Waiting List": { icon: <FileCheck2Icon />, variant: "gray" },
+    "Active Juniors": {
+      icon: <UserIcon width="25" height="25" fill="#41C980" />,
+      variant: "green",
+    },
+    Wallet: {
+      icon: <WalletIcon width="25" height="25" fill="#D44E4E" />,
+      variant: "red",
+    },
+
+    "Today's Sessions": {
+      icon: <CalendarIcon width="25" height="25" fill="#5879DC" />,
+      variant: "blue",
+    },
+    "Waiting List": {
+      icon: <WaitingListIcon width="25" height="25" fill="#66717E" />,
+      variant: "gray",
+    },
   } as const;
 
   return (

@@ -5,10 +5,23 @@ import { getContributorStats } from "../../server";
 export const ContributorStats = async () => {
   const stats = await getContributorStats();
   const cardConfig = {
-    "Active Juniors": { icon: <UserIcon />, variant: "green" },
-    Wallet: { icon: <WalletIcon />, variant: "red" },
-    "Today's Sessions": { icon: <CalendarIcon />, variant: "blue" },
-    "Waiting List": { icon: <WaitingListIcon />, variant: "gray" },
+    "Active Juniors": {
+      icon: <UserIcon width="25" height="25" fill="#41C980" />,
+      variant: "green",
+    },
+    Wallet: {
+      icon: <WalletIcon width="25" height="25" fill="#D44E4E" />,
+      variant: "red",
+    },
+
+    "Today's Sessions": {
+      icon: <CalendarIcon width="25" height="25" fill="#5879DC" />,
+      variant: "blue",
+    },
+    "Waiting List": {
+      icon: <WaitingListIcon width="25" height="25" fill="#66717E" />,
+      variant: "gray",
+    },
   } as const;
 
   return (

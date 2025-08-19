@@ -12,10 +12,22 @@ export const DashboardStats = async () => {
   const stats = await getDashboardStats();
 
   const cardConfig = {
-    Juniors: { icon: <UserIcon />, variant: "base" },
-    Contributors: { icon: <ContributorsIcon />, variant: "base" },
-    "Project Managers": { icon: <ProjectManagerIcon />, variant: "base" },
-    "Active Projects": { icon: <ProjectsIcon />, variant: "base" },
+    Juniors: {
+      icon: <UserIcon width="25" height="25" fill="#5879DC" />,
+      variant: "base",
+    },
+    Contributors: {
+      icon: <ContributorsIcon width="25" height="25" fill="#5879DC" />,
+      variant: "base",
+    },
+    "Project Managers": {
+      icon: <ProjectManagerIcon width="25" height="25" fill="#5879DC" />,
+      variant: "base",
+    },
+    "Active Projects": {
+      icon: <ProjectsIcon width="25" height="25" fill="#5879DC" />,
+      variant: "base",
+    },
   } as const;
 
   return (
