@@ -2,14 +2,14 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { cva, cx } from '@lib';
-import type { TabData } from '../types';
+import type { TabData } from '@types';
 
 export interface TabsProps {
   tabs: TabData[];
-  selectedIndex?: number;
-  onTabChange?: (index: number) => void;
   tabListClassName?: string;
-  tabClassName?: string | ((selected: boolean) => string);
+  tabClassName?: string;
+  selectedTabClassName?: string;
+  unselectedTabClassName?: string;
   tabPanelsClassName?: string;
   tabPanelClassName?: string;
   tabStyle?: string;
@@ -17,32 +17,31 @@ export interface TabsProps {
 
 export const Tabs: React.FC<TabsProps> = ({
   tabs,
-  selectedIndex = 0,
-  onTabChange,
   tabListClassName = '',
   tabClassName = '',
+  selectedTabClassName = '',
+  unselectedTabClassName = '',
   tabPanelsClassName = '',
   tabPanelClassName = '',
   tabStyle = '',
 }) => {
   return (
-    <TabGroup selectedIndex={selectedIndex} onChange={onTabChange}>
-      <TabList className={cx(defaultTabListClass, tabListClassName)}>
+    <TabGroup>
+       <TabList className={cx(defaultTabListClass, tabListClassName)}>
         {tabs.map((tab) => (
           <Tab
             key={tab.name}
-            className={({ selected }) =>
-              tabClassName
-                ? typeof tabClassName === 'function'
-                  ? tabClassName(selected)
-                  : tabClassName
-                : cx(
-                    defaultTabClass({
-                      selected: selected ? 'active' : 'inactive',
-                    }),
-                    tabStyle
-                  )
-            }
+            className={({ selected }) => {
+              if (selectedTabClassName && unselectedTabClassName) {
+                return selected ? selectedTabClassName : unselectedTabClassName;
+              }
+              return tabClassName || cx(
+                defaultTabClass({
+                  selected: selected ? 'active' : 'inactive',
+                }),
+                tabStyle
+              );
+            }}
           >
             {tab.name}
           </Tab>

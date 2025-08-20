@@ -1,16 +1,16 @@
 import {
   Description,
   Field,
-  Input as HeadlessInput,
+  Textarea as HeadlessTextarea,
   Label,
 } from '@headlessui/react';
 import { cva, cx } from '@lib';
 import type { VariantProps } from 'cva';
-import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
+import type { ReactNode, Ref, TextareaHTMLAttributes } from 'react';
 
-interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof input> {
+interface TextareaProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof textarea> {
   label?: string;
   placeholder?: string;
   error?: string;
@@ -19,7 +19,7 @@ interface InputProps
   rightIcon?: ReactNode;
   className?: string;
   containerClassName?: string;
-  ref?: Ref<HTMLInputElement>;
+  ref?: Ref<HTMLTextAreaElement>;
 }
 
 interface IconContainerProps {
@@ -29,14 +29,14 @@ interface IconContainerProps {
 
 const IconContainer = ({ children, position }: IconContainerProps) => {
   const iconClasses = cx(
-    'absolute top-1/2 transform -translate-y-1/2 text-gray-400',
+    'absolute top-3 transform text-gray-400',
     position === 'left' ? 'left-3' : 'right-3'
   );
 
   return <div className={iconClasses}>{children}</div>;
 };
 
-const Input = ({
+const Textarea = ({
   label,
   placeholder,
   error,
@@ -49,18 +49,17 @@ const Input = ({
   state,
   ref,
   ...props
-}: InputProps) => {
+}: TextareaProps) => {
   const containerClasses = cx('flex flex-col space-y-2', containerClassName);
 
-  // Determine input state based on props if not explicitly provided
-  const inputState =
+  const textareaState =
     state || (error ? 'error' : disabled ? 'disabled' : 'default');
 
-  const inputWrapperClasses = 'relative';
+  const wrapperClasses = 'relative';
 
-  const inputClasses = cx(
-    input({
-      state: inputState,
+  const textareaClasses = cx(
+    textarea({
+      state: textareaState,
       hasLeftIcon: !!leftIcon,
       hasRightIcon: !!rightIcon,
     }),
@@ -71,27 +70,28 @@ const Input = ({
     <Field className={containerClasses}>
       {label && <Label className={labelVariants({ disabled })}>{label}</Label>}
 
-      <div className={inputWrapperClasses}>
-        {/* Left Icon */}
+      <div className={wrapperClasses}>
         {leftIcon && <IconContainer position='left'>{leftIcon}</IconContainer>}
-        {/* Input */}
-        <HeadlessInput
+
+        <HeadlessTextarea
           ref={ref}
           placeholder={placeholder}
           disabled={disabled}
-          className={inputClasses}
+          className={textareaClasses}
+          rows={3}
           {...props}
         />
-        {/* Right Icon */}
+
         {rightIcon && (
           <IconContainer position='right'>{rightIcon}</IconContainer>
         )}
       </div>
 
-      {/* Error or Helper Text */}
       {(error ?? helperText) && (
         <Description
-          className={descriptionVariants({ type: error ? 'error' : 'helper' })}
+          className={descriptionVariants({
+            textareaType: error ? 'error' : 'helper',
+          })}
         >
           {error ?? helperText}
         </Description>
@@ -100,11 +100,12 @@ const Input = ({
   );
 };
 
-Input.displayName = 'Input';
+Textarea.displayName = 'Textarea';
 
-export { Input };
+export { Textarea };
 
-const input = cva({
+// Styles
+const textarea = cva({
   base: [
     'w-full',
     'px-3',
@@ -119,6 +120,7 @@ const input = cva({
     'placeholder:text-cadetGray',
     'placeholder:font-medium',
     'text-cadetGray',
+    'resize-none', // disable manual resizing
   ],
   variants: {
     state: {
@@ -159,12 +161,12 @@ const labelVariants = cva({
 const descriptionVariants = cva({
   base: 'text-sm',
   variants: {
-    type: {
+    textareaType: {
       error: 'text-red-600',
       helper: 'text-gray-500',
     },
   },
   defaultVariants: {
-    type: 'helper',
+    textareaType: 'helper',
   },
 });

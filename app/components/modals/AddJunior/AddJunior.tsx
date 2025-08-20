@@ -2,9 +2,9 @@ import { Button, Input, Modal } from '@components';
 import { Select, Tabs } from '@components/client';
 import { CloseButton } from '@headlessui/react';
 import { getJuniorsAge, getJuniorsGrades } from '@server';
+import type { TabData } from '@types';
 import { XIcon } from 'lucide-react';
 import { Fragment } from 'react';
-import type { TabData } from '../../types';
 
 export const AddJunior = async () => {
   const juniorsAge = await getJuniorsAge();
@@ -19,7 +19,6 @@ export const AddJunior = async () => {
             placeholder='Write here'
             className='w-full'
           />
-
           <div className='grid grid-cols-2 gap-4'>
             <div className='flex flex-col space-y-1'>
               <label className='text-sm font-medium text-midnight'>Age</label>
@@ -32,7 +31,6 @@ export const AddJunior = async () => {
               <Select description='' label='' options={juniorsGrade} />
             </div>
           </div>
-
           <Input
             label='Email Address (Optional)'
             placeholder='Write here'
@@ -93,18 +91,14 @@ export const AddJunior = async () => {
           </Button>
         </CloseButton>
       </div>
-
       <Tabs
         tabs={tabsData}
-        selectedIndex={0}
         tabListClassName='flex space-x-1 rounded-full bg-gray-100 p-1.5 mb-3 w-full'
       />
-
       <div className='flex gap-3 mt-6'>
         <Button intent='primary' className='flex-1'>
           Create
         </Button>
-
         <CloseButton as={Fragment}>
           <Button intent='secondary' className='flex-1 text-dark-electric-blue'>
             Cancel

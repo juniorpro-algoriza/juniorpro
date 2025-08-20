@@ -3,4 +3,8 @@ export const modalPaths = {
     title: 'AddJunior',
     href: '/modal/AddJunior',
   },
+  EditProfile: {
+    title: 'EditProfile',
+    href: '/modal/EditProfile',
+  },
 } as const;

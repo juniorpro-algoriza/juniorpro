@@ -1,8 +1,8 @@
-import { Button } from "@components";
-import type { Project, ProjectType } from "@types";
-import { CalendarDaysIcon, StarIcon } from "lucide-react";
-import Image from "next/image";
-import { twMerge } from "tailwind-merge";
+import { Button } from '@components';
+import type { Project, ProjectType } from '@types';
+import { CalendarDaysIcon, StarIcon } from 'lucide-react';
+import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 
 type BadgeText = "Certifcate Earned" | "In Progress" | ProjectType;
 interface ProjectCardProps {
@@ -15,6 +15,7 @@ interface ProjectCardProps {
   showBadgeNextToDueDate: boolean;
   badgeText: "projectType" | "status";
   className?: string;
+  buttonText?: string;
 }
 
 export const ProjectCard = ({
@@ -26,6 +27,7 @@ export const ProjectCard = ({
   showRating,
   showBadgeNextToDueDate,
   className,
+  buttonText = "Report",
 }: ProjectCardProps) => {
   const {
     id,
@@ -54,7 +56,7 @@ export const ProjectCard = ({
   return (
     <div
       data-id={id}
-      className={`bg-white rounded-2xl space-y-3 p-3 shadow-lg hover:shadow-xl border border-antiflash-white transition-all duration-300 group flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_25%] ${className}`}
+      className={`bg-white rounded-2xl space-y-3 p-3 shadow hover:shadow-xl border border-antiflash-white transition-all duration-300 group flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_25%] ${className}`}
     >
       <Header category={category} imageUrl={imageUrl} />
       {showRating && <Rating rating={rating} />}
@@ -80,8 +82,7 @@ export const ProjectCard = ({
           className="w-full border text-violet-normal border-violet-normal"
         >
           {/* TODO: When api is ready determine buttonText based on project status */}
-          {/* {buttonText} */}
-          Report
+          {buttonText}
         </Button>
       </div>
     </div>
@@ -99,7 +100,7 @@ const Header = ({ imageUrl = "", category = "" }) => {
         // w-[330px] h-[183px]
         className="object-cover w-full rounded-xl max-h-[200px]"
       />
-      <span className="absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal">
+      <span className='absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal'>
         {category}
       </span>
     </div>
@@ -124,15 +125,15 @@ interface BadeProps {
   text: BadgeText;
 }
 const Badge = ({ isFree, text }: BadeProps) => {
-  let badgeClassName = "";
+  let badgeClassName = '';
 
-  if (text === "Certifcate Earned")
-    badgeClassName = "bg-sucess-hover text-sucess-normal";
+  if (text === 'Certifcate Earned')
+    badgeClassName = 'bg-sucess-hover text-sucess-normal';
   return (
-    <div className="flex items-center gap-2 pb-2">
+    <div className='flex items-center gap-2 pb-2'>
       <p
         className={twMerge(
-          "px-3 py-2 text-sm capitalize bg-gray-100 rounded-full w-fit text-shadowBlue",
+          'px-3 py-2 text-sm capitalize bg-gray-100 rounded-full w-fit text-shadowBlue',
           badgeClassName
         )}
       >
@@ -140,10 +141,10 @@ const Badge = ({ isFree, text }: BadeProps) => {
       </p>
       <span
         className={twMerge(
-          "px-3 py-2 text-sm rounded-full w-fit",
+          'px-3 py-2 text-sm rounded-full w-fit',
           isFree
-            ? "bg-success-50 text-success-400"
-            : "bg-light-orange text-dark-orange"
+            ? 'bg-success-50 text-success-400'
+            : 'bg-light-orange text-dark-orange'
         )}
       >
         {isFree ? "Free" : "Premium"}

@@ -7,4 +7,5 @@ export { ModalLink } from './ModalLink';
 export { Nav } from './Nav';
 export { ProjectCard } from './ProjectCard';
 export { Table } from './Table';
+export { Textarea } from './Textarea';
 
