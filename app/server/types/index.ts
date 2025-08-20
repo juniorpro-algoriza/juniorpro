@@ -1,3 +1,4 @@
+export type { Achievement } from './Achievement';
 export type { ActionState } from './ActionState';
 export type { Age } from './Age';
 export type { Grade } from './Grade';

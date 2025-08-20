@@ -23,11 +23,11 @@ export const LoggedInPageHeader = ({
     if (breadcrumbs.length === 0) return null;
 
     return (
-      <p className='pb-2'>
+      <p className='pb-2 font-bold text-content-secondary'>
         {breadcrumbs.map((crumb, index) => (
           <span key={index}>
             {index === breadcrumbs.length - 1 ? (
-              <span className='text-content-secondary'>{crumb}</span>
+              <span className='text-content-secondary font-normal'>{crumb}</span>
             ) : (
               <>
                 {crumb}
