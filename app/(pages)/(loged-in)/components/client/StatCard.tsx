@@ -1,34 +1,45 @@
-import { statCardStyles } from "@styles";
-import { StatCardType } from "../../types";
+import { cx } from '@lib';
+import {
+  statCard,
+  statCardIcon,
+  statCardIconContainer,
+  statCardLabel,
+  statCardValue,
+} from '@styles';
+import type { VariantProps } from 'cva';
+import type { ReactNode } from 'react';
+
+export type StatCardVariant =
+  | 'blue'
+  | 'red'
+  | 'green'
+  | 'orange'
+  | 'gray'
+  | 'base';
+
+export interface StatCardProps extends VariantProps<typeof statCard> {
+  value: number;
+  label: string;
+  icon: ReactNode;
+  variant?: StatCardVariant;
+  className?: string;
+}
 
 export function StatCard({
   value,
   label,
   icon,
-  variant = "base",
-}: StatCardType) {
-  const styles = statCardStyles[variant];
-
+  variant = 'base',
+  className,
+}: StatCardProps) {
   return (
-    <div
-      className={`flex items-start justify-between p-4 rounded-lg shadow ${styles.bg} ${styles.border}`}
-    >
+    <div className={cx(statCard({ variant }), className)}>
       <div>
-        <p
-          className={`${styles.valueSize} ${styles.valueWeight} ${styles.valueColor}`}
-        >
-          {value}
-        </p>
-        <p
-          className={`${styles.labelSize} ${styles.labelWeight} ${styles.labelColor}`}
-        >
-          {label}
-        </p>
+        <p className={cx(statCardValue({ variant }))}>{value}</p>
+        <p className={cx(statCardLabel({ variant }))}>{label}</p>
       </div>
-      <div
-        className={`${styles.iconBg} ${styles.iconBgSize} ${styles.iconRadius} flex items-center justify-center`}
-      >
-        <span className={`${styles.iconColor} ${styles.iconSize}`}>{icon}</span>
+      <div className={cx(statCardIconContainer({ variant }))}>
+        <span className={cx(statCardIcon({ variant }))}>{icon}</span>
       </div>
     </div>
   );

@@ -1,9 +1,8 @@
 "use client";
 
-import { Table } from "@components";
+import { Badge, Table } from "@components";
 import { EyeIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Badge } from "@components";
 import { Contributor } from "../../types";
 interface ContributorsTableProps {
   contributorData: Contributor[];

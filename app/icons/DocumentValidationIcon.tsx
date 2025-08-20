@@ -1,13 +1,13 @@
-interface WaitingListProps {
+interface DocumentValidationProps {
   width?: string;
   height?: string;
   fill?: string;
 }
-export const WaitingListIcon = ({
+export const DocumentValidationIcon = ({
   width = "21",
   height = "20",
   fill = "var(--color-cadetGray)",
-}: WaitingListProps) => {
+}: DocumentValidationProps) => {
   return (
     <svg
       style={{ width, height }}

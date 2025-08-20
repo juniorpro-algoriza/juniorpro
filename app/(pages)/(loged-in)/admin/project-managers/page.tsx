@@ -1,13 +1,15 @@
-import { getProjectManagerData } from "../server";
-import { ProjectManagerHeader } from "./components/ProjectManagerHeader";
-import { ProjectManagerStats } from "./components/ProjectManagerStats";
-import { ProjectManagerTable } from "./components/ProjectManagerTable";
+import { getProjectManagerData } from '../server';
+import {
+  ProjectManagerHeader,
+  ProjectManagerStats,
+  ProjectManagerTable,
+} from './components';
 
 const AdminProductManager = async () => {
   const projectManagerData = await getProjectManagerData();
 
   return (
-    <div className="min-h-screen py-3 px-6 bg-stone-50 space-y-6">
+    <div className='min-h-screen py-3 px-6 bg-stone-50 space-y-6'>
       <ProjectManagerHeader />
 
       <ProjectManagerStats />

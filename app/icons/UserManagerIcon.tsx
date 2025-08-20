@@ -1,14 +1,14 @@
-interface ProjectManagerProps {
+interface UserManagerProps {
   width?: string;
   height?: string;
   fill?: string;
 }
 
-export const ProjectManagerIcon = ({
+export const UserManagerIcon = ({
   width = "21",
   height = "20",
   fill = "var(--color-cadetGray)",
-}: ProjectManagerProps) => {
+}: UserManagerProps) => {
   return (
     <svg
       style={{ width, height }}

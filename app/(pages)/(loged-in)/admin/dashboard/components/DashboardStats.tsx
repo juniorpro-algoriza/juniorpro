@@ -1,12 +1,12 @@
 import {
+  FolderDetailsIcon,
   UserIcon,
-  ProjectsIcon,
-  ContributorsIcon,
-  ProjectManagerIcon,
-} from "@icons";
+  UserManagerIcon,
+  UsersIcon,
+} from '@icons';
 
-import { StatCard } from "../../../components";
-import { getDashboardStats } from "../../server";
+import { StatCard } from '../../../components';
+import { getDashboardStats } from '../../server';
 
 export const DashboardStats = async () => {
   const stats = await getDashboardStats();
@@ -14,44 +14,44 @@ export const DashboardStats = async () => {
   const cardConfig = {
     Juniors: {
       icon: (
-        <UserIcon width="25" height="25" fill="var( --color-violet-normal)" />
+        <UserIcon width='25' height='25' fill='var( --color-violet-normal)' />
       ),
-      variant: "base",
+      variant: 'base',
     },
     Contributors: {
       icon: (
-        <ContributorsIcon
-          width="25"
-          height="25"
-          fill="var( --color-violet-normal)"
+        <UsersIcon
+          width='25'
+          height='25'
+          fill='var( --color-violet-normal)'
         />
       ),
-      variant: "base",
+      variant: 'base',
     },
-    "Project Managers": {
+    'Project Managers': {
       icon: (
-        <ProjectManagerIcon
-          width="25"
-          height="25"
-          fill="var( --color-violet-normal)"
+        <UserManagerIcon
+          width='25'
+          height='25'
+          fill='var( --color-violet-normal)'
         />
       ),
-      variant: "base",
+      variant: 'base',
     },
-    "Active Projects": {
+    'Active Projects': {
       icon: (
-        <ProjectsIcon
-          width="25"
-          height="25"
-          fill="var( --color-violet-normal)"
+        <FolderDetailsIcon
+          width='25'
+          height='25'
+          fill='var( --color-violet-normal)'
         />
       ),
-      variant: "base",
+      variant: 'base',
     },
   } as const;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
       {stats.map((stat) => {
         const config = cardConfig[stat.label as keyof typeof cardConfig];
         return (

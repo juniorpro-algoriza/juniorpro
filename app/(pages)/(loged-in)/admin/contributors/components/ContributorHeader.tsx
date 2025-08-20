@@ -1,7 +1,5 @@
-"use client";
-
-import { LoggedInPageHeader } from "../../../components/client";
+import { LoggedInPageHeader } from '../../../components/client';
 
 export const ContributorHeader = () => {
-  return <LoggedInPageHeader title="Contributor" />;
+  return <LoggedInPageHeader title='Contributor' />;
 };

@@ -1,8 +1,8 @@
 import {
-  UserIcon,
-  WaitingListIcon,
-  PendingReviews,
   CalendarIcon,
+  DocumentValidationIcon,
+  FileUnkownIcon,
+  UserIcon,
 } from "@icons";
 
 import { StatCard } from "../../../components";
@@ -19,7 +19,7 @@ export const JuniorStats = async () => {
     },
     "Pending Reviews": {
       icon: (
-        <PendingReviews
+        <FileUnkownIcon
           width="25"
           height="25"
           fill="var( --color-carrot-orange)"
@@ -39,7 +39,7 @@ export const JuniorStats = async () => {
     },
     "Waiting List": {
       icon: (
-        <WaitingListIcon
+        <DocumentValidationIcon
           width="25"
           height="25"
           fill="var( --color-storm-600)"

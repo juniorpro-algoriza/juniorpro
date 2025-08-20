@@ -1,4 +1,4 @@
-import { UserIcon, CalendarIcon, WaitingListIcon, WalletIcon } from "@icons";
+import { CalendarIcon, DocumentValidationIcon, UserIcon, WalletIcon } from "@icons";
 import { StatCard } from "../../../components";
 import { getProjectManageStats } from "../../server";
 
@@ -28,7 +28,7 @@ export const ProjectManagerStats = async () => {
     },
     "Waiting List": {
       icon: (
-        <WaitingListIcon
+        <DocumentValidationIcon
           width="25"
           height="25"
           fill="var( --color-storm-600)"
