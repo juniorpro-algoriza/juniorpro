@@ -20,7 +20,6 @@ export const DashboardPracticeZone = async () => {
         </h2>
         {practiceZoneProjects.length == 2 && (
           <Link
-            replace
             href="/admin/practice-zone"
             className="flex items-center gap-1 text-[var(--color-violet-normal)] text-sm font-medium hover:text-blue-700"
           >
