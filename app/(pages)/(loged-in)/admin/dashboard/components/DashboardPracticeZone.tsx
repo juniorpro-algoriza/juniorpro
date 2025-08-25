@@ -12,17 +12,17 @@ export const DashboardPracticeZone = async () => {
   });
 
   return (
-    <div className="bg-white border border-[#F1F3F9] rounded-[20px] p-6 space-y-6">
+    <div className="bg-white border border-[var(--color-border-primary)] rounded-[20px] p-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-medium text-[#202637]">
+        <h2 className="text-xl font-medium text-[var(--color-yankees-blue)]">
           Practice Zone ({practiceZoneProjects.length})
         </h2>
         {practiceZoneProjects.length == 2 && (
           <Link
             replace
             href="/admin/practice-zone"
-            className="flex items-center gap-1 text-[#5879DC] text-sm font-medium hover:text-blue-700"
+            className="flex items-center gap-1 text-[var(--color-violet-normal)] text-sm font-medium hover:text-blue-700"
           >
             View All
             <ChevronRightIcon size={16} />
