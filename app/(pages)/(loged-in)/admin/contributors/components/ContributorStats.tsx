@@ -1,43 +1,21 @@
-import { CalendarIcon, DocumentValidationIcon, UserIcon, WalletIcon } from "@icons";
 import { StatCard } from "../../../components";
-import { getContributorStats } from "../../server";
 
-export const ContributorStats = async () => {
-  const stats = await getContributorStats();
-  const cardConfig = {
-    "Active Juniors": {
-      icon: (
-        <UserIcon width="25" height="25" fill="var(--color-sucess-normal)" />
-      ),
-      variant: "green",
-    },
-    Wallet: {
-      icon: <WalletIcon width="25" height="25" fill="#D44E4E" />,
-      variant: "red",
-    },
+type CardConfıg = {
+  [key: string]: {
+    icon: React.ReactNode;
+    variant: "green" | "red" | "blue" | "gray";
+  };
+};
 
-    "Today's Sessions": {
-      icon: (
-        <CalendarIcon
-          width="25"
-          height="25"
-          fill="var( --color-violet-normal)"
-        />
-      ),
-      variant: "blue",
-    },
-    "Waiting List": {
-      icon: (
-        <DocumentValidationIcon
-          width="25"
-          height="25"
-          fill="var( --color-storm-600)"
-        />
-      ),
-      variant: "gray",
-    },
-  } as const;
+interface ContributorStatProps {
+  stats: { label: string; value: number }[];
+  cardConfig: CardConfıg;
+}
 
+export const ContributorStats = async ({
+  stats,
+  cardConfig,
+}: ContributorStatProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat) => {
