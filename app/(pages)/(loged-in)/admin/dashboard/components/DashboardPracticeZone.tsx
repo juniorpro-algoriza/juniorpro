@@ -31,7 +31,7 @@ export const DashboardPracticeZone = async () => {
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {practiceZoneProjects.slice(0, 2).map((project) => (
+        {practiceZoneProjects.map((project) => (
           <ProjectCard
             key={project.id}
             project={project}
