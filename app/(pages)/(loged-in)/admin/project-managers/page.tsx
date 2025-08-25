@@ -1,18 +1,18 @@
-import { getProjectManagerData } from '../server';
+import { getProjectManagerData } from "../server";
 import {
   ProjectManagerHeader,
-  ProjectManagerStats,
+  ProjectManagerStatsContainer,
   ProjectManagerTable,
-} from './components';
+} from "./components";
 
 const AdminProductManager = async () => {
   const projectManagerData = await getProjectManagerData();
 
   return (
-    <div className='min-h-screen py-3 px-6 bg-stone-50 space-y-6'>
+    <div className="min-h-screen py-3 px-6 bg-stone-50 space-y-6">
       <ProjectManagerHeader />
 
-      <ProjectManagerStats />
+      <ProjectManagerStatsContainer />
 
       <ProjectManagerTable projectManagerData={projectManagerData} />
     </div>

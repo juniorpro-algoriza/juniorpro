@@ -3,7 +3,7 @@ import { getContributorData } from "../server";
 import {
   DashboardHeader,
   DashboardPracticeZone,
-  DashboardStats,
+  DashboardStatsContainer,
 } from "./components";
 
 const AdminDashboard = async () => {
@@ -12,7 +12,7 @@ const AdminDashboard = async () => {
   return (
     <div className=" py-3 px-6 bg-stone-50 space-y-6">
       <DashboardHeader />
-      <DashboardStats />
+      <DashboardStatsContainer />
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <DashboardPracticeZone />
         <ContributorTable contributorData={contributorData} view="dashboard" />

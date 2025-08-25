@@ -1,21 +1,7 @@
 import { StatCard } from "../../../components";
+import { StatsProps } from "../../types/Stats";
 
-type CardConfıg = {
-  [key: string]: {
-    icon: React.ReactNode;
-    variant: "green" | "red" | "blue" | "gray";
-  };
-};
-
-interface ContributorStatProps {
-  stats: { label: string; value: number }[];
-  cardConfig: CardConfıg;
-}
-
-export const ContributorStats = async ({
-  stats,
-  cardConfig,
-}: ContributorStatProps) => {
+export const ContributorStats = async ({ stats, cardConfig }: StatsProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat) => {

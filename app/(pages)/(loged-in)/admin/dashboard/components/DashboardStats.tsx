@@ -1,57 +1,9 @@
-import {
-  FolderDetailsIcon,
-  UserIcon,
-  UserManagerIcon,
-  UsersIcon,
-} from '@icons';
+import { StatCard } from "../../../components";
+import { StatsProps } from "../../types/Stats";
 
-import { StatCard } from '../../../components';
-import { getDashboardStats } from '../../server';
-
-export const DashboardStats = async () => {
-  const stats = await getDashboardStats();
-
-  const cardConfig = {
-    Juniors: {
-      icon: (
-        <UserIcon width='25' height='25' fill='var( --color-violet-normal)' />
-      ),
-      variant: 'base',
-    },
-    Contributors: {
-      icon: (
-        <UsersIcon
-          width='25'
-          height='25'
-          fill='var( --color-violet-normal)'
-        />
-      ),
-      variant: 'base',
-    },
-    'Project Managers': {
-      icon: (
-        <UserManagerIcon
-          width='25'
-          height='25'
-          fill='var( --color-violet-normal)'
-        />
-      ),
-      variant: 'base',
-    },
-    'Active Projects': {
-      icon: (
-        <FolderDetailsIcon
-          width='25'
-          height='25'
-          fill='var( --color-violet-normal)'
-        />
-      ),
-      variant: 'base',
-    },
-  } as const;
-
+export const DashboardStats = async ({ stats, cardConfig }: StatsProps) => {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat) => {
         const config = cardConfig[stat.label as keyof typeof cardConfig];
         return (

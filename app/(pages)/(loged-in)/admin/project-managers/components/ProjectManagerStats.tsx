@@ -1,43 +1,10 @@
-import { CalendarIcon, DocumentValidationIcon, UserIcon, WalletIcon } from "@icons";
 import { StatCard } from "../../../components";
-import { getProjectManageStats } from "../../server";
+import { StatsProps } from "../../types/Stats";
 
-export const ProjectManagerStats = async () => {
-  const stats = await getProjectManageStats();
-  const cardConfig = {
-    "Active Juniors": {
-      icon: (
-        <UserIcon width="25" height="25" fill="var( --color-success-400)" />
-      ),
-      variant: "green",
-    },
-    Wallet: {
-      icon: <WalletIcon width="25" height="25" fill="#D44E4E" />,
-      variant: "red",
-    },
-
-    "Today's Sessions": {
-      icon: (
-        <CalendarIcon
-          width="25"
-          height="25"
-          fill="var( --color-violet-normal)"
-        />
-      ),
-      variant: "blue",
-    },
-    "Waiting List": {
-      icon: (
-        <DocumentValidationIcon
-          width="25"
-          height="25"
-          fill="var( --color-storm-600)"
-        />
-      ),
-      variant: "gray",
-    },
-  } as const;
-
+export const ProjectManagerStats = async ({
+  stats,
+  cardConfig,
+}: StatsProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat) => {
