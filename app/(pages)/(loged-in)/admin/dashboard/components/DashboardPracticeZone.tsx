@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getProjects } from "@server";
 
 export const DashboardPracticeZone = async () => {
-  const { data: practiceZoneProjects } = await getProjects({
+  const { data: practiceZoneProjects, hasNextPage } = await getProjects({
     limit: 2,
     pageNum: 1,
     projectType: "team",
@@ -18,7 +18,7 @@ export const DashboardPracticeZone = async () => {
         <h2 className="text-xl font-medium text-[var(--color-yankees-blue)]">
           Practice Zone ({practiceZoneProjects.length})
         </h2>
-        {practiceZoneProjects.length == 2 && (
+        {hasNextPage && (
           <Link
             href="/admin/practice-zone"
             className="flex items-center gap-1 text-[var(--color-violet-normal)] text-sm font-medium hover:text-blue-700"
