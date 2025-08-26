@@ -1,13 +1,15 @@
-import { getJuniorsData } from "@server";
-import { JuniorHeader, JuniorStatsContainer, JuniorsTable } from "./components";
+import {
+  JuniorHeader,
+  JuniorStatsContainer,
+  JuniorTableContainer,
+} from "./components";
 
 const AdminJuniors = async () => {
-  const juniorsData = await getJuniorsData();
   return (
     <div className="min-h-screen py-3 px-6 bg-stone-50 space-y-6">
       <JuniorHeader />
       <JuniorStatsContainer />
-      <JuniorsTable juniorsData={juniorsData} />
+      <JuniorTableContainer />
     </div>
   );
 };

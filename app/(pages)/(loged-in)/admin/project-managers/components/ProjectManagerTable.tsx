@@ -1,26 +1,10 @@
 import { Table } from "@components";
 import { EyeIcon } from "lucide-react";
-import { Badge } from "../../../../../components/Badge";
-import { ProjectManager } from "../../types";
-
-interface ProjectManagerTableProps {
-  projectManagerData: ProjectManager[];
-  view?: "dashboard" | "full";
-}
+import { ProjectManagerTableProps } from "../../types";
 
 export const ProjectManagerTable = ({
   projectManagerData,
 }: ProjectManagerTableProps) => {
-  const transformedData = projectManagerData.map((projectManager) => ({
-    ...projectManager,
-    status: (
-      <Badge
-        label={projectManager.status}
-        variant={projectManager.status === "active" ? "green" : "orange"}
-      />
-    ),
-  }));
-
   const columns = [
     { header: "Name", key: "name" },
     { header: "Email", key: "email" },
@@ -53,8 +37,8 @@ export const ProjectManagerTable = ({
 
         <Table
           columns={columns}
-          data={transformedData}
-          emptyMessage="No contributor added yet"
+          data={projectManagerData}
+          emptyMessage="No project manager added yet"
         />
       </div>
     </div>

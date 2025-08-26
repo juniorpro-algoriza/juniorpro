@@ -1,30 +1,14 @@
 "use client";
-
-import { Badge, Table } from "@components";
+import { Table } from "@components";
 import { EyeIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Contributor } from "../../types";
-interface ContributorsTableProps {
-  contributorData: Contributor[];
-  view?: "dashboard" | "full";
-}
+import type { ContributorTableContainerProps } from "../../admin/types";
 
 export const ContributorTable = ({
   contributorData,
   view,
-}: ContributorsTableProps) => {
-  const transformedData = contributorData.map((contributor) => ({
-    ...contributor,
-    status: (
-      <Badge
-        label={contributor.status}
-        variant={contributor.status === "active" ? "green" : "orange"}
-      />
-    ),
-  }));
+}: ContributorTableContainerProps) => {
   const pathname = usePathname();
-
-  // Determine view type based on prop or pathname (columns diff in dashboard)
   const isDashboard =
     view === "dashboard" || (!view && pathname.includes("/dashboard"));
 
@@ -62,41 +46,19 @@ export const ContributorTable = ({
       ];
 
   return (
-    <div>
-      <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-        <div className="p-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-medium text-yankees-blue">
-              Contributors ({contributorData.length})
-            </h3>
-            {/* <div className="flex justify-center gap-2.5">
-              <ModalLink name="AddJunior">
-                <Button intent="primary" className="text-sm" size="large">
-                  Add Contributor
-                </Button>
-              </ModalLink>
-
-              <Input
-                placeholder="Search for Contributors"
-                leftIcon={<SearchIcon size={20} />}
-                className="shadow-sm"
-              />
-              <Button
-                intent="unset"
-                className="shadow-sm px-2.5 border border-border-primary"
-              >
-                <ListFilter className="text-cadetGray" />
-              </Button>
-            </div> */}
-          </div>
+    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
+      <div className="p-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-medium text-yankees-blue">
+            Conributors ({contributorData.length})
+          </h3>
         </div>
-
-        <Table
-          columns={columns}
-          data={transformedData}
-          emptyMessage="No contributor added yet"
-        />
       </div>
+      <Table
+        columns={columns}
+        data={contributorData}
+        emptyMessage="No contributor added yet"
+      />
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type Junior = {
   id: number;
   name: string;
@@ -8,5 +10,9 @@ export type Junior = {
   activeProjects: number;
   completedProjects: number;
   projects?: number;
-  status: string;
+  status: string | ReactNode;
 };
+
+export interface JuniorsTableProps {
+  juniorsData: Junior[];
+}
