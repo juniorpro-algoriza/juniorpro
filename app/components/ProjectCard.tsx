@@ -1,9 +1,8 @@
-import { Button } from "@components";
+import { Button, Badge } from "@components";
 import type { Project, ProjectType } from "@types";
 import { CalendarDaysIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 // import { twMerge } from "tailwind-merge";
-import { badgeVariants } from "../styles/badgeVarients";
 
 type BadgeText = "Certifcate Earned" | "In Progress" | ProjectType;
 interface ProjectCardProps {
@@ -135,28 +134,28 @@ interface BadgeProps {
   text: BadgeText;
 }
 
-const Badge = ({ isFree, text }: BadgeProps) => {
-  let statusVariant: keyof typeof badgeVariants = "gray";
-  if (text === "Certifcate Earned") statusVariant = "green";
+const BadgeComponent = ({ isFree, text }: BadgeProps) => {
+  let statusVariant: "green" | "orange" | "red" | "blue" | "gray" | "purple" =
+    "gray";
   if (text === "In Progress") statusVariant = "orange";
 
-  const priceVariant: keyof typeof badgeVariants = isFree ? "green" : "red";
+  const priceVariant: "green" | "red" = isFree ? "green" : "red";
 
   return (
     <div className="flex items-center gap-2 pb-2">
       {/* Status badge */}
-      <span
-        className={`px-3 py-2 text-sm capitalize rounded-full w-fit  ${badgeVariants[statusVariant].bg} ${badgeVariants[statusVariant].text}`}
-      >
-        {text}
-      </span>
+      <Badge
+        label={text}
+        variant={statusVariant}
+        className="px-3 py-2 text-sm"
+      />
 
       {/* Price badge */}
-      <span
-        className={`px-3 py-2 text-sm rounded-full w-fit  ${badgeVariants[priceVariant].bg} ${badgeVariants[priceVariant].text}`}
-      >
-        {isFree ? "Free" : "Premium"}
-      </span>
+      <Badge
+        label={isFree ? "Free" : "Premium"}
+        variant={priceVariant}
+        className="px-3 py-2 text-sm" // Override default padding and text size
+      />
     </div>
   );
 };
@@ -176,7 +175,7 @@ const Main = ({
         <h4 className="pb-2 font-medium">{title}</h4>
         <div className="flex gap-2">
           <DueDate />
-          <Badge text={badgeText} isFree={isFree} />
+          <BadgeComponent text={badgeText} isFree={isFree} />
         </div>
       </>
     );
@@ -184,7 +183,7 @@ const Main = ({
 
   return (
     <>
-      {showBadge && <Badge text={badgeText} isFree={isFree} />}
+      {showBadge && <BadgeComponent text={badgeText} isFree={isFree} />}
 
       <h4 className="pb-2 font-medium">{title}</h4>
 
