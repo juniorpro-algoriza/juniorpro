@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type Stats = {
   label: string;
   value: number;
@@ -5,7 +7,7 @@ export type Stats = {
 
 export type CardConfig = {
   [key: string]: {
-    icon: React.ReactNode;
+    icon: ReactNode;
     variant: "green" | "red" | "blue" | "gray" | "orange" | "base";
   };
 };
