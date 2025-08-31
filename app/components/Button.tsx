@@ -22,7 +22,7 @@ export interface ButtonProps
   ref?: Ref<HTMLButtonElement>; // Accept ref as a normal prop
 }
 
-export function Button({
+export const Button = ({
   children,
   className,
   size = "medium",
@@ -31,7 +31,7 @@ export function Button({
   iconPosition = "right",
   ref,
   ...props
-}: ButtonProps) {
+}: ButtonProps) => {
   return (
     <HeadlessButton
       ref={ref}
@@ -47,7 +47,7 @@ export function Button({
       )}
     </HeadlessButton>
   );
-}
+};
 
 export type { ButtonSize, ButtonVariant, IconPosition };
 

@@ -44,28 +44,14 @@ const badge = cva({
     "font-medium",
     "capitalize",
   ],
-  // TODO: Lina, pls change the colors here to use the design system colors
   variants: {
     variant: {
-      green: [
-        // "bg-[var(--color-success-50)]",
-        "bg-success-50",
-        "text-[var(--color-success-400)]",
-      ],
-      orange: ["bg-[var(--color-orange-50)]", "text-[var(--color-orange-400)]"],
-      red: [
-        "bg-[var(--color-rejected-100)]",
-        "text-[var(--color-rejected-700)]",
-      ],
-      blue: [
-        "bg-[var(--color-violet-light)]",
-        "text-[var(--color-violet-normal)]",
-      ],
-      gray: [
-        "bg-[var(--color-gray-badge-50)]",
-        "text-[var(--color-gray-badge-400)]",
-      ],
-      purple: ["bg-[var(--color-purple-50)]", "text-[var(--color-purple-400)]"],
+      green: ["bg-success-50", "text-success-400"],
+      orange: ["bg-orange-50", "text-orange-400"],
+      red: ["bg-rejected-100", "text-rejected-700"],
+      blue: ["bg-violet-light", "text-violet-normal"],
+      gray: ["bg-gray-badge-50", "text-gray-badge-400"],
+      purple: ["bg-purple-50", "text-purple-400"],
     },
   },
   defaultVariants: {
