@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type StatCardVariant =
   | "blue"
   | "red"
@@ -9,6 +11,6 @@ export type StatCardVariant =
 export type StatCardType = {
   value: number;
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   variant: StatCardVariant;
 };

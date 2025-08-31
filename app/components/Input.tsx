@@ -3,10 +3,10 @@ import {
   Field,
   Input as HeadlessInput,
   Label,
-} from '@headlessui/react';
-import { cva, cx } from '@lib';
-import type { VariantProps } from 'cva';
-import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
+} from "@headlessui/react";
+import { cva, cx } from "@lib";
+import type { VariantProps } from "cva";
+import type { InputHTMLAttributes, ReactNode, Ref } from "react";
 
 interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
@@ -23,14 +23,14 @@ interface InputProps
 }
 
 interface IconContainerProps {
-  children: React.ReactNode;
-  position: 'left' | 'right';
+  children: ReactNode;
+  position: "left" | "right";
 }
 
 const IconContainer = ({ children, position }: IconContainerProps) => {
   const iconClasses = cx(
-    'absolute top-1/2 transform -translate-y-1/2 text-gray-400',
-    position === 'left' ? 'left-3' : 'right-3'
+    "absolute top-1/2 transform -translate-y-1/2 text-gray-400",
+    position === "left" ? "left-3" : "right-3"
   );
 
   return <div className={iconClasses}>{children}</div>;
@@ -50,13 +50,13 @@ const Input = ({
   ref,
   ...props
 }: InputProps) => {
-  const containerClasses = cx('flex flex-col space-y-2', containerClassName);
+  const containerClasses = cx("flex flex-col space-y-2", containerClassName);
 
   // Determine input state based on props if not explicitly provided
   const inputState =
-    state || (error ? 'error' : disabled ? 'disabled' : 'default');
+    state || (error ? "error" : disabled ? "disabled" : "default");
 
-  const inputWrapperClasses = 'relative';
+  const inputWrapperClasses = "relative";
 
   const inputClasses = cx(
     input({
@@ -73,7 +73,7 @@ const Input = ({
 
       <div className={inputWrapperClasses}>
         {/* Left Icon */}
-        {leftIcon && <IconContainer position='left'>{leftIcon}</IconContainer>}
+        {leftIcon && <IconContainer position="left">{leftIcon}</IconContainer>}
         {/* Input */}
         <HeadlessInput
           ref={ref}
@@ -84,14 +84,14 @@ const Input = ({
         />
         {/* Right Icon */}
         {rightIcon && (
-          <IconContainer position='right'>{rightIcon}</IconContainer>
+          <IconContainer position="right">{rightIcon}</IconContainer>
         )}
       </div>
 
       {/* Error or Helper Text */}
       {(error ?? helperText) && (
         <Description
-          className={descriptionVariants({ type: error ? 'error' : 'helper' })}
+          className={descriptionVariants({ type: error ? "error" : "helper" })}
         >
           {error ?? helperText}
         </Description>
@@ -100,55 +100,55 @@ const Input = ({
   );
 };
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export { Input };
 
 const input = cva({
   base: [
-    'w-full',
-    'px-3',
-    'py-2',
-    'focus:ring-2',
-    'focus:ring-violet-normal',
-    'rounded-lg',
-    'border',
-    'transition-all',
-    'duration-200',
-    'outline-none',
-    'placeholder:text-cadetGray',
-    'placeholder:font-medium',
-    'text-cadetGray',
+    "w-full",
+    "px-3",
+    "py-2",
+    "focus:ring-2",
+    "focus:ring-violet-normal",
+    "rounded-lg",
+    "border",
+    "transition-all",
+    "duration-200",
+    "outline-none",
+    "placeholder:text-cadetGray",
+    "placeholder:font-medium",
+    "text-cadetGray",
   ],
   variants: {
     state: {
-      default: 'border-border-primary bg-white',
-      error: 'border-red-500 ring-2 ring-red-100',
+      default: "border-border-primary bg-white",
+      error: "border-red-500 ring-2 ring-red-100",
       disabled:
-        'bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed',
+        "bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed",
     },
     hasLeftIcon: {
-      true: 'pl-10',
-      false: '',
+      true: "pl-10",
+      false: "",
     },
     hasRightIcon: {
-      true: 'pr-10',
-      false: '',
+      true: "pr-10",
+      false: "",
     },
   },
   defaultVariants: {
-    state: 'default',
+    state: "default",
     hasLeftIcon: false,
     hasRightIcon: false,
   },
 });
 
 const labelVariants = cva({
-  base: 'text-sm font-medium',
+  base: "text-sm font-medium",
   variants: {
     disabled: {
-      true: 'text-gray-400',
-      false: 'text-midnight',
+      true: "text-gray-400",
+      false: "text-midnight",
     },
   },
   defaultVariants: {
@@ -157,14 +157,14 @@ const labelVariants = cva({
 });
 
 const descriptionVariants = cva({
-  base: 'text-sm',
+  base: "text-sm",
   variants: {
     type: {
-      error: 'text-red-600',
-      helper: 'text-gray-500',
+      error: "text-red-600",
+      helper: "text-gray-500",
     },
   },
   defaultVariants: {
-    type: 'helper',
+    type: "helper",
   },
 });
