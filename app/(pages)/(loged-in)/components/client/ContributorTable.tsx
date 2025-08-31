@@ -1,4 +1,5 @@
 "use client";
+
 import { Table } from "@components";
 import { EyeIcon } from "lucide-react";
 import { usePathname } from "next/navigation";

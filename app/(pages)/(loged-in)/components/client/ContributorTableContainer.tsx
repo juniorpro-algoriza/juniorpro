@@ -1,6 +1,5 @@
 import { getContributorData } from "../../admin/server";
 import { ContributorTable } from "./ContributorTable";
-
 import { Badge } from "@components";
 
 export const ContributorTableContainer = async () => {
