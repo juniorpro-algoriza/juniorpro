@@ -1,5 +1,4 @@
 import { getJuniorsData } from "@server";
-
 import { Badge } from "@components";
 import { JuniorsTable } from "./JuniorsTable";
 

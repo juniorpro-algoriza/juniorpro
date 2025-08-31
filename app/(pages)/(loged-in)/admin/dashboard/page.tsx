@@ -6,7 +6,7 @@ import {
   DashboardStatsContainer,
 } from "./components";
 
-const AdminDashboard = async () => {
+const AdminDashboardPage = async () => {
   const contributorData = await getContributorData();
 
   return (
@@ -21,4 +21,4 @@ const AdminDashboard = async () => {
   );
 };
 
-export default AdminDashboard;
+export default AdminDashboardPage;

@@ -4,7 +4,7 @@ import {
   JuniorTableContainer,
 } from "./components";
 
-const AdminJuniors = async () => {
+const AdminJuniorsPage = async () => {
   return (
     <div className="min-h-screen py-3 px-6 bg-stone-50 space-y-6">
       <JuniorHeader />
@@ -14,4 +14,4 @@ const AdminJuniors = async () => {
   );
 };
 
-export default AdminJuniors;
+export default AdminJuniorsPage;

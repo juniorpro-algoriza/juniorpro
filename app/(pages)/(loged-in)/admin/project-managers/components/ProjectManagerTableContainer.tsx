@@ -1,6 +1,5 @@
 import { getProjectManagerData } from "../../server";
 import { ProjectManagerTable } from "./ProjectManagerTable";
-
 import { Badge } from "@components";
 
 export const ProjectManagerTableContainer = async () => {
