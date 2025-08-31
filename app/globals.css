@@ -1,3 +1,4 @@
+/* TODO: cleanup colors and remove duplicated ones */
 @import 'tailwindcss';
 @plugin "@tailwindcss/forms";
 @theme {
@@ -88,7 +89,7 @@
   --color-shadowBlue: #7e8ca0;
   --color-platinum: #dfe1e8;
   --color-semi-blue: #375375;
-  --color-light-blue: #e7f6ff;
+  --color-light-blue: #e2e6ee;
   --color-blue-alpha: #58a8dc;
   --color-muted-text: #3f3f3f;
   --color-light-red: #fdedd5;
@@ -116,6 +117,15 @@
   --color-sucess-normal: #41c980;
   --color-sucess-hover: #e3f7ec;
   --color-light-mint: #b4f4be59;
+
+  --color-purple-50: #ede9ff;
+  --color-purple-400: #664bde;
+
+  --color-orange-50: #fcf4e8;
+  --color-orange-400: #df972a;
+
+  --color-gray-badge-50: #eef0f3;
+  --color-gray-badge-400: #7e8ca0;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;

@@ -39,6 +39,7 @@ export const getProjects = async ({
 
   return {
     data: paginatedData
+      //TODO: @Abdelrhman pls check this why not return juniors
       .map((p) => ({ ...p, juniors: juniors ?? [] }))
       .filter((p) => (shouldIncludeProject ? shouldIncludeProject(p) : true)),
     currentPage: pageNum,
@@ -59,7 +60,7 @@ const dummyData: Project[] = [
     rating: 4 + (i % 2),
     projectType: "solo" as ProjectType,
     isFree: i % 2 === 0,
-    status: "not-started" as ProjectStatus,
+    status: "in-progress" as ProjectStatus,
     dueDate: new Date(),
     juniors: ["anas"],
   })),
@@ -89,9 +90,9 @@ const dummyData: Project[] = [
     rating: 4 + (i % 2),
     projectType: "team" as ProjectType,
     isFree: i % 3 === 0,
-    status: "not-started" as ProjectStatus,
+    status: "in-progress" as ProjectStatus,
     dueDate: new Date(),
-    juniors: ["anas"],
+    juniors: ["anas", "lina"],
   })),
 
   // 10 coding
@@ -104,7 +105,7 @@ const dummyData: Project[] = [
     rating: 5 - (i % 3),
     projectType: "coding" as ProjectType,
     isFree: i % 2 === 0,
-    status: "not-started" as ProjectStatus,
+    status: "in-progress" as ProjectStatus,
     dueDate: new Date(),
     juniors: ["anas"],
   })),

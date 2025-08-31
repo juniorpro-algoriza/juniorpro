@@ -4,7 +4,10 @@ export { CalendarIcon } from './CalendarIcon';
 export { ChatIcon } from './ChatIcon';
 export { DiamondIcon } from './DiamondIcon';
 export { DocumentIcon } from './DocumentIcon';
+export { DocumentValidationIcon } from './DocumentValidationIcon';
+export { FileUnkownIcon } from './FileUnkownIcon';
 export { FireIcon } from './FireIcon';
+export { FolderDetailsIcon } from './FolderDetailsIcon';
 export { GlobeIcon } from './GlobeIcon';
 export { GoogleIcon } from './GoogleIcon';
 export { HomeIcon } from './HomeIcon';
@@ -19,5 +22,7 @@ export { MoneyIcon } from './MoneyIcon';
 export { SettingsIcon } from './SettingsIcon';
 export { StarIcon } from './StarIcon';
 export { UserIcon } from './UserIcon';
+export { UserManagerIcon } from './UserManagerIcon';
+export { UsersIcon } from './UsersIcon';
 export { WalletIcon } from './WalletIcon';
 

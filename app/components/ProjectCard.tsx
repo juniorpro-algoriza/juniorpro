@@ -1,8 +1,8 @@
-import { Button } from '@components';
-import type { Project, ProjectType } from '@types';
-import { CalendarDaysIcon, StarIcon } from 'lucide-react';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
+import { Button, Badge } from "@components";
+import type { Project, ProjectType } from "@types";
+import { CalendarDaysIcon, StarIcon } from "lucide-react";
+import Image from "next/image";
+// import { twMerge } from "tailwind-merge";
 
 type BadgeText = "Certifcate Earned" | "In Progress" | ProjectType;
 interface ProjectCardProps {
@@ -13,6 +13,7 @@ interface ProjectCardProps {
   showRating: boolean;
   showBadge: boolean;
   showBadgeNextToDueDate: boolean;
+  showJuniorsCountOnly?: boolean;
   badgeText: "projectType" | "status";
   className?: string;
   buttonText?: string;
@@ -24,6 +25,7 @@ export const ProjectCard = ({
   showBadge,
   showDueDate,
   showJuniors,
+  showJuniorsCountOnly,
   showRating,
   showBadgeNextToDueDate,
   className,
@@ -75,7 +77,12 @@ export const ProjectCard = ({
           <DueDate dueDate={dueDate} />
         )}
 
-        {showJuniors && <Juniors juniors={juniors} />}
+        {showJuniors && (
+          <Juniors
+            juniors={juniors}
+            showJuniorsCountOnly={showJuniorsCountOnly}
+          />
+        )}
 
         <Button
           intent="unset"
@@ -100,9 +107,11 @@ const Header = ({ imageUrl = "", category = "" }) => {
         // w-[330px] h-[183px]
         className="object-cover w-full rounded-xl max-h-[200px]"
       />
-      <span className='absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal'>
-        {category}
-      </span>
+      {category && (
+        <span className="absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal">
+          {category}
+        </span>
+      )}
     </div>
   );
 };
@@ -120,35 +129,33 @@ const Rating = ({ rating = 0 }) => {
   );
 };
 
-interface BadeProps {
+interface BadgeProps {
   isFree: boolean;
   text: BadgeText;
 }
-const Badge = ({ isFree, text }: BadeProps) => {
-  let badgeClassName = '';
 
-  if (text === 'Certifcate Earned')
-    badgeClassName = 'bg-sucess-hover text-sucess-normal';
+const BadgeComponent = ({ isFree, text }: BadgeProps) => {
+  let statusVariant: "green" | "orange" | "red" | "blue" | "gray" | "purple" =
+    "gray";
+  if (text === "In Progress") statusVariant = "orange";
+
+  const priceVariant: "green" | "red" = isFree ? "green" : "red";
+
   return (
-    <div className='flex items-center gap-2 pb-2'>
-      <p
-        className={twMerge(
-          'px-3 py-2 text-sm capitalize bg-gray-100 rounded-full w-fit text-shadowBlue',
-          badgeClassName
-        )}
-      >
-        {text}
-      </p>
-      <span
-        className={twMerge(
-          'px-3 py-2 text-sm rounded-full w-fit',
-          isFree
-            ? 'bg-success-50 text-success-400'
-            : 'bg-light-orange text-dark-orange'
-        )}
-      >
-        {isFree ? "Free" : "Premium"}
-      </span>
+    <div className="flex items-center gap-2 pb-2">
+      {/* Status badge */}
+      <Badge
+        label={text}
+        variant={statusVariant}
+        className="px-3 py-2 text-sm"
+      />
+
+      {/* Price badge */}
+      <Badge
+        label={isFree ? "Free" : "Premium"}
+        variant={priceVariant}
+        className="px-3 py-2 text-sm" // Override default padding and text size
+      />
     </div>
   );
 };
@@ -168,7 +175,7 @@ const Main = ({
         <h4 className="pb-2 font-medium">{title}</h4>
         <div className="flex gap-2">
           <DueDate />
-          <Badge text={badgeText} isFree={isFree} />
+          <BadgeComponent text={badgeText} isFree={isFree} />
         </div>
       </>
     );
@@ -176,7 +183,7 @@ const Main = ({
 
   return (
     <>
-      {showBadge && <Badge text={badgeText} isFree={isFree} />}
+      {showBadge && <BadgeComponent text={badgeText} isFree={isFree} />}
 
       <h4 className="pb-2 font-medium">{title}</h4>
 
@@ -195,13 +202,22 @@ const DueDate = ({ dueDate = new Date() }) => {
     </div>
   );
 };
-
-const Juniors = ({ juniors }: { juniors: string[] }) => {
+const Juniors = ({
+  juniors,
+  showJuniorsCountOnly = false,
+}: {
+  juniors: string[];
+  showJuniorsCountOnly?: boolean;
+}) => {
   return (
     <p className="pb-2 space-x-1">
       <span className="text-content-secondary">Juniors:</span>
       <span className="font-medium capitalize">
-        {juniors[0] === "all juniors" ? ["Anas, Marwa"] : juniors.join(", ")}
+        {showJuniorsCountOnly
+          ? juniors.length
+          : juniors[0] === "all juniors"
+            ? "Anas, Marwa"
+            : juniors.join(", ")}
       </span>
     </p>
   );
