@@ -1,3 +1,4 @@
+/* TODO: cleanup colors and remove duplicated ones */
 @import 'tailwindcss';
 @plugin "@tailwindcss/forms";
 @theme {

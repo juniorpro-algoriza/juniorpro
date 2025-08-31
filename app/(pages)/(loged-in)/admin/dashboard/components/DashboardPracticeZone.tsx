@@ -12,18 +12,18 @@ export const DashboardPracticeZone = async () => {
   });
 
   return (
-    <div className="bg-white border border-[var(--color-border-primary)] rounded-[20px] p-6 space-y-6">
+    <div className="bg-white border border-border-primary rounded-[20px] p-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-medium text-[var(--color-yankees-blue)]">
+        <h2 className="text-xl font-medium text-yankees-blue">
           Practice Zone ({practiceZoneProjects.length})
         </h2>
         {hasNextPage && (
           <Link
             href="/admin/practice-zone"
-            className="flex items-center gap-1 text-[var(--color-violet-normal)] text-sm font-medium hover:text-blue-700"
+            className="flex items-center gap-1 text-violet-normal text-sm font-medium hover:text-blue-700"
           >
-            View All
+            <span>View All</span>
             <ChevronRightIcon size={16} />
           </Link>
         )}

@@ -12,6 +12,7 @@ export const ContributorTable = ({
   const isDashboard =
     view === "dashboard" || (!view && pathname.includes("/dashboard"));
 
+  // TODO: refactor <Table />
   const columns = isDashboard
     ? [
         { header: "Name", key: "name" },

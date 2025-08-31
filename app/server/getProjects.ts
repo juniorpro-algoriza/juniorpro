@@ -39,7 +39,7 @@ export const getProjects = async ({
 
   return {
     data: paginatedData
-      //@Abdelrhman pls check this why not return juniors
+      //TODO: @Abdelrhman pls check this why not return juniors
       .map((p) => ({ ...p, juniors: juniors ?? [] }))
       .filter((p) => (shouldIncludeProject ? shouldIncludeProject(p) : true)),
     currentPage: pageNum,
