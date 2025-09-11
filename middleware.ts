@@ -5,12 +5,12 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get("auth_token")?.value;
   const path = req.nextUrl.pathname;
 
-  // 1️⃣ Not logged in → redirect to login
+  // Not logged in → redirect to login
   if (!token) {
-    return NextResponse.redirect(new URL("auth/login", req.url));
+    return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
-  // 2️⃣ Role-based route protection
+  // Role-based route protection
   if (
     path.startsWith("/admin") ||
     path.startsWith("/junior") ||
@@ -24,7 +24,7 @@ export async function middleware(req: NextRequest) {
       );
 
       if (!profileRes.ok)
-        return NextResponse.redirect(new URL("auth/login", req.url));
+        return NextResponse.redirect(new URL("/auth/login", req.url));
 
       const profile = await profileRes.json();
       const userType = profile.userType;
@@ -38,7 +38,7 @@ export async function middleware(req: NextRequest) {
       if (path.startsWith("/project") && userType !== 4)
         return NextResponse.redirect(new URL("/unauthorized", req.url));
     } catch {
-      return NextResponse.redirect(new URL("auth/login", req.url));
+      return NextResponse.redirect(new URL("/auth/login", req.url));
     }
   }
 
