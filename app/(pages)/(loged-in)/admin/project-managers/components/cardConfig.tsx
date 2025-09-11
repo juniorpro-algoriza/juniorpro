@@ -6,7 +6,7 @@ import {
 } from "@icons";
 
 export const cardConfig = {
-  "Active Juniors": {
+  "Active Project Managers": {
     icon: <UserIcon width="25" height="25" fill="var( --color-success-400)" />,
     variant: "green",
   },

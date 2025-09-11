@@ -2,7 +2,7 @@ import { DocumentValidationIcon } from "@icons";
 import { UserIcon, WalletIcon, CalendarIcon } from "@icons";
 
 export const config = {
-  "Active Juniors": {
+  "Active Contributors": {
     icon: (
       <UserIcon width="25" height="25" fill="var(--color-success-normal)" />
     ),

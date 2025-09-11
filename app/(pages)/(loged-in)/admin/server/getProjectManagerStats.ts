@@ -3,7 +3,7 @@
 import type { Stats } from "../types";
 import { cookies } from "next/headers";
 
-export const getJuniorStats = async (): Promise<Stats[]> => {
+export const getProjectManagerStats = async (): Promise<Stats[]> => {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("auth_token")?.value;
@@ -13,7 +13,7 @@ export const getJuniorStats = async (): Promise<Stats[]> => {
     }
 
     const res = await fetch(
-      "https://juniorpro-001-site1.ntempurl.com/api/admin-dashboard/juniors-stats",
+      "https://juniorpro-001-site1.ntempurl.com/api/admin-dashboard/project-managers-stats",
       {
         method: "GET",
         headers: {
@@ -31,10 +31,10 @@ export const getJuniorStats = async (): Promise<Stats[]> => {
     const data = await res.json();
 
     const stats: Stats[] = [
-      { label: "Active Juniors", value: data.activeJuniors },
-      { label: "Pending Reviews", value: data.pendingReviews },
+      { label: "Active Project Managers", value: data.activeProjectManager },
       { label: "Today's Sessions", value: data.todaysSessions },
       { label: "Waiting List", value: data.waitingList },
+      { label: "Wallet", value: data.wallet },
     ];
 
     return stats;
@@ -43,10 +43,10 @@ export const getJuniorStats = async (): Promise<Stats[]> => {
 
     // fallback to empty data (avoids crashing UI)
     return [
-      { label: "Juniors", value: 0 },
-      { label: "Pending Reviews", value: 0 },
+      { label: "Active Project Managers", value: 0 },
       { label: "Today's Sessions", value: 0 },
       { label: "Waiting List", value: 0 },
+      { label: "Wallet", value: 0 },
     ];
   }
 };
