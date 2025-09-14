@@ -1,6 +1,6 @@
 "use server";
 
-import { getData } from "../../../../server/getData";
+import { getData } from "@server";
 import type { Stats } from "../types";
 
 export const getJuniorStats = async (): Promise<Stats[]> => {
