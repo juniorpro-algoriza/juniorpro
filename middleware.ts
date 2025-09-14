@@ -5,8 +5,37 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get("auth_token")?.value;
   const path = req.nextUrl.pathname;
 
+  if (path.startsWith("/auth/login") && token) {
+    try {
+      const profileRes = await fetch(
+        "https://juniorpro-001-site1.ntempurl.com/api/User/profile",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (profileRes.ok) {
+        const profile = await profileRes.json();
+        const userType = profile.userType;
+
+        if (userType === 1)
+          return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+        if (userType === 2)
+          return NextResponse.redirect(new URL("/junior/dashboard", req.url));
+        if (userType === 3)
+          return NextResponse.redirect(
+            new URL("/contributor/dashboard", req.url)
+          );
+        if (userType === 4)
+          return NextResponse.redirect(
+            new URL("project/manger/dashboard", req.url)
+          );
+
+        return NextResponse.redirect(new URL("/", req.url));
+      }
+    } catch {}
+  }
+
   // Not logged in → redirect to login
-  if (!token) {
+  if (!token && !path.startsWith("/auth")) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
@@ -47,6 +76,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
+    "/auth/login",
     "/admin/:path*",
     "/junior/:path*",
     "/contributor/:path*",
