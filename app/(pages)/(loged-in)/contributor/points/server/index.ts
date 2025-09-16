@@ -1,3 +1,2 @@
-export { getPointsPlans } from './getPointsPlans';
-export { getPointsTransactions } from './getPointsTransactions';
-
+export { getPointsPlans } from "../../../../../server/getPointsPlans";
+export { getPointsTransactions } from "./getPointsTransactions";

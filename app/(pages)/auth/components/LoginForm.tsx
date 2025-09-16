@@ -3,13 +3,14 @@
 import { Button, Input } from "@components";
 import { initialState } from "@server/lib";
 import { Loader } from "lucide-react";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { signIn } from "../server";
+import { EyeCloseIcon, EyeIcon } from "@icons";
 
 export const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
-
+  const [type, setType] = useState("password");
   useEffect(() => {
     const { error } = state;
 
@@ -18,7 +19,7 @@ export const LoginForm = () => {
   }, [state]);
 
   return (
-    <form action={formAction} className='space-y-2'>
+    <form action={formAction} className="space-y-2">
       <Input
         name="email"
         label="Email"
@@ -26,12 +27,20 @@ export const LoginForm = () => {
         placeholder="Enter email address"
       />
       <div>
-        <Input
-          name="password"
-          label="Password"
-          type="password"
-          placeholder="Enter Password"
-        />
+        <div className="relative">
+          <Input
+            name="password"
+            label="Password"
+            type={type}
+            placeholder="Enter Password"
+          />
+          <div
+            className="absolute right-5 top-1/2 cursor-pointer"
+            onClick={() => setType(type === "password" ? "text" : "password")}
+          >
+            {type === "password" ? <EyeIcon /> : <EyeCloseIcon />}
+          </div>
+        </div>
         <div className="text-right pt-2">
           <a href="#" className="text-sm text-cadetGray font-medium">
             Forget Password?

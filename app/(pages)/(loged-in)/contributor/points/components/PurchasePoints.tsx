@@ -1,38 +1,29 @@
-'use client';
+"use client";
 
-import { Tabs } from '@components/client';
-import type { TabData } from '@types';
-import { useEffect, useState } from 'react';
-import { getPointsPlans, getPointsTransactions } from '../server';
-import { Plan, Transaction } from '../types';
-import { PurchaseCard } from './PurchaseCard';
-import { TransactionCard } from './TransactionCard';
+import { Tabs } from "@components/client";
+import type { TabData, Plan } from "@types";
+import { Transaction } from "../types";
+import { TransactionCard } from "./TransactionCard";
+import { PurchaseCard } from "@components";
+interface PurchasePointsProps {
+  plans: Plan[];
+  transactions: Transaction[];
+}
 
-export const PurchasePoints = () => {
-  const [plansData, setPlansData] = useState<Plan[]>([]);
-  const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const plans = await getPointsPlans();
-      const transactions = await getPointsTransactions();
-      setPlansData(plans);
-      setTransactionsData(transactions);
-    };
-
-    fetchData();
-  }, []);
-
+export const PurchasePoints = ({
+  plans,
+  transactions,
+}: PurchasePointsProps) => {
   const tabsData: TabData[] = [
     {
-      name: 'Purchase Points',
+      name: "Purchase Points",
       content: (
         <>
-          <h2 className='text-2xl font-medium text-yankees-blue'>
+          <h2 className="text-2xl font-medium text-yankees-blue">
             Purchase Points
           </h2>
-          <div className='grid md:grid-cols-3 gap-6'>
-            {plansData.map((plan) => (
+          <div className="grid md:grid-cols-3 gap-6">
+            {plans.map((plan) => (
               <PurchaseCard key={plan.id} plan={plan} />
             ))}
           </div>
@@ -40,14 +31,14 @@ export const PurchasePoints = () => {
       ),
     },
     {
-      name: 'Transactions',
+      name: "Transactions",
       content: (
         <>
-          <h2 className='text-2xl font-medium text-yankees-blue'>
+          <h2 className="text-2xl font-medium text-yankees-blue">
             Recent Transactions
           </h2>
-          <div className='space-y-4'>
-            {transactionsData.map((transaction) => (
+          <div className="space-y-4">
+            {transactions.map((transaction) => (
               <TransactionCard key={transaction.id} transaction={transaction} />
             ))}
           </div>
@@ -58,7 +49,7 @@ export const PurchasePoints = () => {
 
   return (
     <div>
-      <Tabs tabs={tabsData} tabStyle='w-fit px-4' />
+      <Tabs tabs={tabsData} tabStyle="w-fit px-4" />
     </div>
   );
 };

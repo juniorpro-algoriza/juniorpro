@@ -6,11 +6,12 @@ interface props {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
   dummyData: unknown[];
+  body?: unknown;
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;
 
-export const getData = async ({ url, method, dummyData }: props) => {
+export const getData = async ({ url, method, dummyData, body }: props) => {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("auth_token")?.value;
@@ -24,6 +25,7 @@ export const getData = async ({ url, method, dummyData }: props) => {
         Authorization: `Bearer ${token}`,
       },
       cache: "no-store",
+      body: JSON.stringify(body),
     });
     if (!res.ok) {
       throw new Error(`Failed to fetch stats: ${res.status}`);
