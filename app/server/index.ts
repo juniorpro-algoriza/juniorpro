@@ -8,3 +8,4 @@ export { getPremiumTasks } from "./getPremiumTasks";
 export { getProjects } from "./getProjects";
 export { getTeamProjects } from "./getTeamProjects";
 export { getData } from "./getData";
+export { inviteExistingJunior } from "./InviteExistingJunior";
