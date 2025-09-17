@@ -61,8 +61,14 @@ export const Table = <T extends Record<string, unknown>>({
                     >
                       {col.isAction ? (
                         <Link
-                          href={col.href || "#"}
-                          className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium  ${
+                          href={
+                            ((item as Record<string, unknown>)[
+                              col.key
+                            ] as string) ||
+                            col.href ||
+                            "#"
+                          }
+                          className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium ${
                             col.actionClassName ||
                             "text-[#5879DC] hover:text-blue-700 hover:bg-gray-50"
                           }`}

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
-export type ProjectManager = {
+export interface ProjectManager extends Record<string, unknown> {
+  id: number;
   name: string;
   email: string;
   status: string | ReactNode;
@@ -8,7 +9,8 @@ export type ProjectManager = {
   practiceContent: number;
   contributors: number;
   joinedOn: string;
-};
+  juniorsCount: number;
+}
 
 export interface ProjectManagerTableProps {
   projectManagerData: ProjectManager[];

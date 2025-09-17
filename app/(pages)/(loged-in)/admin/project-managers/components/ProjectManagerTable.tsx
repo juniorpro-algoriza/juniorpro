@@ -2,9 +2,10 @@ import { Table } from "@components";
 import { EyeIcon } from "lucide-react";
 import { ProjectManagerTableProps } from "../../types";
 
-export const ProjectManagerTable = ({
+export default function ProjectManagerTable({
   projectManagerData,
-}: ProjectManagerTableProps) => {
+  // view,
+}: ProjectManagerTableProps) {
   const columns = [
     { header: "Name", key: "name" },
     { header: "Email", key: "email" },
@@ -15,11 +16,10 @@ export const ProjectManagerTable = ({
     { header: "Joined On", key: "joinedOn" },
     {
       header: "Action",
-      key: "action",
+      key: "actionHref",
       isAction: true,
       actionLabel: "View",
       actionIcon: <EyeIcon size={16} />,
-      href: "/admin/project-managers/id",
       width: "w-24",
     },
   ];
@@ -39,8 +39,9 @@ export const ProjectManagerTable = ({
           columns={columns}
           data={projectManagerData}
           emptyMessage="No project manager added yet"
+          // view={view}
         />
       </div>
     </div>
   );
-};
+}

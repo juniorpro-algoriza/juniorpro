@@ -1,18 +1,20 @@
 import { getProjectManagerData } from "../../server";
-import { ProjectManagerTable } from "./ProjectManagerTable";
+import ProjectManagerTable from "./ProjectManagerTable";
 import { Badge } from "@components";
 
 export const ProjectManagerTableContainer = async () => {
-  const ProjectManagerData = await getProjectManagerData();
+  const projectManagers = await getProjectManagerData();
 
-  const transformedData = ProjectManagerData.map((projectManager) => ({
-    ...projectManager,
+  // transform the data to match table needs
+  const transformedData = projectManagers.map((pm) => ({
+    ...pm,
     status: (
       <Badge
-        label={projectManager.status}
-        variant={projectManager.status === "active" ? "green" : "orange"}
+        label={pm.status as string}
+        variant={pm.status === "active" ? "green" : "orange"}
       />
     ),
+    actionHref: `/admin/project-managers/${pm.id}`,
   }));
 
   return (

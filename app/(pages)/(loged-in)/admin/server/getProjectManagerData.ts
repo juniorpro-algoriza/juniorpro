@@ -1,44 +1,62 @@
-import type { ProjectManager } from '../types/ProjectManager';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// app/server/projectManager.ts
+"use server";
+
+import { cookies } from "next/headers";
+import type { ProjectManager } from "../types/ProjectManager";
+import { getData } from "@server";
+
+const API_BASE = "https://juniorpro-001-site1.ntempurl.com/api";
 
 export const getProjectManagerData = async (): Promise<ProjectManager[]> => {
-  return dummyData;
+  const json = await getData({
+    url: "project-manager/get-all",
+    method: "GET",
+    dummyData: [],
+  });
+
+  return json.data.map((pm: any) => ({
+    id: pm.id,
+    name: pm.name,
+    email: pm.email,
+    status: pm.status || "pending",
+    projects: pm.projectsCount,
+    practiceContent: pm.practiceContentsCount,
+    contributors: pm.contributorsCount,
+    joinedOn: pm.joiningDate,
+  }));
 };
 
-const dummyData: ProjectManager[] = [
-  {
-    name: 'Alex Johnson',
-    email: 'alex.johnson@example.com',
-    status: 'active',
-    projects: 3,
-    practiceContent: 150,
-    contributors: 2,
-    joinedOn: '2023-01-10',
-  },
-  {
-    name: 'Sam Smith',
-    email: 'sam.smith@example.com',
-    status: 'active',
-    projects: 1,
-    practiceContent: 200,
-    contributors: 2,
-    joinedOn: '2023-03-22',
-  },
-  {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    status: 'pending',
-    projects: 2,
-    practiceContent: 200,
-    contributors: 2,
-    joinedOn: '2023-05-15',
-  },
-  {
-    name: 'Harry Potter',
-    email: 'harry.potter@example.com',
-    status: 'pending',
-    projects: 4,
-    practiceContent: 400,
-    contributors: 2,
-    joinedOn: '2023-02-05',
-  },
-];
+export const getProjectManagerDetails = async (
+  id: number
+): Promise<ProjectManager> => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
+
+  if (!token) throw new Error("Unauthorized: No auth token found in cookies");
+
+  const res = await fetch(`${API_BASE}/project-manager/details/${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!res.ok)
+    throw new Error(`Failed to fetch project manager details for id ${id}`);
+
+  const pm = await res.json();
+
+  return {
+    id: pm.id,
+    name: pm.name,
+    email: pm.email,
+    status: pm.status || "pending",
+    projects: pm.projectsCount,
+    practiceContent: pm.practiceContentsCount,
+    juniorsCount: pm.juniorsCount,
+    contributors: pm.contributorsCount,
+    joinedOn: pm.joiningDate,
+  };
+};
