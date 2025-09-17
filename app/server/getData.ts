@@ -24,7 +24,7 @@ export const getData = async ({ url, method, dummyData, body }: props) => {
         accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      cache: "no-store",
+      cache: "force-cache",
       body: JSON.stringify(body),
     });
     if (!res.ok) {

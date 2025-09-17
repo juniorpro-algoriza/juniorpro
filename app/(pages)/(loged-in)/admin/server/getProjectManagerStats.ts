@@ -4,11 +4,10 @@ import { getData } from "@server";
 import type { Stats } from "../types";
 
 export const getProjectManagerStats = async (): Promise<Stats[]> => {
-  const dummyData: Stats[] = [];
   const data = await getData({
     url: "admin-dashboard/project-managers-stats",
     method: "GET",
-    dummyData: dummyData,
+    dummyData: [],
   });
 
   const stats: Stats[] = [
