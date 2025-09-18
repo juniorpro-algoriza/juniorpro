@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 interface props {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  dummyData: unknown[];
+  dummyData?: unknown[];
   body?: unknown;
 }
 
