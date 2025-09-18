@@ -1,5 +1,5 @@
 import { getProjectManagerDetails } from "../../server/getProjectManagerData";
-import ProjectManagerProfile from "../components/Profile";
+import { ProjectManagerProfile } from "../components/Profile";
 import { ProjectManagerTabs } from "../components/tabs/Tabs";
 
 export default async function ProjectManagerDetailsPage({

@@ -6,11 +6,29 @@ interface ModalLinkProps {
   children: ReactNode;
   name: ModalName;
   className?: string;
+  query?: Record<string, string | number>;
 }
 
-export const ModalLink = ({ children, name, className }: ModalLinkProps) => {
+export const ModalLink = ({
+  children,
+  name,
+  className,
+  query,
+}: ModalLinkProps) => {
+  // Build query string if provided
+  const searchParams = query
+    ? "?" +
+      new URLSearchParams(
+        Object.entries(query).map(([key, value]) => [key, value.toString()])
+      ).toString()
+    : "";
+
   return (
-    <Link className={className} href={`/modal/${name}`} scroll={false}>
+    <Link
+      className={className}
+      href={`/modal/${name}${searchParams}`}
+      scroll={false}
+    >
       {children}
     </Link>
   );
