@@ -1,2 +1,2 @@
 // app/types/UserType.ts
-export type UserType = "projectManager" | "contributor" | "junior";
+export type UserType = 'project-manager' | 'contributor' | 'junior';

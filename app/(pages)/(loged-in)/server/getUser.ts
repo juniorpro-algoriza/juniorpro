@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use server";
+'use server';
 
-import { cookies } from "next/headers";
-import { getData } from "@server";
-import { UserType } from "../types/UserType";
+import {cookies} from 'next/headers';
+import {getData} from '@server';
+import {UserType} from '../types/UserType';
 
-const API_BASE = "https://juniorpro-001-site1.ntempurl.com/api";
+const API_BASE = 'https://juniorpro-001-site1.ntempurl.com/api';
 
 export const getUserData = async (type: UserType) => {
   const json = await getData({
     url: `${type}/get-all`,
-    method: "GET",
+    method: 'GET',
     dummyData: [],
   });
 
-  return json.data.map((u: any) => ({
+  return json?.data?.map((u: any) => ({
     id: u?.id,
     name: u?.name,
     email: u?.email,
-    status: u?.status || "pending",
+    status: u?.status || 'pending',
     projects: u?.projectsCount,
     practiceContent: u?.practiceContentsCount,
     contributors: u?.contributorsCount,
@@ -29,25 +29,25 @@ export const getUserData = async (type: UserType) => {
 
 export const getUserDetails = async (type: UserType, id: number) => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("auth_token")?.value;
-  if (!token) throw new Error("Unauthorized: No auth token");
+  const token = cookieStore.get('auth_token')?.value;
+  if (!token) throw new Error('Unauthorized: No auth token');
 
   const res = await fetch(`${API_BASE}/${type}/details/${id}`, {
     headers: {
-      Accept: "application/json",
+      Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    cache: "no-store",
+    cache: 'no-store',
   });
 
-  if (!res.ok) throw new Error(`Failed to fetch ${type} details for id ${id}`);
+  // if (!res.ok) throw new Error(`Failed to fetch ${type} details for id ${id}`);
   const u = await res.json();
 
   return {
     id: u?.id,
     name: u?.name,
     email: u?.email,
-    status: u?.status || "pending",
+    status: u?.status || 'pending',
     projects: u?.projectsCount,
     practiceContent: u?.practiceContentsCount,
     contributors: u?.contributorsCount,
