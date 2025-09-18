@@ -15,4 +15,6 @@ export interface ProjectManager extends Record<string, unknown> {
 export interface ProjectManagerTableProps {
   projectManagerData: ProjectManager[];
   view?: "dashboard" | "full";
+  searchValue?: string;
+  onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

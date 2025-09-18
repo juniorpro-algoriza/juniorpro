@@ -1,11 +1,12 @@
-import { Table } from "@components";
-import { EyeIcon } from "lucide-react";
+import { Table, Button, Input, ModalLink } from "@components";
+import { EyeIcon, SearchIcon } from "lucide-react";
 import { ProjectManagerTableProps } from "../../types";
 
-export default function ProjectManagerTable({
+export const ProjectManagerTable = ({
   projectManagerData,
-  // view,
-}: ProjectManagerTableProps) {
+  searchValue,
+  onSearchChange,
+}: ProjectManagerTableProps) => {
   const columns = [
     { header: "Name", key: "name" },
     { header: "Email", key: "email" },
@@ -25,23 +26,37 @@ export default function ProjectManagerTable({
   ];
 
   return (
-    <div>
-      <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-        <div className="p-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-medium text-yankees-blue">
-              Project Managers ({projectManagerData.length})
-            </h3>
+    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
+      <div className="p-6">
+        <div className="flex items-center  justify-between">
+          <h3 className="text-xl font-medium text-yankees-blue">
+            Project Managers ({projectManagerData.length})
+          </h3>
+
+          {/* Header: Add Button + Search */}
+          <div className="flex items-center gap-3">
+            <ModalLink name="AddProjectManager">
+              <Button intent="primary" size="medium">
+                Add Project Manager
+              </Button>
+            </ModalLink>
+
+            <Input
+              placeholder="Search Project Managers"
+              value={searchValue}
+              onChange={onSearchChange}
+              leftIcon={<SearchIcon size={20} />}
+              className="shadow-sm"
+            />
           </div>
         </div>
-
-        <Table
-          columns={columns}
-          data={projectManagerData}
-          emptyMessage="No project manager added yet"
-          // view={view}
-        />
       </div>
+
+      <Table
+        columns={columns}
+        data={projectManagerData}
+        emptyMessage="No project manager added yet"
+      />
     </div>
   );
-}
+};
