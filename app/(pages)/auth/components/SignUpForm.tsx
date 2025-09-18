@@ -1,15 +1,20 @@
 "use client";
 
-import { initialState } from "@server/lib";
-import { useActionState, useEffect } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { signUp } from "../server";
 import { SignUpInputs } from "./SignUpInputs";
 import { SignUpRadio } from "./SignUpRadio";
 import { SocialLoginButtons } from "./SocialLoginButtons";
 
+const SignUpSubmitWrapper = ({ children }: { children: React.ReactNode }) => {
+  const { pending } = useFormStatus();
+  return <SignUpInputs isPending={pending} />;
+};
+
 export const SignUpForm = () => {
-  const [state, formAction, isPending] = useActionState(signUp, initialState);
+  const [state, formAction] = useFormState(signUp, { error: null, success: false });
 
   useEffect(() => {
     const { error, success } = state;
@@ -24,7 +29,7 @@ export const SignUpForm = () => {
     <form action={formAction} className='space-y-3'>
       <SignUpRadio />
       <SocialLoginButtons />
-      <SignUpInputs isPending={isPending} />
+      <SignUpSubmitWrapper />
     </form>
   );
 };
