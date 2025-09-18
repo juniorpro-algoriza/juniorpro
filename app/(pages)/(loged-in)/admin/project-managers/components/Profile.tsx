@@ -1,7 +1,7 @@
 "use client";
 
 import { Users, Briefcase, BookOpen, Mail, UserIcon } from "lucide-react";
-import { Button, Badge, ModalLink } from "@components";
+import { Button, ModalLink } from "@components";
 import { ReactNode } from "react";
 
 type ManagerProfile = {
