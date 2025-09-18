@@ -27,9 +27,9 @@ export const getData = async ({ url, method, dummyData, body }: props) => {
       cache: "force-cache",
       body: JSON.stringify(body),
     });
-    if (!res.ok) {
-      throw new Error(`Failed to fetch stats: ${res.status}`);
-    }
+    // if (!res.ok) {
+    //   throw new Error(`Failed to fetch stats: ${res.status}`);
+    // }
     const data = await res.json();
     return data;
   } catch (err) {

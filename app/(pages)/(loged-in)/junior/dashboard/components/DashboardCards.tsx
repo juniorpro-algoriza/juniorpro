@@ -17,7 +17,7 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-danger-500">
-                {statistics.dailyStreak || 0}
+                {statistics?.dailyStreak || 0}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 Daily Streak
@@ -35,7 +35,7 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-success-500">
-                {statistics.finishedTasks || 0}
+                {statistics?.finishedTasks || 0}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 Finished Tasks
@@ -53,7 +53,7 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-dark-orange">
-                {statistics.pendingTasks || 0}
+                {statistics?.pendingTasks || 0}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 Pending Tasks
@@ -71,7 +71,7 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-yankees-blue">
-                {statistics.myPoints || 0}
+                {statistics?.myPoints || 0}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 My Points
