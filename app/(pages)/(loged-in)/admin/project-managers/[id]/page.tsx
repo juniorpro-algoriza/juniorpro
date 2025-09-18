@@ -1,18 +1,12 @@
-import { getProjectManagerDetails } from "../../server/getProjectManagerData";
-import { ProjectManagerProfile } from "../components/Profile";
-import { ProjectManagerTabs } from "../components/tabs/Tabs";
+import { UserProfile } from "../../../profile/UserProfile";
+import { getUserDetails } from "../../../server/getUser";
 
-export default async function ProjectManagerDetailsPage({
+export default async function ProjectManagerProfilePage({
   params,
 }: {
-  params: { id: number };
+  params: { id: string };
 }) {
-  const manager = await getProjectManagerDetails(Number(params.id));
+  const manager = await getUserDetails("projectManager", Number(params.id));
 
-  return (
-    <div className="p-6 space-y-6">
-      <ProjectManagerProfile manager={manager} />
-      <ProjectManagerTabs />
-    </div>
-  );
+  return <UserProfile userType="projectManager" user={manager} />;
 }

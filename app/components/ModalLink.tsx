@@ -1,6 +1,13 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import type { ModalName } from "./types/ModalName";
+
+export type ModalName =
+  | "AddJunior"
+  | "EditProfile"
+  | "AddProjectManager"
+  | "EditProjectManagerProfile"
+  | "AddContributor"
+  | "EditContributorProfile";
 
 interface ModalLinkProps {
   children: ReactNode;
@@ -15,7 +22,6 @@ export const ModalLink = ({
   className,
   query,
 }: ModalLinkProps) => {
-  // Build query string if provided
   const searchParams = query
     ? "?" +
       new URLSearchParams(
