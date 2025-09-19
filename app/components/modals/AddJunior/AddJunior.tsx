@@ -1,14 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
 import { Button, Input, Modal } from "@components";
 import { Select, Tabs } from "@components/client";
 import { CloseButton } from "@headlessui/react";
 import { getJuniorsAge, getJuniorsGrades } from "@server";
 import type { TabData } from "@types";
 import { XIcon } from "lucide-react";
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
+import { InviteExistingTab } from "../../client/InviteExistingJunior";
 
-export const AddJunior = async () => {
-  const juniorsAge = await getJuniorsAge();
-  const juniorsGrade = await getJuniorsGrades();
+export const AddJunior = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [juniorsAge, setJuniorsAge] = useState<any[]>([]);
+  const [juniorsGrade, setJuniorsGrade] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setJuniorsAge(await getJuniorsAge());
+      setJuniorsGrade(await getJuniorsGrades());
+    };
+    fetchData();
+  }, []);
+
   const tabsData: TabData[] = [
     {
       name: "Create Account",
@@ -42,20 +56,7 @@ export const AddJunior = async () => {
     },
     {
       name: "Invite Existing",
-      content: (
-        <div className="flex flex-col space-y-2">
-          <Input
-            label="Junior's Email"
-            placeholder="Write here"
-            type="email"
-            className="w-full"
-          />
-          <p className="text-dark-electric-blue text-[13px] font-light">
-            We'll send an invitation to this email address. The junior must
-            accept the invitation to link accounts.
-          </p>
-        </div>
-      ),
+      content: <InviteExistingTab />,
     },
     {
       name: "General",
@@ -76,6 +77,7 @@ export const AddJunior = async () => {
       ),
     },
   ];
+
   return (
     <Modal panelClassName="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
       <div className="flex items-center justify-between mb-3 border-b border-storm-200 pb-2">
@@ -91,20 +93,29 @@ export const AddJunior = async () => {
           </Button>
         </CloseButton>
       </div>
+
       <Tabs
         tabs={tabsData}
         tabListClassName="flex space-x-1 rounded-full bg-gray-100 p-1.5 mb-3 w-full"
+        onTabChange={setActiveTab}
       />
-      <div className="flex gap-3 mt-6">
-        <Button intent="primary" className="flex-1">
-          Create
-        </Button>
-        <CloseButton as={Fragment}>
-          <Button intent="secondary" className="flex-1 text-dark-electric-blue">
-            Cancel
+
+      {/* Hide Create/Cancel if on Invite Existing tab */}
+      {activeTab !== 1 && (
+        <div className="flex gap-3 mt-6">
+          <Button intent="primary" className="flex-1">
+            Create
           </Button>
-        </CloseButton>
-      </div>
+          <CloseButton as={Fragment}>
+            <Button
+              intent="secondary"
+              className="flex-1 text-dark-electric-blue"
+            >
+              Cancel
+            </Button>
+          </CloseButton>
+        </div>
+      )}
     </Modal>
   );
 };

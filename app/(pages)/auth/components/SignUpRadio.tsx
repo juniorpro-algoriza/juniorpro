@@ -1,31 +1,33 @@
-import { Field, Fieldset, Radio, RadioGroup } from '@headlessui/react';
-import { radioButton, radioFieldset } from '@styles';
+"use client";
+import { Field, Fieldset, Radio, RadioGroup } from "@headlessui/react";
+import { radioButton, radioFieldset } from "@styles";
 
-export const SignUpRadio = () => {
+interface SignUpRadioProps {
+  value: "junior" | "contributor";
+  onChange: (value: "junior" | "contributor") => void;
+}
+
+export const SignUpRadio = ({ value, onChange }: SignUpRadioProps) => {
   const options = [
-    { title: 'Register as contributor', value: 'contributor' },
-    { title: 'Register as junior', value: 'junior' },
+    { title: "Register as contributor", value: "contributor" },
+    { title: "Register as junior", value: "junior" },
   ];
 
   return (
-    <>
-      <RadioGroup
-        name='signInAs'
-        defaultValue={options[0].value}
-        className='w-full flex items-center justify-center'
-      >
-        <Fieldset className={radioFieldset}>
-          {options.map(({ title, value }) => {
-            return (
-              <Field key={value}>
-                <Radio value={value} className={radioButton}>
-                  {title}
-                </Radio>
-              </Field>
-            );
-          })}
-        </Fieldset>
-      </RadioGroup>
-    </>
+    <RadioGroup
+      value={value}
+      onChange={onChange}
+      className="w-full flex items-center justify-center"
+    >
+      <Fieldset className={radioFieldset}>
+        {options.map(({ title, value }) => (
+          <Field key={value}>
+            <Radio value={value} className={radioButton}>
+              {title}
+            </Radio>
+          </Field>
+        ))}
+      </Fieldset>
+    </RadioGroup>
   );
 };
