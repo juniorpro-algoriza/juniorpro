@@ -20,45 +20,60 @@ export const GenericTable: React.FC<GenericTableProps> = ({
   data,
 }) => {
   return (
-    <table className="min-w-full border rounded-md">
-      <thead className="bg-gray-100">
-        <tr>
-          {columns.map((col) => (
-            <th key={col.key} className="px-4 py-2 text-left font-medium">
-              {col.header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.length === 0 ? (
-          <tr>
-            <td colSpan={columns.length} className="text-center py-4">
-              No data found
-            </td>
-          </tr>
-        ) : (
-          data.map((row, idx) => (
-            <tr key={idx} className="border-t">
-              {columns.map((col) => (
-                <td key={col.key} className="px-4 py-2">
-                  {col.isAction ? (
-                    <a
-                      href={row[col.key]}
-                      className="flex items-center text-indigo-600 hover:underline"
-                    >
-                      {col.actionIcon}
-                      <span className="ml-1">{col.actionLabel}</span>
-                    </a>
-                  ) : (
-                    row[col.key]
-                  )}
-                </td>
+    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-auto">
+          <thead className="bg-[#F1F5FF] sticky top-0 z-50">
+            <tr>
+              {columns.map((col, index) => (
+                <th
+                  key={col.key}
+                  className={`px-6 py-3 text-left font-medium whitespace-nowrap text-[#40444C] ${
+                    index === 0 ? "rounded-tl-lg" : ""
+                  } ${index === columns.length - 1 ? "rounded-tr-lg" : ""}`}
+                >
+                  {col.header}
+                </th>
               ))}
             </tr>
-          ))
-        )}
-      </tbody>
-    </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-bright-gray">
+            {data.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-center py-6 text-gray-500"
+                >
+                  No data found
+                </td>
+              </tr>
+            ) : (
+              data.map((row, idx) => (
+                <tr key={idx} className="hover:bg-gray-50 transition">
+                  {columns.map((col) => (
+                    <td
+                      key={col.key}
+                      className="px-6 py-4 whitespace-nowrap text-sm text-[#40444C]"
+                    >
+                      {col.isAction ? (
+                        <a
+                          href={row[col.key]}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium text-[#5879DC] hover:text-blue-700 hover:bg-gray-50"
+                        >
+                          {col.actionIcon && <span>{col.actionIcon}</span>}
+                          {col.actionLabel || "Action"}
+                        </a>
+                      ) : (
+                        row[col.key]
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };

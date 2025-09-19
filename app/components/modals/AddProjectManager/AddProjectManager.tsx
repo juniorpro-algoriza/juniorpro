@@ -13,6 +13,7 @@ export interface AddProjectManagerProps {
     firstName: string;
     lastName: string;
     email: string;
+    password: string;
   }) => void;
   onClose?: () => void;
 }
@@ -25,6 +26,7 @@ export const AddProjectManager = ({
     firstName: "",
     lastName: "",
     email: "",
+    password: "",
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,7 +66,7 @@ export const AddProjectManager = ({
   return (
     <Modal panelClassName="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6 border-b pb-2">
+      <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-2">
         <h3 className="text-lg font-semibold text-midnight">
           Add Project Manager
         </h3>
@@ -98,6 +100,12 @@ export const AddProjectManager = ({
           onChange={(e) => handleChange("email", e.target.value)}
         />
         {error && <p className="text-red-500 text-sm">{error}</p>}
+        <Input
+          label="Password"
+          type="password"
+          value={formData.password}
+          onChange={(e) => handleChange("password", e.target.value)}
+        />
       </div>
 
       {/* Actions */}

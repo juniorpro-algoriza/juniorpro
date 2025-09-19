@@ -1,7 +1,10 @@
 // admin/projectmanager/root.tsx
 
-import {ServerTableWrapper} from '../../tables';
-import {ProjectManagerHeader, ProjectManagerStatsContainer} from './components';
+import { ServerTableWrapper } from "../../tables";
+import {
+  ProjectManagerHeader,
+  ProjectManagerStatsContainer,
+} from "./components";
 
 const AdminProductManagerPage = async () => {
   return (
@@ -9,7 +12,7 @@ const AdminProductManagerPage = async () => {
       <ProjectManagerHeader />
       <ProjectManagerStatsContainer />
       {/* Render the new ServerTableWrapper component */}
-      <ServerTableWrapper type="project-manager" />
+      <ServerTableWrapper title="Project Managers" type="project-manager" />
     </div>
   );
 };

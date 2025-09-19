@@ -28,7 +28,7 @@ const adminMenuItems = [
     label: "Contributors",
   },
   {
-    href: "/admin/project-managers",
+    href: "/admin/project-manager",
     icon: UserManagerIcon,
     label: "Project Managers",
   },

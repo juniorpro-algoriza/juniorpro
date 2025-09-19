@@ -4,22 +4,23 @@
 import React, { useState } from "react";
 import { GenericTable } from "./GenericTable";
 import { userConfigs, type UserType } from "../../../config/userConfig";
-import { ModalLink } from "@components";
+import { Button, Input, ModalLink } from "@components";
 import { SearchIcon } from "lucide-react";
 
 interface TableContainerProps {
   type: UserType;
   initialData: any[];
+  title: string;
 }
 
 export const TableContainer: React.FC<TableContainerProps> = ({
   type,
   initialData,
+  title,
 }) => {
   const config = userConfigs[type];
   const [search, setSearch] = useState("");
 
-  // Client-side filtering
   const filteredData = initialData.filter(
     (item) =>
       item.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -31,28 +32,22 @@ export const TableContainer: React.FC<TableContainerProps> = ({
       <div className="p-6">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-medium text-yankees-blue">
-            {config.entity}s ({initialData.length})
+            {title} ({initialData.length})
           </h3>
 
           <div className="flex items-center gap-3">
             <ModalLink name={config.modals.add}>
-              <button className="rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white">
+              <Button intent="primary" className="h-11 px-5">
                 Add {config.entity}
-              </button>
+              </Button>
             </ModalLink>
 
-            <div className="relative">
-              <input
-                placeholder={`Search ${config.entity}s`}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-10 pr-4 py-2 border rounded-xl shadow-sm"
-              />
-              <SearchIcon
-                size={20}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-              />
-            </div>
+            <Input
+              placeholder={`Search for ${config.entity}s...`}
+              onChange={(e: any) => setSearch(e.target.value)}
+              leftIcon={<SearchIcon size={20} />}
+              className="shadow-sm w-64 h-12 text-sm"
+            />
           </div>
         </div>
       </div>

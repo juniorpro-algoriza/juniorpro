@@ -14,6 +14,7 @@ export interface ManagerProfile {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
 }
 
 interface EditProjectManagerProfileProps {
@@ -32,7 +33,7 @@ export const EditProjectManagerProfile = ({
   const [error, setError] = useState<string | null>(null);
 
   const searchParams = useSearchParams();
-  const managerId = searchParams.get("managerId");
+  const managerId = searchParams.get("id");
 
   useEffect(() => {
     if (!managerId) return;
@@ -54,6 +55,7 @@ export const EditProjectManagerProfile = ({
           firstName: firstName || "",
           lastName: rest.join(" ") || "",
           email: data?.email || "",
+          password: data?.password || "",
         });
       } catch (err: any) {
         console.error(err);
@@ -84,21 +86,19 @@ export const EditProjectManagerProfile = ({
           firstName: profile.firstName,
           lastName: profile.lastName,
           email: profile.email,
+          password: profile.password,
         },
         dummyData: [],
       });
-      if (response === true) {
-        // Immediately reflect changes in local state
+
+      if (response === true || response === "true") {
         setProfile({ ...profile });
         onUpdated?.({ ...profile });
-
-        // Show toast
         toast.success("Profile updated successfully!");
-
-        // Close modal safely
         if (onClose) onClose();
       } else {
         setError("Update failed, no success confirmation from API.");
+        console.error("Update response:", response);
       }
     } catch (err: any) {
       console.error(err);
@@ -124,7 +124,7 @@ export const EditProjectManagerProfile = ({
 
   return (
     <Modal panelClassName="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
-      <div className="flex items-center justify-between mb-6 border-b pb-2">
+      <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-2">
         <h3 className="text-lg font-semibold text-midnight">
           Edit Project Manager Profile
         </h3>
@@ -156,6 +156,13 @@ export const EditProjectManagerProfile = ({
           value={profile.email}
           onChange={(e) => handleChange("email", e.target.value)}
         />
+        <Input
+          label="Password"
+          type="password"
+          value={profile.password}
+          onChange={(e) => handleChange("password", e.target.value)}
+        />
+
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </div>
 
