@@ -5,12 +5,13 @@ import { cookies } from "next/headers";
 interface props {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  dummyData: unknown[];
+  dummyData?: unknown[];
+  body?: unknown;
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;
 
-export const getData = async ({ url, method, dummyData }: props) => {
+export const getData = async ({ url, method, dummyData, body }: props) => {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("auth_token")?.value;
@@ -23,11 +24,12 @@ export const getData = async ({ url, method, dummyData }: props) => {
         accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      cache: "no-store",
+      cache: "force-cache",
+      body: JSON.stringify(body),
     });
-    if (!res.ok) {
-      throw new Error(`Failed to fetch stats: ${res.status}`);
-    }
+    // if (!res.ok) {
+    //   throw new Error(`Failed to fetch stats: ${res.status}`);
+    // }
     const data = await res.json();
     return data;
   } catch (err) {

@@ -1,3 +1,1 @@
-export type { Plan } from './Plan';
-export type { Transaction } from './Transaction';
-
+export type { Transaction } from "./Transaction";

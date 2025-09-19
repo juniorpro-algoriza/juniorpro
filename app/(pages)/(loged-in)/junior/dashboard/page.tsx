@@ -1,15 +1,18 @@
+"use server";
+import { getJuniorStatistic } from "@server";
 import {
   DashboardCards,
   DashboardHeader,
   DashboardProjects,
   DashboardTasks,
-} from './components';
+} from "./components";
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
+  const statistics = await getJuniorStatistic();
   return (
-    <div className='min-h-screen py-3 px-6 space-y-5 bg-stone-50'>
+    <div className="min-h-screen py-3 px-6 space-y-5 bg-stone-50">
       <DashboardHeader />
-      <DashboardCards />
+      <DashboardCards statistics={statistics} />
       <DashboardProjects />
       <DashboardTasks />
     </div>
