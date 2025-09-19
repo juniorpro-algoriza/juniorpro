@@ -11,17 +11,30 @@ interface TableContainerProps {
   type: UserType;
   initialData: any[];
   title: string;
+  managerId?: number;
+  view?: "full" | "dashboard";
 }
 
 export const TableContainer: React.FC<TableContainerProps> = ({
   type,
   initialData,
   title,
+  view = "full",
+  managerId,
 }) => {
   const config = userConfigs[type];
   const [search, setSearch] = useState("");
 
-  const filteredData = initialData.filter(
+  // Filter columns for dashboard view
+  const columns =
+    view === "dashboard"
+      ? config.tableColumns.filter((col) =>
+          ["name", "joinedOn", "wallet", "actionHref"].includes(col.key)
+        )
+      : config.tableColumns;
+
+  // Client-side filtering
+  const filteredData = initialData?.filter(
     (item) =>
       item.name?.toLowerCase().includes(search.toLowerCase()) ||
       item.email?.toLowerCase().includes(search.toLowerCase())
@@ -29,12 +42,12 @@ export const TableContainer: React.FC<TableContainerProps> = ({
 
   return (
     <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-      <div className="p-6">
-        <div className="flex items-center justify-between">
-          <h3 className="text-xl font-medium text-yankees-blue">
-            {title} ({initialData.length})
-          </h3>
+      <div className="p-6 flex items-center justify-between">
+        <h3 className="text-xl font-medium text-yankees-blue">
+          {title} ({initialData.length})
+        </h3>
 
+        {view === "full" ? (
           <div className="flex items-center gap-3">
             <ModalLink name={config.modals.add}>
               <Button intent="primary" className="h-11 px-5">
@@ -49,9 +62,17 @@ export const TableContainer: React.FC<TableContainerProps> = ({
               className="shadow-sm w-64 h-12 text-sm"
             />
           </div>
-        </div>
+        ) : (
+          <a
+            href={`/admin/${type}s`}
+            className="text-sm text-blue-600 hover:underline"
+          >
+            View All
+          </a>
+        )}
       </div>
-      <GenericTable columns={[...config.tableColumns]} data={filteredData} />
+
+      <GenericTable columns={[...columns]} data={filteredData} />
     </div>
   );
 };

@@ -1,21 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getUserData } from "../server/getUser";
+import type { UserType } from "../../../config/userConfig";
 import { TableContainer } from "./TableContainer";
 import { Badge } from "@components";
-import type { UserType } from "../../../config/userConfig";
-
-interface ServerTableWrapperProps {
-  type: UserType;
-  id?: number;
-  title?: string;
-}
 
 export const ServerTableWrapper = async ({
   type,
-
   title,
-}: ServerTableWrapperProps) => {
-  const data = await getUserData(type); // pass id to filter
+  view = "full",
+}: {
+  type: UserType;
+  title: string;
+  view?: "full" | "dashboard";
+}) => {
+  const data = await getUserData(type);
 
   const transformedData = data?.map((item: any) => ({
     ...item,
@@ -32,7 +30,8 @@ export const ServerTableWrapper = async ({
     <TableContainer
       type={type}
       initialData={transformedData}
-      title={title || ""}
+      title={title}
+      view={view}
     />
   );
 };

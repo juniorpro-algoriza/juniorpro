@@ -14,6 +14,7 @@ export const Profile = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   if (!manager) return <div>Loading...</div>;
+  // Mock manager data
 
   return <UserProfile userType="project-manager" user={manager} />;
 };

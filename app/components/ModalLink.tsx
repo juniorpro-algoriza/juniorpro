@@ -2,9 +2,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 export type ModalName =
-  | "AddJunior"
+  | "AddJuniors"
   | "EditProfile"
   | "AddProjectManager"
+  | "EditJuniors"
   | "EditProjectManagerProfile"
   | "AddContributor"
   | "EditContributorProfile";

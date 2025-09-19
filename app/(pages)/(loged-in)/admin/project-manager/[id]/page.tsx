@@ -11,7 +11,7 @@ export default async function ProjectManagerProfilePage({
   return (
     <>
       <UserProfile userType="project-manager" user={manager} />;
-      <UserTabs />
+      <UserTabs userId={Number(params.id)} userType="project-manager" />
     </>
   );
 }

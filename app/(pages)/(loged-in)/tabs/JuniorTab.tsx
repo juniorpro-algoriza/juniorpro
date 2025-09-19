@@ -3,14 +3,14 @@
 import { TableContainer } from "../tables";
 
 // Mock data
-const mockConributor = [
+const mockJuniors = [
   {
     id: 101,
     name: "Alice Smith",
     email: "alice@example.com",
     status: "active",
     joinedOn: "30-0-2020",
-    PracticeZone: 0,
+    PracticeContent: 0,
     contributors: 1,
   },
   {
@@ -19,7 +19,7 @@ const mockConributor = [
     email: "bob@example.com",
     status: "inactive",
     joinedOn: "30-0-2020",
-    PracticeZone: 0,
+    PracticeContent: 0,
     contributors: 1,
   },
   {
@@ -28,22 +28,22 @@ const mockConributor = [
     email: "charlie@example.com",
     status: "active",
     joinedOn: "30-0-2020",
-    PracticeZone: 0,
+    PracticeContent: 0,
     contributors: 1,
   },
 ];
 
-interface ConributorTabProps {
+interface JuniorsTabProps {
   managerId: number;
 }
 
-export const ContributorTab = ({ managerId }: ConributorTabProps) => {
+export const JuniorsTab = ({ managerId }: JuniorsTabProps) => {
   return (
     <TableContainer
       managerId={managerId}
-      type="contributor"
-      initialData={mockConributor}
-      title=" Conributor"
+      type="juniors"
+      initialData={mockJuniors}
+      title="Assigned Juniors"
       view="full"
     />
   );
