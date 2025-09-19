@@ -1,10 +1,10 @@
 'use client';
 
-import { ProjectCard } from '@components';
-import { InfiniteCarousel } from '@components/client';
-import type { Project, ProjectType } from '@types';
-import { capitalize, pickRandom, sleep } from '@utils';
-import { getRandomUniqueId } from '@utils/server';
+import {ProjectCard} from '@components';
+import {InfiniteCarousel} from '@components/client';
+import type {Project, ProjectType} from '@types';
+import {capitalize, pickRandom, sleep} from '@utils';
+import {getRandomUniqueId} from '@utils/server';
 
 interface ProjectCarouselProps {
   projects: Project[];
@@ -16,12 +16,12 @@ export const ProjectsCarousel = ({
 }: ProjectCarouselProps) => {
   return (
     <InfiniteCarousel
-    className='p-4'
+      className="p-4"
       items={initialProjects}
       renderItem={(project) => (
         <ProjectCard
           project={project}
-          badgeText='projectType'
+          badgeText="projectType"
           showDescription={true}
           showBadgeNextToDueDate={false}
           showDueDate={true}
@@ -31,11 +31,12 @@ export const ProjectsCarousel = ({
         />
       )}
       getItemKey={(project) => project.id}
-      loadMore={async () =>
-        await loadMoreProjects({ initialProjects, projectType })
+      loadMore={
+        async () => console.log('helloo')
+        // await loadMoreProjects({ initialProjects, projectType })
       }
       maxItems={50}
-      viewAllText='View All'
+      viewAllText="View All"
       onViewAll={() => {
         console.log('View all projects clicked');
       }}
@@ -55,7 +56,7 @@ const loadMoreProjects = async ({
   await sleep(1);
   const last = initialProjects[initialProjects.length - 1];
 
-  const arr = Array.from({ length: 6 }, (_, i) => i);
+  const arr = Array.from({length: 6}, (_, i) => i);
   const projectsNew = arr.map(async () => {
     let finalProjectType: ProjectType = 'solo';
     if (projectType) finalProjectType = projectType;
