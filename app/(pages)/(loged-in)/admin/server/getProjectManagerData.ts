@@ -1,44 +1,18 @@
-import type { ProjectManager } from '../types/ProjectManager';
+import { getUserData } from "../../server/getUser";
 
-export const getProjectManagerData = async (): Promise<ProjectManager[]> => {
-  return dummyData;
-};
+export async function getProjectManagerData() {
+  try {
+    const data = await getUserData("project-manager");
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.log(error);
 
-const dummyData: ProjectManager[] = [
-  {
-    name: 'Alex Johnson',
-    email: 'alex.johnson@example.com',
-    status: 'active',
-    projects: 3,
-    practiceContent: 150,
-    contributors: 2,
-    joinedOn: '2023-01-10',
-  },
-  {
-    name: 'Sam Smith',
-    email: 'sam.smith@example.com',
-    status: 'active',
-    projects: 1,
-    practiceContent: 200,
-    contributors: 2,
-    joinedOn: '2023-03-22',
-  },
-  {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    status: 'pending',
-    projects: 2,
-    practiceContent: 200,
-    contributors: 2,
-    joinedOn: '2023-05-15',
-  },
-  {
-    name: 'Harry Potter',
-    email: 'harry.potter@example.com',
-    status: 'pending',
-    projects: 4,
-    practiceContent: 400,
-    contributors: 2,
-    joinedOn: '2023-02-05',
-  },
-];
+    return new Response(JSON.stringify({ error: "Failed to fetch data" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}

@@ -1,0 +1,190 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { useState, useEffect, Fragment } from "react";
+import { Button, Input, Modal } from "@components";
+import { CloseButton } from "@headlessui/react";
+import { XIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { getData } from "@server";
+import { toast } from "sonner";
+
+export interface JuniorProfile {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+interface EditJuniorProfileProps {
+  juniorId?: number;
+  onUpdated?: (updated: JuniorProfile) => void;
+  onClose?: () => void;
+}
+
+export const EditJuniorsProfile = ({
+  onUpdated,
+  onClose,
+}: EditJuniorProfileProps) => {
+  const [profile, setProfile] = useState<JuniorProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const searchParams = useSearchParams();
+  const juniorId = searchParams.get("id");
+
+  useEffect(() => {
+    if (!juniorId) return;
+
+    async function fetchProfile() {
+      setLoading(true);
+      try {
+        const data = await getData({
+          url: `junior/details/${juniorId}`,
+          method: "GET",
+          dummyData: [],
+        });
+
+        const fullName = data?.name || "";
+        const [firstName, ...rest] = fullName.split(" ");
+
+        setProfile({
+          id: data?.id || 0,
+          firstName: firstName || "",
+          lastName: rest.join(" ") || "",
+          email: data?.email || "",
+          password: data?.password || "",
+        });
+      } catch (err: any) {
+        console.error(err);
+        setError(err.message || "Error loading profile");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProfile();
+  }, [juniorId]);
+
+  const handleChange = (field: keyof JuniorProfile, value: string) => {
+    setProfile((prev) => (prev ? { ...prev, [field]: value } : prev));
+  };
+
+  const handleSave = async () => {
+    if (!profile) return;
+    setSaving(true);
+    setError(null);
+
+    try {
+      const response = await getData({
+        url: "junior/update",
+        method: "PUT",
+        body: {
+          id: profile.id,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          email: profile.email,
+          password: profile.password,
+        },
+        dummyData: [],
+      });
+
+      if (response === true || response === "true") {
+        setProfile({ ...profile });
+        onUpdated?.({ ...profile });
+        toast.success("Profile updated successfully!");
+        if (onClose) onClose();
+      } else {
+        setError("Update failed, no success confirmation from API.");
+        console.error("Update response:", response);
+      }
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Something went wrong");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading)
+    return (
+      <Modal panelClassName="w-full max-w-md p-6">
+        <p>Loading profile...</p>
+      </Modal>
+    );
+
+  if (!profile)
+    return (
+      <Modal panelClassName="w-full max-w-md p-6">
+        <p>Profile not found.</p>
+      </Modal>
+    );
+
+  return (
+    <Modal panelClassName="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
+      <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-2">
+        <h3 className="text-lg font-semibold text-midnight">
+          Edit Junior Profile
+        </h3>
+        <CloseButton as={Fragment}>
+          <Button
+            intent="unset"
+            className="p-1.5 rounded-lg border"
+            onClick={onClose}
+          >
+            <XIcon size={18} />
+          </Button>
+        </CloseButton>
+      </div>
+
+      <div className="space-y-4">
+        <Input
+          label="First Name"
+          value={profile.firstName}
+          onChange={(e) => handleChange("firstName", e.target.value)}
+        />
+        <Input
+          label="Last Name"
+          value={profile.lastName}
+          onChange={(e) => handleChange("lastName", e.target.value)}
+        />
+        <Input
+          label="Email"
+          type="email"
+          value={profile.email}
+          onChange={(e) => handleChange("email", e.target.value)}
+        />
+        <Input
+          label="Password"
+          type="password"
+          value={profile.password}
+          onChange={(e) => handleChange("password", e.target.value)}
+        />
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+      </div>
+
+      <div className="flex gap-3 mt-6">
+        <Button
+          intent="primary"
+          className="flex-1"
+          onClick={handleSave}
+          disabled={saving}
+        >
+          {saving ? "Updating..." : "Update"}
+        </Button>
+        <CloseButton as={Fragment}>
+          <Button
+            intent="secondary"
+            className="flex-1 text-dark-electric-blue"
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+        </CloseButton>
+      </div>
+    </Modal>
+  );
+};

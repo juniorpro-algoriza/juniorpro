@@ -1,15 +1,25 @@
-"use client";
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
-import { useActionState } from "react";
-import { useRouter } from "next/navigation";
-import { signUp } from "../server/signUp";
-import { SignUpInputs } from "./SignUpInputs";
-import { SignUpRadio } from "./SignUpRadio";
+'use client';
+import {useState, useEffect} from 'react';
+import {toast} from 'sonner';
+import {useActionState} from 'react';
+import {useRouter} from 'next/navigation';
+import {signUp} from '../server/signUp';
+import {SignUpInputs} from './SignUpInputs';
+import {SignUpRadio} from './SignUpRadio';
+import {useFormStatus} from 'react-dom';
 
+export const SignUpSubmitWrapper = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  console.log('SignUpSubmitWrapper', children);
+  const {pending} = useFormStatus();
+  return <SignUpInputs isPending={pending} />;
+};
 export const SignUpForm = () => {
-  const [signInAs, setSignInAs] = useState<"junior" | "contributor">(
-    "contributor"
+  const [signInAs, setSignInAs] = useState<'junior' | 'contributor'>(
+    'contributor'
   );
   const [state, formAction, isPending] = useActionState(signUp, {
     success: false,
@@ -20,8 +30,8 @@ export const SignUpForm = () => {
   useEffect(() => {
     if (state.error) toast.error(state.error);
     if (state.success) {
-      toast.success("Signed up, please verify OTP");
-      router.push("/auth/verify-otp"); // redirect to OTP page
+      toast.success('Signed up, please verify OTP');
+      router.push('/auth/verify-otp'); // redirect to OTP page
     }
   }, [state, router]);
 

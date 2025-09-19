@@ -1,16 +1,41 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import type { ModalName } from "./types/ModalName";
+
+export type ModalName =
+  | "AddJuniors"
+  | "EditProfile"
+  | "AddProjectManager"
+  | "EditJuniors"
+  | "EditProjectManagerProfile"
+  | "AddContributor"
+  | "EditContributorProfile";
 
 interface ModalLinkProps {
   children: ReactNode;
   name: ModalName;
   className?: string;
+  query?: Record<string, string | number>;
 }
 
-export const ModalLink = ({ children, name, className }: ModalLinkProps) => {
+export const ModalLink = ({
+  children,
+  name,
+  className,
+  query,
+}: ModalLinkProps) => {
+  const searchParams = query
+    ? "?" +
+      new URLSearchParams(
+        Object.entries(query).map(([key, value]) => [key, value.toString()])
+      ).toString()
+    : "";
+
   return (
-    <Link className={className} href={`/modal/${name}`} scroll={false}>
+    <Link
+      className={className}
+      href={`/modal/${name}${searchParams}`}
+      scroll={false}
+    >
       {children}
     </Link>
   );
