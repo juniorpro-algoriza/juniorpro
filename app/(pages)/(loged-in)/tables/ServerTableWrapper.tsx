@@ -1,19 +1,27 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// components/ServerTableWrapper.tsx
 import { getUserData } from "../server/getUser";
 import type { UserType } from "../../../config/userConfig";
-import { TableContainer } from "./TableContainer";
 import { Badge } from "@components";
+import { TableContainer } from ".";
 
 export const ServerTableWrapper = async ({
   type,
   title,
   view = "full",
+  pageNumber = 1,
 }: {
   type: UserType;
   title: string;
   view?: "full" | "dashboard";
+  pageNumber?: number;
 }) => {
-  const data = await getUserData(type);
+  const pageSize = view === "dashboard" ? 4 : 10;
+
+  const {
+    data,
+    total,
+    pageSize: backendPageSize,
+  } = await getUserData(type, pageNumber, pageSize);
 
   const transformedData = data?.map((item: any) => ({
     ...item,
@@ -32,6 +40,9 @@ export const ServerTableWrapper = async ({
       initialData={transformedData}
       title={title}
       view={view}
+      total={total}
+      pageNumber={pageNumber}
+      pageSize={backendPageSize}
     />
   );
 };

@@ -7,24 +7,34 @@ import { UserType } from "../types/UserType";
 
 const API_BASE = "https://juniorpro-001-site1.ntempurl.com/api";
 
-export const getUserData = async (type: UserType) => {
+export const getUserData = async (
+  type: UserType,
+  pageNumber = 1,
+  pageSize = 10
+) => {
   const json = await getData({
-    url: `${type}/get-all`,
+    url: `${type}/get-all?pageNumber=${pageNumber}&pageSize=${pageSize}`,
     method: "GET",
     dummyData: [],
   });
 
-  return json?.data?.map((u: any) => ({
-    id: u?.id,
-    name: u?.name,
-    email: u?.email,
-    status: u?.status || "pending",
-    projects: u?.projectsCount,
-    practiceContent: u?.practiceContentsCount,
-    contributors: u?.contributorsCount,
-    juniorsCount: u?.juniorsCount,
-    joinedOn: u?.joiningDate,
-  }));
+  return {
+    total: json?.pg_total ?? 0,
+    pageNumber: json?.pageNumber ?? 1,
+    pageSize: json?.pageSize ?? pageSize,
+    data:
+      json?.data?.map((u: any) => ({
+        id: u?.id,
+        name: u?.name,
+        email: u?.email,
+        status: u?.status || "pending",
+        projects: u?.projectsCount,
+        practiceContent: u?.practiceContentsCount,
+        contributors: u?.contributorsCount,
+        juniorsCount: u?.juniorsCount,
+        joinedOn: u?.joiningDate,
+      })) ?? [],
+  };
 };
 
 export const getUserDetails = async (type: UserType, id: number) => {

@@ -1,3 +1,4 @@
+// components/GenericTable.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
@@ -20,7 +21,7 @@ export const GenericTable: React.FC<GenericTableProps> = ({
   data,
 }) => {
   return (
-    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary overflow-hidden">
+    <div className="bg-white rounded-t-[20px] drop-shadow-xl border border-border-primary overflow-hidden">
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto">
           <thead className="bg-[#F1F5FF] sticky top-0 z-50">

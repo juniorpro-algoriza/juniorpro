@@ -31,15 +31,15 @@ export const userConfigs = {
       update: "project-manager/update",
     },
   },
-  juniors: {
+  junior: {
     entity: "Juniors",
     tableColumns: [
       { header: "Name", key: "name" },
       { header: "Email", key: "email" },
       { header: "Status", key: "status" },
-      { header: "Projects", key: "projects" },
-      { header: "Practice Content", key: "practiceContent" },
-      { header: "Contributors", key: "contributors" },
+      // { header: "Projects", key: "projects" },
+      // { header: "Contributor", key: "contributorName" },
+      // { header: "Projects Earnings", key: "projectsEarnings" },
       { header: "Joined On", key: "joinedOn" },
       {
         header: "Action",
@@ -55,10 +55,10 @@ export const userConfigs = {
     },
     tabs: ["Projects", "Practice Zone", "Contributors", "Juniors"],
     api: {
-      list: "juniors/get-all",
-      details: (id: number) => `juniors/details/${id}`,
-      add: "juniors/add",
-      update: "juniors/update",
+      list: "junior/get-all",
+      details: (id: number) => `junior/details/${id}`,
+      add: "junior/add",
+      update: "junior/update",
     },
   },
   contributor: {

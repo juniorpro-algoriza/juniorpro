@@ -9,4 +9,20 @@ export const modalPaths = {
     title: "EditProjectManagerProfile",
     href: "/modal/EditProjectManagerProfile",
   },
+  AddJuniors: {
+    title: "AddJuniors",
+    href: "/modal/AddJuniors",
+  },
+  AddContributor: {
+    title: "AddContributor",
+    href: "/modal/AddContributor",
+  },
+  EditContributorProfile: {
+    title: "EditContributorProfile",
+    href: "/modal/EditContributorProfile",
+  },
+  EditJuniorsProfile: {
+    title: "EditJuniorsProfile",
+    href: "/modal/EditJuniorProfile",
+  },
 } as const;

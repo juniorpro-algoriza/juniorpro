@@ -21,9 +21,9 @@ import { useTransition } from "react";
 
 const adminMenuItems = [
   { href: "/admin/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/admin/juniors", icon: UserIcon, label: "Juniors" },
+  { href: "/admin/junior", icon: UserIcon, label: "Juniors" },
   {
-    href: "/admin/contributors",
+    href: "/admin/contributor",
     icon: UsersIcon,
     label: "Contributors",
   },
