@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // components/ServerTableWrapper.tsx
 import { getUserData } from "../server/getUser";
 import type { UserType } from "../../../config/userConfig";

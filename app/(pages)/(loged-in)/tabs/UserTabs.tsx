@@ -1,10 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Tabs } from "@components/client";
 import { TableContainer } from "../tables";
 import { userConfigs, type UserType } from "../../../config/userConfig";
-import { Badge } from "@components"; // make sure you import your Badge
+import { Badge } from "@components";
+import { useEffect, useState } from "react";
+import {
+  getProjectManagerContributors,
+  getProjectManagerJuniors,
+  getProjectManagerPracticeZone,
+} from "../admin/server/getProjectManagerData";
 
 interface UserTabsProps {
   userType: UserType;
@@ -13,93 +19,104 @@ interface UserTabsProps {
 
 export const UserTabs = ({ userType, userId }: UserTabsProps) => {
   const config = userConfigs[userType];
+  const [loading, setLoading] = useState(true);
+  const [juniors, setJuniors] = useState<any[]>([]);
+  const [contributors, setContributors] = useState<any[]>([]);
+  const [practiceZone, setPracticeZone] = useState<any[]>([]);
 
-  // Helper to wrap status in Badge
+  // Wrap status with Badge
   const wrapStatus = (status: string) => (
     <Badge label={status} variant={status === "active" ? "green" : "orange"} />
   );
 
-  // Generate tab content dynamically
+  useEffect(() => {
+    if (userType === "project-manager") {
+      (async () => {
+        setLoading(true);
+        const [j, c, p] = await Promise.all([
+          getProjectManagerJuniors(userId),
+          getProjectManagerContributors(userId),
+          getProjectManagerPracticeZone(userId),
+        ]);
+        setJuniors(j);
+        setContributors(c);
+        setPracticeZone(p);
+        setLoading(false);
+      })();
+    }
+  }, [userId, userType]);
+
+  // Build tabs
   const tabs = config.tabs.map((tabName) => {
     let content;
-    switch (tabName) {
-      case "Juniors":
-        content = (
-          <TableContainer
-            type="junior"
-            initialData={[
-              {
-                id: 101,
-                name: "Alice Smith",
-                email: "alice@example.com",
-                status: wrapStatus("active"),
-                projects: "0",
-                joinedOn: "30-0-2020",
-                PracticeZone: 0,
-                contributors: 1,
-              },
-              {
-                id: 102,
-                name: "Bob Johnson",
-                email: "bob@example.com",
-                status: wrapStatus("inactive"),
-                projects: "0",
-                joinedOn: "30-0-2020",
-                PracticeZone: 0,
-                contributors: 1,
-              },
-              {
-                id: 103,
-                name: "Charlie Brown",
-                email: "charlie@example.com",
-                status: wrapStatus("active"),
-                projects: "0",
-                joinedOn: "30-0-2020",
-                PracticeZone: 0,
-                contributors: 1,
-              },
-            ]}
-            title="Assigned Juniors"
-          />
-        );
-        break;
-      case "Contributors":
-        content = (
-          <TableContainer
-            type="contributor"
-            initialData={[
-              {
-                id: 201,
-                name: "David Lee",
-                email: "david@example.com",
-                status: wrapStatus("active"),
-                projects: "0",
-                joinedOn: "30-0-2020",
-              },
-              {
-                id: 202,
-                name: "Eva Green",
-                email: "eva@example.com",
-                status: wrapStatus("active"),
-                projects: "0",
-                joinedOn: "30-0-2020",
-              },
-            ]}
-            title="Contributors"
-          />
-        );
-        break;
-      case "Projects":
-        content = <div className="p-6 text-gray-500">Projects list here</div>;
-        break;
-      case "Practice Zone":
-        content = (
-          <div className="p-6 text-gray-500">Practice Zone content here</div>
-        );
-        break;
-      default:
-        content = <div className="p-6 text-gray-500">No data</div>;
+
+    if (loading) {
+      content = <div className="p-6 text-gray-500">Loading...</div>;
+    } else {
+      switch (tabName) {
+        case "Juniors":
+          content = (
+            <TableContainer
+              type="junior"
+              initialData={
+                juniors.length > 0
+                  ? juniors.map((j) => ({
+                      ...j,
+                      status: wrapStatus(j.status || "inactive"),
+                    }))
+                  : []
+              }
+              title="Assigned Juniors"
+            />
+          );
+          break;
+
+        case "Contributors":
+          content = (
+            <TableContainer
+              type="contributor"
+              initialData={
+                contributors.length > 0
+                  ? contributors.map((c) => ({
+                      ...c,
+                      status: wrapStatus(c.status || "inactive"),
+                    }))
+                  : []
+              }
+              title="Contributors"
+            />
+          );
+          break;
+
+        case "Projects":
+          content = practiceZone.length ? (
+            <TableContainer
+              type="project-manager"
+              initialData={practiceZone}
+              title="Practice Zone Projects"
+            />
+          ) : (
+            <div className="p-6 text-gray-500">No Projects</div>
+          );
+          break;
+
+        case "Practice Zone":
+          content = practiceZone.length ? (
+            <TableContainer
+              type="project-manager"
+              initialData={practiceZone}
+              title="Practice Zone"
+            />
+          ) : (
+            <div className="p-6 text-gray-500">No Practice Zone Content</div>
+          );
+          break;
+
+        default:
+          content = <div className="p-6 text-gray-500">No data</div>;
+      }
     }
+
     return { name: tabName, content };
   });
 

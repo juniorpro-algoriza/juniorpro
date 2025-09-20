@@ -1,18 +1,45 @@
-import { getUserData } from "../../server/getUser";
+"use server";
 
-export async function getProjectManagerData() {
-  try {
-    const data = await getUserData("project-manager");
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    console.log(error);
+import { getData } from "@server";
 
-    return new Response(JSON.stringify({ error: "Failed to fetch data" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-}
+export const getProjectManagerJuniors = async (
+  projectManagerId: number,
+  pageNumber = 1,
+  pageSize = 10
+) => {
+  const res = await getData({
+    url: `project-manager/juniors?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
+    method: "GET",
+    dummyData: [], // fallback if API fails
+  });
+
+  return res?.data ?? [];
+};
+
+export const getProjectManagerContributors = async (
+  projectManagerId: number,
+  pageNumber = 1,
+  pageSize = 10
+) => {
+  const res = await getData({
+    url: `project-manager/contributors?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
+    method: "GET",
+    dummyData: [],
+  });
+
+  return res?.data ?? [];
+};
+
+export const getProjectManagerPracticeZone = async (
+  projectManagerId: number,
+  pageNumber = 1,
+  pageSize = 10
+) => {
+  const res = await getData({
+    url: `project-manager/practice-zone-projects?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
+    method: "GET",
+    dummyData: [],
+  });
+
+  return res?.data ?? [];
+};
