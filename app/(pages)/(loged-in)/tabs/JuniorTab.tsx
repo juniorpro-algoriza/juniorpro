@@ -41,7 +41,7 @@ export const JuniorsTab = ({ managerId }: JuniorsTabProps) => {
   return (
     <TableContainer
       managerId={managerId}
-      type="juniors"
+      type="junior"
       initialData={mockJuniors}
       title="Assigned Juniors"
       view="full"

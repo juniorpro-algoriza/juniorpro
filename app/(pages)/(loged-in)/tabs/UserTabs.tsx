@@ -26,7 +26,7 @@ export const UserTabs = ({ userType, userId }: UserTabsProps) => {
       case "Juniors":
         content = (
           <TableContainer
-            type="juniors"
+            type="junior"
             initialData={[
               {
                 id: 101,
