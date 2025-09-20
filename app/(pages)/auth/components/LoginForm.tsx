@@ -1,11 +1,12 @@
 'use client';
 
 import {Button, Input} from '@components';
-import {Loader} from 'lucide-react';
-import {useFormState, useFormStatus} from 'react-dom';
-import {useEffect} from 'react';
+import {EyeIcon, Loader} from 'lucide-react';
+import {useFormStatus, useFormState} from 'react-dom';
+import {useEffect, useState} from 'react';
 import {toast} from 'sonner';
 import {signIn} from '../server';
+import {EyeCloseIcon} from '@icons';
 
 const SubmitButton = () => {
   const {pending} = useFormStatus();
@@ -24,7 +25,9 @@ const SubmitButton = () => {
 };
 
 export const LoginForm = () => {
-  const [state, formAction] = useFormState(signIn, {error: null});
+  const [state, formAction] = (useFormState as any)(signIn, {error: null});
+
+  const [type, setType] = useState<'text' | 'password'>('password');
 
   useEffect(() => {
     const {error} = state;
@@ -42,12 +45,19 @@ export const LoginForm = () => {
         placeholder="Enter email address"
       />
       <div>
-        <Input
-          name="password"
-          label="Password"
-          type="password"
-          placeholder="Enter Password"
-        />
+        <div className="relative">
+          <Input
+            name="password"
+            label="Password"
+            type={type}
+            placeholder="Enter Password"
+          />
+          <div
+            className="absolute right-5 top-1/2 cursor-pointer"
+            onClick={() => setType(type === 'password' ? 'text' : 'password')}>
+            {type === 'password' ? <EyeIcon /> : <EyeCloseIcon />}
+          </div>
+        </div>
         <div className="text-right pt-2">
           <a href="#" className="text-sm text-cadetGray font-medium">
             Forget Password?

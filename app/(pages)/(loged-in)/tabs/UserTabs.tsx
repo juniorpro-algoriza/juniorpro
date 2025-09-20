@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-
+import { ProjectsTab } from "./ProjectsTab";
 import { Tabs } from "@components/client";
 import { TableContainer } from "../tables";
 import { userConfigs, type UserType } from "../../../config/userConfig";
@@ -22,7 +22,6 @@ export const UserTabs = ({ userType, userId }: UserTabsProps) => {
   const [loading, setLoading] = useState(true);
   const [juniors, setJuniors] = useState<any[]>([]);
   const [contributors, setContributors] = useState<any[]>([]);
-  const [practiceZone, setPracticeZone] = useState<any[]>([]);
 
   // Wrap status with Badge
   const wrapStatus = (status: string) => (
@@ -33,14 +32,13 @@ export const UserTabs = ({ userType, userId }: UserTabsProps) => {
     if (userType === "project-manager") {
       (async () => {
         setLoading(true);
-        const [j, c, p] = await Promise.all([
+        const [j, c] = await Promise.all([
           getProjectManagerJuniors(userId),
           getProjectManagerContributors(userId),
           getProjectManagerPracticeZone(userId),
         ]);
         setJuniors(j);
         setContributors(c);
-        setPracticeZone(p);
         setLoading(false);
       })();
     }
@@ -89,26 +87,18 @@ export const UserTabs = ({ userType, userId }: UserTabsProps) => {
           break;
 
         case "Projects":
-          content = practiceZone.length ? (
-            <TableContainer
-              type="project-manager"
-              initialData={practiceZone}
-              title="Practice Zone Projects"
-            />
-          ) : (
-            <div className="p-6 text-gray-500">No Projects</div>
+          content = (
+            <div className="p-6 text-gray-500">
+              <ProjectsTab limit={10} />
+            </div>
           );
           break;
 
         case "Practice Zone":
-          content = practiceZone.length ? (
-            <TableContainer
-              type="project-manager"
-              initialData={practiceZone}
-              title="Practice Zone"
-            />
-          ) : (
-            <div className="p-6 text-gray-500">No Practice Zone Content</div>
+          content = (
+            <div className="p-6 text-gray-500">
+              <ProjectsTab limit={2} />
+            </div>
           );
           break;
 

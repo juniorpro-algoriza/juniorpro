@@ -5,8 +5,8 @@ import {cookies} from 'next/headers';
 interface Props {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  body?: unknown; // optional for POST/PUT
   dummyData?: unknown[];
+  body?: unknown;
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;

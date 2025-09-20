@@ -8,6 +8,7 @@ const links = [
   { href: "/junior/dashboard", label: "Dashboard Junior" },
   { href: "/admin/dashboard", label: "Dashboard Admin" },
   { href: "/style-guide", label: "Style Guide" },
+  { href: "/pricing", label: "Pricing" },
 ];
 
 export const Nav = () => {

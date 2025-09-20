@@ -1,3 +1,4 @@
+"use server";
 import { getProjectManagerStats } from "../../server";
 import { cardConfig } from "./cardConfig";
 import { ProjectManagerStats } from "./ProjectManagerStats";

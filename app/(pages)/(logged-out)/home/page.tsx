@@ -1,4 +1,4 @@
-import { Footer, Nav } from "@components";
+import {Footer, Nav} from '@components';
 import {
   CTASection,
   HeroSection,
@@ -6,8 +6,8 @@ import {
   PremiumTasksSection,
   TestimonialsSection,
   TrustedOrganizationsSection,
-} from "./components";
-import { ProjectsSection } from "./components/ProjectsSection";
+} from './components';
+import {ProjectsSection} from './components/ProjectsSection';
 
 const HomePage = () => {
   return (
