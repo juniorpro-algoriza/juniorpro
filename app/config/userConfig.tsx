@@ -53,7 +53,7 @@ export const userConfigs = {
       add: "AddJuniors",
       edit: "EditJuniorsProfile",
     },
-    tabs: ["Projects", "Practice Zone", "Contributors", "Juniors"],
+    tabs: ["Profile", "Projects", "Badge & Achievements"],
     api: {
       list: "junior/get-all",
       details: (id: number) => `junior/details/${id}`,

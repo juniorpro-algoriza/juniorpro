@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { ProjectsTab } from "./ProjectsTab";
+
+import { useEffect, useState } from "react";
 import { Tabs } from "@components/client";
 import { TableContainer } from "../tables";
 import { userConfigs, type UserType } from "../../../config/userConfig";
-import { Badge } from "@components";
-import { useEffect, useState } from "react";
+import { Badge, ProjectCard } from "@components";
 import {
   getProjectManagerContributors,
   getProjectManagerJuniors,
+  getProjectManagerProjects,
   getProjectManagerPracticeZone,
 } from "../admin/server/getProjectManagerData";
 
@@ -20,8 +21,11 @@ interface UserTabsProps {
 export const UserTabs = ({ userType, userId }: UserTabsProps) => {
   const config = userConfigs[userType];
   const [loading, setLoading] = useState(true);
+
   const [juniors, setJuniors] = useState<any[]>([]);
   const [contributors, setContributors] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [practiceZoneProjects, setPracticeZoneProjects] = useState<any[]>([]);
 
   // Wrap status with Badge
   const wrapStatus = (status: string) => (
@@ -32,13 +36,16 @@ export const UserTabs = ({ userType, userId }: UserTabsProps) => {
     if (userType === "project-manager") {
       (async () => {
         setLoading(true);
-        const [j, c] = await Promise.all([
+        const [j, c, p, pz] = await Promise.all([
           getProjectManagerJuniors(userId),
           getProjectManagerContributors(userId),
+          getProjectManagerProjects(userId),
           getProjectManagerPracticeZone(userId),
         ]);
         setJuniors(j);
         setContributors(c);
+        setProjects(p);
+        setPracticeZoneProjects(pz);
         setLoading(false);
       })();
     }
@@ -87,19 +94,51 @@ export const UserTabs = ({ userType, userId }: UserTabsProps) => {
           break;
 
         case "Projects":
-          content = (
-            <div className="p-6 text-gray-500">
-              <ProjectsTab limit={10} />
-            </div>
-          );
+          content =
+            projects.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
+                {projects.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    showDescription={false}
+                    showDueDate={false}
+                    showJuniors={true}
+                    showJuniorsCountOnly={true}
+                    showRating={false}
+                    showBadge={true}
+                    showBadgeNextToDueDate={false}
+                    badgeText={project.status}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="p-6 text-gray-500">No projects found</div>
+            );
           break;
 
         case "Practice Zone":
-          content = (
-            <div className="p-6 text-gray-500">
-              <ProjectsTab limit={2} />
-            </div>
-          );
+          content =
+            practiceZoneProjects.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
+                {practiceZoneProjects.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    showDescription={false}
+                    showDueDate={false}
+                    showJuniors={true}
+                    showJuniorsCountOnly={true}
+                    showRating={false}
+                    showBadge={true}
+                    showBadgeNextToDueDate={false}
+                    badgeText={project.status}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="p-6 text-gray-500">No practice zone projects</div>
+            );
           break;
 
         default:

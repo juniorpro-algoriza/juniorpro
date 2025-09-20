@@ -10,9 +10,8 @@ export const getProjectManagerJuniors = async (
   const res = await getData({
     url: `project-manager/juniors?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
     method: "GET",
-    dummyData: [], // fallback if API fails
+    dummyData: [],
   });
-
   return res?.data ?? [];
 };
 
@@ -26,7 +25,19 @@ export const getProjectManagerContributors = async (
     method: "GET",
     dummyData: [],
   });
+  return res?.data ?? [];
+};
 
+export const getProjectManagerProjects = async (
+  projectManagerId: number,
+  pageNumber = 1,
+  pageSize = 10
+) => {
+  const res = await getData({
+    url: `project-manager/projects?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
+    method: "GET",
+    dummyData: [],
+  });
   return res?.data ?? [];
 };
 
@@ -40,6 +51,5 @@ export const getProjectManagerPracticeZone = async (
     method: "GET",
     dummyData: [],
   });
-
   return res?.data ?? [];
 };
