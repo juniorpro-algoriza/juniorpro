@@ -6,14 +6,19 @@ import {cookies} from 'next/headers';
 // API response types
 interface ApiProject {
   id: number | string;
-  title: string;
-  category: string;
-  imageUrl?: string;
+  nameEn: string;
+  nameAr: string;
+  categoryNameAr: string;
+  categoryNameEn: string;
+  levelNameAr: string;
+  levelNameEn: string;
+  image?: string;
   description: string;
   rating: number;
+  status: number;
   projectType: string;
   isFree: boolean;
-  status: string;
+  ageRange: string;
   dueDate?: string;
 }
 
@@ -72,7 +77,6 @@ export const getProjects = async ({
     if (searchText) {
       queryParams.append('SearchText', searchText);
     }
-    console.log(queryParams, 'queryParams');
 
     const res = await fetch(
       `https://juniorpro-001-site1.ntempurl.com/api/project?${queryParams.toString()}`,
@@ -86,38 +90,36 @@ export const getProjects = async ({
       }
     );
 
-    console.log('res', res);
     if (!res.ok) {
       throw new Error(`Failed to fetch projects: ${res.status}`);
     }
 
     const apiData: ApiProjectsResponse = await res.json();
 
-    console.log(apiData, 'apiData');
-    // Transform API data to match our Project type
+    console.log('res', apiData);
     const transformedProjects: Project[] =
       apiData.data?.map((project: ApiProject) => ({
         id: project.id?.toString() || '',
-        title: project.title || '',
-        category: project.category || '',
-        imageUrl: project.imageUrl || '/images/featued-Project-image.svg',
-        description: project.description || '',
+        title: project.nameEn || '',
+        category: project.categoryNameEn || '',
+        imageUrl: project.image || '/images/featued-Project-image.svg',
+        description: project.levelNameEn || '',
         rating: project.rating || 0,
         projectType: mapApiProjectTypeToLocal(project.projectType) || 'solo',
         isFree: project.isFree || false,
-        status: mapApiStatusToLocal(project.status) || 'not-started',
+        status: 'not-started',
         dueDate: project.dueDate ? new Date(project.dueDate) : undefined,
         juniors: juniors || [],
       })) || [];
 
     // Apply local filtering if needed
-    let filteredData = transformedProjects;
+    const filteredData = transformedProjects;
 
-    if (projectType !== 'all') {
-      filteredData = transformedProjects.filter(
-        (project) => project.projectType === projectType
-      );
-    }
+    // if (projectType !== 'all') {
+    //   filteredData = transformedProjects.filter(
+    //     (project) => project.projectType === projectType
+    //   );
+    // }
 
     // Apply additional filtering
     const finalData = filteredData.filter((p) =>
@@ -170,19 +172,6 @@ const mapApiProjectTypeToLocal = (apiType: string): ProjectType => {
     coding: 'coding',
   };
   return typeMap[apiType?.toLowerCase()] || 'solo';
-};
-
-const mapApiStatusToLocal = (apiStatus: string): ProjectStatus => {
-  const statusMap: Record<string, ProjectStatus> = {
-    'in-progress': 'in-progress',
-    inprogress: 'in-progress',
-    completed: 'completed',
-    'not-started': 'not-started',
-    notstarted: 'not-started',
-  };
-  return (
-    statusMap[apiStatus?.toLowerCase().replace(/[\s-_]/g, '')] || 'not-started'
-  );
 };
 
 // Fixed date to prevent hydration mismatch

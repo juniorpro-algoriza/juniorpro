@@ -31,9 +31,8 @@ export const ProjectsCarousel = ({
         />
       )}
       getItemKey={(project) => project.id}
-      loadMore={
-        async () => console.log('helloo')
-        // await loadMoreProjects({ initialProjects, projectType })
+      loadMore={async () =>
+        await loadMoreProjects({initialProjects, projectType})
       }
       maxItems={50}
       viewAllText="View All"

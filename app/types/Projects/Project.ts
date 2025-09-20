@@ -1,5 +1,5 @@
-import type { ProjectStatus } from "./ProjectStatus";
-import type { ProjectType } from "./ProjectType";
+import type {ProjectStatus} from './ProjectStatus';
+import type {ProjectType} from './ProjectType';
 
 export type Project = {
   id: string;
