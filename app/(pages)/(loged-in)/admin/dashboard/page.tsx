@@ -1,21 +1,29 @@
-import { ContributorTable } from "../../components/client";
-import { getContributorData } from "../server";
+import { ServerTableWrapper } from "../../tables/ServerTableWrapper";
 import {
   DashboardHeader,
   DashboardPracticeZone,
   DashboardStatsContainer,
 } from "./components";
 
-const AdminDashboardPage = async () => {
-  const contributorData = await getContributorData();
+const AdminDashboardPage = async ({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) => {
+  const pageNumber = Number(searchParams.page) || 1;
 
   return (
-    <div className=" py-3 px-6 bg-stone-50 space-y-6">
+    <div className="py-3 px-6 bg-stone-50 space-y-6">
       <DashboardHeader />
       <DashboardStatsContainer />
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <DashboardPracticeZone />
-        <ContributorTable contributorData={contributorData} view="dashboard" />
+        <ServerTableWrapper
+          title="Contributors"
+          type="contributor"
+          view="dashboard"
+          pageNumber={pageNumber}
+        />
       </div>
     </div>
   );

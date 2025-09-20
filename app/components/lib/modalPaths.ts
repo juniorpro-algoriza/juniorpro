@@ -1,10 +1,28 @@
 export const modalPaths = {
-  AddJunior: {
-    title: 'AddJunior',
-    href: '/modal/AddJunior',
+  AddJunior: { title: "AddJunior", href: "/modal/AddJunior" },
+  EditProfile: { title: "EditProfile", href: "/modal/EditProfile" },
+  AddProjectManager: {
+    title: "AddProjectManager",
+    href: "/modal/AddProjectManager",
   },
-  EditProfile: {
-    title: 'EditProfile',
-    href: '/modal/EditProfile',
+  EditProjectManagerProfile: {
+    title: "EditProjectManagerProfile",
+    href: "/modal/EditProjectManagerProfile",
+  },
+  AddJuniors: {
+    title: "AddJuniors",
+    href: "/modal/AddJuniors",
+  },
+  AddContributor: {
+    title: "AddContributor",
+    href: "/modal/AddContributor",
+  },
+  EditContributorProfile: {
+    title: "EditContributorProfile",
+    href: "/modal/EditContributorProfile",
+  },
+  EditJuniorsProfile: {
+    title: "EditJuniorsProfile",
+    href: "/modal/EditJuniorProfile",
   },
 } as const;

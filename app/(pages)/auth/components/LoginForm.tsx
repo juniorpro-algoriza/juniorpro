@@ -1,24 +1,40 @@
-"use client";
+'use client';
 
-import { Button, Input } from "@components";
-import { initialState } from "@server/lib";
-import { Loader } from "lucide-react";
-import { useActionState, useEffect } from "react";
-import { toast } from "sonner";
-import { signIn } from "../server";
+import {Button, Input} from '@components';
+import {Loader} from 'lucide-react';
+import {useFormState, useFormStatus} from 'react-dom';
+import {useEffect} from 'react';
+import {toast} from 'sonner';
+import {signIn} from '../server';
+
+const SubmitButton = () => {
+  const {pending} = useFormStatus();
+
+  return (
+    <Button
+      icon={pending ? <Loader className="animate-spin" /> : null}
+      disabled={pending}
+      type="submit"
+      intent="primary"
+      className="w-full rounded-xl bg-violet-normal"
+      size="large">
+      Login
+    </Button>
+  );
+};
 
 export const LoginForm = () => {
-  const [state, formAction, isPending] = useActionState(signIn, initialState);
+  const [state, formAction] = useFormState(signIn, {error: null});
 
   useEffect(() => {
-    const { error } = state;
+    const {error} = state;
 
-    if (error) toast.error(error, { id: "login-error" });
-    else toast.dismiss("login-error");
+    if (error) toast.error(error, {id: 'login-error'});
+    else toast.dismiss('login-error');
   }, [state]);
 
   return (
-    <form action={formAction} className='space-y-2'>
+    <form action={formAction} className="space-y-2">
       <Input
         name="email"
         label="Email"
@@ -38,16 +54,7 @@ export const LoginForm = () => {
           </a>
         </div>
       </div>
-      <Button
-        icon={isPending ? <Loader className="animate-spin" /> : null}
-        disabled={isPending}
-        type="submit"
-        intent="primary"
-        className="w-full rounded-xl bg-violet-normal"
-        size="large"
-      >
-        Login
-      </Button>
+      <SubmitButton />
     </form>
   );
 };
