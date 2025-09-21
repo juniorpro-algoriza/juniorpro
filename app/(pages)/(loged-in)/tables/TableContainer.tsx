@@ -59,7 +59,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
       {/* Header */}
       <div className="p-6 flex items-center justify-between">
         <h3 className="text-xl font-medium text-yankees-blue">
-          {title} ({total})
+          {title} ({total || initialData.length})
         </h3>
 
         {view === "full" ? (

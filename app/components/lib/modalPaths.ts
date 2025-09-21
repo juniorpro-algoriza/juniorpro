@@ -26,7 +26,7 @@ export const modalPaths = {
   },
   EditJuniorsProfile: {
     title: "EditJuniorsProfile",
-    href: "/modal/EditJuniorProfile",
+    href: "/modal/EditJuniorsProfile",
   },
   AssignContributor: {
     title: "Assign",
