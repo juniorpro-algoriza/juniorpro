@@ -12,6 +12,7 @@ import {
   getProjectManagerProjects,
   getProjectManagerPracticeZone,
 } from "../admin/server/getProjectManagerData";
+import { getData } from "@server";
 
 interface UserTabsProps {
   userType: UserType;
@@ -33,22 +34,39 @@ export const UserTabs = ({ userType, userId }: UserTabsProps) => {
   );
 
   useEffect(() => {
-    if (userType === "project-manager") {
-      (async () => {
-        setLoading(true);
-        const [j, c, p, pz] = await Promise.all([
-          getProjectManagerJuniors(userId),
-          getProjectManagerContributors(userId),
-          getProjectManagerProjects(userId),
-          getProjectManagerPracticeZone(userId),
-        ]);
-        setJuniors(j);
-        setContributors(c);
-        setProjects(p);
-        setPracticeZoneProjects(pz);
+    const fetchData = async () => {
+      setLoading(true);
+
+      try {
+        if (userType === "project-manager") {
+          const [j, c, p, pz] = await Promise.all([
+            getProjectManagerJuniors(userId),
+            getProjectManagerContributors(userId),
+            getProjectManagerProjects(userId),
+            getProjectManagerPracticeZone(userId),
+          ]);
+          setJuniors(j);
+          setContributors(c);
+          setProjects(p);
+          setPracticeZoneProjects(pz);
+        } else if (userType === "contributor") {
+          // Fetch juniors related to this contributor
+          // const pageNumber = 1;
+          // const pageSize = 100;
+          const res = await getData({
+            url: `Contributor/juniors?ProjectManagerId=${userId}`,
+            method: "GET",
+          });
+          if (Array.isArray(res)) setJuniors(res);
+        }
+      } catch (err) {
+        console.error("Failed to fetch user tabs data", err);
+      } finally {
         setLoading(false);
-      })();
-    }
+      }
+    };
+
+    fetchData();
   }, [userId, userType]);
 
   // Build tabs
