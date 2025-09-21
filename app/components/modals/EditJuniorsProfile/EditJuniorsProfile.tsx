@@ -177,7 +177,7 @@ export const EditJuniorsProfile = ({
         </Button>
         <CloseButton as={Fragment}>
           <Button
-            intent="secondary"
+            intent="unset"
             className="flex-1 text-dark-electric-blue"
             onClick={onClose}
           >

@@ -115,13 +115,15 @@ export const AddContributor = ({ onAdded, onClose }: AddContributorProps) => {
         >
           {saving ? "Adding..." : "Add"}
         </Button>
-        <Button
-          intent="secondary"
-          className="flex-1 text-dark-electric-blue"
-          onClick={onClose}
-        >
-          Cancel
-        </Button>
+        <CloseButton as={Fragment}>
+          <Button
+            intent="unset"
+            className="flex-1 text-dark-electric-blue"
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+        </CloseButton>
       </div>
     </Modal>
   );

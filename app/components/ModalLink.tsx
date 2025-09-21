@@ -7,7 +7,9 @@ export type ModalName =
   | "AddProjectManager"
   | "EditJuniors"
   | "EditProjectManagerProfile"
+  | "AddJuniorForContributor"
   | "AddContributor"
+  | "AssignContributor"
   | "EditContributorProfile";
 
 interface ModalLinkProps {

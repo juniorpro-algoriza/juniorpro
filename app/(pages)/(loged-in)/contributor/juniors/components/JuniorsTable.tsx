@@ -1,56 +1,40 @@
-"use client";
+"use server";
 
-import { Button, Input, Table } from "@components";
-import type { Junior } from "@server/types";
-import { ListFilter, SearchIcon } from "lucide-react";
-import { ModalLink } from "../../../../../components/ModalLink";
+import { getData } from "@server";
 
-interface JuniorsTableProps {
-  juniorsData: Junior[];
+export interface ContributorJunior {
+  id: number;
+  name: string;
+  points: number;
+  activeProjects: number;
+  completedProjects: number;
+  contributorAcceptanceStatus: number;
 }
 
-export const JuniorsTable = ({ juniorsData }: JuniorsTableProps) => {
-  return (
-    <div>
-      <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-        <div className="p-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-medium text-yankees-blue">
-              Juniors ({juniorsData.length})
-            </h3>
-            <div className="flex justify-center gap-2.5">
-              <ModalLink name="AddJunior">
-                <Button intent="primary" className="text-sm" size="large">
-                  Add Junior
-                </Button>
-              </ModalLink>
+export interface ContributorJuniorsResponse {
+  pageNumber: number;
+  pageSize: number;
+  pg_total: number;
+  status: number;
+  data: ContributorJunior[];
+  isSucceeded: boolean;
+}
 
-              <Input
-                placeholder="Search for Juniors"
-                leftIcon={<SearchIcon size={20} />}
-                className="shadow-sm"
-              />
-              <Button
-                intent="unset"
-                className="shadow-sm px-2.5 border border-border-primary"
-              >
-                <ListFilter className="text-cadetGray" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <Table
-          columns={[
-            { header: "Name", key: "name" },
-            { header: "Points", key: "points" },
-            { header: "Active Projects", key: "activeProjects" },
-            { header: "Completed Projects", key: "completedProjects" },
-          ]}
-          data={juniorsData}
-          emptyMessage="No juniors added yet"
-        />
-      </div>
-    </div>
-  );
+export const getContributorJuniors = async ({
+  projectManagerId,
+  pageNumber = 1,
+  pageSize = 10,
+  searchText = "",
+}: {
+  projectManagerId: number;
+  pageNumber?: number;
+  pageSize?: number;
+  searchText?: string;
+}): Promise<ContributorJuniorsResponse> => {
+  return await getData({
+    url: `Contributor/juniors?ProjectManagerId=${projectManagerId}&PageNumber=${pageNumber}&PageSize=${pageSize}&SearchText=${encodeURIComponent(
+      searchText
+    )}`,
+    method: "GET",
+  });
 };

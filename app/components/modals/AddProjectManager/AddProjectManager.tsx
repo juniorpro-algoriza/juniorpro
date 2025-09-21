@@ -118,13 +118,13 @@ export const AddProjectManager = ({
         >
           {saving ? "Adding..." : "Add"}
         </Button>
-        <Button
+        {/* <Button
           intent="secondary"
           className="flex-1 text-dark-electric-blue"
           onClick={onClose}
         >
           Cancel
-        </Button>
+        </Button> */}
       </div>
     </Modal>
   );
