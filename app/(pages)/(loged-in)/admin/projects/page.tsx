@@ -11,20 +11,11 @@ interface ProjectsPageProps {
 
 const ProjectsPage = async ({searchParams}: ProjectsPageProps) => {
   const junior = (await searchParams).junior;
-  // const searchQuery = (await searchParams).query;
 
   const {data: projects} = await getProjects({
     limit: 30,
     pageNum: 1,
     projectType: 'all',
-    // juniors: junior[0] === 'all juniors' ? [] : [junior],
-    // shouldIncludeProject: (p: Project) => {
-    //   if (searchQuery) {
-    //     const projectTitle = p.title;
-    //     return projectTitle.toLowerCase().includes(searchQuery.toLowerCase());
-    //   }
-    //   return true;
-    // },
   });
 
   const juniors = ['all juniors', 'anas', 'marwa', 'adam'];
@@ -55,11 +46,11 @@ const ProjectsPage = async ({searchParams}: ProjectsPageProps) => {
             Projects ({projects.length})
           </h2>
           <div className="flex items-center gap-2">
-            <JuniorsDropdown juniors={juniors} />
+            {/* <JuniorsDropdown juniors={juniors} /> */}
             <SearchInput />
           </div>
         </div>
-        <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6">
+        <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6 pb-10">
           {allProjects.map((p) => {
             return (
               <div
