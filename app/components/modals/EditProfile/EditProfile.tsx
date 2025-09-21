@@ -1,3 +1,4 @@
+"use client";
 import { Button, Input, Modal, Textarea } from "@components";
 import { Select } from "@components/client";
 import { CloseButton } from "@headlessui/react";
@@ -8,10 +9,20 @@ import skyBg from "@public/images/sky.svg";
 import { getCareerTypes } from "@server";
 import { CameraIcon, UploadIcon, XIcon } from "lucide-react";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
-export const EditProfile = async () => {
-  const carerTypesData = await getCareerTypes();
+export const EditProfile = () => {
+  const [careerTypesData, setCareerTypesData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const careerTypesData = await getCareerTypes();
+      console.log(careerTypesData);
+      setCareerTypesData(careerTypesData);
+    };
+    fetchData();
+  }, []);
+
   return (
     <Modal panelClassName="w-full max-w-2xl h-[90vh] overflow-auto transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
       <div className="flex items-center justify-between mb-3 border-b border-storm-200 pb-2">
@@ -33,9 +44,9 @@ export const EditProfile = async () => {
           src={skyBg}
           alt="Profile background"
           fill
-          className="object-cover rounded-t-[20px] opacity-80"
+          className="object-cover rounded-t-xl opacity-80"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+        <div className="absolute inset-0 flex items-center justify-center">
           <Button
             intent="unset"
             className="bg-transparent text-storm-500 px-4 py-2 rounded-lg border border-storm-300 flex items-center gap-2"
@@ -69,7 +80,7 @@ export const EditProfile = async () => {
           description=""
           label="Career Type"
           placeholder="choose"
-          options={carerTypesData}
+          options={careerTypesData}
         />
       </div>
 
@@ -94,7 +105,7 @@ export const EditProfile = async () => {
         </Button>
 
         <CloseButton as={Fragment}>
-          <Button intent="unset" className="flex-1 text-dark-electric-blue">
+          <Button intent="secondary" className="flex-1 text-dark-electric-blue">
             Cancel
           </Button>
         </CloseButton>

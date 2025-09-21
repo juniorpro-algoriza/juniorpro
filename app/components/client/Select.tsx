@@ -65,7 +65,7 @@ export const Select = ({
               {placeholder}
             </option>
           )}
-          {options.map(({ label, value }) => (
+          {options?.map(({ label, value }) => (
             <option key={value} value={value}>
               {label}
             </option>

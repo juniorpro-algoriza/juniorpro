@@ -10,3 +10,4 @@ export { getTeamProjects } from "./getTeamProjects";
 export { getData } from "./getData";
 export { getPointsPlans } from "./getPointsPlans";
 export { getJuniorStatistic } from "./getJuniorStatistic";
+export { getMyProfileData } from "./getMyProfileData";
