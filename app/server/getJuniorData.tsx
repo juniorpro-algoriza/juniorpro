@@ -1,5 +1,4 @@
 "use server";
-
 export const getJuniorsData = async () => {
   return dummyData;
 };

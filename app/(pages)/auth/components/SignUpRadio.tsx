@@ -5,13 +5,16 @@ import { radioButton, radioFieldset } from "@styles";
 interface SignUpRadioProps {
   value: "junior" | "contributor";
   onChange: (value: "junior" | "contributor") => void;
+  invited?: boolean;
 }
 
-export const SignUpRadio = ({ value, onChange }: SignUpRadioProps) => {
-  const options = [
-    { title: "Register as contributor", value: "contributor" },
-    { title: "Register as junior", value: "junior" },
-  ];
+export const SignUpRadio = ({ value, onChange, invited }: SignUpRadioProps) => {
+  const options = invited
+    ? [{ title: "Register as junior", value: "junior" }] // if invited, only show junior
+    : [
+        { title: "Register as contributor", value: "contributor" },
+        { title: "Register as junior", value: "junior" },
+      ];
 
   return (
     <RadioGroup

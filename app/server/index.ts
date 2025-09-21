@@ -1,7 +1,7 @@
+export { getJuniorsData } from "./getJuniorData";
 export { getCareerTypes } from "./getCareerTypes";
 export { getFreeTasks } from "./getFreeTasks";
 export { getJuniorsAge } from "./getJuniorsAge";
-export { getJuniorsData } from "./getJuniorsData";
 export { getJuniorsGrades } from "./getJuniorsGrades";
 export { getPointsData } from "./getPointsData";
 export { getPremiumTasks } from "./getPremiumTasks";
@@ -10,3 +10,4 @@ export { getTeamProjects } from "./getTeamProjects";
 export { getData } from "./getData";
 export { getPointsPlans } from "./getPointsPlans";
 export { getJuniorStatistic } from "./getJuniorStatistic";
+export { inviteExistingJunior } from "./inviteExistingJunior";

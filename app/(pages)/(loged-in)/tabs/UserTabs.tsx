@@ -37,7 +37,6 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
   }
 
   if (userType === "contributor") {
-    // ✅ correct juniors endpoint for a contributor
     const res = await getData({
       url: `junior/get-all?ContributorId=${userId}&PageNumber=1&PageSize=100&SearchText=`,
       method: "GET",

@@ -50,8 +50,6 @@ export const TableContainer: React.FC<TableContainerProps> = ({
     filteredData = filteredData.slice(0, 6);
   }
 
-  // Backend pagination (only for full view)
-  // TableContainer.tsx (only pagination part)
   const totalPages = Math.ceil(total / pageSize);
 
   return (
@@ -59,7 +57,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
       {/* Header */}
       <div className="p-6 flex items-center justify-between">
         <h3 className="text-xl font-medium text-yankees-blue">
-          {title} ({total || initialData.length})
+          {title} ({total || initialData?.length || 0})
         </h3>
 
         {view === "full" ? (
