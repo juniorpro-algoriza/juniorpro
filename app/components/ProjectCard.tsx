@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {Button, Badge} from '@components';
 import type {Project, ProjectType} from '@types';
 import {CalendarDaysIcon, StarIcon} from 'lucide-react';

@@ -1,16 +1,17 @@
-import { ServerTableWrapper } from "../../tables/ServerTableWrapper";
+import {ServerTableWrapper} from '../../tables/ServerTableWrapper';
 import {
   DashboardHeader,
   DashboardPracticeZone,
   DashboardStatsContainer,
-} from "./components";
+} from './components';
 
 const AdminDashboardPage = async ({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{page?: string}>;
 }) => {
-  const pageNumber = Number(searchParams.page) || 1;
+  const {page} = await searchParams;
+  const pageNumber = Number(page) || 1;
 
   return (
     <div className="py-3 px-6 bg-stone-50 space-y-6">

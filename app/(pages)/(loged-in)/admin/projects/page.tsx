@@ -3,7 +3,7 @@ import {getProjects} from '@server';
 import type {Project} from '@types';
 import {pickRandom} from '@utils';
 import {SearchInput} from '../../components/client';
-import {JuniorsDropdown, ProjectsHeader} from '../../admin/projects/components';
+import {ProjectsHeader} from '../../admin/projects/components';
 
 interface ProjectsPageProps {
   searchParams: Promise<{junior: string; query: string}>;
@@ -17,8 +17,6 @@ const ProjectsPage = async ({searchParams}: ProjectsPageProps) => {
     pageNum: 1,
     projectType: 'all',
   });
-
-  const juniors = ['all juniors', 'anas', 'marwa', 'adam'];
 
   const completedProjects: Project[] = projects.map((p) => ({
     ...p,
