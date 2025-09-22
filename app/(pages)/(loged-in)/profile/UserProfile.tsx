@@ -1,15 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+'use client';
 
-import { Button, ModalLink } from "@components";
-import { userConfigs, type UserType } from "../../../config/userConfig";
-import {
-  Users,
-  Briefcase,
-  BookOpen,
-  Mail,
-  User as UserIcon,
-} from "lucide-react";
+import {Button, ModalLink} from '@components';
+import {userConfigs, type UserType} from '../../../config/userConfig';
+import {Users, Briefcase, BookOpen, Mail, User as UserIcon} from 'lucide-react';
 
 function StatCard({
   icon,
@@ -57,9 +51,9 @@ export const UserProfile = ({
           <div className="flex items-center gap-4">
             <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center rounded-full bg-indigo-50 text-[#043b88] text-lg font-bold">
               {user.name
-                ?.split(" ")
+                ?.split(' ')
                 .map((n: string) => n[0])
-                .join("")
+                .join('')
                 .slice(0, 2)
                 .toUpperCase()}
             </div>
@@ -81,11 +75,10 @@ export const UserProfile = ({
           </div>
 
           {/* Action Button */}
-          <ModalLink name={config.modals.edit} query={{ id: user.id }}>
+          <ModalLink name={config.modals.edit as any} query={{id: user.id}}>
             <Button
               intent="primary"
-              className="rounded-xl px-6 py-3 text-sm font-semibold"
-            >
+              className="rounded-xl px-6 py-3 text-sm font-semibold">
               Edit Profile
             </Button>
           </ModalLink>
