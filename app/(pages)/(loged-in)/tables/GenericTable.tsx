@@ -26,7 +26,7 @@ export const GenericTable: React.FC<GenericTableProps> = ({
         <table className="min-w-full table-auto">
           <thead className="bg-[#F1F5FF] sticky top-0 z-50">
             <tr>
-              {columns.map((col, index) => (
+              {columns?.map((col, index) => (
                 <th
                   key={col.key}
                   className={`px-6 py-3 text-left font-medium whitespace-nowrap text-[#40444C] ${
@@ -39,7 +39,7 @@ export const GenericTable: React.FC<GenericTableProps> = ({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-bright-gray">
-            {data.length === 0 ? (
+            {data?.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length}
@@ -49,7 +49,7 @@ export const GenericTable: React.FC<GenericTableProps> = ({
                 </td>
               </tr>
             ) : (
-              data.map((row, idx) => (
+              data?.map((row, idx) => (
                 <tr key={idx} className="hover:bg-gray-50 transition">
                   {columns.map((col) => (
                     <td
