@@ -1,61 +1,61 @@
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { ProjectsHeader } from "./ProjectsHeader";
-import { tabClassName, tabListClassName } from "@styles";
-import { ProjectsCarousel } from "./ProjectCarousel";
-import { twMerge } from "tailwind-merge";
-import { getProjects } from "@server";
-import type { Project, ProjectType } from "@types";
+import {Tab, TabGroup, TabList, TabPanel, TabPanels} from '@headlessui/react';
+import {ProjectsHeader} from './ProjectsHeader';
+import {tabClassName, tabListClassName} from '@styles';
+import {ProjectsCarousel} from './ProjectCarousel';
+import {twMerge} from 'tailwind-merge';
+import {getProjects} from '@server';
+import type {Project, ProjectType} from '@types';
 
 export const ProjectsSection = async () => {
-  const { data: allProjects } = await getProjects({
+  const {data: allProjects} = await getProjects({
     limit: 10,
     pageNum: 1,
-    projectType: "all",
+    projectType: 'all',
   });
 
-  const { data: soloProjects } = await getProjects({
+  const {data: soloProjects} = await getProjects({
     limit: 10,
     pageNum: 1,
-    projectType: "solo",
+    projectType: 'solo',
   });
 
-  const { data: teamProjects } = await getProjects({
+  const {data: teamProjects} = await getProjects({
     limit: 10,
     pageNum: 1,
-    projectType: "team",
+    projectType: 'team',
   });
 
-  const { data: webProjects } = await getProjects({
+  const {data: webProjects} = await getProjects({
     limit: 10,
     pageNum: 1,
-    projectType: "web",
+    projectType: 'web',
   });
 
-  const { data: codingProjects } = await getProjects({
+  const {data: codingProjects} = await getProjects({
     limit: 10,
     pageNum: 1,
-    projectType: "coding",
+    projectType: 'coding',
   });
 
-  const projects: { projectType: ProjectType; items: Project[] }[] = [
+  const projects: {projectType: ProjectType; items: Project[]}[] = [
     {
-      projectType: "all",
+      projectType: 'all',
       items: allProjects,
     },
     {
-      projectType: "solo",
+      projectType: 'solo',
       items: soloProjects,
     },
     {
-      projectType: "team",
+      projectType: 'team',
       items: teamProjects,
     },
     {
-      projectType: "web",
+      projectType: 'web',
       items: webProjects,
     },
     {
-      projectType: "coding",
+      projectType: 'coding',
       items: codingProjects,
     },
   ];
@@ -66,12 +66,11 @@ export const ProjectsSection = async () => {
       <TabGroup className="pt-8">
         <div className="flex justify-center px-4">
           <TabList className={tabListClassName}>
-            {projects.map(({ projectType }) => {
+            {projects.map(({projectType}) => {
               return (
                 <Tab
-                  className={twMerge(tabClassName, "capitalize")}
-                  key={projectType}
-                >
+                  className={twMerge(tabClassName, 'capitalize')}
+                  key={projectType}>
                   {projectType}
                 </Tab>
               );
@@ -79,12 +78,12 @@ export const ProjectsSection = async () => {
           </TabList>
         </div>
         <TabPanels className="pt-10">
-          {projects.map(({ items, projectType }) => {
+          {projects.map(({items, projectType}) => {
             return (
               <TabPanel key={projectType}>
                 <ProjectsCarousel
                   projects={items}
-                  projectType={projectType === "all" ? undefined : projectType}
+                  projectType={projectType === 'all' ? undefined : projectType}
                 />
               </TabPanel>
             );

@@ -1,12 +1,21 @@
-import type { Stats } from '../types';
+"use server";
+
+import { getData } from "@server";
+import type { Stats } from "../types";
 
 export const getDashboardStats = async (): Promise<Stats[]> => {
-  return dummyData;
-};
+  const data = await getData({
+    url: "admin-dashboard/all-users-stats",
+    method: "GET",
+    dummyData: [],
+  });
 
-const dummyData: Stats[] = [
-  { label: 'Juniors', value: 36 },
-  { label: 'Contributors', value: 36 },
-  { label: 'Project Managers', value: 36 },
-  { label: 'Active Projects', value: 36 },
-];
+  const stats: Stats[] = [
+    { label: "Juniors", value: data.juniors },
+    { label: "Contributors", value: data.contributors },
+    { label: "Project Managers", value: data.projectManagers },
+    { label: "Active Projects", value: data.activeProjects },
+  ];
+
+  return stats;
+};

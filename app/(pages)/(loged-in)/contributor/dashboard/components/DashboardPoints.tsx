@@ -1,13 +1,25 @@
-import { Button } from "@components";
+import { Button, PointsCard } from "@components";
 import { EmptyData } from "@components/client";
 import { DiamondIcon, WalletIcon } from "@icons";
 import { getPointsData } from "@server";
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
+import type { SVGProps } from "react";
 
 export const DashboardPoints = async () => {
   const { pointsBalance, cashBalance, allocations } = await getPointsData();
-
+  const data = [
+    {
+      title: "Points Balance",
+      value: pointsBalance as number,
+      Icon: DiamondIcon as React.FC<SVGProps<SVGSVGElement>>,
+    },
+    {
+      title: "Cash Balance",
+      value: cashBalance as number,
+      Icon: WalletIcon as React.FC<SVGProps<SVGSVGElement>>,
+    },
+  ];
   return (
     <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-6 space-y-4">
       <div>
@@ -36,32 +48,9 @@ export const DashboardPoints = async () => {
       <div>
         {/* Balance Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          <div className="bg-carolina-blue-opacity p-4 rounded-2xl border border-antiflash-white drop-shadow-xl">
-            <div className="flex justify-between items-start">
-              <div className="flex flex-col gap-2 font-medium">
-                <p className="text-3xl">{pointsBalance}</p>
-                <p>Points Balance</p>
-              </div>
-              <div className="bg-carolina-blue-opacity rounded-lg p-1.5">
-                <DiamondIcon
-                  fill="var( --color-violet-normal)"
-                  width="25"
-                  height="25"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="bg-carolina-blue-opacity p-4 rounded-2xl border border-antiflash-white drop-shadow-xl">
-            <div className="flex justify-between items-start">
-              <div className="flex flex-col gap-2 font-medium">
-                <p className="text-3xl">{cashBalance}</p>
-                <p>Cash Balance</p>
-              </div>
-              <div className="bg-carolina-blue-opacity rounded-lg p-1.5">
-                <WalletIcon width="25" height="25" />
-              </div>
-            </div>
-          </div>
+          {data.map((item, index) => (
+            <PointsCard key={index} {...item} />
+          ))}
         </div>
 
         {/* Points List */}

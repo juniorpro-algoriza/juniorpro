@@ -1,45 +1,45 @@
-import { ProjectCard } from '@components';
-import { getProjects } from '@server';
-import type { Project } from '@types';
-import { pickRandom } from '@utils';
-import { SearchInput } from '../../components/client';
-import { JuniorsDropdown, ProjectsHeader } from './components';
+import {ProjectCard} from '@components';
+import {getProjects} from '@server';
+import type {Project} from '@types';
+import {pickRandom} from '@utils';
+import {SearchInput} from '../../components/client';
+import {JuniorsDropdown, ProjectsHeader} from '../../admin/projects/components';
 
 interface ProjectsPageProps {
-  searchParams: Promise<{ junior: string; query: string }>;
+  searchParams: Promise<{junior: string; query: string}>;
 }
 
-const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
+const ProjectsPage = async ({searchParams}: ProjectsPageProps) => {
   const junior = (await searchParams).junior;
-  const searchQuery = (await searchParams).query;
+  // const searchQuery = (await searchParams).query;
 
-  const { data: projects } = await getProjects({
+  const {data: projects} = await getProjects({
     limit: 30,
     pageNum: 1,
-    projectType: "all",
-    juniors: junior[0] === "all juniors" ? [] : [junior],
-    shouldIncludeProject: (p: Project) => {
-      if (searchQuery) {
-        const projectTitle = p.title;
-        return projectTitle.toLowerCase().includes(searchQuery.toLowerCase());
-      }
-      return true;
-    },
+    projectType: 'all',
+    // juniors: junior[0] === 'all juniors' ? [] : [junior],
+    // shouldIncludeProject: (p: Project) => {
+    //   if (searchQuery) {
+    //     const projectTitle = p.title;
+    //     return projectTitle.toLowerCase().includes(searchQuery.toLowerCase());
+    //   }
+    //   return true;
+    // },
   });
 
-  const juniors = ["all juniors", "anas", "marwa", "adam"];
+  const juniors = ['all juniors', 'anas', 'marwa', 'adam'];
 
   const completedProjects: Project[] = projects.map((p) => ({
     ...p,
-    status: "completed",
+    status: 'completed',
   }));
 
   let allProjects: Project[] = completedProjects;
-  if (junior === "all juniors") {
+  if (junior === 'all juniors') {
     allProjects = completedProjects
       .map((p) => ({
         ...p,
-        juniors: ["Marwa", "Anas ", pickRandom(["Adam", "Samy"])],
+        juniors: ['Marwa', 'Anas ', pickRandom(['Adam', 'Samy'])],
       }))
       .filter((_, index) => {
         return index % 5 === 0;
@@ -64,8 +64,7 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
             return (
               <div
                 key={p.id}
-                className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]"
-              >
+                className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]">
                 <ProjectCard
                   project={p}
                   showDescription={false}

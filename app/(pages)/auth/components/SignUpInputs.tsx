@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Input } from "@components";
 import { Loader } from "lucide-react";
 import type { FC } from "react";
@@ -8,9 +10,18 @@ export const inputNames = {
   email: "email",
   password: "password",
   passwordConfirm: "passwordConfirm",
+  contributorEmail: "contributorEmail", // optional for contributors
 };
 
-export const SignUpInputs: FC<{ isPending: boolean }> = ({ isPending }) => {
+interface SignUpInputsProps {
+  isPending?: boolean;
+  signInAs?: "junior" | "contributor";
+}
+
+export const SignUpInputs: FC<SignUpInputsProps> = ({
+  isPending,
+  signInAs,
+}) => {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -45,6 +56,16 @@ export const SignUpInputs: FC<{ isPending: boolean }> = ({ isPending }) => {
         type="password"
         placeholder="Enter Password"
       />
+
+      {/* Conditional input for juniors */}
+      {signInAs === "junior" && (
+        <Input
+          name={inputNames.contributorEmail}
+          label="Contributor Email (optional)"
+          type="email"
+          placeholder="Enter contributor email"
+        />
+      )}
       <Button
         icon={isPending ? <Loader className="animate-spin" /> : null}
         disabled={isPending}
