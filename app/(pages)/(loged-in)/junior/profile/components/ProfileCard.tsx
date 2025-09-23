@@ -1,22 +1,43 @@
-import { Button, ModalLink } from "@components";
+"use client";
+import { Button } from "@components";
 import { DocumentIcon } from "@icons";
 // import profileAvatarImage from "@public/images/profile-avartar.svg";
 // import skyBg from "@public/images/sky.svg";
 import Image from "next/image";
 import { ProfileTabs } from "./ProfileTabs";
 import { ProfileData } from "@types";
+import { useState } from "react";
+import { EditProfile } from "./EditProfile";
 
 interface ProfileCardProps {
   profileData: ProfileData;
+  careerTypesData: { value: string; label: string }[];
 }
 
-export const ProfileCard = ({ profileData }: ProfileCardProps) => {
+export const ProfileCard = ({
+  profileData,
+  careerTypesData,
+}: ProfileCardProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [profile, setProfile] = useState(profileData);
+  const careerName = (id: number) => {
+    switch (id) {
+      case 1:
+        return "Frontend Developer";
+      case 2:
+        return "Backend Developer";
+      case 3:
+        return "Ui/Ux Designer";
+      default:
+        return "";
+    }
+  };
   return (
     <>
       <div className="w-full bg-white rounded-[20px] shadow-xl pb-8">
         <div className="relative h-56">
           <Image
-            src={profileData.coverImage}
+            src={profile?.coverImage}
             alt="Profile background"
             fill
             className="object-cover rounded-t-[20px]"
@@ -24,8 +45,8 @@ export const ProfileCard = ({ profileData }: ProfileCardProps) => {
           <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2">
             <div className="relative w-28 h-28">
               <Image
-                src={profileData.image}
-                alt={`${profileData.firstName}'s profile`}
+                src={profile?.image}
+                alt={`${profile?.firstName}'s profile`}
                 fill
                 className="rounded-full object-cover"
               />
@@ -33,9 +54,11 @@ export const ProfileCard = ({ profileData }: ProfileCardProps) => {
           </div>
           <div className="absolute -bottom-32 text-center left-1/2 transform -translate-x-1/2 flex flex-col gap-1 pb-4">
             <h2 className="text-2xl font-medium text-dark-blue mb-1">
-              {profileData.firstName} {profileData.lastName}
+              {profile?.firstName} {profile?.lastName}
             </h2>
-            <p className="text-storm-400 text-xl">{profileData.career}</p>
+            <p className="text-storm-400 text-xl">
+              {careerName(profile?.career)}
+            </p>
           </div>
         </div>
 
@@ -46,7 +69,7 @@ export const ProfileCard = ({ profileData }: ProfileCardProps) => {
                 <DocumentIcon fill="#41C980" width="25" height="25" />
               </div>
               <div className="text-lg font-semibold text-gray-900">
-                {profileData.freeProjects}
+                {profile?.freeProjects}
               </div>
               <div className="text-sm text-content-secondary">
                 Projects Free
@@ -58,7 +81,7 @@ export const ProfileCard = ({ profileData }: ProfileCardProps) => {
                 <DocumentIcon fill="#DF972A" width="25" height="25" />
               </div>
               <div className="text-lg font-semibold text-gray-900">
-                {profileData.premiumProjects}
+                {profile?.premiumProjects}
               </div>
               <div className="text-sm text-content-secondary">
                 Projects Premium
@@ -70,22 +93,41 @@ export const ProfileCard = ({ profileData }: ProfileCardProps) => {
                 <DocumentIcon fill="#5879DC" width="25" height="25" />
               </div>
               <div className="text-lg font-semibold text-gray-900">
-                {profileData.teamProjects}
+                {profile?.teamProjects}
               </div>
               <div className="text-sm text-content-secondary">
                 Team Projects
               </div>
             </div>
           </div>
-          <ModalLink name="EditProfile">
-            <Button intent="primary" className="mt-6">
-              Edit Profile
-            </Button>
-          </ModalLink>
+          <Button
+            intent="primary"
+            type="button"
+            className="mt-6"
+            onClick={() => setIsOpen(true)}
+          >
+            Edit Profile
+          </Button>
         </div>
       </div>
+      {isOpen && (
+        <div
+          className="fixed inset-0 h-dvh bg-[#0000006e] flex items-center justify-center z-50"
+          onClick={() => setIsOpen(false)}
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            <EditProfile
+              setIsOpen={setIsOpen}
+              careerTypesData={careerTypesData}
+              profile={profile}
+              setProfile={setProfile}
+            />
+          </div>
+        </div>
+      )}
+
       <div className="relative -top-16">
-        <ProfileTabs profile={profileData} />
+        <ProfileTabs profile={profile} />
       </div>
     </>
   );

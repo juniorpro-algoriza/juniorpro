@@ -9,7 +9,7 @@ export type ProfileData = {
   about: string;
   birthDate: string;
   phoneNumber: string;
-  career: string;
+  career: number;
   profileUrl: string;
   linkedInUrl: string;
   freeProjects: number;

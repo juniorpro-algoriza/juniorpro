@@ -17,14 +17,13 @@ export const Profile = ({ profile }: { profile: ProfileData }) => {
       </div>
     </div>
   );
-
   return (
     <div className="flex gap-6 py-6">
       {/* About Section */}
       <div className="bg-white rounded-2xl shadow-xl space-y-3 p-6 h-fit w-1/3">
         <h2 className="text-2xl text-yankees-blue font-medium">About</h2>
         <p className="text-content-secondary font-medium leading-8">
-          {profile.about}
+          {profile?.about}
         </p>
 
         {/* Contact Info */}
@@ -35,7 +34,7 @@ export const Profile = ({ profile }: { profile: ProfileData }) => {
               href={"#"}
               className="text-violet-normal hover:underline text-xl"
             >
-              {profile.profileUrl}
+              {profile?.profileUrl}
             </Link>
           </div>
           <div className="flex items-center gap-2 text-gray-600 text-sm">
@@ -44,16 +43,16 @@ export const Profile = ({ profile }: { profile: ProfileData }) => {
               href={"#"}
               className="text-violet-normal hover:underline text-xl"
             >
-              {profile.linkedInUrl}
+              {profile?.linkedInUrl}
             </Link>
           </div>
           <div className="flex items-center gap-2 text-gray-600 text-sm">
             <MailIcon />
-            <span className="text-[#40444C] text-xl">{profile.email}</span>
+            <span className="text-[#40444C] text-xl">{profile?.email}</span>
           </div>
           <div className="flex items-center gap-2 text-gray-600 text-sm">
             <LocationIcon />
-            <span className="text-[#40444C] text-xl">{profile.location}</span>
+            <span className="text-[#40444C] text-xl">{profile?.location}</span>
           </div>
         </div>
       </div>
