@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 export type TabData = {
-  name: string;
+  name: string | ReactNode;
   content: ReactNode;
 };

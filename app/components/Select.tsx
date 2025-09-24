@@ -1,4 +1,3 @@
-// Select.tsx
 "use client";
 
 import { Fragment } from "react";
@@ -32,13 +31,13 @@ export const Select = ({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-midnight mb-1">
           {label}
         </label>
       )}
       <Listbox value={value} onChange={onChange} disabled={disabled}>
         <div className="relative">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default rounded-lg border border-[#DFE1E8] bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
             <span className="block truncate">
               {selected ? selected.label : placeholder}
             </span>

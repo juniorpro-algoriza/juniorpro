@@ -55,12 +55,12 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
               <Button
                 variant="primary"
                 className="whitespace-nowrap"
-                size="large"
+                size="medium"
               >
                 Add Project
               </Button>
             </Link>
-            <SearchInput />
+            <SearchInput className="py-2" />
           </div>
         </div>
         <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6 pb-10">
