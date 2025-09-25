@@ -1,4 +1,5 @@
 "use client";
+
 import { Tabs } from "@components/client";
 import {
   CalendarIcon,
@@ -11,8 +12,44 @@ import { TabData } from "@types";
 import { Details } from "./Details";
 import { TimeLine } from "./TimeLine";
 import { Points } from "./Points";
+import { useState } from "react";
+import { ProjectDetails, Task, Lookup } from "@types";
 
-export const CreateForm = () => {
+interface CreateFormProps {
+  category: Lookup[];
+  skills: Lookup[];
+  tools: Lookup[];
+  duration: Lookup[];
+  levels: Lookup[];
+}
+export const CreateForm = ({
+  category,
+  skills,
+  tools,
+  duration,
+  levels,
+}: CreateFormProps) => {
+  const [projectDetails, setProjectDetails] = useState<ProjectDetails>({
+    courseName: "",
+    startDate: "",
+    endDate: "",
+    categoryId: 0,
+    levelId: 0,
+    durationId: 0,
+    toolIds: 0,
+    skillIds: 0,
+    projectType: 0,
+    status: 0,
+    description: "",
+    attachment: "",
+    ageRange: 0,
+    points: 0,
+    projectManagerId: 0,
+  });
+  const [projectTasks, setProjectTasks] = useState<Task[]>([
+    { id: Date.now(), taskName: "", skills: 0, deadline: "", description: "" },
+  ]);
+  console.log(projectTasks);
   const tabsData: TabData[] = [
     {
       name: (
@@ -21,7 +58,17 @@ export const CreateForm = () => {
           <span>Project Details</span>
         </div>
       ),
-      content: <Details />,
+      content: (
+        <Details
+          ProjectDetails={projectDetails}
+          setProjectDetails={setProjectDetails}
+          category={category}
+          skills={skills}
+          tools={tools}
+          duration={duration}
+          levels={levels}
+        />
+      ),
     },
     {
       name: (
@@ -30,7 +77,13 @@ export const CreateForm = () => {
           <span>Project Timeline</span>
         </div>
       ),
-      content: <TimeLine />,
+      content: (
+        <TimeLine
+          projectTasks={projectTasks}
+          setProjectTasks={setProjectTasks}
+          skills={skills}
+        />
+      ),
     },
     {
       name: (
