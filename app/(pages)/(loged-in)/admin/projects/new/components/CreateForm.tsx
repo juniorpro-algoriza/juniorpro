@@ -14,6 +14,10 @@ import { TimeLine } from "./TimeLine";
 import { Points } from "./Points";
 import { useState } from "react";
 import { ProjectDetails, Task, Lookup } from "@types";
+import { Button } from "@components";
+import { getData } from "@server";
+import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
 interface CreateFormProps {
   category: Lookup[];
@@ -29,6 +33,7 @@ export const CreateForm = ({
   duration,
   levels,
 }: CreateFormProps) => {
+  const [loading, setLoading] = useState(false);
   const [projectDetails, setProjectDetails] = useState<ProjectDetails>({
     courseName: "",
     startDate: "",
@@ -41,7 +46,7 @@ export const CreateForm = ({
     projectType: 0,
     status: 0,
     description: "",
-    attachment: "",
+    // attachment: "",
     ageRange: 0,
     points: 0,
     projectManagerId: 0,
@@ -55,7 +60,46 @@ export const CreateForm = ({
       description: "",
     },
   ]);
-  console.log(projectTasks);
+  const handleSaveProject = async () => {
+    setLoading(true);
+    try {
+      await getData({
+        url: "project",
+        method: "POST",
+        body: {
+          nameAr: projectDetails.courseName,
+          nameEn: projectDetails.courseName,
+          startDate: projectDetails.startDate,
+          endDate: projectDetails.endDate,
+          categoryId: projectDetails.categoryId,
+          levelId: projectDetails.levelId,
+          durationId: projectDetails.durationId,
+          toolIds: projectDetails.toolIds,
+          skillIds: projectDetails.skillIds,
+          projectType: projectDetails.projectType,
+          status: projectDetails.status,
+          description: projectDetails.description,
+          ageRange: projectDetails.ageRange,
+          points: projectDetails.points,
+          projectManagerId: projectDetails.projectManagerId,
+          projectTasks: projectTasks?.map((task) => ({
+            id: task.id,
+            nameAr: task.taskName,
+            nameEn: task.taskName,
+            skillIds: task.skillIds,
+            deadline: task.deadline,
+            description: task.description,
+          })),
+        },
+      });
+      toast.success("Project created successfully");
+    } catch (err) {
+      console.log(err);
+      toast.error("Error creating project");
+    } finally {
+      setLoading(false);
+    }
+  };
   const tabsData: TabData[] = [
     {
       name: (
@@ -117,6 +161,18 @@ export const CreateForm = ({
         selectedTabClassName="relative text-violet-normal border border-violet-normal bg-violet-normal/10 rounded-lg before:absolute before:-bottom-3.5 before:left-0 before:right-0 before:h-[1px] before:z-10 before:bg-violet-normal"
         unselectedTabClassName="text-[#737F8E] hover:text-violet-normal"
       />
+      <div className="py-4 px-2">
+        <Button
+          icon={loading ? <Loader className="animate-spin" /> : null}
+          variant="primary"
+          className="whitespace-nowrap w-full"
+          size="large"
+          onClick={handleSaveProject}
+          disabled={loading}
+        >
+          Save Project
+        </Button>
+      </div>
     </section>
   );
 };

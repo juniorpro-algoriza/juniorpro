@@ -4,7 +4,7 @@ import type { Project } from "@types";
 import { pickRandom } from "@utils";
 import { SearchInput } from "../../components/client";
 import {
-  JuniorsDropdown,
+  // JuniorsDropdown,
   ProjectsHeader,
 } from "../../admin/projects/components";
 import Link from "next/link";
@@ -22,7 +22,7 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
     projectType: "all",
   });
 
-  const juniors = ["all juniors", "anas", "marwa", "adam"];
+  // const juniors = ["all juniors", "anas", "marwa", "adam"];
 
   const completedProjects: Project[] = projects.map((p) => ({
     ...p,

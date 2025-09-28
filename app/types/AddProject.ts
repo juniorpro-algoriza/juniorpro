@@ -12,7 +12,7 @@ export type ProjectDetails = {
   projectType: number;
   status: number;
   description: string;
-  attachment: string;
+  attachment?: string;
   categoryId: number;
   levelId: number;
   durationId: number;
