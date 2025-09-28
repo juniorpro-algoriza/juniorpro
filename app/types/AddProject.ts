@@ -1,7 +1,7 @@
 export type Task = {
   id: number;
   taskName: string;
-  skills: number;
+  skillIds: (string | number)[];
   deadline: string;
   description: string;
   attachment?: string;
@@ -19,7 +19,7 @@ export type ProjectDetails = {
   ageRange: number;
   points: number;
   projectManagerId: number;
-  skillIds: number;
+  skillIds: (string | number)[];
   toolIds: number;
   startDate: string;
   endDate: string;

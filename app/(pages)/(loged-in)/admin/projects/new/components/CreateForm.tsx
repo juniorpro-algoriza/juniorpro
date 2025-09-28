@@ -37,7 +37,7 @@ export const CreateForm = ({
     levelId: 0,
     durationId: 0,
     toolIds: 0,
-    skillIds: 0,
+    skillIds: [],
     projectType: 0,
     status: 0,
     description: "",
@@ -47,7 +47,13 @@ export const CreateForm = ({
     projectManagerId: 0,
   });
   const [projectTasks, setProjectTasks] = useState<Task[]>([
-    { id: Date.now(), taskName: "", skills: 0, deadline: "", description: "" },
+    {
+      id: Date.now(),
+      taskName: "",
+      skillIds: [],
+      deadline: "",
+      description: "",
+    },
   ]);
   console.log(projectTasks);
   const tabsData: TabData[] = [

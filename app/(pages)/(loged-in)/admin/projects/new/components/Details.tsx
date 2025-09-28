@@ -95,9 +95,10 @@ export const Details = ({
       <Select
         value={ProjectDetails.skillIds}
         onChange={(value) =>
-          setProjectDetails({ ...ProjectDetails, skillIds: Number(value) })
+          setProjectDetails({ ...ProjectDetails, skillIds: value })
         }
         label="Skills"
+        multiple
         placeholder="choose"
         options={skills}
       />

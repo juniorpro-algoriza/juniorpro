@@ -6,17 +6,32 @@ import { CheckIcon, ChevronDown } from "lucide-react";
 
 export interface SelectOption {
   label: string;
-  value: string | number; // allow string or number
+  value: string | number;
 }
 
-interface SelectProps {
+interface BaseProps {
   label?: string;
-  value: string | number | null;
   options: SelectOption[];
-  onChange: (value: string | number) => void;
   placeholder?: string;
   disabled?: boolean;
+  multiple?: boolean;
 }
+
+// Single select
+interface SingleSelectProps extends BaseProps {
+  multiple?: false;
+  value: string | number | null;
+  onChange: (value: string | number) => void;
+}
+
+// Multi select
+interface MultiSelectProps extends BaseProps {
+  multiple: true;
+  value: (string | number)[];
+  onChange: (value: (string | number)[]) => void;
+}
+
+type SelectProps = SingleSelectProps | MultiSelectProps;
 
 export const Select = ({
   label,
@@ -25,8 +40,11 @@ export const Select = ({
   onChange,
   placeholder = "Select...",
   disabled = false,
+  multiple = false,
 }: SelectProps) => {
-  const selected = options.find((o) => o.value === value) || null;
+  const selectedOptions = multiple
+    ? options.filter((o) => (value as (string | number)[]).includes(o.value))
+    : options.find((o) => o.value === value) || null;
 
   return (
     <div className="w-full">
@@ -35,11 +53,23 @@ export const Select = ({
           {label}
         </label>
       )}
-      <Listbox value={value} onChange={onChange} disabled={disabled}>
+      <Listbox
+        value={value}
+        onChange={onChange}
+        multiple={multiple}
+        disabled={disabled}
+      >
         <div className="relative">
           <Listbox.Button className="relative w-full cursor-default rounded-lg border border-[#DFE1E8] bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
             <span className="block truncate">
-              {selected ? selected.label : placeholder}
+              {multiple
+                ? (selectedOptions as SelectOption[]).length > 0
+                  ? (selectedOptions as SelectOption[])
+                      .map((o) => o.label)
+                      .join(" - ")
+                  : placeholder
+                : (selectedOptions as SelectOption | null)?.label ||
+                  placeholder}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDown className="h-5 w-5 text-gray-400" />

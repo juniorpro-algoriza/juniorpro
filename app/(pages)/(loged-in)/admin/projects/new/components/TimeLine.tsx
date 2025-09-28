@@ -22,7 +22,7 @@ export const TimeLine = ({
       {
         id: Date.now(),
         taskName: "",
-        skills: 0,
+        skillIds: [],
         deadline: "",
         description: "",
       },
@@ -74,11 +74,12 @@ export const TimeLine = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Select
-                value={task.skills}
+                value={task.skillIds}
+                multiple
                 onChange={(value) =>
                   setProjectTasks(
                     projectTasks.map((t) =>
-                      t.id === task.id ? { ...t, skills: Number(value) } : t
+                      t.id === task.id ? { ...t, skillIds: value } : t
                     )
                   )
                 }
@@ -89,7 +90,18 @@ export const TimeLine = ({
             </div>
             <div>
               <label className="block text-sm font-medium">Deadline</label>
-              <Input type="date" className="w-full border-[#DFE1E8]" />
+              <Input
+                type="date"
+                value={task.deadline}
+                onChange={(e) =>
+                  setProjectTasks((prev) =>
+                    prev.map((t) =>
+                      t.id === task.id ? { ...t, deadline: e.target.value } : t
+                    )
+                  )
+                }
+                className="w-full border-[#DFE1E8]"
+              />
             </div>
           </div>
 
