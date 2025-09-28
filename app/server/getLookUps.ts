@@ -8,7 +8,7 @@ export const getCategoryLookUp = async () => {
     url: "Lookup/Category",
     method: "GET",
   });
-  return data.map(
+  return data?.map(
     (item: { id: number; nameAr: string }): Lookup => ({
       value: item.id,
       label: item.nameAr,
@@ -21,7 +21,7 @@ export const getLevelLookUp = async () => {
     url: "Lookup/Level",
     method: "GET",
   });
-  return data.map(
+  return data?.map(
     (item: { id: number; nameAr: string }): Lookup => ({
       value: item.id,
       label: item.nameAr,
@@ -34,7 +34,7 @@ export const getDurationLookUp = async () => {
     url: "Lookup/Duration",
     method: "GET",
   });
-  return data.map(
+  return data?.map(
     (item: { id: number; nameAr: string }): Lookup => ({
       value: item.id,
       label: item.nameAr,
@@ -47,7 +47,7 @@ export const getToolsLookUp = async () => {
     url: "Lookup/Tool",
     method: "GET",
   });
-  return data.map(
+  return data?.map(
     (item: { id: number; nameAr: string }): Lookup => ({
       value: item.id,
       label: item.nameAr,
@@ -60,7 +60,7 @@ export const getSkillsLookUp = async () => {
     url: "Lookup/Skill",
     method: "GET",
   });
-  return data.map(
+  return data?.map(
     (item: { id: number; nameAr: string }): Lookup => ({
       value: item.id,
       label: item.nameAr,

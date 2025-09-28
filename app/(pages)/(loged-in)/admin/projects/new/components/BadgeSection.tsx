@@ -20,11 +20,11 @@ export const BadgesSection = ({ skills }: { skills: Skill[] }) => {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-6 mt-6">
-        <div className="text-center bg-[#EEF2FF] border rounded-lg py-4">
+        <div className="text-center bg-[#EEF2FF] border border-gray-50 rounded-lg py-4">
           <p className="text-[#5879DC] font-bold text-xl">{skills.length}</p>
           <p className="text-black">Number of badges</p>
         </div>
-        <div className="text-center  bg-[#EEF2FF] border rounded-lg py-4">
+        <div className="text-center  bg-[#EEF2FF] border border-gray-50 rounded-lg py-4">
           <p className="text-[#5879DC] font-bold text-xl">{totalPoints}</p>
           <p className="text-black">Total points</p>
         </div>

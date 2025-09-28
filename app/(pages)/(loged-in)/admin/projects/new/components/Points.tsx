@@ -1,94 +1,114 @@
 "use client";
 
-import { useState } from "react";
-import { Skill } from "../../../types";
+import { useState, useEffect } from "react";
+import { getSkillsLookUp } from "@server";
 import { BadgesSection } from "./BadgeSection";
-import { Button } from "@components";
+import { Button, Input, Select } from "@components";
 import { PlusIcon } from "lucide-react";
+import { Lookup } from "@types";
 
 export const Points = () => {
-  const [skills, setSkills] = useState<Skill[]>([
-    { id: Date.now(), name: "", points: 0 },
-  ]);
+  const [skills, setSkills] = useState<
+    { id: number; skillId?: number; points?: number }[]
+  >([{ id: Date.now() }]);
 
-  const addSkill = () => {
-    setSkills((prev) => [...prev, { id: Date.now(), name: "", points: 0 }]);
-  };
+  const [skillOptions, setSkillOptions] = useState<Lookup[]>([]);
 
-  const updateSkill = (id: number, field: "name" | "points", value: string) => {
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const data: Lookup[] = await getSkillsLookUp();
+        setSkillOptions(data || []);
+      } catch (err) {
+        console.error("Failed to load skills:", err);
+      }
+    };
+    fetchSkills();
+  }, []);
+
+  const addSkill = () => setSkills((prev) => [...prev, { id: Date.now() }]);
+
+  const updateSkill = (
+    id: number,
+    field: "skillId" | "points",
+    value: number
+  ) => {
     setSkills((prev) =>
-      prev.map((skill) =>
-        skill.id === id
-          ? { ...skill, [field]: field === "points" ? Number(value) : value }
-          : skill
-      )
+      prev.map((s) => (s.id === id ? { ...s, [field]: value } : s))
     );
   };
 
-  const saveProject = () => {
-    //will intergarate
-    console.log("Saving Project:", skills);
-  };
+  // const saveProject = () => {
+  //   console.log("Saving Project:", skills);
+  // };
 
   return (
     <div className="space-y-6">
-      {/* Form */}
-      <div className="space-y-4">
-        {skills.map((skill) => (
-          <div key={skill.id} className="flex gap-4">
-            {/* Skills Dropdown */}
+      <div>
+        {skills.map((s) => (
+          <div key={s.id} className="flex gap-4 items-end">
+            <div className="flex-1">
+              <Select
+                label="Skill"
+                value={s.skillId || null}
+                onChange={(value) =>
+                  updateSkill(s.id, "skillId", Number(value))
+                }
+                options={skillOptions.map((opt) => ({
+                  label: opt.label,
+                  value: opt.value,
+                }))}
+                placeholder="Choose skill"
+              />
+            </div>
 
-            <select //we will use hte Select component and pass to it the options
-              value={skill.name}
-              onChange={(e) => updateSkill(skill.id, "name", e.target.value)}
-              className="flex-1 rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="">Choose skill</option>
-              <option value="Frontend Developer">Frontend Developer</option>
-              <option value="Problem Solver">Problem Solver</option>
-              <option value="Project Manager">Project Manager</option>
-            </select>
-
-            {/* Points Dropdown */}
-            <select
-              value={skill.points || ""}
-              onChange={(e) => updateSkill(skill.id, "points", e.target.value)}
-              className="w-32 rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="">Choose</option>
-              <option value="5">5</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="10">10</option>
-            </select>
+            <div className="mt-10">
+              <Input
+                type="number"
+                min={1}
+                max={10}
+                value={s.points || ""}
+                onChange={(e) =>
+                  updateSkill(s.id, "points", Number(e.target.value))
+                }
+                placeholder="Points"
+                disabled={!s.skillId}
+              />
+            </div>
           </div>
         ))}
-
-        {/* Add Skill */}
-        <Button
-          onClick={addSkill}
-          className="w-full rounded-xl border border-dashed border-gray-300 py-3 text-gray-600 hover:bg-gray-100"
-        >
-          <PlusIcon />
-          Add Another Skill
-        </Button>
-
-        {/* Save Project */}
-        <div className="flex justify-between items-center mt-4">
-          <Button className="px-6 py-2 rounded-lg border text-gray-600">
-            ← Back
-          </Button>
-          <Button
-            onClick={saveProject}
-            className="px-6 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-600"
-          >
-            Save Project
-          </Button>
-        </div>
       </div>
 
-      {/* Badges Section */}
-      <BadgesSection skills={skills.filter((s) => s.name && s.points)} />
+      {/* Add skill button */}
+      <Button
+        onClick={addSkill}
+        className="w-full rounded-xl border border-dashed bg-gray-50 border-gray-300 py-3 text-black hover:bg-gray-100"
+      >
+        <PlusIcon />
+        Add Another Skill
+      </Button>
+
+      {/* Badges section */}
+      <BadgesSection
+        skills={skills
+          .filter((s) => s.skillId && s.points)
+          .map((s) => ({
+            id: s.id,
+            name:
+              skillOptions.find((opt) => opt.value === s.skillId!)?.label || "",
+            points: s.points!,
+          }))}
+      />
+
+      {/* Save project button */}
+      {/* <div className="flex justify-between items-center mt-4">
+        <Button
+          onClick={saveProject}
+          className="px-6 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-600"
+        >
+          Save Project
+        </Button>
+      </div> */}
     </div>
   );
 };
