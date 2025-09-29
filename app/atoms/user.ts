@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 
 type User = {
-  id: string;
+  id: number;
   phoneNumber: null | string;
   email: string;
   firstName: string;
@@ -12,7 +12,7 @@ type User = {
 };
 
 export const userAtom = atom<User>({
-  id: "",
+  id: 0,
   phoneNumber: null,
   email: "",
   firstName: "",

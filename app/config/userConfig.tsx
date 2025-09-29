@@ -57,7 +57,7 @@ export const userConfigs = {
       { header: "Name", key: "name" },
       { header: "Email", key: "email" },
       { header: "Status", key: "status" },
-      { header: "Joined On", key: "joinedOn" },
+      // { header: "Joined On", key: "joinedOn" },
       {
         header: "Action",
         key: "actionHref",

@@ -19,22 +19,32 @@ interface UserTabsProps {
 export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
   const config = userConfigs[userType];
 
-  const { data: juniors } = await getProjectManagerJuniors(userId);
-  const { data: contributors } = await getProjectManagerContributors(userId);
-  const { data: projects } = await getProjectManagerProjects(userId);
-  const { data: practiceZoneProjects } =
-    await getProjectManagerPracticeZone(userId);
-  // Wrap status with Badge
+  let juniors: any[] = [];
+  let contributors: any[] = [];
+  let projects: any[] = [];
+  let practiceZoneProjects: any[] = [];
+
+  if (userType === "project-manager") {
+    const { data: j } = await getProjectManagerJuniors(userId);
+    const { data: c } = await getProjectManagerContributors(userId);
+    const { data: p } = await getProjectManagerProjects(userId);
+    const { data: pz } = await getProjectManagerPracticeZone(userId);
+
+    juniors = j || [];
+    contributors = c || [];
+    projects = p || [];
+    practiceZoneProjects = pz || [];
+  }
+
   if (userType === "contributor") {
-    // Fetch juniors related to this contributor
-    // const pageNumber = 1;
-    // const pageSize = 100;
     const res = await getData({
-      url: `Contributor/juniors?ProjectManagerId=${userId}`,
+      url: `junior/get-all?ContributorId=${userId}&PageNumber=1&PageSize=100&SearchText=`,
       method: "GET",
     });
 
-    console.log(res.data);
+    console.log("Contributor Juniors:", res);
+
+    juniors = res?.data || [];
   }
 
   const wrapStatus = (status: string) => (
@@ -52,7 +62,7 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
             type="junior"
             initialData={
               juniors?.length > 0
-                ? juniors?.map((j: any) => ({
+                ? juniors.map((j: any) => ({
                     ...j,
                     status: wrapStatus(j.status || "inactive"),
                   }))
@@ -69,7 +79,7 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
             type="contributor"
             initialData={
               contributors?.length > 0
-                ? contributors?.map((c: any) => ({
+                ? contributors.map((c: any) => ({
                     ...c,
                     status: wrapStatus(c.status || "inactive"),
                   }))
@@ -84,7 +94,7 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
         content =
           projects?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
-              {projects?.map((project: any) => (
+              {projects.map((project: any) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
@@ -108,7 +118,7 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
         content =
           practiceZoneProjects?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
-              {practiceZoneProjects?.map((project: any) => (
+              {practiceZoneProjects.map((project: any) => (
                 <ProjectCard
                   key={project.id}
                   project={project}

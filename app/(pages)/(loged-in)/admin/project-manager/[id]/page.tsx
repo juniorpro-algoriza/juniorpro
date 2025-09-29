@@ -1,17 +1,18 @@
-import { UserProfile } from "../../../profile/UserProfile";
-import { getUserDetails } from "../../../server/getUser";
-import { UserTabs } from "../../../tabs";
+import {UserProfile} from '../../../profile/UserProfile';
+import {getUserDetails} from '../../../server/getUser';
+import {UserTabs} from '../../../tabs';
 export default async function ProjectManagerProfilePage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{id: string}>;
 }) {
-  const manager = await getUserDetails("project-manager", Number(params.id));
+  const {id} = await params;
+  const manager = await getUserDetails('project-manager', Number(id));
 
   return (
     <>
       <UserProfile userType="project-manager" user={manager} />;
-      <UserTabs userId={Number(params.id)} userType="project-manager" />
+      <UserTabs userId={Number(id)} userType="project-manager" />
     </>
   );
 }

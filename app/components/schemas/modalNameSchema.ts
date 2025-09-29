@@ -1,6 +1,13 @@
-import { z } from 'zod';
-import { modalPaths } from '../lib/modalPaths';
+import {z} from 'zod';
 
-export const modalNames = Object.keys(modalPaths) as [keyof typeof modalPaths];
-
-export const modalNameSchema = z.enum(modalNames);
+export const modalNameSchema = z.enum([
+  'AddJuniorForContributor',
+  'EditProfile',
+  'AddProjectManager',
+  'EditProjectManagerProfile',
+  'AddJuniors',
+  'AddContributor',
+  'EditContributorProfile',
+  'EditJuniorsProfile',
+  'AssignContributor',
+]);
