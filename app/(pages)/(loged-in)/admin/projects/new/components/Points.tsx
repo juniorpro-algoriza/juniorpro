@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getSkillsLookUp } from "@server";
+import { getLookup } from "@server";
 import { BadgesSection } from "./BadgeSection";
 import { Button, Input, Select } from "@components";
 import { PlusIcon } from "lucide-react";
@@ -17,7 +17,7 @@ export const Points = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const data: Lookup[] = await getSkillsLookUp();
+        const data: Lookup[] = await getLookup("Lookup/Skill");
         setSkillOptions(data || []);
       } catch (err) {
         console.error("Failed to load skills:", err);
