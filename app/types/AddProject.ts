@@ -15,12 +15,13 @@ export type ProjectDetails = {
   attachment?: string;
   categoryId: number;
   levelId: number;
+  numberOfPlaces: number;
   durationId: number;
   ageRange: number;
   points: number;
   projectManagerId: number;
   skillIds: (string | number)[];
-  toolIds: number;
+  toolIds: (string | number)[];
   startDate: string;
   endDate: string;
 };

@@ -3,7 +3,7 @@
 import { Tabs } from "@components/client";
 import {
   CalendarIcon,
-  DiamondIcon,
+  // DiamondIcon,
   FolderDetailsIcon,
   LeftArrowIcon,
 } from "@icons";
@@ -11,7 +11,7 @@ import Link from "next/link";
 import { TabData } from "@types";
 import { Details } from "./Details";
 import { TimeLine } from "./TimeLine";
-import { Points } from "./Points";
+// import { Points } from "./Points";
 import { useState } from "react";
 import { ProjectDetails, Task, Lookup } from "@types";
 import { Button } from "@components";
@@ -25,6 +25,7 @@ interface CreateFormProps {
   tools: Lookup[];
   duration: Lookup[];
   levels: Lookup[];
+  projectMangers: Lookup[];
 }
 export const CreateForm = ({
   category,
@@ -32,26 +33,27 @@ export const CreateForm = ({
   tools,
   duration,
   levels,
+  projectMangers,
 }: CreateFormProps) => {
   const [loading, setLoading] = useState(false);
-  const [projectDetails, setProjectDetails] = useState<ProjectDetails>({
+  const defaultProjectDetails: ProjectDetails = {
     courseName: "",
     startDate: "",
     endDate: "",
     categoryId: 0,
     levelId: 0,
     durationId: 0,
-    toolIds: 0,
+    toolIds: [],
     skillIds: [],
     projectType: 0,
+    numberOfPlaces: 1,
     status: 0,
     description: "",
-    // attachment: "",
     ageRange: 0,
     points: 0,
     projectManagerId: 0,
-  });
-  const [projectTasks, setProjectTasks] = useState<Task[]>([
+  };
+  const defaultProjectTasks: Task[] = [
     {
       id: Date.now(),
       taskName: "",
@@ -59,7 +61,19 @@ export const CreateForm = ({
       deadline: "",
       description: "",
     },
-  ]);
+  ];
+  const [projectDetails, setProjectDetails] = useState<ProjectDetails>(
+    defaultProjectDetails
+  );
+  const [projectTasks, setProjectTasks] = useState<Task[]>(defaultProjectTasks);
+  const tasks = projectTasks?.map((task) => ({
+    nameAr: task.taskName,
+    nameEn: task.taskName,
+    deadline: task.deadline,
+    description: task.description,
+    taskSkillIds: task.skillIds,
+  }));
+
   const handleSaveProject = async () => {
     setLoading(true);
     try {
@@ -67,29 +81,25 @@ export const CreateForm = ({
         url: "project",
         method: "POST",
         body: {
-          nameAr: projectDetails.courseName,
-          nameEn: projectDetails.courseName,
-          startDate: projectDetails.startDate,
-          endDate: projectDetails.endDate,
-          categoryId: projectDetails.categoryId,
-          levelId: projectDetails.levelId,
-          durationId: projectDetails.durationId,
-          toolIds: projectDetails.toolIds,
-          skillIds: projectDetails.skillIds,
-          projectType: projectDetails.projectType,
-          status: projectDetails.status,
-          description: projectDetails.description,
-          ageRange: projectDetails.ageRange,
-          points: projectDetails.points,
-          projectManagerId: projectDetails.projectManagerId,
-          projectTasks: projectTasks?.map((task) => ({
-            id: task.id,
-            nameAr: task.taskName,
-            nameEn: task.taskName,
-            skillIds: task.skillIds,
-            deadline: task.deadline,
-            description: task.description,
-          })),
+          projectDetails: {
+            image: "/images/featued-Project-image.svg",
+            numberOfPlaces: projectDetails.numberOfPlaces,
+            nameAr: projectDetails.courseName,
+            nameEn: projectDetails.courseName,
+            projectType: projectDetails.projectType,
+            status: projectDetails.status,
+            description: projectDetails.description,
+            categoryId: projectDetails.categoryId,
+            levelId: projectDetails.levelId,
+            durationId: projectDetails.durationId,
+            ageRange: projectDetails.ageRange,
+            points: projectDetails.points,
+            projectManagerId: projectDetails.projectManagerId,
+            skillIds: projectDetails.skillIds,
+            toolIds: projectDetails.toolIds,
+            startDate: projectDetails.startDate,
+          },
+          projectTasks: tasks,
         },
       });
       toast.success("Project created successfully");
@@ -98,6 +108,8 @@ export const CreateForm = ({
       toast.error("Error creating project");
     } finally {
       setLoading(false);
+      setProjectDetails(defaultProjectDetails);
+      setProjectTasks(defaultProjectTasks);
     }
   };
   const tabsData: TabData[] = [
@@ -117,6 +129,7 @@ export const CreateForm = ({
           tools={tools}
           duration={duration}
           levels={levels}
+          projectMangers={projectMangers}
         />
       ),
     },
@@ -135,15 +148,15 @@ export const CreateForm = ({
         />
       ),
     },
-    {
-      name: (
-        <div className="flex items-center gap-2 px-3 py-2 cursor-pointer outline-none">
-          <DiamondIcon fill="#5879DC" />
-          <span>Points</span>
-        </div>
-      ),
-      content: <Points />,
-    },
+    // {
+    //   name: (
+    //     <div className="flex items-center gap-2 px-3 py-2 cursor-pointer outline-none">
+    //       <DiamondIcon fill="#5879DC" />
+    //       <span>Points</span>
+    //     </div>
+    //   ),
+    //   content: <Points />,
+    // },
   ];
 
   return (

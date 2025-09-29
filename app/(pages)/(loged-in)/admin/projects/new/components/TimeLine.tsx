@@ -124,14 +124,14 @@ export const TimeLine = ({
           </div>
 
           {/* Attachment */}
-          <div>
+          {/* <div>
             <Input
               label="Attachement"
               type="file"
               accept=".jpg,.jpeg,.png,.gif"
               className="w-full border-[#DFE1E8]"
             />
-          </div>
+          </div> */}
         </div>
       ))}
 
