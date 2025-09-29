@@ -19,7 +19,7 @@ export const JuniorsTable = ({ juniorsData }: JuniorsTableProps) => {
               Juniors ({juniorsData.length})
             </h3>
             <div className="flex justify-center gap-2.5">
-              <ModalLink name="AddJuniors">
+              <ModalLink name="AddJuniorForContributor">
                 <Button intent="primary" className="text-sm" size="large">
                   Add Junior
                 </Button>

@@ -68,7 +68,7 @@ export const userConfigs = {
     ],
     modals: {
       add: "AddJuniors",
-      edit: "EditJuniorsProfile",
+      edit: "EditProfile",
       assign: "AssignContributor",
     },
     tabs: ["Profile", "Projects", "Badge & Achievements"],

@@ -1,44 +1,58 @@
 "use client";
-import { Button, Input, Modal, Textarea } from "@components";
+import { userAtom } from "@atoms";
+import { Button, Input, Textarea } from "@components";
 import { Select } from "@components/client";
-import { CloseButton } from "@headlessui/react";
 import { LocationIcon } from "@icons";
 import profileAvatarImage from "@public/images/profile-avartar.svg";
 import SaudiFlagIcon from "@public/images/saudi-flag.svg";
 import skyBg from "@public/images/sky.svg";
-import { getCareerTypes, getData, getMyProfileData } from "@server";
+import { getData, getMyProfileData } from "@server";
+import { ProfileData } from "@types";
+import { useAtom } from "jotai";
 import { CameraIcon, UploadIcon, XIcon } from "lucide-react";
 import Image from "next/image";
-import { type ChangeEvent, Fragment, useEffect, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import { toast } from "sonner";
 
-export const EditProfile = () => {
+interface EditProfileProps {
+  profile: ProfileData;
+  setProfile: (profile: ProfileData) => void;
+  setIsOpen: (isOpen: boolean) => void;
+  careerTypesData: { label: string; value: string }[];
+}
+
+export const EditProfile = ({
+  profile,
+  setProfile,
+  setIsOpen,
+  careerTypesData,
+}: EditProfileProps) => {
   const initialForm = {
-    firstName: "",
-    lastName: "",
-    age: "",
-    careerType: "",
-    email: "",
-    phoneNumber: "",
-    location: "",
-    about: "",
-    profileUrl: "",
-    linkedInUrl: "",
+    firstName: profile?.firstName || "",
+    lastName: profile?.lastName || "",
+    birthDate: profile?.birthDate || "",
+    careerType: profile?.career || "",
+    email: profile?.email || "",
+    phoneNumber: profile?.phoneNumber || "",
+    location: profile?.location || "",
+    about: profile?.about || "",
+    profileUrl: profile?.profileUrl || "",
+    linkedInUrl: profile?.linkedInUrl || "",
   };
-  const [careerTypesData, setCareerTypesData] = useState([]);
-  const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(initialForm);
+  const [, setUser] = useAtom(userAtom);
 
-  const hanleInputChange = (
+  const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+
   const handleSubmit = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       await getData({
         url: "User/update-profile",
         method: "PUT",
@@ -50,7 +64,7 @@ export const EditProfile = () => {
           // coverImage: "string",
           location: form.location,
           about: form.about,
-          birthDate: "2025-09-23T11:28:56.947Z",
+          birthDate: new Date(form.birthDate).toISOString(),
           phoneNumber: form.phoneNumber,
           careerTypeId: Number(form.careerType) || 0,
           profileUrl: form.profileUrl,
@@ -59,7 +73,14 @@ export const EditProfile = () => {
       });
       toast.success("Profile updated successfully!");
       setForm(initialForm);
-      getMyProfileData();
+      const newProfile = await getMyProfileData();
+      setProfile(newProfile);
+      setUser((prev) => ({
+        ...prev,
+        firstName: newProfile.firstName,
+        lastName: newProfile.lastName,
+        email: newProfile.email,
+      }));
       setIsOpen(false);
     } catch (err: unknown) {
       const message =
@@ -73,31 +94,19 @@ export const EditProfile = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const careerTypesData = await getCareerTypes();
-      setCareerTypesData(careerTypesData);
-    };
-    fetchData();
-  }, []);
-
-  if (!isOpen) return null;
-
   return (
-    <Modal panelClassName="w-full max-w-2xl h-[90vh] overflow-auto transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+    <form className="w-full max-w-2xl h-[90vh] overflow-auto rounded-2xl bg-white p-6 text-left align-middle shadow-xl">
       <div className="flex items-center justify-between mb-3 border-b border-storm-200 pb-2">
         <h3 className="text-lg font-medium leading-6 text-midnight">
           Edit Profile
         </h3>
-        <CloseButton as={Fragment}>
-          <Button
-            intent="unset"
-            className="border border-border-secondary p-1.5 rounded-lg"
-            onClick={() => setIsOpen(false)}
-          >
-            <XIcon size={18} />
-          </Button>
-        </CloseButton>
+        <Button
+          intent="unset"
+          className="border border-border-secondary p-1.5 rounded-lg"
+          onClick={() => setIsOpen(false)}
+        >
+          <XIcon size={18} />
+        </Button>
       </div>
 
       <div className="relative h-32 mb-16">
@@ -137,7 +146,7 @@ export const EditProfile = () => {
         <Input
           label="First Name"
           name="firstName"
-          onChange={hanleInputChange}
+          onChange={handleInputChange}
           value={form.firstName}
           placeholder="Write here"
           className="w-full"
@@ -145,21 +154,23 @@ export const EditProfile = () => {
         <Input
           label="Last Name"
           name="lastName"
-          onChange={hanleInputChange}
+          onChange={handleInputChange}
           value={form.lastName}
           placeholder="Write here"
           className="w-full"
         />
         <Input
-          label="Age"
-          name="age"
-          onChange={hanleInputChange}
-          value={form.age}
+          label="Birth date"
+          name="birthDate"
+          type="date"
+          onChange={handleInputChange}
+          value={form?.birthDate?.split("T")[0]}
           placeholder="Write here"
           className="w-full"
         />
+
         <Select
-          value={form.careerType}
+          value={String(form.careerType)}
           onChange={(value) => setForm({ ...form, careerType: value })}
           label="Career Type"
           placeholder="choose"
@@ -170,7 +181,7 @@ export const EditProfile = () => {
       <Input
         label="Email"
         name="email"
-        onChange={hanleInputChange}
+        onChange={handleInputChange}
         value={form.email}
         placeholder="Write here"
         className="w-full"
@@ -178,7 +189,7 @@ export const EditProfile = () => {
       <Input
         label="Profile Url"
         name="profileUrl"
-        onChange={hanleInputChange}
+        onChange={handleInputChange}
         value={form.profileUrl}
         placeholder="Write here"
         className="w-full"
@@ -186,7 +197,7 @@ export const EditProfile = () => {
       <Input
         label="LinkedIn Url"
         name="linkedInUrl"
-        onChange={hanleInputChange}
+        onChange={handleInputChange}
         value={form.linkedInUrl}
         placeholder="Write here"
         className="w-full"
@@ -194,7 +205,7 @@ export const EditProfile = () => {
       <Input
         label="Number"
         name="phoneNumber"
-        onChange={hanleInputChange}
+        onChange={handleInputChange}
         value={form.phoneNumber}
         placeholder="05 xxx xxx xxx"
         className="w-full"
@@ -203,7 +214,7 @@ export const EditProfile = () => {
       <Input
         label="Location"
         name="location"
-        onChange={hanleInputChange}
+        onChange={handleInputChange}
         value={form.location}
         placeholder="choose location"
         className="w-full placeholder:text-violet-normal"
@@ -212,7 +223,7 @@ export const EditProfile = () => {
       <Textarea
         label="About"
         name="about"
-        onChange={(e) => hanleInputChange(e)}
+        onChange={(e) => handleInputChange(e)}
         value={form.about}
         placeholder="Write here"
         className="w-full"
@@ -221,23 +232,23 @@ export const EditProfile = () => {
       <div className="flex gap-3 mt-6">
         <Button
           intent="primary"
-          className="flex-1"
+          type="button"
           onClick={handleSubmit}
+          className="flex-1"
           disabled={loading}
         >
           Save
         </Button>
 
-        <CloseButton as={Fragment}>
-          <Button
-            intent="secondary"
-            className="flex-1 text-dark-electric-blue"
-            onClick={() => setIsOpen(false)}
-          >
-            Cancel
-          </Button>
-        </CloseButton>
+        <Button
+          intent="secondary"
+          type="button"
+          className="flex-1 text-dark-electric-blue"
+          onClick={() => setIsOpen(false)}
+        >
+          Cancel
+        </Button>
       </div>
-    </Modal>
+    </form>
   );
 };

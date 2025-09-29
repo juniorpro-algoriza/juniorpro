@@ -1,40 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 
-import {Button, Input} from '@components';
-import {EyeIcon, Loader} from 'lucide-react';
-import {useFormStatus, useFormState} from 'react-dom';
-import {useEffect, useState} from 'react';
-import {toast} from 'sonner';
-import {signIn} from '../server';
-import {EyeCloseIcon} from '@icons';
-
-const SubmitButton = () => {
-  const {pending} = useFormStatus();
-
-  return (
-    <Button
-      icon={pending ? <Loader className="animate-spin" /> : null}
-      disabled={pending}
-      type="submit"
-      intent="primary"
-      className="w-full rounded-xl bg-violet-normal"
-      size="large">
-      Login
-    </Button>
-  );
-};
+import { Button, Input } from "@components";
+import { initialState } from "@server/lib";
+import { Loader } from "lucide-react";
+import { useActionState, useEffect, useState } from "react";
+import { toast } from "sonner";
+import { signIn } from "../server";
+import { EyeCloseIcon, EyeIcon } from "@icons";
 
 export const LoginForm = () => {
-  const [state, formAction] = (useFormState as any)(signIn, {error: null});
-
-  const [type, setType] = useState<'text' | 'password'>('password');
-
+  const [state, formAction, isPending] = useActionState(signIn, initialState);
+  const [type, setType] = useState("password");
   useEffect(() => {
-    const {error} = state;
+    const { error } = state;
 
-    if (error) toast.error(error, {id: 'login-error'});
-    else toast.dismiss('login-error');
+    if (error) toast.error(error, { id: "login-error" });
+    else toast.dismiss("login-error");
   }, [state]);
 
   return (
@@ -55,8 +36,9 @@ export const LoginForm = () => {
           />
           <div
             className="absolute right-5 top-1/2 cursor-pointer"
-            onClick={() => setType(type === 'password' ? 'text' : 'password')}>
-            {type === 'password' ? <EyeIcon /> : <EyeCloseIcon />}
+            onClick={() => setType(type === "password" ? "text" : "password")}
+          >
+            {type === "password" ? <EyeIcon /> : <EyeCloseIcon />}
           </div>
         </div>
         <div className="text-right pt-2">
@@ -65,7 +47,16 @@ export const LoginForm = () => {
           </a>
         </div>
       </div>
-      <SubmitButton />
+      <Button
+        icon={isPending ? <Loader className="animate-spin" /> : null}
+        disabled={isPending}
+        type="submit"
+        intent="primary"
+        className="w-full rounded-xl bg-violet-normal"
+        size="large"
+      >
+        Login
+      </Button>
     </form>
   );
 };

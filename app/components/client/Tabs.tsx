@@ -30,9 +30,9 @@ export const Tabs: React.FC<TabsProps> = ({
   return (
     <TabGroup onChange={onTabChange}>
       <TabList className={cx(defaultTabListClass, tabListClassName)}>
-        {tabs.map((tab) => (
+        {tabs.map((tab, index) => (
           <Tab
-            key={tab.name}
+            key={index}
             className={({ selected }) => {
               if (selectedTabClassName && unselectedTabClassName) {
                 return selected ? selectedTabClassName : unselectedTabClassName;

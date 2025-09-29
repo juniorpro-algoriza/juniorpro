@@ -14,6 +14,8 @@ type SelectOption = {
 
 interface SelectProps {
   options: SelectOption[];
+  value: string;
+  onChange: (value: string) => void;
   label: string;
   description?: string;
   disabled?: boolean;
@@ -24,6 +26,8 @@ interface SelectProps {
 
 export const Select = ({
   options,
+  value,
+  onChange,
   label,
   description,
   disabled = false,
@@ -46,7 +50,8 @@ export const Select = ({
 
       <div className="relative">
         <HeadlessSelect
-          defaultValue={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           disabled={disabled}
           className={`
             w-full rounded-lg border px-3 py-2.5 pr-10 text-sm appearance-none
@@ -61,11 +66,11 @@ export const Select = ({
           `}
         >
           {placeholder && (
-            <option value={placeholder} disabled hidden>
+            <option value="" disabled hidden>
               {placeholder}
             </option>
           )}
-          {options.map(({ label, value }) => (
+          {options?.map(({ label, value }) => (
             <option key={value} value={value}>
               {label}
             </option>

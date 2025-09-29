@@ -6,12 +6,19 @@ import {
 } from "@headlessui/react";
 import { cva, cx } from "@lib";
 import type { VariantProps } from "cva";
-import type { ReactNode, Ref, TextareaHTMLAttributes } from "react";
+import type {
+  ChangeEvent,
+  ReactNode,
+  Ref,
+  TextareaHTMLAttributes,
+} from "react";
 
 interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof textarea> {
   label?: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   error?: string;
   helperText?: string;
@@ -38,6 +45,8 @@ const IconContainer = ({ children, position }: IconContainerProps) => {
 
 const Textarea = ({
   label,
+  value,
+  onChange,
   placeholder,
   error,
   helperText,
@@ -75,6 +84,8 @@ const Textarea = ({
 
         <HeadlessTextarea
           ref={ref}
+          value={value}
+          onChange={onChange}
           placeholder={placeholder}
           disabled={disabled}
           className={textareaClasses}

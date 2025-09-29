@@ -1,14 +1,16 @@
-'use server';
+"use server";
+import { Career } from "@types";
+import { getData } from "./getData";
 
 export const getCareerTypes = async () => {
-  return dummyData;
+  const careers = await getData({
+    url: "Lookup/Career",
+    method: "GET",
+  });
+  return careers?.map((career: Career) => {
+    return {
+      value: String(career.id),
+      label: String(career.nameAr),
+    };
+  });
 };
-
-const dummyData = [
-  { value: 'software-engineer', label: 'Software Engineer' },
-  { value: 'ui-ux-designer', label: 'UI/UX Designer' },
-  { value: 'product-manager', label: 'Product Manager' },
-  { value: 'data-scientist', label: 'Data Scientist' },
-  { value: 'marketing-specialist', label: 'Marketing Specialist' },
-  { value: 'other', label: 'Other' },
-];

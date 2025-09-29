@@ -1,4 +1,3 @@
-// Select.tsx
 "use client";
 
 import { Fragment } from "react";
@@ -7,17 +6,32 @@ import { CheckIcon, ChevronDown } from "lucide-react";
 
 export interface SelectOption {
   label: string;
-  value: string | number; // allow string or number
+  value: string | number;
 }
 
-interface SelectProps {
+interface BaseProps {
   label?: string;
-  value: string | number | null;
   options: SelectOption[];
-  onChange: (value: string | number) => void;
   placeholder?: string;
   disabled?: boolean;
+  multiple?: boolean;
 }
+
+// Single select
+interface SingleSelectProps extends BaseProps {
+  multiple?: false;
+  value: string | number | null;
+  onChange: (value: string | number) => void;
+}
+
+// Multi select
+interface MultiSelectProps extends BaseProps {
+  multiple: true;
+  value: (string | number)[];
+  onChange: (value: (string | number)[]) => void;
+}
+
+type SelectProps = SingleSelectProps | MultiSelectProps;
 
 export const Select = ({
   label,
@@ -26,23 +40,38 @@ export const Select = ({
   onChange,
   placeholder = "Select...",
   disabled = false,
+  multiple = false,
 }: SelectProps) => {
-  const selected = options.find((o) => o.value === value) || null;
+  const selectedOptions = multiple
+    ? options.filter((o) => (value as (string | number)[]).includes(o.value))
+    : options.find((o) => o.value === value) || null;
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col space-y-2">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-midnight">
           {label}
         </label>
       )}
-      <Listbox value={value} onChange={onChange} disabled={disabled}>
+      <Listbox
+        value={value}
+        onChange={onChange}
+        multiple={multiple}
+        disabled={disabled}
+      >
         <div className="relative">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default rounded-lg border border-[#DFE1E8] bg-white px-3 py-2 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-normal sm:text-sm">
             <span className="block truncate">
-              {selected ? selected.label : placeholder}
+              {multiple
+                ? (selectedOptions as SelectOption[]).length > 0
+                  ? (selectedOptions as SelectOption[])
+                      .map((o) => o.label)
+                      .join(" - ")
+                  : placeholder
+                : (selectedOptions as SelectOption | null)?.label ||
+                  placeholder}
             </span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
               <ChevronDown className="h-5 w-5 text-gray-400" />
             </span>
           </Listbox.Button>
@@ -58,7 +87,7 @@ export const Select = ({
                   key={option.value}
                   value={option.value}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                    `relative cursor-default select-none py-2 pl-7 pr-4 ${
                       active ? "bg-indigo-100 text-indigo-900" : "text-gray-900"
                     }`
                   }
@@ -73,7 +102,7 @@ export const Select = ({
                         {option.label}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-1 text-indigo-600">
                           <CheckIcon className="h-5 w-5" />
                         </span>
                       ) : null}

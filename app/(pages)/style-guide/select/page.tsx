@@ -1,3 +1,5 @@
+"use client";
+
 import { Select } from "@components/client";
 import { containerStyle } from "../styles";
 
@@ -18,7 +20,13 @@ const SelectStylePage = () => {
   ];
   return (
     <div className={containerStyle}>
-      <Select description="description" label="label" options={options} />
+      <Select
+        value=""
+        onChange={() => {}}
+        description="description"
+        label="label"
+        options={options}
+      />
     </div>
   );
 };

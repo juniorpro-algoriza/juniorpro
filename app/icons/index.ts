@@ -27,3 +27,4 @@ export { UsersIcon } from "./UsersIcon";
 export { WalletIcon } from "./WalletIcon";
 export { EyeCloseIcon } from "./EyeCloseIcon";
 export { EyeIcon } from "./EyeIcon";
+export { LeftArrowIcon } from "./LeftArrowIcon";
