@@ -11,7 +11,7 @@ import { toast } from "sonner";
 export interface AddJuniorProps {
   onAdded?: (newJunior: any) => void;
   onClose?: () => void;
-  contributorId?: number; // optional preselected contributor
+  contributorId?: number; 
 }
 
 export const AddJuniors = ({

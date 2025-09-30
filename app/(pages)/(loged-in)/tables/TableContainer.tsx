@@ -6,6 +6,7 @@ import { GenericTable } from "./GenericTable";
 import { userConfigs, type UserType } from "../../../config/userConfig";
 import { Button, Input, ModalLink } from "@components";
 import { SearchIcon } from "lucide-react";
+import { DiamondIcon } from "@icons";
 
 interface TableContainerProps {
   type: UserType;
@@ -67,6 +68,18 @@ export const TableContainer: React.FC<TableContainerProps> = ({
                 Add {config.entity}
               </Button>
             </ModalLink>
+
+          {(type === "contributor" || type === "junior-contributor") &&
+            "assignPoints" in config.modals && (
+              <ModalLink name={config.modals.assignPoints}>
+                <Button intent="tertiary" className="h-11 px-5 flex items-center gap-2">
+                  <DiamondIcon  />
+                  Assign Points
+                </Button>
+              </ModalLink>
+            )}
+
+
 
             <Input
               placeholder={`Search for ${config.entity}s...`}

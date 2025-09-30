@@ -29,7 +29,7 @@ export const ProjectCard = ({
   showRating,
   showBadgeNextToDueDate,
   className,
-  buttonText = 'Report',
+  buttonText = 'Join Now',
 }: ProjectCardProps) => {
   const {
     id,
