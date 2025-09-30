@@ -40,13 +40,12 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
         return index % 5 === 0;
       });
   }
-
   return (
     <main className="min-h-screen px-6 py-3 bg-stone-50">
       <ProjectsHeader />
       <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-        <div className="flex justify-between items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2 ">
-          <h2 className="relative text-2xl font-medium left-2 top-1 text-yankees-blue">
+        <div className="flex justify-between gap-2 flex-wrap items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2 ">
+          <h2 className="relative text-xl md:text-2xl font-medium left-2 top-1 text-yankees-blue whitespace-nowrap">
             Projects ({projects.length})
           </h2>
           <div className="flex items-center gap-2">
@@ -54,7 +53,7 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
             <Link href="/admin/projects/new">
               <Button
                 variant="primary"
-                className="whitespace-nowrap"
+                className="whitespace-nowrap text-sm"
                 size="medium"
               >
                 Add Project
@@ -63,7 +62,7 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
             <SearchInput className="py-2" />
           </div>
         </div>
-        <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6 pb-10">
+        <div className="flex flex-wrap gap-2 px-2 xl:gap-6 md:px-2 xl:px-6 pb-3 md:pb-10">
           {allProjects.map((p) => {
             return (
               <div

@@ -2,12 +2,12 @@
 "use client";
 
 import { Fragment, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import { Button, Input, Modal, Select } from "@components";
 import { XIcon } from "lucide-react";
-import { getData } from "@server";
+import { getData, getLookup } from "@server";
 import { toast } from "sonner";
 import { CloseButton } from "@headlessui/react";
+import { Lookup } from "@types";
 
 interface AddContributorProps {
   onAdded?: (newContributor: any) => void;
@@ -15,35 +15,24 @@ interface AddContributorProps {
 }
 
 export const AddContributor = ({ onAdded, onClose }: AddContributorProps) => {
-  const searchParams = useSearchParams();
-  const initialPMId = searchParams?.get("id") || "";
-
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    projectManagerId: initialPMId, // prefill from URL if exists
-  });
+    projectManagerId: 0,
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
-  const [projectManagers, setProjectManagers] = useState<
-    { id: number; nameEN: string }[]
-  >([]);
+  const [projectManagers, setProjectManagers] = useState<Lookup[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch project managers for the dropdown
   useEffect(() => {
     const fetchPMs = async () => {
-      try {
-        const res = await getData({
-          url: "project-manager/look-ups",
-          method: "GET",
-        });
-        if (Array.isArray(res)) setProjectManagers(res);
-      } catch (err) {
-        console.error("Failed to fetch project managers", err);
-      }
+      const data = await getLookup("project-manager/look-ups");
+      setProjectManagers(data);
     };
     fetchPMs();
   }, []);
@@ -60,16 +49,13 @@ export const AddContributor = ({ onAdded, onClose }: AddContributorProps) => {
     setError(null);
 
     try {
-      const body: any = {
+      const body = {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
         password: formData.password,
+        projectManagerId: formData.projectManagerId,
       };
-
-      if (formData.projectManagerId) {
-        body.projectManagerId = Number(formData.projectManagerId); // send as number
-      }
 
       const response = await getData({
         url: "Contributor/add",
@@ -80,6 +66,7 @@ export const AddContributor = ({ onAdded, onClose }: AddContributorProps) => {
       if (response === true) {
         toast.success("Contributor added successfully!");
         onAdded?.(formData);
+        setFormData(initialFormData);
         onClose?.();
       } else {
         setError("Failed to add contributor");
@@ -138,15 +125,11 @@ export const AddContributor = ({ onAdded, onClose }: AddContributorProps) => {
         {/* Project Manager Select */}
         <Select
           label="Assign to Project Manager (optional)"
-          value={String(formData.projectManagerId)} // ensure string
-          options={[
-            { label: "None", value: "" },
-            ...projectManagers.map((pm) => ({
-              label: pm.nameEN,
-              value: String(pm.id), //
-            })),
-          ]}
-          onChange={(val) => handleChange("projectManagerId", val)}
+          value={formData.projectManagerId}
+          options={projectManagers}
+          onChange={(val) =>
+            setFormData({ ...formData, projectManagerId: Number(val) })
+          }
         />
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -162,13 +145,15 @@ export const AddContributor = ({ onAdded, onClose }: AddContributorProps) => {
         >
           {saving ? "Adding..." : "Add"}
         </Button>
-        <Button
-          intent="secondary"
-          className="flex-1 text-dark-electric-blue"
-          onClick={onClose}
-        >
-          Cancel
-        </Button>
+        <CloseButton as={Fragment}>
+          <Button
+            intent="secondary"
+            className="flex-1 text-dark-electric-blue"
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+        </CloseButton>
       </div>
     </Modal>
   );

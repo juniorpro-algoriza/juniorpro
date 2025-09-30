@@ -46,8 +46,7 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
     fetchProfile();
   }, []);
 
-  console.log(profile,'profile')
-
+  console.log(profile, "profile");
 
   const getDashboardPath = () => {
     if (!profile) return "/";
@@ -57,7 +56,6 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
     if (profile.userType === 4) return "/project/manager/dashboard";
     return "/";
   };
-
 
   const navItems = [
     // { label: "Home", href: "/" },
@@ -77,12 +75,12 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
       </div>
 
       {/* Center Nav Items */}
-      <ul className="flex gap-8">
+      <ul className="hidden md:flex gap-8">
         {navItems.map((item) => (
           <li key={item.href}>
             <Link
               href={item.href}
-              className="text-[#656C86] hover:text-violet-normal transition text-lg"
+              className="text-[#656C86] hover:text-violet-normal transition text-lg whitespace-nowrap"
             >
               {item.label}
             </Link>
@@ -93,14 +91,13 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
       {/* Right Side */}
       <div className="flex items-center gap-4">
         {isAuthenticated ? (
-            <Link
-              href={getDashboardPath()}
-              className="flex items-center gap-2 bg-violet-normal text-white px-5 py-2 rounded-md hover:bg-violet-hover focus:ring-2 focus:ring-primary-200 transition"
-            >
-              My Dashboard
-            </Link>
-        )
-            : (
+          <Link
+            href={getDashboardPath()}
+            className="flex items-center gap-2 bg-violet-normal text-white px-5 py-2 rounded-md hover:bg-violet-hover focus:ring-2 focus:ring-primary-200 transition"
+          >
+            My Dashboard
+          </Link>
+        ) : (
           <>
             <Link
               href="/auth/login"

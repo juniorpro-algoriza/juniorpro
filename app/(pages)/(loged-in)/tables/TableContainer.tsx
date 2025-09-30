@@ -7,6 +7,7 @@ import { userConfigs, type UserType } from "../../../config/userConfig";
 import { Button, Input, ModalLink } from "@components";
 import { SearchIcon } from "lucide-react";
 import { DiamondIcon } from "@icons";
+import { useMediaQuery } from "usehooks-ts";
 
 interface TableContainerProps {
   type: UserType;
@@ -52,35 +53,42 @@ export const TableContainer: React.FC<TableContainerProps> = ({
   }
 
   const totalPages = Math.ceil(total / pageSize);
-
+  const isSmallScreen = useMediaQuery("(max-width: 640px)");
   return (
     <div className="bg-white rounded-[20px] drop-shadow-xl border  border-border-primary">
       {/* Header */}
-      <div className="p-6 flex items-center justify-between">
+      <div className="p-3 md:p-6 flex items-center justify-between gap-3 flex-wrap">
         <h3 className="text-xl font-medium text-yankees-blue">
           {title} ({total || initialData?.length || 0})
         </h3>
 
         {view === "full" ? (
-          <div className="flex items-center gap-3">
-            <ModalLink name={config.modals.add}>
-              <Button intent="primary" className="h-11 px-5">
-                Add {config.entity}
-              </Button>
-            </ModalLink>
-
-          {(type === "contributor" || type === "junior-contributor") &&
-            "assignPoints" in config.modals && (
-              <ModalLink name={config.modals.assignPoints}>
-                <Button intent="tertiary" className="h-11 px-5 flex items-center gap-2">
-                  <DiamondIcon  />
-                  Assign Points
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex gap-3 items-center">
+              <ModalLink name={config.modals.add}>
+                <Button
+                  intent="primary"
+                  size={isSmallScreen ? "small" : "medium"}
+                  className="h-11 px-5"
+                >
+                  Add {config.entity}
                 </Button>
               </ModalLink>
-            )}
 
-
-
+              {(type === "contributor" || type === "junior-contributor") &&
+                "assignPoints" in config.modals && (
+                  <ModalLink name={config.modals.assignPoints}>
+                    <Button
+                      intent="tertiary"
+                      size={isSmallScreen ? "small" : "medium"}
+                      className="h-11 px-5 flex items-center gap-2"
+                    >
+                      <DiamondIcon />
+                      Assign Points
+                    </Button>
+                  </ModalLink>
+                )}
+            </div>
             <Input
               placeholder={`Search for ${config.entity}s...`}
               onChange={(e: any) => setSearch(e.target.value)}
