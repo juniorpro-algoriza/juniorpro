@@ -1,17 +1,16 @@
 "use server";
 
 import { getFetchHeaders } from "@server";
-
-interface Props {
+interface Props<T = unknown> {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  dummyData?: unknown[];
+  dummyData?: T; // not always array, can be full object
   body?: unknown;
 }
-
 const apiRootUrl = process.env.API_ROOT_URL as string;
 
-export const getData = async ({ url, method, body, dummyData }: Props) => {
+
+export const getData = async <T>({ url, method, body, dummyData }: Props<T>): Promise<T> => {
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
     if (!headers) throw new Error("No headers found");
@@ -25,10 +24,10 @@ export const getData = async ({ url, method, body, dummyData }: Props) => {
 
     if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
-    const data = await res.json();
-    return data;
+    return (await res.json()) as T;
   } catch (err) {
     console.error("Error fetching data:", err);
-    return dummyData;
+    return dummyData as T;
   }
 };
+

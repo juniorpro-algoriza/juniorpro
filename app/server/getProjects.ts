@@ -1,9 +1,9 @@
 "use server";
 
 import type { Project, ProjectStatus, ProjectType } from "../types";
-import { cookies } from "next/headers";
+import { getData } from "@server";
 
-// API response types
+//backend types response
 interface ApiProject {
   id: number | string;
   nameEn: string;
@@ -13,23 +13,22 @@ interface ApiProject {
   levelNameAr: string;
   levelNameEn: string;
   image?: string;
-  description: string;
-  rating: number;
   status: number;
-  projectType: string;
-  isFree: boolean;
-  ageRange: string;
+  projectType?: string;
+  isFree?: boolean;
   dueDate?: string;
 }
 
 interface ApiProjectsResponse {
+  status: number;
   data: ApiProject[];
-  currentPage: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPrevPage: boolean;
+  pageNumber: number;
+  pageSize: number;
+  pg_total: number;
+  isSucceeded: boolean;
 }
 
+//prams & return types
 type GetAllProjectsParams = {
   shouldIncludeProject?: (project: Project) => boolean;
   pageNum: number;
@@ -39,6 +38,7 @@ type GetAllProjectsParams = {
   categoryId?: number;
   searchText?: string;
 };
+
 type ReturnType = {
   data: Project[];
   currentPage: number;
@@ -47,6 +47,9 @@ type ReturnType = {
   hasPrevPage: boolean;
 };
 
+// ==================
+// Main Function
+// ==================
 export const getProjects = async ({
   shouldIncludeProject,
   pageNum,
@@ -57,104 +60,60 @@ export const getProjects = async ({
   searchText,
 }: GetAllProjectsParams): Promise<ReturnType> => {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("auth_token")?.value;
-
-    if (!token) {
-      throw new Error("No auth token found. User may not be logged in.");
-    }
-
-    // Build query parameters
     const queryParams = new URLSearchParams({
       PageNumber: pageNum.toString(),
       PageSize: limit.toString(),
     });
 
-    if (categoryId) {
-      queryParams.append("CategoryId", categoryId.toString());
-    }
+    if (categoryId) queryParams.append("CategoryId", categoryId.toString());
+    if (searchText) queryParams.append("SearchText", searchText);
 
-    if (searchText) {
-      queryParams.append("SearchText", searchText);
-    }
+    const apiData: ApiProjectsResponse = await getData({
+      url: `api/project?${queryParams.toString()}`,
+      method: "GET",
+      dummyData: {
+        status: 200,
+        data: dummyData,
+        pageNumber: pageNum,
+        pageSize: limit,
+        pg_total: dummyData.length,
+        isSucceeded: true,
+      },
+    });
 
-    const res = await fetch(
-      `https://juniorpro-001-site1.ntempurl.com/api/project?${queryParams.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        cache: "no-store",
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch projects: ${res.status}`);
-    }
-
-    const apiData: ApiProjectsResponse = await res.json();
-
-    console.log("res", apiData);
+    // Transform API projects → Project[]
     const transformedProjects: Project[] =
-      apiData.data?.map((project: ApiProject) => ({
-        id: project.id?.toString() || "",
-        title: project.nameEn || "",
-        category: project.categoryNameEn || "",
-        imageUrl: project.image || "/images/featued-Project-image.svg",
-        description: project.levelNameEn || "",
-        rating: project.rating || 0,
-        projectType: mapApiProjectTypeToLocal(project.projectType) || "solo",
-        isFree: project.isFree || false,
-        status: "not-started",
-        dueDate: project.dueDate ? new Date(project.dueDate) : undefined,
-        juniors: juniors || [],
-      })) || [];
+      apiData?.data?.map((p) => transformApiProject(p, juniors)) || [];
 
-    // Apply local filtering if needed
-    const filteredData = transformedProjects;
-
-    // if (projectType !== 'all') {
-    //   filteredData = transformedProjects.filter(
-    //     (project) => project.projectType === projectType
-    //   );
-    // }
-
-    // Apply additional filtering
-    const finalData = filteredData.filter((p) =>
+    const finalData = transformedProjects.filter((p) =>
       shouldIncludeProject ? shouldIncludeProject(p) : true
     );
 
+    const totalPages = Math.ceil((apiData.pg_total ?? finalData.length) / limit);
+
     return {
       data: finalData,
-      currentPage: apiData.currentPage || pageNum,
-      totalPages: apiData.totalPages || Math.ceil(finalData.length / limit),
-      hasNextPage: apiData.hasNextPage || false,
-      hasPrevPage: apiData.hasPrevPage || false,
+      currentPage: apiData.pageNumber || pageNum,
+      totalPages,
+      hasNextPage: pageNum < totalPages,
+      hasPrevPage: pageNum > 1,
     };
   } catch (err) {
     console.error("Error fetching projects:", err);
 
-    // Fallback to dummy data
-    let filteredData = dummyData;
-
-    if (projectType !== "all") {
-      filteredData = dummyData.filter(
-        (project) => project.projectType === projectType
-      );
-    }
+    // fallback to dummyData → transform
+    const filteredData =
+      projectType !== "all"
+        ? dummyData.filter((p) => mapApiProjectTypeToLocal(p.projectType) === projectType)
+        : dummyData;
 
     const startIndex = (pageNum - 1) * limit;
     const endIndex = startIndex + limit;
 
-    const paginatedData: Project[] = filteredData.slice(startIndex, endIndex);
-
     return {
-      data: paginatedData
-        //TODO: @Abdelrhman pls check this why not return juniors
-        .map((p) => ({ ...p, juniors: juniors ?? [] }))
-        .filter((p) => (shouldIncludeProject ? shouldIncludeProject(p) : true)),
+      data: filteredData
+        .slice(startIndex, endIndex)
+        .map((p) => transformApiProject(p, juniors)),
       currentPage: pageNum,
       totalPages: Math.ceil(filteredData.length / limit),
       hasNextPage: endIndex < filteredData.length,
@@ -163,78 +122,110 @@ export const getProjects = async ({
   }
 };
 
-// Helper functions to map API data to local types
-const mapApiProjectTypeToLocal = (apiType: string): ProjectType => {
+//hel[rs to transform ApiProject to Project]
+const transformApiProject = (p: ApiProject, juniors?: string[]): Project => ({
+  id: p.id.toString(),
+  title: p.nameEn,
+  category: p.categoryNameEn,
+  imageUrl: p.image || "/images/featued-Project-image.svg",
+  description: p.levelNameEn,
+  rating: 0,
+  projectType: mapApiProjectTypeToLocal(p.projectType),
+  isFree: p.isFree ?? false,
+  status: mapApiStatusToLocal(p.status),
+  dueDate: p.dueDate ? new Date(p.dueDate) : undefined,
+  juniors: juniors || [],
+});
+
+const mapApiStatusToLocal = (status: number): ProjectStatus => {
+  const map: Record<number, ProjectStatus> = {
+    0: "not-started",
+    1: "in-progress",
+    2: "completed",
+  };
+  return map[status] || "not-started";
+};
+
+const mapApiProjectTypeToLocal = (apiType?: string): ProjectType => {
   const typeMap: Record<string, ProjectType> = {
     web: "web",
     solo: "solo",
     team: "team",
     coding: "coding",
   };
-  return typeMap[apiType?.toLowerCase()] || "solo";
+  return apiType ? typeMap[apiType.toLowerCase()] : "solo";
 };
 
-// Fixed date to prevent hydration mismatch
-const FIXED_DUE_DATE = new Date("2024-12-31T23:59:59.000Z");
-
-const dummyData: Project[] = [
-  // 10 solo
-  ...Array.from({ length: 10 }, (_, i) => ({
-    id: `${i + 1}`,
-    category: "Web Development",
-    title: `Solo Project ${i + 1}`,
-    imageUrl: "/images/featued-Project-image.svg",
-    description: "A solo project to build skills.",
-    rating: 4 + (i % 2),
-    projectType: "solo" as ProjectType,
-    isFree: i % 2 === 0,
-    status: "in-progress" as ProjectStatus,
-    dueDate: FIXED_DUE_DATE,
-    juniors: ["anas"],
-  })),
-
-  // 10 web
-  ...Array.from({ length: 10 }, (_, i) => ({
-    id: `${i + 11}`,
-    category: "Web Development",
-    title: `Web Project ${i + 1}`,
-    imageUrl: "/images/featued-Project-image.svg",
-    description: "A web development project.",
-    rating: 3 + (i % 3),
-    projectType: "web" as ProjectType,
-    isFree: i % 2 !== 0,
-    status: "not-started" as ProjectStatus,
-    dueDate: FIXED_DUE_DATE,
-    juniors: ["anas"],
-  })),
-
-  // 10 team
-  ...Array.from({ length: 10 }, (_, i) => ({
-    id: `${i + 21}`,
-    category: "Team Collaboration",
-    title: `Team Project ${i + 1}`,
-    imageUrl: "/images/featued-Project-image.svg",
-    description: "A project for teams to collaborate.",
-    rating: 4 + (i % 2),
-    projectType: "team" as ProjectType,
-    isFree: i % 3 === 0,
-    status: "in-progress" as ProjectStatus,
-    dueDate: FIXED_DUE_DATE,
-    juniors: ["anas", "lina"],
-  })),
-
-  // 10 coding
-  ...Array.from({ length: 10 }, (_, i) => ({
-    id: `${i + 31}`,
-    category: "Coding Challenges",
-    title: `Coding Project ${i + 1}`,
-    imageUrl: "/images/featued-Project-image.svg",
-    description: "Solve coding challenges and learn.",
-    rating: 5 - (i % 3),
-    projectType: "coding" as ProjectType,
-    isFree: i % 2 === 0,
-    status: "in-progress" as ProjectStatus,
-    dueDate: FIXED_DUE_DATE,
-    juniors: ["anas"],
-  })),
+// dummy
+const dummyData: ApiProject[] = [
+  {
+    id: 1,
+    nameEn: "Frontend Landing Page",
+    nameAr: "صفحة هبوط",
+    categoryNameAr: "ويب",
+    categoryNameEn: "Web",
+    levelNameAr: "مبتدئ",
+    levelNameEn: "Beginner",
+    image: "/images/featued-Project-image.svg",
+    status: 0,
+    projectType: "web",
+    isFree: true,
+    dueDate: "2025-12-01",
+  },
+  {
+    id: 2,
+    nameEn: "Team Dashboard",
+    nameAr: "لوحة تحكم الفريق",
+    categoryNameAr: "تطوير",
+    categoryNameEn: "Development",
+    levelNameAr: "متوسط",
+    levelNameEn: "Intermediate",
+    image: "/images/featued-Project-image.svg",
+    status: 1,
+    projectType: "team",
+    isFree: false,
+    dueDate: "2025-11-15",
+  },
+  {
+    id: 2,
+    nameEn: "Team Dashboard",
+    nameAr: "لوحة تحكم الفريق",
+    categoryNameAr: "تطوير",
+    categoryNameEn: "Development",
+    levelNameAr: "متوسط",
+    levelNameEn: "Intermediate",
+    image: "/images/featued-Project-image.svg",
+    status: 1,
+    projectType: "team",
+    isFree: false,
+    dueDate: "2025-11-15",
+  },
+  {
+    id: 2,
+    nameEn: "Team Dashboard",
+    nameAr: "لوحة تحكم الفريق",
+    categoryNameAr: "تطوير",
+    categoryNameEn: "Development",
+    levelNameAr: "متوسط",
+    levelNameEn: "Intermediate",
+    image: "/images/featued-Project-image.svg",
+    status: 1,
+    projectType: "team",
+    isFree: false,
+    dueDate: "2025-11-15",
+  },
+  {
+    id: 2,
+    nameEn: "Team Dashboard",
+    nameAr: "لوحة تحكم الفريق",
+    categoryNameAr: "تطوير",
+    categoryNameEn: "Development",
+    levelNameAr: "متوسط",
+    levelNameEn: "Intermediate",
+    image: "/images/featued-Project-image.svg",
+    status: 1,
+    projectType: "team",
+    isFree: false,
+    dueDate: "2025-11-15",
+  },
 ];

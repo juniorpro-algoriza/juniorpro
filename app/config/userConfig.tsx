@@ -73,6 +73,30 @@ export const userConfigs = {
     },
     tabs: ["Profile", "Projects", "Badge & Achievements"],
   },
+
+  "junior-contributor": {
+    entity: "Junior Contributor",
+    endpoint: "Contributor/juniors", // the API endpoint you already have
+    tableColumns: [
+      { header: "Name", key: "name" },
+      { header: "Points", key: "points" },
+      { header: "Active Projects", key: "activeProjects" },
+      { header: "Completed Projects", key: "completedProjects" },
+      {
+        header: "Action",
+        key: "actionHref",
+        isAction: true,
+        actionLabel: "View",
+        actionIcon: <EyeIcon size={16} />,
+      },
+    ],
+    modals: {
+      add: "AddJuniorForContributor",
+      edit: "EditJuniorContributor",
+    },
+    tabs: ["Juniors"], // or add other tabs if needed
+  },
+
 } as const;
 
 export type UserType = keyof typeof userConfigs;

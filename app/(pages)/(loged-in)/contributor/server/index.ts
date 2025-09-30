@@ -1,0 +1,1 @@
+export {getJuniorsData} from './getJuniorsData';
