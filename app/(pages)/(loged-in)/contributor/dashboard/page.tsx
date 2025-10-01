@@ -1,3 +1,4 @@
+import { JuniorsTable } from "../juniors/components";
 import {
   DashboardHeader,
   DashboardJuniors,
@@ -5,7 +6,15 @@ import {
   DashboardProjects,
 } from "./components";
 
-const DashboardPage = () => {
+
+interface Props {
+  params: { id: string }; // contributor id
+  searchParams?: { page?: string };
+}
+
+const DashboardPage = async ({ params, searchParams }: Props) => {
+  const contributorId = Number(params.id);
+  const pageNumber = Number(searchParams?.page) || 1; 
   return (
     <div className="min-h-screen py-3 px-6 bg-stone-50">
       {/* Header */}
@@ -21,7 +30,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Juniors Table */}
-      <DashboardJuniors />
+      <JuniorsTable contributorId={contributorId} pageNumber={pageNumber} />
     </div>
   );
 };

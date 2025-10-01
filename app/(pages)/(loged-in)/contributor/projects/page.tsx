@@ -1,85 +1,41 @@
-import {ProjectCard} from '@components';
-import {getProjects} from '@server';
-import type {Project} from '@types';
-import {pickRandom} from '@utils';
-import {SearchInput} from '../../components/client';
-import {JuniorsDropdown, ProjectsHeader} from '../../admin/projects/components';
+// app/contributor/projects/index.tsx
+import { Button, ProjectCard } from "@components";
+import { ProjectsHeader } from "../../admin/projects/components";
+import { NormalizedProject } from "../../../../types/Projects";
+import { getContributorJuniorProjects } from "../../../../server/getContributorJuniorProjects";
 
-interface ProjectsPageProps {
-  searchParams: Promise<{junior: string; query: string}>;
-}
-
-const ProjectsPage = async ({searchParams}: ProjectsPageProps) => {
-  const junior = (await searchParams).junior;
-  // const searchQuery = (await searchParams).query;
-
-  const {data: projects} = await getProjects({
-    limit: 30,
-    pageNum: 1,
-    projectType: 'all',
-    // juniors: junior[0] === 'all juniors' ? [] : [junior],
-    // shouldIncludeProject: (p: Project) => {
-    //   if (searchQuery) {
-    //     const projectTitle = p.title;
-    //     return projectTitle.toLowerCase().includes(searchQuery.toLowerCase());
-    //   }
-    //   return true;
-    // },
-  });
-
-  const juniors = ['all juniors', 'anas', 'marwa', 'adam'];
-
-  const completedProjects: Project[] = projects.map((p) => ({
-    ...p,
-    status: 'completed',
-  }));
-
-  let allProjects: Project[] = completedProjects;
-  if (junior === 'all juniors') {
-    allProjects = completedProjects
-      .map((p) => ({
-        ...p,
-        juniors: ['Marwa', 'Anas ', pickRandom(['Adam', 'Samy'])],
-      }))
-      .filter((_, index) => {
-        return index % 5 === 0;
-      });
-  }
+const ProjectsPage = async () => {
+  const { data: projects } = await getContributorJuniorProjects({ pageNumber: 1, pageSize: 30 });
+  const completedProjects: NormalizedProject[] = projects.map((p) => ({ ...p }));
 
   return (
     <main className="min-h-screen px-6 py-3 bg-stone-50">
       <ProjectsHeader />
       <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-        <div className="flex justify-between items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2 ">
-          <h2 className="relative text-2xl font-medium left-2 top-1 text-yankees-blue">
+        <div className="flex justify-between gap-2 flex-wrap items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2">
+          <h2 className="text-xl md:text-2xl font-medium text-yankees-blue">
             Projects ({projects.length})
           </h2>
-          <div className="flex items-center gap-2">
-            <JuniorsDropdown juniors={juniors} />
-            <SearchInput />
-          </div>
         </div>
-        <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6">
-          {allProjects.map((p) => {
-            return (
-              <div
-                key={p.id}
-                className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]">
-                <ProjectCard
-                  project={p}
-                  showDescription={false}
-                  showDueDate={true}
-                  showJuniors={true}
-                  showBadgeNextToDueDate={false}
-                  showBadge={true}
-                  showRating={false}
-                />
-              </div>
-            );
-          })}
+        <div className="flex flex-wrap gap-2 px-2 xl:gap-6 md:px-2 xl:px-6 pb-3 md:pb-10">
+          {completedProjects.map((p) => (
+            <div key={p.id} className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]">
+              <ProjectCard
+                project={p}
+                showDescription={false}
+                showDueDate
+                showJuniors
+                showBadge
+                showRating={false}
+                showAge={false}
+                buttonText="Join Project"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </main>
   );
 };
+
 export default ProjectsPage;

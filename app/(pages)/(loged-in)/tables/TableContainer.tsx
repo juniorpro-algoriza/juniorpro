@@ -55,7 +55,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
   const totalPages = Math.ceil(total / pageSize);
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
   return (
-    <div className="bg-white rounded-[20px] drop-shadow-xl border  border-border-primary">
+    <div className="bg-white rounded-[20px]  mt-4 drop-shadow-xl border  border-border-primary">
       {/* Header */}
       <div className="p-3 md:p-6 flex items-center justify-between gap-3 flex-wrap">
         <h3 className="text-xl font-medium text-yankees-blue">
