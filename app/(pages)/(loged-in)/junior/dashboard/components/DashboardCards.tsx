@@ -1,4 +1,4 @@
-"use server";
+export const dynamic = "force-dynamic";
 
 // import { Button } from "@components";
 import { DiamondIcon, DocumentIcon, FireIcon, HourGlassIcon } from "@icons";

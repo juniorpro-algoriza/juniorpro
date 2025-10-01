@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // app/contributor/projects/index.tsx
 import { ProjectCard } from "@components";
 import { ProjectsHeader } from "../../admin/projects/components";

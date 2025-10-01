@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // import { getJuniorsData } from "@server";
 import { JuniorsHeader, JuniorsTable } from "./components";
 

@@ -1,4 +1,5 @@
-"use server";
+export const dynamic = "force-dynamic";
+
 import { getLookup } from "@server";
 import { LoggedInPageHeader } from "../../../components/client";
 import { CreateForm } from "./components/CreateForm";

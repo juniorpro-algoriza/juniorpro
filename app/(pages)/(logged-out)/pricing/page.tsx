@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Footer, Nav } from "@components";
 import React from "react";
 import { PricingPlans } from "./components/PricingPlans";

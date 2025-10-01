@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getPointsData } from "@server";
 import { JuniorsTable } from "../juniors/components";
 import {

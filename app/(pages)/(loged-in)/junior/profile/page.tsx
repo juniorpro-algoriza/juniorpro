@@ -1,4 +1,4 @@
-"use server";
+export const dynamic = "force-dynamic";
 import { getCareerTypes, getMyProfileData } from "@server";
 import { ProfileCard, ProfileHeader } from "./components";
 

@@ -1,4 +1,5 @@
-"use server";
+export const dynamic = "force-dynamic";
+
 // import { getJuniorStatistic } from "@server";
 import {
   DashboardCards,
