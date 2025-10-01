@@ -70,8 +70,9 @@ export const ProjectCard = ({
       toast.success("Successfully joined the project!");
       setJoined(true);
       onJoinSuccess?.(id);
-    } catch (error) {
-      console.error("Error joining project:", error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.message || "Failed to join project");
     } finally {
       setIsJoining(false);
     }
@@ -120,7 +121,7 @@ export const ProjectCard = ({
             <Badge
               label={status}
               variant={statusVariant}
-              className="px-3 py-1 text-xs"
+              className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
             />
           )}
           {showProjectType && (
@@ -135,7 +136,7 @@ export const ProjectCard = ({
             <Badge
               label={`Age: ${ageRange}`}
               variant="blue"
-              className="px-3 py-1 text-xs"
+              className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
             />
           )}
         </div>

@@ -14,7 +14,6 @@ export function normalizeProject(apiProject: any): NormalizedProject {
   const projectType: ProjectType = projectTypeObj
     ? (projectTypeObj.label.trim() as ProjectType)
     : "Free Solo";
-
   // Lookup status
   const statusObj = projectStatus.find((s) => s.value === apiProject.status);
   const status = statusObj ? statusObj.label : "Draft";

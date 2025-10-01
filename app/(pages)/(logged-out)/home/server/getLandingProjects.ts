@@ -1,4 +1,3 @@
-
 "use server";
 
 import { normalizeProject } from "@utils";
@@ -15,7 +14,7 @@ interface GetLandingProjectsParams {
 
 interface ApiResponse {
   status: number;
-  data: any[];
+  data: unknown[];
   code: {
     value: string;
     code: number;
@@ -36,9 +35,10 @@ export async function getLandingProjects(
 
   try {
     const queryParams = new URLSearchParams();
-    
+
     if (categoryId) queryParams.append("CategoryId", categoryId.toString());
-    if (projectManagerId) queryParams.append("ProjectManagerId", projectManagerId.toString());
+    if (projectManagerId)
+      queryParams.append("ProjectManagerId", projectManagerId.toString());
     if (projectType) queryParams.append("ProjectType", projectType.toString());
     if (pageNumber) queryParams.append("PageNumber", pageNumber.toString());
     if (pageSize) queryParams.append("PageSize", pageSize.toString());
@@ -55,7 +55,9 @@ export async function getLandingProjects(
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch landing projects: ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch landing projects: ${response.statusText}`
+      );
     }
 
     const result: ApiResponse = await response.json();

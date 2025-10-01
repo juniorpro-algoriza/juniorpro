@@ -1,5 +1,5 @@
 // app/contributor/projects/index.tsx
-import { Button, ProjectCard } from "@components";
+import { ProjectCard } from "@components";
 import { ProjectsHeader } from "../../admin/projects/components";
 import { NormalizedProject } from "../../../../types/Projects";
 import { getLandingProjects } from "../../../(logged-out)/home/server";

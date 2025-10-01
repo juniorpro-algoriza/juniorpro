@@ -5,9 +5,9 @@ import { getFetchHeaders } from "@server";
 interface Props<T = unknown> {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  dummyData?: T; // fallback data
+  dummyData?: T;
   body?: unknown;
-  params?: Record<string, string | number | undefined>; // ✅ new optional params
+  params?: Record<string, string | number | undefined>;
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;
@@ -23,11 +23,10 @@ export const getData = async <T>({
     const { headers } = (await getFetchHeaders(!!body)) || {};
     if (!headers) throw new Error("No headers found");
 
-    // ✅ build query string only if params exist
     const queryString = params
       ? new URLSearchParams(
           Object.entries(params)
-            .filter(([_, v]) => v !== undefined) // skip undefined
+            .filter(([, v]) => v !== undefined) // skip undefined
             .map(([k, v]) => [k, String(v)])
         ).toString()
       : "";
@@ -37,7 +36,7 @@ export const getData = async <T>({
     const res = await fetch(finalUrl, {
       method,
       headers,
-      body: body ? JSON.stringify(body) : undefined, // ✅ kept as is
+      body: body ? JSON.stringify(body) : undefined,
       cache: "no-store",
     });
 

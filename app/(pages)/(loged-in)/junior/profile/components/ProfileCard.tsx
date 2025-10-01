@@ -53,18 +53,18 @@ export const ProfileCard = ({
             </div>
           </div>
           <div className="absolute -bottom-32 text-center left-1/2 transform -translate-x-1/2 flex flex-col gap-1 pb-4">
-            <h2 className="text-2xl font-medium text-dark-blue mb-1">
+            <h2 className="text-2xl font-medium text-dark-blue mb-1 whitespace-nowrap">
               {profile?.firstName} {profile?.lastName}
             </h2>
-            <p className="text-storm-400 text-xl">
+            <p className="text-storm-400 text-xl whitespace-nowrap">
               {careerName(profile?.career)}
             </p>
           </div>
         </div>
 
-        <div className="flex justify-between items-start px-4">
-          <div className="flex p-6 space-x-8 mb-6">
-            <div className="flex flex-col gap-3 items-center">
+        <div className="flex lg:flex-row flex-col justify-between items-center lg:items-start px-4 mt-30 lg:mt-0 mb-6 lg:mb-0">
+          <div className="flex p-2 lg:p-6 gap-6 mb-2 lg:mb-6">
+            <div className="flex flex-col gap-3 items-center text-center lg:text-start">
               <div className="bg-success-50 rounded-lg p-1.5">
                 <DocumentIcon fill="#41C980" width="25" height="25" />
               </div>
@@ -76,7 +76,7 @@ export const ProfileCard = ({
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 items-center">
+            <div className="flex flex-col gap-3 items-center text-center md:text-start">
               <div className="bg-light-carrot-orange rounded-lg p-1.5">
                 <DocumentIcon fill="#DF972A" width="25" height="25" />
               </div>
@@ -88,7 +88,7 @@ export const ProfileCard = ({
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 items-center">
+            <div className="flex flex-col gap-3 items-center text-center md:text-start">
               <div className="bg-carolina-blue-opacity rounded-lg p-1.5">
                 <DocumentIcon fill="#5879DC" width="25" height="25" />
               </div>
@@ -103,7 +103,7 @@ export const ProfileCard = ({
           <Button
             intent="primary"
             type="button"
-            className="mt-6"
+            className="lg:mt-6"
             onClick={() => setIsOpen(true)}
           >
             Edit Profile

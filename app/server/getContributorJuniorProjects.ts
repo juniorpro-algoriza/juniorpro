@@ -35,7 +35,9 @@ export async function getContributorJuniorProjects(
       dummyData: { data: [], pg_total: 0 },
     });
 
-    const normalizedProjects = json.data.map((project) => normalizeProject(project));
+    const normalizedProjects = json.data.map((project) =>
+      normalizeProject(project)
+    );
 
     return {
       data: normalizedProjects,

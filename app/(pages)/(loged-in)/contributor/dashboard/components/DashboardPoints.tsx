@@ -37,24 +37,28 @@ export const DashboardPoints = async () => {
   ];
 
   return (
-    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-medium text-yankees-blue">
-          Points Allocation ({juniors.length})
-        </h3>
-        {juniors.length ? (
-          <Link href="./points">
-            <Button
-              intent="tertiary"
-              iconPosition="right"
-              size="small"
-              className="border-none text-violet-normal"
-              icon={<ChevronRight className="w-4 h-4" />}
-            >
-              View All
-            </Button>
-          </Link>
-        ) : null}
+    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-3 md:p-6 space-y-4">
+      <div>
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg md:text-2xl font-medium text-yankees-blue">
+            Points Allocation ({juniors.length})
+          </h3>
+          {juniors.length ? (
+            <Link href={"./points"}>
+              <Button
+                intent="tertiary"
+                iconPosition="right"
+                size="small"
+                className="border-none text-violet-normal"
+                icon={<ChevronRight className="w-4 h-4" />}
+              >
+                View All
+              </Button>
+            </Link>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
 
       {/* Balance Cards */}

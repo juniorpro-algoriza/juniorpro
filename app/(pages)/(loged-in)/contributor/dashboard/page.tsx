@@ -1,11 +1,10 @@
 import { JuniorsTable } from "../juniors/components";
 import {
   DashboardHeader,
-  DashboardJuniors,
+  // DashboardJuniors,
   DashboardPoints,
   DashboardProjects,
 } from "./components";
-
 
 interface Props {
   params: { id: string }; // contributor id
@@ -14,7 +13,7 @@ interface Props {
 
 const DashboardPage = async ({ params, searchParams }: Props) => {
   const contributorId = Number(params.id);
-  const pageNumber = Number(searchParams?.page) || 1; 
+  const pageNumber = Number(searchParams?.page) || 1;
   return (
     <div className="min-h-screen py-3 px-6 bg-stone-50">
       {/* Header */}

@@ -24,8 +24,8 @@ export const ProfileTabs = ({ profile }: ProfileProps) => {
     <Tabs
       tabs={tabsData}
       tabListClassName="flex space-x-0 bg-[#E8EDFF] p-0 mb-0 w-full rounded-t-none rounded-b-2xl"
-      selectedTabClassName="px-6 py-3 transition-all duration-200 focus:outline-none focus:ring-0 text-violet-normal"
-      unselectedTabClassName="px-6 py-3 transition-all duration-200 focus:outline-none focus:ring-0 text-gray-600 border-transparent hover:text-violet-normal"
+      selectedTabClassName="md:px-6 px-3 py-3 transition-all duration-200 focus:outline-none focus:ring-0 text-violet-normal"
+      unselectedTabClassName="md:px-6 px-3 py-3 transition-all duration-200 focus:outline-none focus:ring-0 text-gray-600 border-transparent hover:text-violet-normal"
       tabPanelClassName="p-0"
     />
   );

@@ -1,5 +1,5 @@
 "use server";
-import { getJuniorStatistic } from "@server";
+// import { getJuniorStatistic } from "@server";
 import {
   DashboardCards,
   DashboardHeader,

@@ -21,11 +21,11 @@ export const DashboardHeader = () => {
         </div>
 
         <div className="flex items-center space-x-2 mt-4">
-          <h2 className="text-3xl text-violet-normal font-medium">
+          <h2 className="text-xl md:text-3xl text-violet-normal font-medium">
             Welcome, {firstName} {lastName}!
           </h2>
         </div>
-        <p className="text-storm-500 text-xl mt-1">
+        <p className="text-storm-500 text-lg md:text-xl mt-1">
           Ready to continue your learning adventure?
         </p>
       </div>

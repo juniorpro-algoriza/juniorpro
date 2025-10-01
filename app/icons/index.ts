@@ -28,3 +28,4 @@ export { WalletIcon } from "./WalletIcon";
 export { EyeCloseIcon } from "./EyeCloseIcon";
 export { EyeIcon } from "./EyeIcon";
 export { LeftArrowIcon } from "./LeftArrowIcon";
+export { BurgerIcon } from "./BurgerIcon";

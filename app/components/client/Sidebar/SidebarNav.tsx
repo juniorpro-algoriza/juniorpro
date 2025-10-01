@@ -3,7 +3,7 @@
 import { useSidebar } from "@atoms";
 import {
   CalendarIcon,
-  ChatIcon,
+  // ChatIcon,
   DiamondIcon,
   DocumentIcon,
   FolderDetailsIcon,

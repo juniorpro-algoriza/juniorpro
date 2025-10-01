@@ -69,7 +69,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
                 <Button
                   intent="primary"
                   size={isSmallScreen ? "small" : "medium"}
-                  className="h-11 px-5"
+                  className="h-11 px-2 md:px-5"
                 >
                   Add {config.entity}
                 </Button>
@@ -81,7 +81,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
                     <Button
                       intent="tertiary"
                       size={isSmallScreen ? "small" : "medium"}
-                      className="h-11 px-5 flex items-center gap-2"
+                      className="h-11 px-2 md:px-5 flex items-center gap-2"
                     >
                       <DiamondIcon />
                       Assign Points
