@@ -3,7 +3,11 @@ import {
   projectStatus,
   projectTypes,
 } from "../(pages)/(loged-in)/admin/projects/new/components/helpers";
-import type { NormalizedProject, ProjectType } from "../types/Projects";
+import type {
+  NormalizedProject,
+  ProjectStatus,
+  ProjectType,
+} from "../types/Projects";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function normalizeProject(apiProject: any): NormalizedProject {
@@ -16,8 +20,9 @@ export function normalizeProject(apiProject: any): NormalizedProject {
     : "Free Solo";
   // Lookup status
   const statusObj = projectStatus.find((s) => s.value === apiProject.status);
-  const status = statusObj ? statusObj.label : "Draft";
-
+  const status: ProjectStatus = statusObj
+    ? (statusObj.label as ProjectStatus)
+    : "Draft";
   // Lookup ageRange
   const ageRangeObj = ageRanges.find((a) => a.value === apiProject.ageRange);
   const ageRange = ageRangeObj ? ageRangeObj.label : "Not specified";

@@ -48,13 +48,16 @@ export const ProjectCard = ({
   onJoinSuccess,
 }: ProjectCardProps) => {
   const { id, category, description, imageUrl, projectType, status, ageRange } =
-    project;
+    project as NormalizedProject & { status: string };
 
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
 
-  const statusVariant: "gray" | "green" | "orange" =
-    status === "Draft" ? "gray" : status === "Published" ? "green" : "orange";
+  const statusVariant = (status: string): "gray" | "green" | "orange" => {
+    if (status === "Draft") return "gray";
+    if (status === "Published") return "green";
+    return "orange";
+  };
 
   const handleJoinProject = async () => {
     if (joined) return;
@@ -69,7 +72,7 @@ export const ProjectCard = ({
 
       toast.success("Successfully joined the project!");
       setJoined(true);
-      onJoinSuccess?.(id);
+      onJoinSuccess?.(Number(id));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.message || "Failed to join project");
@@ -129,7 +132,7 @@ export const ProjectCard = ({
           {showStatus && (
             <Badge
               label={status}
-              variant={statusVariant}
+              variant={statusVariant(status)}
               className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
             />
           )}

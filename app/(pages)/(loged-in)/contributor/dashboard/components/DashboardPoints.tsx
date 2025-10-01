@@ -1,7 +1,6 @@
 import { Button, ModalLink, PointsCard } from "@components";
 import { EmptyData } from "@components/client";
 import { DiamondIcon, WalletIcon } from "@icons";
-import { getPointsData } from "@server";
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 import type { SVGProps } from "react";
@@ -19,19 +18,20 @@ interface PointsData {
   juniors: Junior[];
 }
 
-export const DashboardPoints = async () => {
-  const { pointsBalance, cashBalance, juniors }: PointsData =
-    await getPointsData();
-
+export const DashboardPoints = async ({
+  pointsData,
+}: {
+  pointsData: PointsData;
+}) => {
   const data = [
     {
       title: "Points Balance",
-      value: pointsBalance,
+      value: pointsData?.pointsBalance,
       Icon: DiamondIcon as React.FC<SVGProps<SVGSVGElement>>,
     },
     {
       title: "Cash Balance",
-      value: cashBalance,
+      value: pointsData?.cashBalance,
       Icon: WalletIcon as React.FC<SVGProps<SVGSVGElement>>,
     },
   ];
@@ -41,9 +41,9 @@ export const DashboardPoints = async () => {
       <div>
         <div className="flex items-center justify-between">
           <h3 className="text-lg md:text-2xl font-medium text-yankees-blue">
-            Points Allocation ({juniors.length})
+            Points Allocation ({pointsData?.juniors?.length})
           </h3>
-          {juniors.length ? (
+          {pointsData?.juniors?.length ? (
             <Link href={"./points"}>
               <Button
                 intent="tertiary"
@@ -70,8 +70,8 @@ export const DashboardPoints = async () => {
 
       {/* Points List */}
       <div className="space-y-4">
-        {juniors.length ? (
-          juniors.map(({ name, points, id }) => (
+        {pointsData?.juniors.length ? (
+          pointsData?.juniors?.map(({ name, points, id }) => (
             <div
               key={id}
               className="flex items-end justify-between p-3 rounded-2xl border border-antiflash-white shadow-sm"
