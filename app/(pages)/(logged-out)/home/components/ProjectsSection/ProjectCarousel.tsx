@@ -1,19 +1,22 @@
 'use client';
 
-import {ProjectCard} from '@components';
-import {InfiniteCarousel} from '@components/client';
-import type {Project, ProjectType} from '@types';
-import {capitalize, pickRandom, sleep} from '@utils';
-import {getRandomUniqueId} from '@utils/server';
+import { ProjectCard } from '@components';
+import { InfiniteCarousel } from '@components/client';
+import { useState } from 'react';
+import { NormalizedProject } from '../../../../../types/Projects';
+import { getLandingProjects } from '../../server';
 
 interface ProjectCarouselProps {
-  projects: Project[];
-  projectType?: ProjectType;
+  projects: NormalizedProject[];
+  projectType?: number; // 1 = Team, 2 = Premium, 3 = Free
 }
+
 export const ProjectsCarousel = ({
   projects: initialProjects,
   projectType,
 }: ProjectCarouselProps) => {
+  const [currentPage, setCurrentPage] = useState(2); // Start from page 2 since page 1 is already loaded
+
   return (
     <InfiniteCarousel
       className="p-4"
@@ -21,19 +24,20 @@ export const ProjectsCarousel = ({
       renderItem={(project) => (
         <ProjectCard
           project={project}
-          badgeText="projectType"
+          buttonText="Join Now"
           showDescription={true}
-          showBadgeNextToDueDate={false}
-          showDueDate={true}
-          showJuniors={false}
-          showBadge={false}
-          showRating={false}
+          showLastUpdated={true}
         />
       )}
-      getItemKey={(project) => project.id}
-      loadMore={async () =>
-        await loadMoreProjects({initialProjects, projectType})
-      }
+getItemKey={(project, index) => `${project.id}-${projectType}-${index}`}
+      loadMore={async () => {
+        const newProjects = await loadMoreProjects({
+          projectType,
+          pageNumber: currentPage,
+        });
+        setCurrentPage((prev) => prev + 1);
+        return newProjects;
+      }}
       maxItems={50}
       viewAllText="View All"
       onViewAll={() => {
@@ -44,29 +48,24 @@ export const ProjectsCarousel = ({
 };
 
 type LoadMoreProjectsParams = {
-  initialProjects: Project[];
-  projectType?: ProjectType;
+  projectType?: number;
+  pageNumber: number;
 };
 
 const loadMoreProjects = async ({
-  initialProjects,
   projectType,
-}: LoadMoreProjectsParams): Promise<Project[]> => {
-  await sleep(1);
-  const last = initialProjects[initialProjects.length - 1];
+  pageNumber,
+}: LoadMoreProjectsParams): Promise<NormalizedProject[]> => {
+  try {
+    const { data } = await getLandingProjects({
+      pageNumber,
+      pageSize: 6,
+      projectType,
+    });
 
-  const arr = Array.from({length: 6}, (_, i) => i);
-  const projectsNew = arr.map(async () => {
-    let finalProjectType: ProjectType = 'solo';
-    if (projectType) finalProjectType = projectType;
-    else finalProjectType = pickRandom(['solo', 'team', 'web', 'coding']);
-    const id = await getRandomUniqueId();
-    const newProject = {
-      ...last,
-      id: `$project-${id}`,
-      title: `${capitalize(finalProjectType)} Project - ${id.slice(0, 3)}`,
-    };
-    return newProject;
-  });
-  return Promise.all(projectsNew);
+    return data;
+  } catch (error) {
+    console.error('Error loading more projects:', error);
+    return [];
+  }
 };

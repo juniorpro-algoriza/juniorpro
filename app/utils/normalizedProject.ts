@@ -4,7 +4,7 @@ import type { NormalizedProject, ProjectType } from "../types/Projects";
 export function normalizeProject(apiProject: any): NormalizedProject {
   // Lookup projectType
   const projectTypeObj = projectTypes.find(pt => pt.value === apiProject.projectType);
-const projectType: ProjectType = projectTypeObj ? (projectTypeObj.label.trim() as ProjectType) : "Free";
+const projectType: ProjectType = projectTypeObj ? (projectTypeObj.label.trim() as ProjectType) : "Free Solo";
   // Lookup status
   const statusObj = projectStatus.find(s => s.value === apiProject.status);
   const status = statusObj ? statusObj.label : "Draft";

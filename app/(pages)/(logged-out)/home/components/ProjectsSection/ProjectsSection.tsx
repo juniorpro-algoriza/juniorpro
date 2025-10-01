@@ -1,62 +1,47 @@
-import {Tab, TabGroup, TabList, TabPanel, TabPanels} from '@headlessui/react';
-import {ProjectsHeader} from './ProjectsHeader';
-import {tabClassName, tabListClassName} from '@styles';
-import {ProjectsCarousel} from './ProjectCarousel';
-import {twMerge} from 'tailwind-merge';
-import {getProjects} from '@server';
-import type {Project, ProjectType} from '@types';
+
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { ProjectsHeader } from './ProjectsHeader';
+import { tabClassName, tabListClassName } from '@styles';
+import { ProjectsCarousel } from './ProjectCarousel';
+import { twMerge } from 'tailwind-merge';
+import { getLandingProjects } from '../../server';
+import { NormalizedProject } from '../../../../../types/Projects';
 
 export const ProjectsSection = async () => {
-  const {data: allProjects} = await getProjects({
-    limit: 10,
-    pageNum: 1,
-    projectType: 'all',
+  // Fetch all projects
+  const { data: allProjects } = await getLandingProjects({
+    pageNumber: 1,
+    pageSize: 10,
   });
 
-  const {data: soloProjects} = await getProjects({
-    limit: 10,
-    pageNum: 1,
-    projectType: 'solo',
+  // Fetch Team projects (ProjectType = 1)
+  const { data: teamProjects } = await getLandingProjects({
+    pageNumber: 1,
+    pageSize: 10,
+    projectType: 1,
   });
 
-  const {data: teamProjects} = await getProjects({
-    limit: 10,
-    pageNum: 1,
-    projectType: 'team',
+  // Fetch Solo projects (ProjectType = 2 or 3)
+  const { data: soloProjects } = await getLandingProjects({
+    pageNumber: 1,
+    pageSize: 10,
+    projectType: 2, // You can combine 2 and 3 if needed
   });
 
-  const {data: webProjects} = await getProjects({
-    limit: 10,
-    pageNum: 1,
-    projectType: 'web',
-  });
-
-  const {data: codingProjects} = await getProjects({
-    limit: 10,
-    pageNum: 1,
-    projectType: 'coding',
-  });
-
-  const projects: {projectType: ProjectType; items: Project[]}[] = [
+  const projects: { title: string; items: NormalizedProject[]; projectType?: number }[] = [
     {
-      projectType: 'all',
+      title: 'All',
       items: allProjects,
     },
     {
-      projectType: 'solo',
+      title: 'Solo Projects',
       items: soloProjects,
+      projectType: 2,
     },
     {
-      projectType: 'team',
+      title: 'Team Projects',
       items: teamProjects,
-    },
-    {
-      projectType: 'web',
-      items: webProjects,
-    },
-    {
-      projectType: 'coding',
-      items: codingProjects,
+      projectType: 1,
     },
   ];
 
@@ -66,24 +51,24 @@ export const ProjectsSection = async () => {
       <TabGroup className="pt-8">
         <div className="flex justify-center px-4">
           <TabList className={tabListClassName}>
-            {projects.map(({projectType}) => {
+            {projects.map(({ title }) => {
               return (
                 <Tab
                   className={twMerge(tabClassName, 'capitalize')}
-                  key={projectType}>
-                  {projectType}
+                  key={title}>
+                  {title}
                 </Tab>
               );
             })}
           </TabList>
         </div>
         <TabPanels className="pt-10">
-          {projects.map(({items, projectType}) => {
+          {projects.map(({ items, title, projectType }) => {
             return (
-              <TabPanel key={projectType}>
+              <TabPanel key={title}>
                 <ProjectsCarousel
                   projects={items}
-                  projectType={projectType === 'all' ? undefined : projectType}
+                  projectType={projectType}
                 />
               </TabPanel>
             );
