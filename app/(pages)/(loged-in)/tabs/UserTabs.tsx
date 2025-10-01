@@ -43,7 +43,6 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
     });
 
     console.log("Contributor Juniors:", res);
-
     juniors = res?.data || [];
   }
 
@@ -101,11 +100,9 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
                   showDescription={false}
                   showDueDate={false}
                   showJuniors={true}
-                  showJuniorsCountOnly={true}
                   showRating={false}
                   showBadge={true}
                   showBadgeNextToDueDate={false}
-                  badgeText={project.status}
                 />
               ))}
             </div>
@@ -125,11 +122,9 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
                   showDescription={false}
                   showDueDate={false}
                   showJuniors={true}
-                  showJuniorsCountOnly={true}
                   showRating={false}
                   showBadge={true}
                   showBadgeNextToDueDate={false}
-                  badgeText={project.status}
                 />
               ))}
             </div>

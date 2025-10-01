@@ -70,7 +70,6 @@ const ProjectsPage = async ({searchParams}: ProjectsPageProps) => {
                   showDescription={false}
                   showDueDate={true}
                   showJuniors={true}
-                  badgeText="status"
                   showBadgeNextToDueDate={false}
                   showBadge={true}
                   showRating={false}

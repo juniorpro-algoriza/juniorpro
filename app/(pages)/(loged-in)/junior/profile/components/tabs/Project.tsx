@@ -20,8 +20,7 @@ export const Projects = () => {
         const { data: projectsData } = await getProjects({
           limit: 30,
           pageNum: 1,
-          projectType: 'all',
-        });
+                      });
 
         const completedProjects: Project[] = projectsData.map((p) => ({
           ...p,
@@ -77,7 +76,6 @@ export const Projects = () => {
                     showDescription={false}
                     showDueDate={true}
                     showJuniors={true}
-                    badgeText='status'
                     showBadgeNextToDueDate={false}
                     showBadge={true}
                     showRating={false}
