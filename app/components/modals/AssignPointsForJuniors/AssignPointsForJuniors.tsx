@@ -68,7 +68,7 @@ export const AssignPointsForJuniors = ({
       await getData({
         url: "Contributor/assign-points-to-junior",
         method: "POST",
-        body: { juniorId: selectedJunior, points },
+        params: { juniorId: selectedJunior, points },
       });
 
       toast.success("Points assigned successfully!");

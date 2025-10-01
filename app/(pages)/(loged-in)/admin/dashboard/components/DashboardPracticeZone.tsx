@@ -16,7 +16,7 @@ export const DashboardPracticeZone = async () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-medium text-yankees-blue">
-          Practice Zone ({practiceZoneProjects.length})
+          Practice Zone ({total})
         </h2>
         {hasNextPage && (
           <Link
@@ -41,7 +41,7 @@ export const DashboardPracticeZone = async () => {
             showRating={false}
             showBadge={true}
             showBadgeNextToDueDate={false}
-            buttonText="Start Practice" 
+            buttonText="View Project" 
           />
         ))}
       </div>

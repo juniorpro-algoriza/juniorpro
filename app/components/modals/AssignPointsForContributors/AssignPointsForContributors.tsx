@@ -42,7 +42,7 @@ export const AssignPointsForContributors = ({
    await getData({
     url: "Contributor/assign-points-by-admin",
     method: "POST",
-    body: { contributorId: selectedContributor, points }
+    params: { contributorId: selectedContributor, points }
   });
 
       toast.success("Points assigned successfully!");
