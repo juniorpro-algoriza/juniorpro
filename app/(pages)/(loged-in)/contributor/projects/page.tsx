@@ -1,12 +1,17 @@
 // app/contributor/projects/index.tsx
-import { Button, ProjectCard } from "@components";
+import { ProjectCard } from "@components";
 import { ProjectsHeader } from "../../admin/projects/components";
 import { NormalizedProject } from "../../../../types/Projects";
 import { getContributorJuniorProjects } from "../../../../server/getContributorJuniorProjects";
 
 const ProjectsPage = async () => {
-  const { data: projects } = await getContributorJuniorProjects({ pageNumber: 1, pageSize: 30 });
-  const completedProjects: NormalizedProject[] = projects.map((p) => ({ ...p }));
+  const { data: projects } = await getContributorJuniorProjects({
+    pageNumber: 1,
+    pageSize: 30,
+  });
+  const completedProjects: NormalizedProject[] = projects.map((p) => ({
+    ...p,
+  }));
 
   return (
     <main className="min-h-screen px-6 py-3 bg-stone-50">
@@ -19,7 +24,10 @@ const ProjectsPage = async () => {
         </div>
         <div className="flex flex-wrap gap-2 px-2 xl:gap-6 md:px-2 xl:px-6 pb-3 md:pb-10">
           {completedProjects.map((p) => (
-            <div key={p.id} className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]">
+            <div
+              key={p.id}
+              className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]"
+            >
               <ProjectCard
                 project={p}
                 showDescription={false}

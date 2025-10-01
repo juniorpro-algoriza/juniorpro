@@ -1,14 +1,18 @@
-import Link from 'next/link';
-import { Button, ProjectCard } from '@components';
-import { ChevronRightIcon } from 'lucide-react';
-import { getContributorJuniorProjects } from '../../../../../server/getContributorJuniorProjects';
-import { NormalizedProject } from '../../../../../types/Projects';
-import { ProjectsHeader } from '../../projects/components';
-import { EmptyData } from '@components/client';
+import Link from "next/link";
+import { Button, ProjectCard } from "@components";
+import { ChevronRightIcon } from "lucide-react";
+import { getContributorJuniorProjects } from "../../../../../server/getContributorJuniorProjects";
+import { NormalizedProject } from "../../../../../types/Projects";
+import { EmptyData } from "@components/client";
 
 export const DashboardProjects = async () => {
-  const { data: projects } = await getContributorJuniorProjects({ pageNumber: 1, pageSize: 3 });
-  const completedProjects: NormalizedProject[] = projects.map((p) => ({ ...p }));
+  const { data: projects } = await getContributorJuniorProjects({
+    pageNumber: 1,
+    pageSize: 3,
+  });
+  const completedProjects: NormalizedProject[] = projects.map((p) => ({
+    ...p,
+  }));
 
   return (
     <main className="px-6 py-3 bg-stone-50">
@@ -58,4 +62,3 @@ export const DashboardProjects = async () => {
     </main>
   );
 };
-

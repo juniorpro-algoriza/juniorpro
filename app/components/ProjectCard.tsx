@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { Button, Badge } from "@components";
-import { CalendarDaysIcon, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { ProjectType } from "@types";
 import { NormalizedProject } from "../types/Projects";
 import { getData } from "@server";
 import { toast } from "sonner";
+import Image from "next/image";
 interface ProjectCardProps {
   project: NormalizedProject;
   className?: string;
@@ -26,7 +27,7 @@ interface ProjectCardProps {
 
 // Type-safe map for projectType -> Badge variant
 const projectColorMap: Record<ProjectType, "blue" | "red" | "green"> = {
-  "Team": "blue",
+  Team: "blue",
   "Premium Solo": "red",
   "Free Solo": "green",
 };
@@ -36,17 +37,18 @@ export const ProjectCard = ({
   className = "",
   buttonText = "View Project",
   showDescription = true,
-  showLastUpdated = true,
+  // showLastUpdated = true,
   showAge = true,
   showStatus = false,
-  showProjectType=false,
-  showDueDate = false,
-  showJuniors = false,
-  showBadgeNextToDueDate = false,
-  showRating = false,
+  showProjectType = false,
+  // showDueDate = false,
+  // showJuniors = false,
+  // showBadgeNextToDueDate = false,
+  // showRating = false,
   onJoinSuccess,
 }: ProjectCardProps) => {
-  const { id, category, description, imageUrl, projectType, status, modificationDate, ageRange } = project;
+  const { id, category, description, imageUrl, projectType, status, ageRange } =
+    project;
 
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
@@ -59,7 +61,7 @@ export const ProjectCard = ({
 
     setIsJoining(true);
     try {
-    await getData({
+      await getData({
         url: "projectjunior/join",
         method: "POST",
         params: { projectId: id },
@@ -83,7 +85,11 @@ export const ProjectCard = ({
       {/* Image */}
       <div className="relative w-full h-48">
         {imageUrl ? (
-          <img src={imageUrl} alt="project image" className="object-cover w-full h-full" />
+          <Image
+            src={imageUrl}
+            alt="project image"
+            className="object-cover w-full h-full"
+          />
         ) : (
           <div className="bg-gray-100 w-full h-full flex items-center justify-center text-gray-400">
             No Image Added
@@ -100,7 +106,9 @@ export const ProjectCard = ({
       <div className="p-4 flex flex-col justify-between">
         {/* Title & Description */}
         <div className="mb-3">
-          <h4 className="text-lg font-semibold text-yankees-blue mb-1">{project.title}</h4>
+          <h4 className="text-lg font-semibold text-yankees-blue mb-1">
+            {project.title}
+          </h4>
           {showDescription && description && (
             <p className="text-sm text-gray-600 line-clamp-3">{description}</p>
           )}
@@ -109,18 +117,26 @@ export const ProjectCard = ({
         {/* Badges */}
         <div className="flex gap-2 pb-3 overflow-hidden whitespace-nowrap">
           {showStatus && (
-            <Badge label={status} variant={statusVariant} className="px-3 py-1 text-xs" />
+            <Badge
+              label={status}
+              variant={statusVariant}
+              className="px-3 py-1 text-xs"
+            />
           )}
           {showProjectType && (
-          <Badge
-            label={projectType}
-            variant={projectColorMap[projectType]}
-            className="px-3 py-1 text-xs"
-          />
+            <Badge
+              label={projectType}
+              variant={projectColorMap[projectType]}
+              className="px-3 py-1 text-xs"
+            />
           )}
 
           {showAge && (
-            <Badge label={`Age: ${ageRange}`} variant="blue" className="px-3 py-1 text-xs" />
+            <Badge
+              label={`Age: ${ageRange}`}
+              variant="blue"
+              className="px-3 py-1 text-xs"
+            />
           )}
         </div>
 

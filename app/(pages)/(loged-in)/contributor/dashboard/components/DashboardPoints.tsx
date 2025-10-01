@@ -20,7 +20,8 @@ interface PointsData {
 }
 
 export const DashboardPoints = async () => {
-  const { pointsBalance, cashBalance, juniors }: PointsData = await getPointsData();
+  const { pointsBalance, cashBalance, juniors }: PointsData =
+    await getPointsData();
 
   const data = [
     {
@@ -66,26 +67,27 @@ export const DashboardPoints = async () => {
       {/* Points List */}
       <div className="space-y-4">
         {juniors.length ? (
-          juniors.map(({ name, points, id }, index) => (
+          juniors.map(({ name, points, id }) => (
             <div
               key={id}
               className="flex items-end justify-between p-3 rounded-2xl border border-antiflash-white shadow-sm"
             >
               <div className="flex flex-col gap-2">
                 <p className="font-medium">{name}</p>
-                <p className="text-2xl font-medium text-violet-normal">{points}</p>
+                <p className="text-2xl font-medium text-violet-normal">
+                  {points}
+                </p>
               </div>
-         <ModalLink
-          name="AssignPointsForJuniors"
->          <Button
-            intent="tertiary"
-            size="small"
-            className="text-violet-normal border-violet-normal p-2"
-          >
-            <Plus className="w-4 h-4" />
-          </Button>
-        </ModalLink>
-
+              <ModalLink name="AssignPointsForJuniors">
+                {" "}
+                <Button
+                  intent="tertiary"
+                  size="small"
+                  className="text-violet-normal border-violet-normal p-2"
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </ModalLink>
             </div>
           ))
         ) : (
