@@ -1,10 +1,11 @@
-import { projectTypes, projectStatus, ageRanges } from "../(pages)/(loged-in)/admin/projects/new/components/helpers";
+import { ageRanges, projectStatus, projectTypes } from "../(pages)/(loged-in)/admin/projects/new/components/helpers";
 import type { NormalizedProject, ProjectType } from "../types/Projects";
 
 export function normalizeProject(apiProject: any): NormalizedProject {
   // Lookup projectType
   const projectTypeObj = projectTypes.find(pt => pt.value === apiProject.projectType);
-const projectType: ProjectType = projectTypeObj ? (projectTypeObj.label.trim() as ProjectType) : "Free Solo";
+  const projectType: ProjectType = projectTypeObj ? (projectTypeObj.label.trim() as ProjectType) : "Free Solo";
+
   // Lookup status
   const statusObj = projectStatus.find(s => s.value === apiProject.status);
   const status = statusObj ? statusObj.label : "Draft";
@@ -15,7 +16,7 @@ const projectType: ProjectType = projectTypeObj ? (projectTypeObj.label.trim() a
 
   return {
     id: apiProject.id,
-    title: apiProject.nameEn,
+    title: apiProject.nameEn || apiProject.projectNameEn || "Untitled Project",
     description: apiProject.levelNameEn || "",
     imageUrl: apiProject.image,
     category: apiProject.categoryNameEn,

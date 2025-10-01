@@ -18,8 +18,19 @@ export async function getContributorJuniorProjects(
   params: getContributorJuniorProjectsParams = {}
 ): Promise<{ data: NormalizedProject[]; total: number }> {
   try {
+    const { pageNumber = 1, pageSize = 10, categoryId, projectManagerId, projectType, searchText } = params;
+
+    // Construct query string
+    const queryParams = new URLSearchParams();
+    queryParams.append("pageNumber", pageNumber.toString());
+    queryParams.append("pageSize", pageSize.toString());
+    if (categoryId) queryParams.append("categoryId", categoryId.toString());
+    if (projectManagerId) queryParams.append("projectManagerId", projectManagerId.toString());
+    if (projectType) queryParams.append("projectType", projectType.toString());
+    if (searchText) queryParams.append("searchText", searchText);
+
     const json = await getData<{ data: Project[]; pg_total?: number }>({
-      url: "contributor-dashboard/juniors-projects",
+      url: `contributor-dashboard/juniors-projects?${queryParams.toString()}`,
       method: "GET",
       dummyData: { data: [], pg_total: 0 },
     });
@@ -28,10 +39,11 @@ export async function getContributorJuniorProjects(
 
     return {
       data: normalizedProjects,
-      total: normalizedProjects.length,
+      total: json.pg_total ?? normalizedProjects.length,
     };
   } catch (error) {
     console.error("Error fetching contributor projects:", error);
     return { data: [], total: 0 };
   }
 }
+

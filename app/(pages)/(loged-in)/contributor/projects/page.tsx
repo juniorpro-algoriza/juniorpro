@@ -28,7 +28,8 @@ const ProjectsPage = async () => {
                 showBadge
                 showRating={false}
                 showAge={false}
-                buttonText="Join Project"
+                showProjectType={false}
+                buttonText="View Project"
               />
             </div>
           ))}

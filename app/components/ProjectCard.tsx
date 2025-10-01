@@ -1,54 +1,65 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
+'use client';
 
 import { useState } from "react";
 import { Button, Badge } from "@components";
 import { CalendarDaysIcon, Check } from "lucide-react";
+import { ProjectType } from "@types";
 import { NormalizedProject } from "../types/Projects";
 import { getData } from "@server";
 import { toast } from "sonner";
-
 interface ProjectCardProps {
   project: NormalizedProject;
   className?: string;
   buttonText?: string;
   showDescription?: boolean;
   showLastUpdated?: boolean;
-  showAge:boolean
+  showAge?: boolean;
   showBadge?: boolean;
-  showJuniors?: boolean;
   showDueDate?: boolean;
+  showJuniors?: boolean;
   showBadgeNextToDueDate?: boolean;
-  showRating?: boolean;
   showStatus?: boolean;
+  showRating?: boolean;
+  showProjectType?: boolean;
   onJoinSuccess?: (projectId: number) => void;
 }
+
+// Type-safe map for projectType -> Badge variant
+const projectColorMap: Record<ProjectType, "blue" | "red" | "green"> = {
+  "Team": "blue",
+  "Premium Solo": "red",
+  "Free Solo": "green",
+};
 
 export const ProjectCard = ({
   project,
   className = "",
-  buttonText = "",
+  buttonText = "View Project",
   showDescription = true,
   showLastUpdated = true,
-  showStatus=true,
-  showAge=true,
+  showAge = true,
+  showStatus = false,
+  showProjectType=false,
+  showDueDate = false,
+  showJuniors = false,
+  showBadgeNextToDueDate = false,
+  showRating = false,
   onJoinSuccess,
 }: ProjectCardProps) => {
-  const { id, category, description, imageUrl, projectType, status, modificationDate, ageRange, isJoined } =
-    project;
+  const { id, category, description, imageUrl, projectType, status, modificationDate, ageRange } = project;
 
   const [isJoining, setIsJoining] = useState(false);
-  const [joined, setJoined] = useState(isJoined || false);
+  const [joined, setJoined] = useState(false);
 
-  const statusVariant =
+  const statusVariant: "gray" | "green" | "orange" =
     status === "Draft" ? "gray" : status === "Published" ? "green" : "orange";
 
   const handleJoinProject = async () => {
-    if (joined) return; // Prevent joining if already joined
+    if (joined) return;
 
     setIsJoining(true);
     try {
-      await getData({
+    await getData({
         url: "projectjunior/join",
         method: "POST",
         params: { projectId: id },
@@ -57,9 +68,8 @@ export const ProjectCard = ({
       toast.success("Successfully joined the project!");
       setJoined(true);
       onJoinSuccess?.(id);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error joining project:", error);
-      toast.error(error.message || "Failed to join project");
     } finally {
       setIsJoining(false);
     }
@@ -73,17 +83,12 @@ export const ProjectCard = ({
       {/* Image */}
       <div className="relative w-full h-48">
         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="project image"
-            className="object-cover w-full h-full"
-          />
+          <img src={imageUrl} alt="project image" className="object-cover w-full h-full" />
         ) : (
           <div className="bg-gray-100 w-full h-full flex items-center justify-center text-gray-400">
             No Image Added
           </div>
         )}
-
         {category && (
           <span className="absolute top-2 left-2 px-3 py-1 text-xs font-medium rounded-full bg-violet-50 text-violet-normal">
             {category}
@@ -101,41 +106,23 @@ export const ProjectCard = ({
           )}
         </div>
 
-        {/* BADGES */}
+        {/* Badges */}
         <div className="flex gap-2 pb-3 overflow-hidden whitespace-nowrap">
-        {showStatus &&(
-
+          {showStatus && (
+            <Badge label={status} variant={statusVariant} className="px-3 py-1 text-xs" />
+          )}
+          {showProjectType && (
           <Badge
-            label={status}
-            variant={statusVariant}
-            className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
+            label={projectType}
+            variant={projectColorMap[projectType]}
+            className="px-3 py-1 text-xs"
           />
           )}
-          {/* till it returns from backend */}
-          {/* <Badge
-            label={projectType}
-            variant="purple"
-            className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
-          /> */}
-        {showAge &&(
-          <Badge
-            label={`Age: ${ageRange}`}
-            variant="blue"
-            className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
-          />
-        )}
 
+          {showAge && (
+            <Badge label={`Age: ${ageRange}`} variant="blue" className="px-3 py-1 text-xs" />
+          )}
         </div>
-
-        {/* Metadata */}
-        {/* {showLastUpdated && (
-          <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
-            <CalendarDaysIcon className="w-4 h-4" />
-            <span>
-              Last Updated: {modificationDate ? new Date(modificationDate).toLocaleDateString() : "N/A"}
-            </span>
-          </div>
-        )} */}
 
         {/* CTA */}
         <Button

@@ -1,15 +1,25 @@
 'use server';
+import { getData } from '@server';
 
-export const getPointsData = async () => {
-  return dummyData;
-};
+export interface JuniorPoints {
+  id: number;
+  name: string;
+  points: number;
+}
 
-const dummyData = {
-  pointsBalance: 2500,
-  cashBalance: 500,
-  allocations: [
-    { name: 'Alex', points: 950 },
-    { name: 'Alex', points: 950 },
-    { name: 'Alex', points: 950 },
-  ],
+export interface PointsData {
+  pointsAllocation: number;
+  pointsBalance: number;
+  cashBalance: number;
+  juniors: JuniorPoints[];
+}
+
+// Fetch points data from the API using getData
+export const getPointsData = async (): Promise<PointsData> => {
+  const data = await getData({
+    url: 'contributor-dashboard/points-allocation',
+    method: 'GET',
+  });
+
+  return data as PointsData;
 };

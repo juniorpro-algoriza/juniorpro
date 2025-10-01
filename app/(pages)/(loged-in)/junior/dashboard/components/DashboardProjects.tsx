@@ -1,5 +1,5 @@
 import { getJoinedProjects } from '@server';
-import { ProjectsCarousel } from './ProjectCarousel';
+import { ProjectsCarousel } from '.';
 export const DashboardProjects = async () => {
   // Fetch team projects only (projectType = 1)
   const { data: teamProjects } = await getJoinedProjects({

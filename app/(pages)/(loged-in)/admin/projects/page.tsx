@@ -70,6 +70,8 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
                 showBadgeNextToDueDate={false}
                 showBadge={true}
                 showRating={false}
+                 showStatus={true}
+            showAge={true}
                 buttonText="View Project"
               />
             </div>

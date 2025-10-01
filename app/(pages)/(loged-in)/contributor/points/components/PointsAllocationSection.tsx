@@ -1,8 +1,33 @@
+'use client';
+
 import { DiamondIcon, WalletIcon } from '@icons';
 import { getPointsData } from '@server';
+import { useEffect, useState } from 'react';
+import { PointsData } from '../../../../../server/getPointsData';
 
-export const PointsAllocationSection = async () => {
-  const { pointsBalance, cashBalance } = await getPointsData();
+export const PointsAllocationSection = () => {
+  const [data, setData] = useState<PointsData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPoints = async () => {
+      try {
+        const pointsData = await getPointsData();
+        setData(pointsData);
+      } catch (error) {
+        console.error('Error fetching points data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPoints();
+  }, []);
+
+  if (loading || !data) return <p>Loading...</p>;
+
+  const { pointsBalance, cashBalance } = data;
+
   return (
     <div className='bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-6 space-y-4'>
       <div>

@@ -1,6 +1,6 @@
 import { MoneyIcon, StarIcon } from '@icons';
 import { getJoinedProjects } from '@server';
-import { ProjectsCarousel } from './ProjectCarousel';
+import { ProjectsCarousel } from '.';
 
 export const DashboardTasks = async () => {
   // Free solo projects (projectType = 3)

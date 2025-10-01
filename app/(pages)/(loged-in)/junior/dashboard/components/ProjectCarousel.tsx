@@ -3,8 +3,10 @@
 import { ProjectCard } from '@components';
 import { InfiniteCarousel } from '@components/client';
 import { getJoinedProjects } from '@server';
-import { sleep } from '@utils';
+import { normalizeProject, sleep } from '@utils';
 import { JoinedProject } from '../../../../../server/getJoinedProjectsJunior';
+import { NormalizedProject } from '../../../../../types/Projects';
+
 
 interface ProjectsCarouselProps {
   projects: JoinedProject[];
@@ -15,32 +17,24 @@ export const ProjectsCarousel = ({
   projects: initialProjects,
   projectType,
 }: ProjectsCarouselProps) => {
-  // Normalize projects to match ProjectCard expected format
-  const normalizedProjects = initialProjects.map((project) => ({
-    id: project.id,
-    title: project.projectNameEn,
-    description: '', 
-    imageUrl: project.image,
-    category: project.categoryNameEn,
-    projectType: project.projectType.toString(),
-    modificationDate: project.modificationDate,
-    isJoined: true,
-  }));
+  // Use normalizeProject to get proper ProjectType
+  const normalizedProjects: NormalizedProject[] = initialProjects.map((project) =>
+    normalizeProject({
+      ...project,
+      projectType: project.projectType, // numeric from API
+      nameEn: project.projectNameEn,
+      categoryNameEn: project.categoryNameEn,
+      levelNameEn: '', // optional description
+    })
+  );
 
-  // Determine if there might be more items (if we got a full page, there might be more)
   const hasMore = initialProjects.length >= 10;
-  
-  // Determine if we should show navigation (more than 1 item)
   const shouldShowNavigation = normalizedProjects.length > 1;
 
   const loadMoreHandler = async ({ numItems }: { numItems: number }) => {
-    // If we have less than 10 initial items, don't load more
-    if (!hasMore) {
-      return [];
-    }
+    if (!hasMore) return [];
 
     await sleep(1);
-    
     const currentPage = Math.ceil(numItems / 10) + 1;
 
     try {
@@ -50,22 +44,17 @@ export const ProjectsCarousel = ({
         projectType: projectType as 1 | 2 | 3 | undefined,
       });
 
-      // Return empty array if no more projects
-      if (!moreProjects || moreProjects.length === 0) {
-        return [];
-      }
+      if (!moreProjects || moreProjects.length === 0) return [];
 
-      // Normalize the new projects
-      return moreProjects.map((project: JoinedProject) => ({
-        id: project.id,
-        title: project.projectNameEn,
-        description: '',
-        imageUrl: project.image,
-        category: project.categoryNameEn,
-        projectType: project.projectType.toString(),
-        modificationDate: project.modificationDate,
-        isJoined: true,
-      }));
+      return moreProjects.map((project: JoinedProject) =>
+        normalizeProject({
+          ...project,
+          projectType: project.projectType,
+          nameEn: project.projectNameEn,
+          categoryNameEn: project.categoryNameEn,
+          levelNameEn: '', // optional description
+        })
+      );
     } catch (error) {
       console.error('Error loading more projects:', error);
       return [];
@@ -74,7 +63,7 @@ export const ProjectsCarousel = ({
 
   return (
     <InfiniteCarousel
-      className='py-4'
+      className="py-4"
       items={normalizedProjects}
       renderItem={(project) => (
         <ProjectCard
@@ -87,6 +76,7 @@ export const ProjectsCarousel = ({
           showAge={false}
           showRating={false}
           showStatus={false}
+          showProjectType={true}
           buttonText="View Project"
         />
       )}
@@ -96,11 +86,10 @@ export const ProjectsCarousel = ({
       maxItems={50}
       showNavigation={shouldShowNavigation}
       showViewAll={hasMore}
-      viewAllText='View All'
+      viewAllText="View All"
       onViewAll={() => {
         console.log('View all joined projects clicked');
       }}
     />
   );
 };
-
