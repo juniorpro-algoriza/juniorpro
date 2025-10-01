@@ -5,6 +5,7 @@ import { getPointsPlans, getProjects } from "@server";
 // import { ProjectsCarousel } from "../home/components/ProjectsSection/ProjectCarousel";
 import { Projects } from "./components/Projects";
 import { Points } from "./components/Points";
+import { cookies } from "next/headers";
 
 const PricingPage = async () => {
   const plans = await getPointsPlans();
@@ -13,9 +14,12 @@ const PricingPage = async () => {
     pageNum: 1,
     projectType: "all",
   });
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
+  const isAuthenticated = !!token;
   return (
     <>
-      <Nav />
+      <Nav isAuthenticated={isAuthenticated} />
       <div className="xl:px-[91px]">
         <section
           style={{ boxShadow: "0px 4px 15px 0px #00000014" }}

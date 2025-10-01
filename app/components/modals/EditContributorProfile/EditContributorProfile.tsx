@@ -41,10 +41,14 @@ export const EditContributorProfile = ({
     async function fetchProfile() {
       setLoading(true);
       try {
-        const data = await getData({
+        const data = await getData<{
+          id: number;
+          name: string;
+          email: string;
+          password: string;
+        }>({
           url: `Contributor/details/${contributorId}`,
           method: "GET",
-          dummyData: [],
         });
 
         const fullName = data?.name || "";
@@ -78,7 +82,7 @@ export const EditContributorProfile = ({
     setError(null);
 
     try {
-      const response = await getData({
+      await getData({
         url: "Contributor/update",
         method: "PUT",
         body: {
@@ -91,15 +95,10 @@ export const EditContributorProfile = ({
         dummyData: [],
       });
 
-      if (response === true || response === "true") {
-        setProfile({ ...profile });
-        onUpdated?.({ ...profile });
-        toast.success("Profile updated successfully!");
-        if (onClose) onClose();
-      } else {
-        setError("Update failed, no success confirmation from API.");
-        console.error("Update response:", response);
-      }
+      setProfile({ ...profile });
+      onUpdated?.({ ...profile });
+      toast.success("Profile updated successfully!");
+      if (onClose) onClose();
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Something went wrong");

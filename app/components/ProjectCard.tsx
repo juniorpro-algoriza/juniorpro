@@ -7,7 +7,7 @@ import { ProjectType } from "@types";
 import { NormalizedProject } from "../types/Projects";
 import { getData } from "@server";
 import { toast } from "sonner";
-// import Image from "next/image";
+import Image from "next/image";
 interface ProjectCardProps {
   project: NormalizedProject;
   className?: string;
@@ -86,12 +86,19 @@ export const ProjectCard = ({
       {/* Image */}
       <div className="relative w-full h-48">
         {imageUrl ? (
-          <img
-            src={imageUrl}
+          <Image
+            src={
+              String(imageUrl).startsWith("/")
+                ? imageUrl
+                : "/images/featued-Project-image.svg"
+            }
             width={500}
             height={500}
             alt="project image"
             className="object-cover w-full h-full"
+            style={{ objectFit: "cover" }}
+            unoptimized={false}
+            priority
           />
         ) : (
           <div className="bg-gray-100 w-full h-full flex items-center justify-center text-gray-400">

@@ -3,7 +3,7 @@
 
 import { cookies } from "next/headers";
 import { getData } from "@server";
-import { UserType } from "../types/UserType";
+import { UserType } from "../../../config/userConfig";
 
 const API_BASE = "https://juniorpro-001-site1.ntempurl.com/api";
 
@@ -12,10 +12,14 @@ export const getUserData = async (
   pageNumber = 1,
   pageSize = 10
 ) => {
-  const json = await getData({
+  const json = await getData<{
+    pageNumber: number;
+    pageSize: number;
+    pg_total: number;
+    data: unknown[];
+  }>({
     url: `${type}/get-all?pageNumber=${pageNumber}&pageSize=${pageSize}`,
     method: "GET",
-    dummyData: [],
   });
 
   return {

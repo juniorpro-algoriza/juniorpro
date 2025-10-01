@@ -15,4 +15,5 @@ export type ProfileData = {
   freeProjects: number;
   premiumProjects: number;
   teamProjects: number;
+  careerTypeId?: number;
 };

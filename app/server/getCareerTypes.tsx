@@ -3,7 +3,7 @@ import { Career } from "@types";
 import { getData } from "./getData";
 
 export const getCareerTypes = async () => {
-  const careers = await getData({
+  const careers = await getData<Career[]>({
     url: "Lookup/Career",
     method: "GET",
   });

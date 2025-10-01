@@ -25,10 +25,10 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
   let practiceZoneProjects: any[] = [];
 
   if (userType === "project-manager") {
-    const { data: j } = await getProjectManagerJuniors(userId);
-    const { data: c } = await getProjectManagerContributors(userId);
-    const { data: p } = await getProjectManagerProjects(userId);
-    const { data: pz } = await getProjectManagerPracticeZone(userId);
+    const j = await getProjectManagerJuniors(userId);
+    const c = await getProjectManagerContributors(userId);
+    const p = await getProjectManagerProjects(userId);
+    const pz = await getProjectManagerPracticeZone(userId);
 
     juniors = j || [];
     contributors = c || [];
@@ -43,7 +43,7 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
     });
 
     console.log("Contributor Juniors:", res);
-    juniors = res?.data || [];
+    juniors = (res as any)?.data || [];
   }
 
   const wrapStatus = (status: string) => (

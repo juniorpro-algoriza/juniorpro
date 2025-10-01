@@ -1,11 +1,9 @@
-
 // server/getJuniorsData.ts
 "use server";
 
 import { getData } from "@server";
 
 export const getJuniorsData = async (
-  contributorId: number,
   pageNumber = 1,
   pageSize = 10,
   searchText = ""
@@ -15,14 +13,15 @@ export const getJuniorsData = async (
     pageNumber: number;
     pageSize: number;
     pg_total: number;
-    data: any[];
+    data: unknown[];
   }>({
-    url: `Contributor/juniors?contributorId=${contributorId}&PageNumber=${pageNumber}&PageSize=${pageSize}&SearchText=${searchText}`,
+    url: `Contributor/juniors?PageNumber=${pageNumber}&PageSize=${pageSize}&SearchText=${searchText}`,
     method: "GET",
     dummyData: { pageNumber, pageSize, pg_total: 0, data: [] },
   });
 
   return {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: json.data.map((junior: any) => ({
       ...junior,
       actionHref: `/admin/junior/${junior.id}`, // for action button

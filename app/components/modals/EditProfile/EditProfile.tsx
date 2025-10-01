@@ -26,7 +26,7 @@ export const EditProfile = () => {
     linkedInUrl: "",
   };
   const [careerTypesData, setCareerTypesData] = useState([]);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(initialForm);
 
@@ -75,7 +75,8 @@ export const EditProfile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const careerTypesData = await getCareerTypes();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const careerTypesData: any = await getCareerTypes();
       setCareerTypesData(careerTypesData);
     };
     fetchData();

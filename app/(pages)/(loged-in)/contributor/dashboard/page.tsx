@@ -6,14 +6,7 @@ import {
   DashboardProjects,
 } from "./components";
 
-interface Props {
-  params: { id: string }; // contributor id
-  searchParams?: { page?: string };
-}
-
-const DashboardPage = async ({ params, searchParams }: Props) => {
-  const contributorId = Number(params.id);
-  const pageNumber = Number(searchParams?.page) || 1;
+const DashboardPage = async () => {
   return (
     <div className="min-h-screen py-3 px-6 bg-stone-50">
       {/* Header */}
@@ -29,7 +22,7 @@ const DashboardPage = async ({ params, searchParams }: Props) => {
       </div>
 
       {/* Juniors Table */}
-      <JuniorsTable contributorId={contributorId} pageNumber={pageNumber} />
+      <JuniorsTable />
     </div>
   );
 };
