@@ -3,8 +3,8 @@
 import { Project } from "next/dist/build/swc/types";
 // import { ProjectType } from "./ProjectType";
 
-
-export interface NormalizedProject extends Omit<Project, "projectType" | "image" | "nameEn" | "levelNameEn"> {
+export interface NormalizedProject
+  extends Omit<Project, "projectType" | "image" | "nameEn" | "levelNameEn"> {
   id: number;
   title: string;
   description: string;

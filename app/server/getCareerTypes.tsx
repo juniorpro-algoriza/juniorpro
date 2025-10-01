@@ -10,7 +10,7 @@ export const getCareerTypes = async () => {
   return careers?.map((career: Career) => {
     return {
       value: String(career.id),
-      label: String(career.nameAr),
+      label: String(career.nameEn),
     };
   });
 };
