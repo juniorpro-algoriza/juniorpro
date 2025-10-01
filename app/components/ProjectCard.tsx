@@ -14,11 +14,13 @@ interface ProjectCardProps {
   buttonText?: string;
   showDescription?: boolean;
   showLastUpdated?: boolean;
+  showAge:boolean
   showBadge?: boolean;
   showJuniors?: boolean;
   showDueDate?: boolean;
   showBadgeNextToDueDate?: boolean;
   showRating?: boolean;
+  showStatus?: boolean;
   onJoinSuccess?: (projectId: number) => void;
 }
 
@@ -28,6 +30,8 @@ export const ProjectCard = ({
   buttonText = "",
   showDescription = true,
   showLastUpdated = true,
+  showStatus=true,
+  showAge=true,
   onJoinSuccess,
 }: ProjectCardProps) => {
   const { id, category, description, imageUrl, projectType, status, modificationDate, ageRange, isJoined } =
@@ -99,22 +103,28 @@ export const ProjectCard = ({
 
         {/* BADGES */}
         <div className="flex gap-2 pb-3 overflow-hidden whitespace-nowrap">
+        {showStatus &&(
+
           <Badge
             label={status}
             variant={statusVariant}
             className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
           />
+          )}
           {/* till it returns from backend */}
           {/* <Badge
             label={projectType}
             variant="purple"
             className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
           /> */}
+        {showAge &&(
           <Badge
             label={`Age: ${ageRange}`}
             variant="blue"
             className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
           />
+        )}
+
         </div>
 
         {/* Metadata */}
@@ -130,7 +140,7 @@ export const ProjectCard = ({
         {/* CTA */}
         <Button
           intent={joined ? "primary" : "tertiary"}
-          className="w-full py-2 mt-4 text-sm font-medium flex items-center justify-center gap-2"
+          className="w-full py-2 mt-auto text-sm font-medium flex items-center justify-center gap-2"
           onClick={handleJoinProject}
           disabled={isJoining || joined}
         >

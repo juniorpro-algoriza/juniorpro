@@ -15,7 +15,6 @@ export interface JoinedProject {
   image: string;
   projectNameAr: string;
   projectNameEn: string;
-  status: 1 | 2 | 3 | 4;
   projectType: 1 | 2 | 3;
   categoryNameAr: string;
   categoryNameEn: string;
@@ -23,7 +22,6 @@ export interface JoinedProject {
 }
 
 export interface JoinedProjectsResponse {
-  status: number;
   data: JoinedProject[];
 }
 
@@ -32,7 +30,6 @@ export const getJoinedProjects = async (
 ): Promise<JoinedProjectsResponse> => {
   const {
     projectType,
-    status,
     pageNumber = 1,
     pageSize = 10,
     searchText,
@@ -44,7 +41,6 @@ export const getJoinedProjects = async (
       method: "GET",
       params: {
         ProjectType: projectType,
-        Status: status,
         PageNumber: pageNumber,
         PageSize: pageSize,
         SearchText: searchText,
@@ -54,6 +50,6 @@ export const getJoinedProjects = async (
     return response;
   } catch (error) {
     console.error("Error fetching joined projects:", error);
-    return { status: 0, data: [] };
+    return {  data: [] };
   }
 };

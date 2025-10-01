@@ -24,7 +24,6 @@ export const ProjectsCarousel = ({
     category: project.categoryNameEn,
     projectType: project.projectType.toString(),
     modificationDate: project.modificationDate,
-    ageRange: '',
     isJoined: true,
   }));
 
@@ -65,7 +64,6 @@ export const ProjectsCarousel = ({
         category: project.categoryNameEn,
         projectType: project.projectType.toString(),
         modificationDate: project.modificationDate,
-        ageRange: '',
         isJoined: true,
       }));
     } catch (error) {
@@ -86,7 +84,9 @@ export const ProjectsCarousel = ({
           showDueDate={true}
           showJuniors={false}
           showBadge={true}
+          showAge={false}
           showRating={false}
+          showStatus={false}
           buttonText="View Project"
         />
       )}

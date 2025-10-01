@@ -26,7 +26,7 @@ export const DashboardTasks = async () => {
         <div className='flex items-center gap-2 mb-4'>
           <MoneyIcon fill='#3BB573' />
           <h2 className='text-xl font-medium text-success-500'>
-            Free Solo Tasks
+            Free Tasks
           </h2>
         </div>
         {freeSoloProjects && freeSoloProjects.length > 0 ? (
@@ -36,7 +36,7 @@ export const DashboardTasks = async () => {
           />
         ) : (
           <div className='py-8 text-center'>
-            <p className='text-gray-500'>No Free Solo Tasks Added Yet</p>
+            <p className='text-gray-500'>No Free Solo Tasks Joined Yet</p>
           </div>
         )}
       </div>
@@ -56,7 +56,7 @@ export const DashboardTasks = async () => {
           />
         ) : (
           <div className='py-8 text-center'>
-            <p className='text-gray-500'>No Premium Tasks Added Yet</p>
+            <p className='text-gray-500'>No Premium Tasks Joined Yet</p>
           </div>
         )}
       </div>
