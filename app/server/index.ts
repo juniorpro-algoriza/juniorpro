@@ -14,3 +14,5 @@ export { getMyProfileData } from "./getMyProfileData";
 export { getFetchHeaders } from "./getFetchHeaders";
 export { getLookup } from "./getLookUps";
 export { inviteExistingJunior } from "./inviteExistingJunior";
+export { joinProject } from "./joinProject";
+export { getJoinedProjects } from "./getJoinedProjectsJunior";
