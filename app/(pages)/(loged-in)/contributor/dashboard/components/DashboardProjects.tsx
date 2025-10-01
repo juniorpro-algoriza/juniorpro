@@ -8,16 +8,16 @@ import { EmptyData } from "@components/client";
 export const DashboardProjects = async () => {
   const { data: projects } = await getContributorJuniorProjects({
     pageNumber: 1,
-    pageSize: 3,
+    pageSize: 2,
   });
   const completedProjects: NormalizedProject[] = projects.map((p) => ({
     ...p,
   }));
 
   return (
-    <main className="px-6 py-3 bg-stone-50">
+    <main className="bg-stone-50">
       <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-        <div className="flex justify-between gap-2 flex-wrap items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2">
+        <div className="flex justify-between gap-2 flex-wrap items-center p-3 xl:py-8 md:py-4 xl:px-6 md:px-2">
           <h2 className="text-xl md:text-2xl font-medium text-yankees-blue">
             Projects ({projects.length})
           </h2>
@@ -34,12 +34,12 @@ export const DashboardProjects = async () => {
           </Link>
         </div>
 
-        <div className="flex flex-wrap gap-2 px-2 xl:gap-6 md:px-2 xl:px-6 pb-3 md:pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-3 xl:gap-6 md:px-2 xl:px-6 pb-3 md:pb-10">
           {completedProjects.length > 0 ? (
             completedProjects.map((p) => (
               <div
                 key={p.id}
-                className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]"
+                className="basis-full md:basis-[calc(50%_-_10px)]"
               >
                 <ProjectCard
                   project={p}

@@ -7,7 +7,7 @@ import { ProjectType } from "@types";
 import { NormalizedProject } from "../types/Projects";
 import { getData } from "@server";
 import { toast } from "sonner";
-import Image from "next/image";
+// import Image from "next/image";
 interface ProjectCardProps {
   project: NormalizedProject;
   className?: string;
@@ -86,8 +86,10 @@ export const ProjectCard = ({
       {/* Image */}
       <div className="relative w-full h-48">
         {imageUrl ? (
-          <Image
+          <img
             src={imageUrl}
+            width={500}
+            height={500}
             alt="project image"
             className="object-cover w-full h-full"
           />

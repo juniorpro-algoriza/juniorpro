@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { ProjectCard } from '@components';
-import { InfiniteCarousel } from '@components/client';
-import { useState } from 'react';
-import { NormalizedProject } from '../../../../../types/Projects';
-import { getLandingProjects } from '../../server';
+import { ProjectCard } from "@components";
+import { InfiniteCarousel } from "@components/client";
+import { useState } from "react";
+import { NormalizedProject } from "../../../../../types/Projects";
+import { getLandingProjects } from "../../server";
 
 interface ProjectCarouselProps {
   projects: NormalizedProject[];
@@ -27,11 +27,11 @@ export const ProjectsCarousel = ({
           buttonText="Join Now"
           showDescription={true}
           showLastUpdated={true}
-          showAge={false} 
+          showAge={false}
           showStatus={false}
         />
       )}
-getItemKey={(project, index) => `${project.id}-${projectType}-${index}`}
+      getItemKey={(project, index) => `${project.id}-${projectType}-${index}`}
       loadMore={async () => {
         const newProjects = await loadMoreProjects({
           projectType,
@@ -43,7 +43,7 @@ getItemKey={(project, index) => `${project.id}-${projectType}-${index}`}
       maxItems={50}
       viewAllText="View All"
       onViewAll={() => {
-        console.log('View all projects clicked');
+        console.log("View all projects clicked");
       }}
     />
   );
@@ -67,7 +67,7 @@ const loadMoreProjects = async ({
 
     return data;
   } catch (error) {
-    console.error('Error loading more projects:', error);
+    console.error("Error loading more projects:", error);
     return [];
   }
 };
