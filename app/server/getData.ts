@@ -1,24 +1,43 @@
 "use server";
 
 import { getFetchHeaders } from "@server";
+
 interface Props<T = unknown> {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  dummyData?: T; // not always array, can be full object
+  dummyData?: T; // fallback data
   body?: unknown;
+  params?: Record<string, string | number | undefined>; // ✅ new optional params
 }
+
 const apiRootUrl = process.env.API_ROOT_URL as string;
 
-
-export const getData = async <T>({ url, method, body, dummyData }: Props<T>): Promise<T> => {
+export const getData = async <T>({
+  url,
+  method,
+  body,
+  dummyData,
+  params,
+}: Props<T>): Promise<T> => {
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
     if (!headers) throw new Error("No headers found");
 
-    const res = await fetch(`${apiRootUrl}/${url}`, {
+    // ✅ build query string only if params exist
+    const queryString = params
+      ? new URLSearchParams(
+          Object.entries(params)
+            .filter(([_, v]) => v !== undefined) // skip undefined
+            .map(([k, v]) => [k, String(v)])
+        ).toString()
+      : "";
+
+    const finalUrl = `${apiRootUrl}/${url}${queryString ? `?${queryString}` : ""}`;
+
+    const res = await fetch(finalUrl, {
       method,
       headers,
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(body) : undefined, // ✅ kept as is
       cache: "no-store",
     });
 
@@ -30,4 +49,3 @@ export const getData = async <T>({ url, method, body, dummyData }: Props<T>): Pr
     return dummyData as T;
   }
 };
-

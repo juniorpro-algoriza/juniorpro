@@ -1,225 +1,109 @@
 /* eslint-disable @next/next/no-img-element */
-import {Button, Badge} from '@components';
-import type {Project, ProjectType} from '@types';
-import {CalendarDaysIcon, StarIcon} from 'lucide-react';
-// import { twMerge } from "tailwind-merge";
+import { Button, Badge } from "@components";
+import { CalendarDaysIcon } from "lucide-react";
+import { NormalizedProject } from "../types/Projects";
 
-type BadgeText = 'Certifcate Earned' | 'In Progress' | ProjectType;
 interface ProjectCardProps {
-  project: Project;
-  showDescription: boolean;
-  showDueDate: boolean;
-  showJuniors: boolean;
-  showRating: boolean;
-  showBadge: boolean;
-  showBadgeNextToDueDate: boolean;
-  showJuniorsCountOnly?: boolean;
-  badgeText: 'projectType' | 'status';
+  project: NormalizedProject;
   className?: string;
   buttonText?: string;
+  showDescription?: boolean;
+  showLastUpdated?: boolean;
+  showBadge?: boolean;
+  showJuniors?: boolean;
+  showDueDate?: boolean;
+  showBadgeNextToDueDate?: boolean;
+  showRating?: boolean; // future use
 }
 
 export const ProjectCard = ({
   project,
-  showDescription,
-  showBadge,
-  showDueDate,
-  showJuniors,
-  showJuniorsCountOnly,
-  showRating,
-  showBadgeNextToDueDate,
-  className,
-  buttonText = 'Join Now',
+  className = "",
+  buttonText ="",
+  showDescription = true,
+  showLastUpdated = true,
 }: ProjectCardProps) => {
-  const {
-    id,
-    category,
-    description,
-    imageUrl,
-    isFree,
-    projectType,
-    rating,
-    title,
-    status,
-    dueDate,
-    juniors,
-  } = project;
+  const { id, category, description, imageUrl, projectType, status, modificationDate, ageRange } =
+    project;
 
-  //! TODO: When api is ready determine buttonText based on project status
-  // let buttonText = "";
-  // if (status === "not-started") buttonText = "Start";
-  // if (status === "in-progress") buttonText = "Report";
-
-  let badgeText: BadgeText = projectType;
-  // if (status === "not-started") badgeText = projectType;
-  if (status === 'completed') badgeText = 'Certifcate Earned';
-  if (status === 'in-progress') badgeText = 'In Progress';
+  const statusVariant =
+    status === "Draft" ? "gray" : status === "Published" ? "green" : "orange";
 
   return (
     <div
       data-id={id}
-      className={`bg-white rounded-2xl space-y-3 p-3 shadow hover:shadow-xl border border-antiflash-white transition-all duration-300 group flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_25%] ${className}`}>
-      <Header category={category} imageUrl={imageUrl} />
-      {showRating && <Rating rating={rating} />}
-
-      <div>
-        <Main
-          badgeText={badgeText}
-          isFree={isFree}
-          title={title}
-          description={description}
-          showDescription={showDescription}
-          showBadge={showBadge}
-          showBadgeNextToDueDate={showBadgeNextToDueDate}
-        />
-        {showDueDate && !showBadgeNextToDueDate && (
-          <DueDate dueDate={dueDate} />
-        )}
-
-        {showJuniors && (
-          <Juniors
-            juniors={juniors}
-            showJuniorsCountOnly={showJuniorsCountOnly}
+      className={`bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-border-primary overflow-hidden ${className}`}
+    >
+      {/* Image */}
+      <div className="relative w-full h-48">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="project image"
+            className="object-cover w-full h-full"
           />
+        ) : (
+          <div className="bg-gray-100 w-full h-full flex items-center justify-center text-gray-400">
+            No Image Added 
+          </div>
         )}
 
+        {category && (
+          <span className="absolute top-2 left-2 px-3 py-1 text-xs font-medium rounded-full bg-violet-50 text-violet-normal">
+            {category}
+          </span>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-4 flex flex-col justify-between ">
+        {/* Title & Description */}
+        <div className="mb-3">
+          <h4 className="text-lg font-semibold text-yankees-blue mb-1">{project.title}</h4>
+          {showDescription && description && (
+            <p className="text-sm text-gray-600 line-clamp-3">{description}</p>
+          )}
+        </div>
+
+    {/* BADGES */}
+      <div className="flex gap-2 pb-3 overflow-hidden whitespace-nowrap">
+        <Badge
+          label={status}
+          variant={statusVariant}
+          className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
+        />
+        {/* till it returns from backend */}
+        {/* <Badge
+          label={projectType}
+          variant="purple"
+          className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
+        /> */}
+        <Badge
+          label={`Age: ${ageRange}`}
+          variant="blue"
+          className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
+        />
+      </div>
+
+
+        {/* Metadata */}
+        {/* {showLastUpdated && (
+          <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
+            <CalendarDaysIcon className="w-4 h-4" />
+            <span>
+              Last Updated: {modificationDate ? new Date(modificationDate).toLocaleDateString() : "N/A"}
+            </span>
+          </div>
+        )} */}
+
+        {/* CTA */}
         <Button
-          intent="unset"
-          className="w-full border text-violet-normal border-violet-normal">
-          {/* TODO: When api is ready determine buttonText based on project status */}
+          intent="tertiary"
+          className="w-full py-2 mt-4 text-sm font-medium"
+        >
           {buttonText}
         </Button>
       </div>
     </div>
-  );
-};
-
-const Header = ({imageUrl, category}: {imageUrl: string; category: string}) => {
-  return (
-    <div className="relative">
-      {imageUrl && (
-        <img
-          src={imageUrl}
-          alt="card image"
-          width={100}
-          height={100}
-          // w-[330px] h-[183px]
-          className="object-cover w-full rounded-xl max-h-[200px]"
-        />
-      )}
-
-      {category && (
-        <span className="absolute z-10 px-3 py-1 text-xs font-medium rounded-full top-2 left-2 bg-violet-50 text-violet-normal">
-          {category}
-        </span>
-      )}
-    </div>
-  );
-};
-
-const Rating = ({rating = 0}) => {
-  return (
-    <div className="flex items-center gap-1 py-2">
-      {[...Array(5)].map((_, i) => (
-        <StarIcon
-          key={i}
-          className={`w-4 h-4 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
-        />
-      ))}
-    </div>
-  );
-};
-
-interface BadgeProps {
-  isFree: boolean;
-  text: BadgeText;
-}
-
-const BadgeComponent = ({isFree, text}: BadgeProps) => {
-  let statusVariant: 'green' | 'orange' | 'red' | 'blue' | 'gray' | 'purple' =
-    'gray';
-  if (text === 'In Progress') statusVariant = 'orange';
-
-  const priceVariant: 'green' | 'red' = isFree ? 'green' : 'red';
-
-  return (
-    <div className="flex items-center gap-2 pb-2">
-      {/* Status badge */}
-      <Badge
-        label={text}
-        variant={statusVariant}
-        className="px-3 py-2 text-sm"
-      />
-
-      {/* Price badge */}
-      <Badge
-        label={isFree ? 'Free' : 'Premium'}
-        variant={priceVariant}
-        className="px-3 py-2 text-sm" // Override default padding and text size
-      />
-    </div>
-  );
-};
-
-const Main = ({
-  badgeText = '' as BadgeText,
-  isFree = false,
-  title = '',
-  showDescription = true,
-  showBadge = true,
-  description = '',
-  showBadgeNextToDueDate = false,
-}) => {
-  if (showBadgeNextToDueDate) {
-    return (
-      <>
-        <h4 className="pb-2 font-medium">{title}</h4>
-        <div className="flex gap-2">
-          <DueDate />
-          <BadgeComponent text={badgeText} isFree={isFree} />
-        </div>
-      </>
-    );
-  }
-
-  return (
-    <>
-      {showBadge && <BadgeComponent text={badgeText} isFree={isFree} />}
-
-      <h4 className="pb-2 font-medium">{title}</h4>
-
-      {showDescription && (
-        <p className="pb-4 text-sm text-gray-500">{description}</p>
-      )}
-    </>
-  );
-};
-
-const DueDate = ({dueDate = new Date()}) => {
-  return (
-    <div className="flex items-center gap-2 pb-2 text-content-secondary">
-      <CalendarDaysIcon />
-      <p>{dueDate?.toISOString().split('T')[0]}</p>
-    </div>
-  );
-};
-const Juniors = ({
-  juniors,
-  showJuniorsCountOnly = false,
-}: {
-  juniors: string[];
-  showJuniorsCountOnly?: boolean;
-}) => {
-  return (
-    <p className="pb-2 space-x-1">
-      <span className="text-content-secondary">Juniors:</span>
-      <span className="font-medium capitalize">
-        {showJuniorsCountOnly
-          ? juniors.length
-          : juniors[0] === 'all juniors'
-            ? 'Anas, Marwa'
-            : juniors.join(', ')}
-      </span>
-    </p>
   );
 };

@@ -8,7 +8,6 @@ export const DashboardProjects = async () => {
   const { data: projectsData } = await getProjects({
     limit: 2,
     pageNum: 1,
-    projectType: 'all',
   });
 
   return (
@@ -26,7 +25,6 @@ export const DashboardProjects = async () => {
             showBadge={false}
             showRating={false}
             showBadgeNextToDueDate={true}
-            badgeText='projectType'
             className='grid grid-cols-1 sm:grid-cols-2 gap-4'
           />
         );
