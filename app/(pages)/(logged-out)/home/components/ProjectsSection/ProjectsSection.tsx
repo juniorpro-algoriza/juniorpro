@@ -25,7 +25,7 @@ export const ProjectsSection = async () => {
   const { data: soloProjects } = await getLandingProjects({
     pageNumber: 1,
     pageSize: 10,
-    projectType: 2, // You can combine 2 and 3 if needed
+    projectType: 2, 
   });
 
   const projects: { title: string; items: NormalizedProject[]; projectType?: number }[] = [

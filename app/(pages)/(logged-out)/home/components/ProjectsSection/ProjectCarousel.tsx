@@ -27,6 +27,8 @@ export const ProjectsCarousel = ({
           buttonText="Join Now"
           showDescription={true}
           showLastUpdated={true}
+          showAge={false} 
+          showStatus={false}
         />
       )}
 getItemKey={(project, index) => `${project.id}-${projectType}-${index}`}

@@ -31,6 +31,8 @@ const ProjectsPage = async () => {
               className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]"
             >
               <ProjectCard
+                showAge={false}
+                showStatus={false}
                 project={p}
                 showDescription={false}
                 showDueDate={true}
