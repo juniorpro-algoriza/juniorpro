@@ -2,71 +2,94 @@
 
 import { ProjectCard } from '@components';
 import { InfiniteCarousel } from '@components/client';
-import type { Project, ProjectType } from '@types';
-import { capitalize, pickRandom, sleep } from '@utils';
-import { getRandomUniqueId } from '@utils/server';
+import { getJoinedProjects } from '@server';
+import { normalizeProject, sleep } from '@utils';
+import { JoinedProject } from '../../../../../server/getJoinedProjectsJunior';
+import { NormalizedProject } from '../../../../../types/Projects';
 
-interface ProjectCarouselProps {
-  projects: Project[];
-  projectType?: ProjectType;
+
+interface ProjectsCarouselProps {
+  projects: JoinedProject[];
+  projectType?: number;
 }
+
 export const ProjectsCarousel = ({
   projects: initialProjects,
   projectType,
-}: ProjectCarouselProps) => {
+}: ProjectsCarouselProps) => {
+  // Use normalizeProject to get proper ProjectType
+  const normalizedProjects: NormalizedProject[] = initialProjects.map((project) =>
+    normalizeProject({
+      ...project,
+      projectType: project.projectType, // numeric from API
+      nameEn: project.projectNameEn,
+      categoryNameEn: project.categoryNameEn,
+      levelNameEn: '', // optional description
+    })
+  );
+
+  const hasMore = initialProjects.length >= 10;
+  const shouldShowNavigation = normalizedProjects.length > 1;
+
+  const loadMoreHandler = async ({ numItems }: { numItems: number }) => {
+    if (!hasMore) return [];
+
+    await sleep(1);
+    const currentPage = Math.ceil(numItems / 10) + 1;
+
+    try {
+      const { data: moreProjects } = await getJoinedProjects({
+        pageSize: 10,
+        pageNumber: currentPage,
+        projectType: projectType as 1 | 2 | 3 | undefined,
+      });
+
+      if (!moreProjects || moreProjects.length === 0) return [];
+
+      return moreProjects.map((project: JoinedProject) =>
+        normalizeProject({
+          ...project,
+          projectType: project.projectType,
+          nameEn: project.projectNameEn,
+          categoryNameEn: project.categoryNameEn,
+          levelNameEn: '', // optional description
+        })
+      );
+    } catch (error) {
+      console.error('Error loading more projects:', error);
+      return [];
+    }
+  };
+
   return (
     <InfiniteCarousel
-      className='py-4'
-      items={initialProjects}
+      className="py-4"
+      items={normalizedProjects}
       renderItem={(project) => (
         <ProjectCard
           project={project}
-          badgeText='projectType'
-          showDescription={true}
+          showDescription={false}
           showBadgeNextToDueDate={false}
           showDueDate={true}
           showJuniors={false}
-          showBadge={false}
+          showBadge={true}
+          showAge={false}
           showRating={false}
+          showStatus={false}
+          showProjectType={true}
+          buttonText="View Project"
         />
       )}
-      getItemKey={(project) => project.id}
-      loadMore={async () =>
-        await loadMoreProjects({ initialProjects, projectType })
-      }
+      getItemKey={(project) => project.id.toLocaleString()}
+      loadMore={loadMoreHandler}
+      hasMore={hasMore}
       maxItems={50}
-      viewAllText='View All'
+      showNavigation={shouldShowNavigation}
+      showViewAll={hasMore}
+      viewAllText="View All"
       onViewAll={() => {
-        console.log('View all projects clicked');
+        console.log('View all joined projects clicked');
       }}
     />
   );
-};
-
-type LoadMoreProjectsParams = {
-  initialProjects: Project[];
-  projectType?: ProjectType;
-};
-
-const loadMoreProjects = async ({
-  initialProjects,
-  projectType,
-}: LoadMoreProjectsParams): Promise<Project[]> => {
-  await sleep(1);
-  const last = initialProjects[initialProjects.length - 1];
-
-  const arr = Array.from({ length: 6 }, (_, i) => i);
-  const projectsNew = arr.map(async () => {
-    let finalProjectType: ProjectType = 'solo';
-    if (projectType) finalProjectType = projectType;
-    else finalProjectType = pickRandom(['solo', 'team', 'web', 'coding']);
-    const id = await getRandomUniqueId();
-    const newProject = {
-      ...last,
-      id: `$project-${id}`,
-      title: `${capitalize(finalProjectType)} Project - ${id.slice(0, 3)}`,
-    };
-    return newProject;
-  });
-  return Promise.all(projectsNew);
 };

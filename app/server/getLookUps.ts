@@ -4,7 +4,7 @@ import { Lookup } from "@types";
 import { getData } from "./getData";
 
 export const getLookup = async (url: string): Promise<Lookup[]> => {
-  const data = await getData({
+  const data: { id: number; nameEn: string }[] = await getData({
     url,
     method: "GET",
   });

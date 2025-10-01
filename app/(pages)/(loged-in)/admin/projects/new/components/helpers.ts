@@ -8,7 +8,8 @@ export const ageRanges: Lookup[] = [
 
 export const projectTypes: Lookup[] = [
   { label: "Team", value: 1 },
-  { label: "Solo", value: 2 },
+  { label: "Premium Solo", value: 2 },
+  { label: "Free Solo", value: 3 },
 ];
 
 export const projectStatus: Lookup[] = [

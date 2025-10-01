@@ -4,10 +4,14 @@ import { getData } from "@server";
 import type { Stats } from "../types";
 
 export const getJuniorStats = async (): Promise<Stats[]> => {
-  const data = await getData({
+  const data = await getData<{
+    activeJuniors: number;
+    pendingReviews: number;
+    todaysSessions: number;
+    waitingList: number;
+  }>({
     url: "admin-dashboard/juniors-stats",
     method: "GET",
-    dummyData: [],
   });
   const stats: Stats[] = [
     { label: "Juniors", value: data.activeJuniors },

@@ -2,7 +2,7 @@ import { ProfileData } from "@types";
 import { getData } from "./getData";
 
 export const getMyProfileData = async (): Promise<ProfileData> => {
-  const data = await getData({
+  const data = await getData<ProfileData>({
     url: "User/my-profile",
     method: "GET",
   });

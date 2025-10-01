@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-type User = {
+export type User = {
   id: number;
   phoneNumber: null | string;
   email: string;

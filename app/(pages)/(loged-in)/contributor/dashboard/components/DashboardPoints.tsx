@@ -1,33 +1,49 @@
-import { Button, PointsCard } from "@components";
+import { Button, ModalLink, PointsCard } from "@components";
 import { EmptyData } from "@components/client";
 import { DiamondIcon, WalletIcon } from "@icons";
-import { getPointsData } from "@server";
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 import type { SVGProps } from "react";
 
-export const DashboardPoints = async () => {
-  const { pointsBalance, cashBalance, allocations } = await getPointsData();
+interface Junior {
+  id: number;
+  name: string;
+  points: number;
+}
+
+interface PointsData {
+  pointsAllocation: number;
+  pointsBalance: number;
+  cashBalance: number;
+  juniors: Junior[];
+}
+
+export const DashboardPoints = async ({
+  pointsData,
+}: {
+  pointsData: PointsData;
+}) => {
   const data = [
     {
       title: "Points Balance",
-      value: pointsBalance as number,
+      value: pointsData?.pointsBalance,
       Icon: DiamondIcon as React.FC<SVGProps<SVGSVGElement>>,
     },
     {
       title: "Cash Balance",
-      value: cashBalance as number,
+      value: pointsData?.cashBalance,
       Icon: WalletIcon as React.FC<SVGProps<SVGSVGElement>>,
     },
   ];
+
   return (
-    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-6 space-y-4">
+    <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary p-3 md:p-6 space-y-4">
       <div>
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-medium text-yankees-blue">
-            Points Allocation ({allocations.length})
+          <h3 className="text-lg md:text-2xl font-medium text-yankees-blue">
+            Points Allocation ({pointsData?.juniors?.length})
           </h3>
-          {allocations.length ? (
+          {pointsData?.juniors?.length ? (
             <Link href={"./points"}>
               <Button
                 intent="tertiary"
@@ -45,28 +61,29 @@ export const DashboardPoints = async () => {
         </div>
       </div>
 
-      <div>
-        {/* Balance Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          {data.map((item, index) => (
-            <PointsCard key={index} {...item} />
-          ))}
-        </div>
+      {/* Balance Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        {data.map((item, index) => (
+          <PointsCard key={index} {...item} />
+        ))}
+      </div>
 
-        {/* Points List */}
-        <div className="space-y-4">
-          {allocations.length ? (
-            allocations.map(({ name, points }, index) => (
-              <div
-                key={index}
-                className="flex items-end justify-between p-3 rounded-2xl border border-antiflash-white shadow-sm"
-              >
-                <div className="flex flex-col gap-2">
-                  <p className="font-medium">{name}</p>
-                  <p className="text-2xl font-medium text-violet-normal">
-                    {points}
-                  </p>
-                </div>
+      {/* Points List */}
+      <div className="space-y-4">
+        {pointsData?.juniors.length ? (
+          pointsData?.juniors?.map(({ name, points, id }) => (
+            <div
+              key={id}
+              className="flex items-end justify-between p-3 rounded-2xl border border-antiflash-white shadow-sm"
+            >
+              <div className="flex flex-col gap-2">
+                <p className="font-medium">{name}</p>
+                <p className="text-2xl font-medium text-violet-normal">
+                  {points}
+                </p>
+              </div>
+              <ModalLink name="AssignPointsForJuniors">
+                {" "}
                 <Button
                   intent="tertiary"
                   size="small"
@@ -74,12 +91,12 @@ export const DashboardPoints = async () => {
                 >
                   <Plus className="w-4 h-4" />
                 </Button>
-              </div>
-            ))
-          ) : (
-            <EmptyData projectsNum={0} description="No points added yet" />
-          )}
-        </div>
+              </ModalLink>
+            </div>
+          ))
+        ) : (
+          <EmptyData projectsNum={0} description="No points added yet" />
+        )}
       </div>
     </div>
   );

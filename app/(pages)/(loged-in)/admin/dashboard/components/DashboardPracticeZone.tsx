@@ -1,26 +1,26 @@
 import { ProjectCard } from "@components";
+import { getProjects } from "@server";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
-import { getProjects } from "@server";
 
 export const DashboardPracticeZone = async () => {
-  const { data: practiceZoneProjects, hasNextPage } = await getProjects({
+  const { data: practiceZoneProjects, hasNextPage, total } = await getProjects({
     limit: 2,
     pageNum: 1,
-    projectType: "team",
-    juniors: ["lina", "anas"],
+    projectType: 1,
+
   });
 
   return (
-    <div className="bg-white border border-border-primary rounded-[20px] p-6 space-y-6">
+    <div className="bg-white shadow-sm rounded-[20px] p-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-medium text-yankees-blue">
-          Practice Zone ({practiceZoneProjects.length})
+          Practice Zone ({total})
         </h2>
         {hasNextPage && (
           <Link
-            href="/admin/practice-zone"
+            href="/admin/projects"
             className="flex items-center gap-1 text-violet-normal text-sm font-medium hover:text-blue-700"
           >
             <span>View All</span>
@@ -38,11 +38,12 @@ export const DashboardPracticeZone = async () => {
             showDescription={false}
             showDueDate={false}
             showJuniors={true}
-            showJuniorsCountOnly={true}
             showRating={false}
             showBadge={true}
+            showStatus={true}
+            showAge={true}
             showBadgeNextToDueDate={false}
-            badgeText="status"
+            buttonText="View Project" 
           />
         ))}
       </div>

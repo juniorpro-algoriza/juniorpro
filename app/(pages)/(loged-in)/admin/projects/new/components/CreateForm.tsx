@@ -115,9 +115,11 @@ export const CreateForm = ({
   const tabsData: TabData[] = [
     {
       name: (
-        <div className="flex items-center gap-2 px-3 py-2 cursor-pointer outline-none">
+        <div className="flex items-center gap-2 p-2 md:px-3 md:py-2 cursor-pointer outline-none">
           <FolderDetailsIcon fill="#5879DC" />
-          <span>Project Details</span>
+          <span className="whitespace-nowrap text-sm md:text-base">
+            Project Details
+          </span>
         </div>
       ),
       content: (
@@ -135,9 +137,11 @@ export const CreateForm = ({
     },
     {
       name: (
-        <div className="flex items-center gap-2 px-3 py-2 cursor-pointer outline-none">
+        <div className="flex items-center gap-2 p-2 md:px-3 md:py-2 cursor-pointer outline-none">
           <CalendarIcon fill="#5879DC" />
-          <span>Project Timeline</span>
+          <span className="whitespace-nowrap text-sm md:text-base">
+            Project Timeline
+          </span>
         </div>
       ),
       content: (
@@ -160,7 +164,7 @@ export const CreateForm = ({
   ];
 
   return (
-    <section className="p-6 bg-white rounded-lg shadow-md">
+    <section className="p-2 md:p-6 bg-white rounded-lg shadow-md">
       <header className="flex items-center gap-4 mb-4">
         <Link href="/admin/projects">
           <LeftArrowIcon width="15" height="14" />

@@ -1,16 +1,17 @@
-import type {ProjectStatus} from './ProjectStatus';
-import type {ProjectType} from './ProjectType';
+// types/Projects.ts
 
-export type Project = {
-  id: string;
+import { Project } from "next/dist/build/swc/types";
+// import { ProjectType } from "./ProjectType";
+
+export interface NormalizedProject
+  extends Omit<Project, "projectType" | "image" | "nameEn" | "levelNameEn"> {
+  id: number;
   title: string;
-  category: string;
-  imageUrl: string;
   description: string;
-  rating: number;
-  projectType: ProjectType;
-  isFree: boolean;
-  status: ProjectStatus;
-  dueDate?: Date;
-  juniors: string[];
-};
+  imageUrl: string;
+  category: string;
+  // projectType: ProjectType;
+  status: "Draft" | "Published" | "Review";
+  modificationDate: string | null;
+  ageRange: string;
+}

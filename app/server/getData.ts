@@ -2,21 +2,38 @@
 
 import { getFetchHeaders } from "@server";
 
-interface Props {
+interface Props<T = unknown> {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  dummyData?: unknown[];
+  dummyData?: T;
   body?: unknown;
+  params?: Record<string, string | number | undefined>;
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;
 
-export const getData = async ({ url, method, body, dummyData }: Props) => {
+export const getData = async <T>({
+  url,
+  method,
+  body,
+  dummyData,
+  params,
+}: Props<T>): Promise<T> => {
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
     if (!headers) throw new Error("No headers found");
 
-    const res = await fetch(`${apiRootUrl}/${url}`, {
+    const queryString = params
+      ? new URLSearchParams(
+          Object.entries(params)
+            .filter(([, v]) => v !== undefined) // skip undefined
+            .map(([k, v]) => [k, String(v)])
+        ).toString()
+      : "";
+
+    const finalUrl = `${apiRootUrl}/${url}${queryString ? `?${queryString}` : ""}`;
+
+    const res = await fetch(finalUrl, {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
@@ -25,10 +42,9 @@ export const getData = async ({ url, method, body, dummyData }: Props) => {
 
     if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
-    const data = await res.json();
-    return data;
+    return (await res.json()) as T;
   } catch (err) {
     console.error("Error fetching data:", err);
-    return dummyData;
+    return dummyData as T;
   }
 };

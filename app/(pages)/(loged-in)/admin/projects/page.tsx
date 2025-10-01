@@ -1,13 +1,10 @@
 import { Button, ProjectCard } from "@components";
-import { getProjects } from "@server";
-import type { Project } from "@types";
 import { pickRandom } from "@utils";
 import { SearchInput } from "../../components/client";
-import {
-  // JuniorsDropdown,
-  ProjectsHeader,
-} from "../../admin/projects/components";
+import { ProjectsHeader } from "../../admin/projects/components";
 import Link from "next/link";
+import { getProjects } from "@server";
+import { NormalizedProject } from "../../../../types/Projects";
 
 interface ProjectsPageProps {
   searchParams: Promise<{ junior: string; query: string }>;
@@ -19,42 +16,36 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
   const { data: projects } = await getProjects({
     limit: 30,
     pageNum: 1,
-    projectType: "all",
   });
 
-  // const juniors = ["all juniors", "anas", "marwa", "adam"];
-
-  const completedProjects: Project[] = projects.map((p) => ({
+  const completedProjects: NormalizedProject[] = projects.map((p) => ({
     ...p,
-    status: "completed",
   }));
 
-  let allProjects: Project[] = completedProjects;
+  let allProjects: NormalizedProject[] = completedProjects;
   if (junior === "all juniors") {
     allProjects = completedProjects
       .map((p) => ({
         ...p,
-        juniors: ["Marwa", "Anas ", pickRandom(["Adam", "Samy"])],
+        juniors: ["Marwa", "Anas", pickRandom(["Adam", "Samy"])],
       }))
-      .filter((_, index) => {
-        return index % 5 === 0;
-      });
+      .filter((_, index) => index % 5 === 0);
   }
 
   return (
     <main className="min-h-screen px-6 py-3 bg-stone-50">
       <ProjectsHeader />
       <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
-        <div className="flex justify-between items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2 ">
-          <h2 className="relative text-2xl font-medium left-2 top-1 text-yankees-blue">
+        {/* Header */}
+        <div className="flex justify-between gap-2 flex-wrap items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2">
+          <h2 className="relative text-xl md:text-2xl font-medium left-2 top-1 text-yankees-blue whitespace-nowrap">
             Projects ({projects.length})
           </h2>
           <div className="flex items-center gap-2">
-            {/* <JuniorsDropdown juniors={juniors} /> */}
             <Link href="/admin/projects/new">
               <Button
                 variant="primary"
-                className="whitespace-nowrap"
+                className="whitespace-nowrap text-sm"
                 size="medium"
               >
                 Add Project
@@ -63,29 +54,32 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
             <SearchInput className="py-2" />
           </div>
         </div>
-        <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6 pb-10">
-          {allProjects.map((p) => {
-            return (
-              <div
-                key={p.id}
-                className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]"
-              >
-                <ProjectCard
-                  project={p}
-                  showDescription={false}
-                  showDueDate={true}
-                  showJuniors={true}
-                  badgeText="status"
-                  showBadgeNextToDueDate={false}
-                  showBadge={true}
-                  showRating={false}
-                />
-              </div>
-            );
-          })}
+
+        {/* Projects grid */}
+        <div className="flex flex-wrap gap-2 px-2 xl:gap-6 md:px-2 xl:px-6 pb-3 md:pb-10">
+          {allProjects.map((p) => (
+            <div
+              key={p.id}
+              className="basis-full md:basis-[calc(50%_-_10px)] flex-1 xl:basis-[calc(30%_-_30px)] xl:max-w-[calc(33%_-_10px)]"
+            >
+              <ProjectCard
+                project={p}
+                showDescription={false}
+                showDueDate={true}
+                showJuniors={true}
+                showBadgeNextToDueDate={false}
+                showBadge={true}
+                showRating={false}
+                 showStatus={true}
+            showAge={true}
+                buttonText="View Project"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </main>
   );
 };
+
 export default ProjectsPage;

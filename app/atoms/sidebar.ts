@@ -1,5 +1,4 @@
-// atoms/sidebar.ts
-import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
 // Base atoms
 export const isMobileAtom = atom(false);

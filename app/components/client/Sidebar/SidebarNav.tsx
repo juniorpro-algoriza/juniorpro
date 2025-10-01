@@ -3,7 +3,7 @@
 import { useSidebar } from "@atoms";
 import {
   CalendarIcon,
-  ChatIcon,
+  // ChatIcon,
   DiamondIcon,
   DocumentIcon,
   FolderDetailsIcon,
@@ -33,8 +33,8 @@ const adminMenuItems = [
     label: "Project Managers",
   },
   { href: "/admin/projects", icon: FolderDetailsIcon, label: "Projects" },
-  { href: "/admin/schedule", icon: CalendarIcon, label: "Schedule" },
-  { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
+  // { href: "/admin/schedule", icon: CalendarIcon, label: "Schedule" },
+  // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
 const contributorMenuItems = [
@@ -47,12 +47,13 @@ const contributorMenuItems = [
     label: "Projects",
   },
   { href: "/contributor/points", icon: DiamondIcon, label: "Points" },
-  { href: "/contributor/profile", icon: SettingsIcon, label: "My Profile" },
+  // { href: "/contributor/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
 const juniorMenuItems = [
   { href: "/junior/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/junior/chat", icon: ChatIcon, label: "Chat" },
+  { href: "/junior/projects", icon: DocumentIcon, label: "Projects" },
+  // { href: "/junior/chat", icon: ChatIcon, label: "Chat" },
   { href: "/junior/schedule", icon: CalendarIcon, label: "Schedule" },
   { href: "/junior/profile", icon: SettingsIcon, label: "My Profile" },
 ];

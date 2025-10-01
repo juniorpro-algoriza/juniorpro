@@ -82,12 +82,8 @@ export const EditProfile = ({
         email: newProfile.email,
       }));
       setIsOpen(false);
-    } catch (err: unknown) {
-      const message =
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (err as any)?.response?.data?.message ||
-        (err as Error).message ||
-        "Failed to update your data";
+    } catch (err) {
+      const message = (err as Error).message || "Failed to update your data";
       toast.error(message);
     } finally {
       setLoading(false);

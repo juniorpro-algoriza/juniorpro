@@ -18,9 +18,9 @@ export const Profile = ({ profile }: { profile: ProfileData }) => {
     </div>
   );
   return (
-    <div className="flex gap-6 py-6">
+    <div className="flex gap-3 md:gap-6 py-6 flex-col md:flex-row">
       {/* About Section */}
-      <div className="bg-white rounded-2xl shadow-xl space-y-3 p-6 h-fit w-1/3">
+      <div className="bg-white rounded-2xl shadow-xl space-y-3 p-6 h-fit md:w-2/5">
         <h2 className="text-2xl text-yankees-blue font-medium">About</h2>
         <p className="text-content-secondary font-medium leading-8">
           {profile?.about}
@@ -58,7 +58,7 @@ export const Profile = ({ profile }: { profile: ProfileData }) => {
       </div>
 
       {/* Skills Section */}
-      <div className="w-2/3 bg-white rounded-2xl shadow-xl p-6 h-fit space-y-4">
+      <div className="md:w-2/3 bg-white rounded-2xl shadow-xl p-6 h-fit space-y-4">
         <h2 className="text-2xl font-medium text-yankees-blue">
           Skills & Expertise
         </h2>

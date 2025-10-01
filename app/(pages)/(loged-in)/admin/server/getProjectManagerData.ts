@@ -7,12 +7,12 @@ export const getProjectManagerJuniors = async (
   pageNumber = 1,
   pageSize = 10
 ) => {
-  const res = await getData({
+  const res = (await getData({
     url: `project-manager/juniors?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
     method: "GET",
     dummyData: [],
-  });
-  return res?.data ?? [];
+  })) as { data?: unknown[] };
+  return res?.data || [];
 };
 
 export const getProjectManagerContributors = async (
@@ -20,12 +20,12 @@ export const getProjectManagerContributors = async (
   pageNumber = 1,
   pageSize = 10
 ) => {
-  const res = await getData({
+  const res = (await getData({
     url: `project-manager/contributors?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
     method: "GET",
     dummyData: [],
-  });
-  return res?.data ?? [];
+  })) as { data?: unknown[] };
+  return res?.data || [];
 };
 
 export const getProjectManagerProjects = async (
@@ -33,12 +33,12 @@ export const getProjectManagerProjects = async (
   pageNumber = 1,
   pageSize = 10
 ) => {
-  const res = await getData({
+  const res = (await getData({
     url: `project-manager/projects?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
     method: "GET",
     dummyData: [],
-  });
-  return res?.data ?? [];
+  })) as { data?: unknown[] };
+  return res?.data || [];
 };
 
 export const getProjectManagerPracticeZone = async (
@@ -46,10 +46,10 @@ export const getProjectManagerPracticeZone = async (
   pageNumber = 1,
   pageSize = 10
 ) => {
-  const res = await getData({
+  const res = (await getData({
     url: `project-manager/practice-zone-projects?pageNumber=${pageNumber}&pageSize=${pageSize}&ProjectManagerId=${projectManagerId}`,
     method: "GET",
     dummyData: [],
-  });
-  return res?.data ?? [];
+  })) as { data?: unknown[] };
+  return res?.data || [];
 };

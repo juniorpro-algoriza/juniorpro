@@ -5,13 +5,14 @@ import { Fragment, useEffect, useState } from "react";
 import { Button, Input, Modal, Select } from "@components";
 import { XIcon } from "lucide-react";
 import { CloseButton } from "@headlessui/react";
-import { getData } from "@server";
+import { getData, getLookup } from "@server";
 import { toast } from "sonner";
+import { Lookup } from "@types";
 
 export interface AddJuniorProps {
   onAdded?: (newJunior: any) => void;
   onClose?: () => void;
-  contributorId?: number; // optional preselected contributor
+  contributorId?: number;
 }
 
 export const AddJuniors = ({
@@ -19,33 +20,23 @@ export const AddJuniors = ({
   onClose,
   contributorId,
 }: AddJuniorProps) => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    contributorId: contributorId || ("" as string | number | ""),
-  });
-
-  const [contributors, setContributors] = useState<
-    { id: number; nameEN: string }[]
-  >([]);
+    contributorId: 0,
+  };
+  const [formData, setFormData] = useState(initialFormData);
+  const [contributors, setContributors] = useState<Lookup[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch contributors list (unless contributorId was passed)
   useEffect(() => {
-    if (contributorId) return; // skip if we already have contributorId
     const fetchContributors = async () => {
-      try {
-        const res = await getData({
-          url: "Contributor/look-ups",
-          method: "GET",
-        });
-        if (Array.isArray(res)) setContributors(res);
-      } catch (err) {
-        console.error("Failed to fetch contributors", err);
-      }
+      const data = await getLookup("Contributor/look-ups");
+      setContributors(data);
     };
     fetchContributors();
   }, [contributorId]);
@@ -68,7 +59,6 @@ export const AddJuniors = ({
         password: formData.password,
         birthDate: new Date().toISOString(),
       };
-
       // include contributorId if available
       if (formData.contributorId)
         body.contributorId = Number(formData.contributorId);
@@ -81,6 +71,7 @@ export const AddJuniors = ({
       toast.success("Junior added successfully!");
       onAdded?.(newJunior);
       onClose?.();
+      setFormData(initialFormData);
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Failed to add junior");
@@ -134,11 +125,10 @@ export const AddJuniors = ({
           <Select
             label="Select Contributor (optional)"
             value={formData.contributorId}
-            options={[
-              { label: "Select...", value: "" },
-              ...contributors.map((c) => ({ label: c.nameEN, value: c.id })),
-            ]}
-            onChange={(val) => handleChange("contributorId", val)}
+            options={contributors}
+            onChange={(val) =>
+              setFormData({ ...formData, contributorId: Number(val) })
+            }
           />
         )}
 

@@ -1,15 +1,28 @@
-import { Button } from "@components";
+export const dynamic = "force-dynamic";
+
+// import { Button } from "@components";
 import { DiamondIcon, DocumentIcon, FireIcon, HourGlassIcon } from "@icons";
-interface DashboardCardsProps {
-  statistics: {
-    dailyStreak: number;
-    finishedTasks: number;
-    pendingTasks: number;
-    myPoints: number;
-  };
+import { getData } from "@server";
+
+interface DashboardStats {
+  dailyStreak: number;
+  finishedTasks: number;
+  pendingTasks: number;
+  myPoints: number;
 }
 
-export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
+export const DashboardCards = async () => {
+  const statistics: DashboardStats = await getData<DashboardStats>({
+    url: "junior-dashboard/stats",
+    method: "GET",
+    dummyData: {
+      dailyStreak: 0,
+      finishedTasks: 0,
+      pendingTasks: 0,
+      myPoints: 0,
+    },
+  });
+
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -17,7 +30,7 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-danger-500">
-                {statistics?.dailyStreak || 0}
+                {statistics.dailyStreak}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 Daily Streak
@@ -31,11 +44,12 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
             </div>
           </div>
         </div>
+
         <div className="bg-light-green p-4 rounded-2xl border border-border-secondary">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-success-500">
-                {statistics?.finishedTasks || 0}
+                {statistics.finishedTasks}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 Finished Tasks
@@ -49,11 +63,12 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
             </div>
           </div>
         </div>
+
         <div className="bg-light-carrot-orange p-4 rounded-2xl border border-border-secondary">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-dark-orange">
-                {statistics?.pendingTasks || 0}
+                {statistics.pendingTasks}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 Pending Tasks
@@ -67,11 +82,12 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
             </div>
           </div>
         </div>
+
         <div className="bg-white shadow p-4 rounded-2xl border border-antiflash-white space-y-4">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2 font-medium">
               <p className="text-3xl text-yankees-blue">
-                {statistics?.myPoints || 0}
+                {statistics.myPoints}
               </p>
               <p className="text-content-secondary font-medium text-xl">
                 My Points
@@ -81,9 +97,9 @@ export const DashboardCards = async ({ statistics }: DashboardCardsProps) => {
               <DiamondIcon fill="#5879DC" width="25" height="25" />
             </div>
           </div>
-          <Button intent="primary" className="w-full">
+          {/* <Button intent="primary" className="w-full">
             Request Points
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
