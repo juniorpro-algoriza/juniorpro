@@ -1,19 +1,19 @@
 import { PointsCard } from "@components";
 import { DiamondIcon, WalletIcon } from "@icons";
 import type { SVGProps } from "react";
-import { getPointsData } from "@server";
+// import { getPointsData } from "@server";
 
 export const Points = async () => {
-  const { pointsBalance, cashBalance } = await getPointsData();
+  // const { pointsBalance, cashBalance } = await getPointsData();
   const data = [
     {
       title: "Points Balance",
-      value: pointsBalance as number,
+      value: 500 as number,
       Icon: DiamondIcon as React.FC<SVGProps<SVGSVGElement>>,
     },
     {
       title: "Cash Balance",
-      value: cashBalance as number,
+      value: 90 as number,
       Icon: WalletIcon as React.FC<SVGProps<SVGSVGElement>>,
     },
   ];

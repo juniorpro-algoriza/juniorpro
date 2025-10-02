@@ -12,12 +12,22 @@ const BaseSchema = z.object({
   password: z.string().min(6),
   passwordConfirm: z.string().min(6),
   signInAs: z.enum(["contributor", "junior"]),
+  invitationId: z.string().optional(),
 });
 
-// Junior schema with optional fields
 const JuniorSchema = BaseSchema.extend({
   contributorEmail: z.string().email().or(z.literal("")).optional(),
 });
+
+type payloadType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  invitationId?: string | null;
+  contributorEmail?: string;
+};
 
 export const signUp = async (
   prevState: ActionState,
@@ -25,21 +35,19 @@ export const signUp = async (
 ): Promise<ActionState> => {
   const rawData: Record<string, string> = {};
   formData.forEach((value, key) => {
-    rawData[key] = value.toString(); //convert it to string
+    rawData[key] = value.toString();
   });
 
+  const invitationId = rawData.invitationId;
   const isJunior = rawData.signInAs === "junior";
 
-  // Pars depen on role
   const parsed = (isJunior ? JuniorSchema : BaseSchema).safeParse(rawData);
-
   if (!parsed.success) return { success: false, error: "Invalid inputs" };
 
   const { firstName, lastName, email, password, passwordConfirm, signInAs } =
     parsed.data;
 
   let contributorEmail: string | undefined;
-
   if (isJunior) {
     contributorEmail =
       (parsed.data as z.infer<typeof JuniorSchema>).contributorEmail ||
@@ -50,13 +58,13 @@ export const signUp = async (
     signInAs === "contributor" ? "contributor/sign-up" : "junior/sign-up";
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const payload: any = {
+    const payload: payloadType = {
       firstName,
       lastName,
       email,
       password,
       confirmPassword: passwordConfirm,
+      invitationId: signInAs === "junior" && invitationId ? invitationId : null,
     };
 
     if (contributorEmail) payload.contributorEmail = contributorEmail;
