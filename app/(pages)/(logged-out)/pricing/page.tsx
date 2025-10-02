@@ -3,18 +3,19 @@ export const dynamic = "force-dynamic";
 import { Footer, Nav } from "@components";
 import React from "react";
 import { PricingPlans } from "./components/PricingPlans";
-import { getPointsPlans, getProjects } from "@server";
+// import { getPointsPlans, getProjects } from "@server";
+import { getPointsPlans } from "@server";
 // import { ProjectsCarousel } from "../home/components/ProjectsSection/ProjectCarousel";
 import { Projects } from "./components/Projects";
 import { Points } from "./components/Points";
 import { cookies } from "next/headers";
+import { getLandingProjects } from "../home/server";
 
 const PricingPage = async () => {
   const plans = await getPointsPlans();
-  const { data } = await getProjects({
-    limit: 10,
-    pageNum: 1,
-    projectType: "all",
+  const { data } = await getLandingProjects({
+    pageNumber: 1,
+    pageSize: 10,
   });
   const cookieStore = await cookies();
   const token = cookieStore.get("auth_token")?.value;

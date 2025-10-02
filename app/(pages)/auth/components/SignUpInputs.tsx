@@ -16,11 +16,13 @@ export const inputNames = {
 interface SignUpInputsProps {
   isPending?: boolean;
   signInAs?: "junior" | "contributor";
+  invitationId?: string;
 }
 
 export const SignUpInputs: FC<SignUpInputsProps> = ({
   isPending,
   signInAs,
+  invitationId,
 }) => {
   return (
     <>
@@ -58,7 +60,7 @@ export const SignUpInputs: FC<SignUpInputsProps> = ({
       />
 
       {/* Conditional input for juniors */}
-      {signInAs === "junior" && (
+      {(signInAs === "junior" || invitationId) && (
         <Input
           name={inputNames.contributorEmail}
           label="Contributor Email (optional)"
