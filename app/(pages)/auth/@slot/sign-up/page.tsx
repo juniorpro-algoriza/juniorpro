@@ -1,12 +1,13 @@
 import { LoginLink, Logo, SignUpForm, WelcomeMessage } from "../../components";
 
-const SignUpSlot = ({
+const SignUpSlot = async ({
   searchParams,
 }: {
-  searchParams: { invited?: string; invitationId?: string };
+  searchParams?: Promise<Record<string, string>>;
 }) => {
-  const invited = searchParams.invited === "true";
-  const invitationId = searchParams.invitationId;
+  const params = await searchParams;
+  const invited = params?.invited === "true";
+  const invitationId = params?.invitationId;
 
   return (
     <div className="space-y-6 px-6">
