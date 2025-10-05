@@ -14,7 +14,7 @@ export const signIn = async (
   prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = process.env.API_ROOT_URL;
 
   const dataObject = Object.fromEntries(formData);
   const parsed = Schema.safeParse(dataObject);
