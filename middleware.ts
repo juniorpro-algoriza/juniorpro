@@ -3,35 +3,29 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("auth_token")?.value;
+  const userType = Number(req.cookies.get("user_type")?.value || 0);
   const path = req.nextUrl.pathname;
 
-  if (path.startsWith("/auth/login") && token) {
-    try {
-      const profileRes = await fetch(
-        "https://juniorpro-001-site1.ntempurl.com/api/User/profile",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      if (profileRes.ok) {
-        const profile = await profileRes.json();
-        const userType = profile.userType;
-
-        if (userType === 1)
-          return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-        if (userType === 2)
-          return NextResponse.redirect(new URL("/junior/dashboard", req.url));
-        if (userType === 3)
-          return NextResponse.redirect(
-            new URL("/contributor/dashboard", req.url)
-          );
-        if (userType === 4)
-          return NextResponse.redirect(
-            new URL("project/manger/dashboard", req.url)
-          );
-
+  if (
+    (path.startsWith("/auth/login") || path.startsWith("/auth/sign-up")) &&
+    token
+  ) {
+    switch (userType) {
+      case 1:
+        return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+      case 2:
+        return NextResponse.redirect(new URL("/junior/dashboard", req.url));
+      case 3:
+        return NextResponse.redirect(
+          new URL("/contributor/dashboard", req.url)
+        );
+      case 4:
+        return NextResponse.redirect(
+          new URL("/project/manager/dashboard", req.url)
+        );
+      default:
         return NextResponse.redirect(new URL("/", req.url));
-      }
-    } catch {}
+    }
   }
 
   // Not logged in → redirect to login
@@ -46,28 +40,17 @@ export async function middleware(req: NextRequest) {
     path.startsWith("/contributor") ||
     path.startsWith("/project")
   ) {
-    try {
-      const profileRes = await fetch(
-        "https://juniorpro-001-site1.ntempurl.com/api/User/profile",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      if (!profileRes.ok)
-        return NextResponse.redirect(new URL("/auth/login", req.url));
-
-      const profile = await profileRes.json();
-      const userType = profile.userType;
-
-      if (path.startsWith("/admin") && userType !== 1)
-        return NextResponse.redirect(new URL("/unauthorized", req.url));
-      if (path.startsWith("/junior") && userType !== 2)
-        return NextResponse.redirect(new URL("/unauthorized", req.url));
-      if (path.startsWith("/contributor") && userType !== 3)
-        return NextResponse.redirect(new URL("/unauthorized", req.url));
-      if (path.startsWith("/project") && userType !== 4)
-        return NextResponse.redirect(new URL("/unauthorized", req.url));
-    } catch {
+    if (!token) {
       return NextResponse.redirect(new URL("/auth/login", req.url));
+    }
+
+    if (
+      (path.startsWith("/admin") && userType !== 1) ||
+      (path.startsWith("/junior") && userType !== 2) ||
+      (path.startsWith("/contributor") && userType !== 3) ||
+      (path.startsWith("/project") && userType !== 4)
+    ) {
+      return NextResponse.redirect(new URL("/unauthorized", req.url));
     }
   }
 
@@ -76,7 +59,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/auth/login",
+    "/auth/:path*",
     "/admin/:path*",
     "/junior/:path*",
     "/contributor/:path*",

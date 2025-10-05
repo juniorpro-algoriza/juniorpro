@@ -15,7 +15,7 @@ export async function signOut() {
     expires: new Date(0),
   });
 
-  cookieStore.set("role", "", {
+  cookieStore.set("user_type", "", {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
