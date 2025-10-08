@@ -29,3 +29,6 @@ export { EyeCloseIcon } from "./EyeCloseIcon";
 export { EyeIcon } from "./EyeIcon";
 export { LeftArrowIcon } from "./LeftArrowIcon";
 export { BurgerIcon } from "./BurgerIcon";
+export { ClockIcon } from "./ClockIcon";
+export { CalendarCodeIcon } from "./CalendarCodeIcon";
+export { CheckMarkIcon } from "./CheckMarkIcon";

@@ -1,4 +1,3 @@
-import {Footer, Nav} from '@components';
 import {
   CTASection,
   HeroSection,
@@ -6,25 +5,19 @@ import {
   PremiumTasksSection,
   TestimonialsSection,
   TrustedOrganizationsSection,
-} from './components';
-import {ProjectsSection} from './components/ProjectsSection';
-import {cookies} from 'next/headers';
+} from "./components";
+import { ProjectsSection } from "./components/ProjectsSection";
 
 export default async function HomePage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("auth_token")?.value;
-  const isAuthenticated = !!token;
-  
   return (
     <>
-      <Nav isAuthenticated={isAuthenticated} />
       {/* Background */}
       <div className="bg-linear-to-b h-[720px] absolute from-light-blue to-white inset-0 -z-10"></div>
       {/* Section 1: Hero Section */}
       <HeroSection />
       {/* Section 2: How It Works */}
       <section id="how-it-works">
-      <HowItWorkSection />
+        <HowItWorkSection />
       </section>
       {/* Section 3: Premium Tasks */}
       <PremiumTasksSection />
@@ -36,12 +29,10 @@ export default async function HomePage() {
       <TestimonialsSection />
       {/* Section 6: Trusted Organizations */}
       <section id="trusted-orgs">
-      <TrustedOrganizationsSection />
+        <TrustedOrganizationsSection />
       </section>
       {/* Section 7: CTA Section */}
       <CTASection />
-      <Footer />
     </>
   );
-};
-
+}
