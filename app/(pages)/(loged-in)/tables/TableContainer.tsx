@@ -110,8 +110,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
       <GenericTable columns={[...columns]} data={filteredData} />
 
       {/* Pagination (show in both dashboard & full) */}
-      {/* Pagination (sticky bottom) */}
-      {totalPages > 1 && (
+      {view === "full" && totalPages > 1 && (
         <div className=" flex items-center justify-between border-t border-gray-200 bg-white shadow-sm rounded-b-[10px] px-6 py-4 z-10">
           <p className="text-sm text-gray-500">
             Page {pageNumber} of {totalPages}
