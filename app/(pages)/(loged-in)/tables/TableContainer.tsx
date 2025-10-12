@@ -98,7 +98,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
           </div>
         ) : (
           <a
-            href={`/admin/${type}s`}
+            href={`/admin/${type}`}
             className="text-sm text-blue-600 hover:underline"
           >
             View All
