@@ -12,3 +12,4 @@ export { Textarea } from "./Textarea";
 export { PurchaseCard } from "./PurchaseCard";
 export { PointsCard } from "./PointsCard";
 export { Select } from "./Select";
+export { ProjectDetails } from "./ProjectDetails";
