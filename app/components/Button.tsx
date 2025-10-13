@@ -76,7 +76,7 @@ const button = cva({
       secondary:
         "bg-primary-100 text-tertiary hover:bg-primary-200 focus:ring-primary-200 disabled:bg-tertiary disabled:text-white",
       tertiary:
-        "bg-transparent text-tertiary border border-tertiary hover:bg-primary-50 focus:ring-primary-200 disabled:text-primary-400 disabled:border-primary-400",
+        "bg-transparent text-violet-normal border border-violet-normal hover:bg-violet-50 focus:ring-violet-200 disabled:text-violet-400 disabled:border-violet-400",
       destructive:
         "bg-transparent text-danger-350 border border-danger-350 hover:bg-danger-50 hover:border-danger-300 hover:text-danger-300 focus:ring-rejected-200 disabled:text-danger-500 disabled:border-danger-500",
     },

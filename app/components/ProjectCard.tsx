@@ -1,15 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Button, Badge } from "@components";
-import { Check } from "lucide-react";
-import { ProjectType } from "@types";
-import { NormalizedProject } from "../types/Projects";
-import { joinProject } from "@server";
-import Cookies from "js-cookie";
-import { toast } from "sonner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ProjectType } from "@types";
+import { NormalizedProject } from "../types/Projects";
 
 interface ProjectCardProps {
   project: NormalizedProject;
@@ -25,7 +20,6 @@ interface ProjectCardProps {
   showStatus?: boolean;
   showRating?: boolean;
   showProjectType?: boolean;
-  onJoinSuccess?: (projectId: number) => void;
 }
 
 const projectColorMap: Record<ProjectType, "blue" | "red" | "green"> = {
@@ -37,24 +31,13 @@ const projectColorMap: Record<ProjectType, "blue" | "red" | "green"> = {
 export const ProjectCard = ({
   project,
   className = "",
-  onJoinSuccess,
   showDescription = true,
   showStatus = false,
   showProjectType = false,
   showAge = true,
 }: ProjectCardProps) => {
   const router = useRouter();
-  const { id, category, description, imageUrl, projectType, status, ageRange, isJoined } =
-    project as NormalizedProject & { status: string; isJoined?: boolean };
-
-  const [isJoining, setIsJoining] = useState(false);
-  const [joined, setJoined] = useState(isJoined || false);
-  const [userType, setUserType] = useState<string | null>(null);
-
-  useEffect(() => {
-    const type = Cookies.get("user_type");
-    setUserType(type || null);
-  }, []);
+  const { id, category, description, imageUrl, projectType, status, ageRange } = project as NormalizedProject & { status: string };
 
   const statusVariant = (status: string): "gray" | "green" | "orange" => {
     if (status === "Draft") return "gray";
@@ -62,71 +45,17 @@ export const ProjectCard = ({
     return "orange";
   };
 
-  const handleJoinProject = async () => {
-    if (joined) return;
-    setIsJoining(true);
-
-    try {
-      const result = await joinProject(Number(id));
-
-      if (result.success) {
-        toast.success("Successfully joined the project!");
-        setJoined(true);
-        onJoinSuccess?.(Number(id));
-      } else {
-        toast.error(result.error || "Unable to join project");
-      }
-    } catch (error: unknown) {
-  if (error instanceof Error) {
-    toast.error(error.message);
-  } else {
-    toast.error("Failed to join project");
-  }
-}
-  };
-
-  const handleButtonClick = async () => {
-    const type = Cookies.get("user_type");
-
-    // if not logged in → redirect to login with redirect param
-    if (!type) {
-      toast.info("Please log in or register to continue");
-      router.push(`/auth/login?redirect=/projectDetails/${id}`);
-      return;
-    }
-
-    // Junior → join project
-    if (type === "2") {
-      await handleJoinProject();
-      return;
-    }
-
-    // Any other role → view project
+  const handleClick = () => {
     router.push(`/projectDetails/${id}`);
-  };
-
-  const renderButtonText = () => {
-    if (!userType) return "Join Project";
-
-    if (userType === "2") {
-      if (isJoining) return "Joining...";
-      if (joined)
-        return (
-          <>
-            Joined <Check className="w-4 h-4" />
-          </>
-        );
-      return "Join Project";
-    }
-
-    return "View Project";
   };
 
   return (
     <div
       data-id={id}
-      className={`bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-border-primary overflow-hidden ${className}`}
+      onClick={handleClick}
+      className={`cursor-pointer bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-border-primary overflow-hidden ${className}`}
     >
+      {/* Image */}
       <div className="relative w-full h-48">
         {imageUrl ? (
           <Image
@@ -154,6 +83,7 @@ export const ProjectCard = ({
         )}
       </div>
 
+      {/* Content */}
       <div className="p-4 flex flex-col justify-between">
         <div className="mb-3">
           <h4 className="text-lg font-semibold text-yankees-blue mb-1">
@@ -164,6 +94,7 @@ export const ProjectCard = ({
           )}
         </div>
 
+        {/* Badges */}
         <div className="flex gap-2 pb-3 overflow-hidden whitespace-nowrap">
           {showStatus && (
             <Badge
@@ -188,13 +119,12 @@ export const ProjectCard = ({
           )}
         </div>
 
+        {/* View Button */}
         <Button
-          intent={joined ? "primary" : "tertiary"}
+          intent="tertiary"
           className="w-full py-2 mt-auto text-sm font-medium flex items-center justify-center gap-2"
-          onClick={handleButtonClick}
-          disabled={userType === "2" && (isJoining || joined)}
         >
-          {renderButtonText()}
+          View Details
         </Button>
       </div>
     </div>
