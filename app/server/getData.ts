@@ -21,12 +21,18 @@ export const getData = async <T>({
 }: Props<T>): Promise<T> => {
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
-    if (!headers) throw new Error("No headers found");
+
+    //Fallback to default headers instead of throwing
+    const safeHeaders =
+      headers ||
+      (body
+        ? { "Content-Type": "application/json" }
+        : { Accept: "application/json" });
 
     const queryString = params
       ? new URLSearchParams(
           Object.entries(params)
-            .filter(([, v]) => v !== undefined) // skip undefined
+            .filter(([, v]) => v !== undefined)
             .map(([k, v]) => [k, String(v)])
         ).toString()
       : "";
@@ -35,7 +41,7 @@ export const getData = async <T>({
 
     const res = await fetch(finalUrl, {
       method,
-      headers,
+      headers: safeHeaders,
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-store",
     });

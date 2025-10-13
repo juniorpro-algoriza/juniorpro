@@ -9,6 +9,8 @@ interface Props {
   data: ProjectDetailsResponse;
 }
 
+
+
 export const ProjectDetails= ({ data }: Props) => {
   const { projectDetails, tools, skills, tasks } = data;
 
@@ -23,7 +25,13 @@ export const ProjectDetails= ({ data }: Props) => {
         <div className="col-span-3 space-y-6">
           <Image
             className="w-full rounded-xl"
-            src={projectDetails.image || "/images/projectDetailsImage.svg"}
+            src={
+              projectDetails.image?.startsWith("http")
+                ? projectDetails.image
+                : projectDetails.image
+                ? `/${projectDetails.image.replace(/^\/+/, "")}`
+                : "/images/featured-Project-image.svg"
+            }
             width={500}
             height={500}
             alt="project image"
@@ -122,7 +130,6 @@ export const ProjectDetails= ({ data }: Props) => {
               <p className="text-[#626C83]">No skills listed</p>
             )}
           </div>
-
           <Button className="w-full h-12" intent="primary">
             Start Challenge
           </Button>
