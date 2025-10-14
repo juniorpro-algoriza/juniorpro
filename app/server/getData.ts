@@ -22,7 +22,6 @@ export const getData = async <T>({
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
 
-    //Fallback to default headers instead of throwing
     const safeHeaders =
       headers ||
       (body
@@ -44,6 +43,8 @@ export const getData = async <T>({
       headers: safeHeaders,
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-store",
+      // ADD: Increase timeout or add signal
+      signal: AbortSignal.timeout(40000), // 30 seconds
     });
 
     if (!res.ok) throw new Error(`Request failed: ${res.status}`);
@@ -51,6 +52,14 @@ export const getData = async <T>({
     return (await res.json()) as T;
   } catch (err) {
     console.error("Error fetching data:", err);
-    return dummyData as T;
+
+    // IMPROVED: Ensure we always return valid data
+    if (dummyData !== undefined) {
+      return dummyData;
+    }
+
+    // If no dummy data provided, throw the error
+    // This helps catch issues during development
+    throw err;
   }
 };
