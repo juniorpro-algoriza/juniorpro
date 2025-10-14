@@ -8,6 +8,7 @@ interface Props<T = unknown> {
   dummyData?: T;
   body?: unknown;
   params?: Record<string, string | number | undefined>;
+  timeout?: number; // Optional: allow custom timeout per request
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;
@@ -18,6 +19,7 @@ export const getData = async <T>({
   body,
   dummyData,
   params,
+  timeout = 15000,
 }: Props<T>): Promise<T> => {
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
@@ -43,23 +45,21 @@ export const getData = async <T>({
       headers: safeHeaders,
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-store",
-      // ADD: Increase timeout or add signal
-      signal: AbortSignal.timeout(40000), // 30 seconds
+      signal: AbortSignal.timeout(timeout), // ← Fix applied once
     });
 
-    if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`Request failed: ${res.status}`);
+    }
 
     return (await res.json()) as T;
   } catch (err) {
     console.error("Error fetching data:", err);
 
-    // IMPROVED: Ensure we always return valid data
     if (dummyData !== undefined) {
       return dummyData;
     }
 
-    // If no dummy data provided, throw the error
-    // This helps catch issues during development
     throw err;
   }
 };
