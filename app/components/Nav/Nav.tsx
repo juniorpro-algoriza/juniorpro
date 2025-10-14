@@ -21,9 +21,9 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "How it works", href: "#how-it-works" },
-    { label: "Projects", href: "#projects" },
-    { label: "Why choose us", href: "#trusted-orgs" },
+    { label: "How it works", href: "/#how-it-works" },
+    { label: "Projects", href: "/#projects" },
+    { label: "Why choose us", href: "/#trusted-orgs" },
     { label: "Pricing", href: "/pricing" },
   ];
 
