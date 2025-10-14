@@ -37,7 +37,8 @@ export const ProjectCard = ({
   showAge = true,
 }: ProjectCardProps) => {
   const router = useRouter();
-  const { id, category, description, imageUrl, projectType, status, ageRange } = project as NormalizedProject & { status: string };
+  const { id, category, description, imageUrl, projectType, status, ageRange } =
+    project as NormalizedProject & { status: string };
 
   const statusVariant = (status: string): "gray" | "green" | "orange" => {
     if (status === "Draft") return "gray";
@@ -52,7 +53,6 @@ export const ProjectCard = ({
   return (
     <div
       data-id={id}
-      onClick={handleClick}
       className={`cursor-pointer bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-border-primary overflow-hidden ${className}`}
     >
       {/* Image */}
@@ -121,6 +121,7 @@ export const ProjectCard = ({
 
         {/* View Button */}
         <Button
+          onClick={handleClick}
           intent="tertiary"
           className="w-full py-2 mt-auto text-sm font-medium flex items-center justify-center gap-2"
         >
