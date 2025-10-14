@@ -7,13 +7,18 @@ import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { signIn } from "../server";
 import { EyeCloseIcon, EyeIcon } from "@icons";
+import { useSearchParams } from "next/navigation";
 
 export const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
   const [type, setType] = useState("password");
+  const searchParams = useSearchParams();
+
+  const redirectParam = searchParams.get("redirect");
+  const joinParam = searchParams.get("join");
+
   useEffect(() => {
     const { error } = state;
-
     if (error) toast.error(error, { id: "login-error" });
     else toast.dismiss("login-error");
   }, [state]);
@@ -47,6 +52,13 @@ export const LoginForm = () => {
           </a>
         </div>
       </div>
+
+      {/* Preserve redirect & join params */}
+      {redirectParam && (
+        <input type="hidden" name="redirect" value={redirectParam} />
+      )}
+      {joinParam && <input type="hidden" name="join" value={joinParam} />}
+
       <Button
         icon={isPending ? <Loader className="animate-spin" /> : null}
         disabled={isPending}

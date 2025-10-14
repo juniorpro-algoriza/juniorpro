@@ -8,7 +8,7 @@ interface Props<T = unknown> {
   dummyData?: T;
   body?: unknown;
   params?: Record<string, string | number | undefined>;
-  timeout?: number; // Optional: allow custom timeout per request
+  timeout?: number;
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;
@@ -45,21 +45,25 @@ export const getData = async <T>({
       headers: safeHeaders,
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-store",
-      signal: AbortSignal.timeout(timeout), // ← Fix applied once
+      signal: AbortSignal.timeout(timeout),
     });
 
     if (!res.ok) {
-      throw new Error(`Request failed: ${res.status}`);
+      let errorMessage = `Request failed: ${res.status}`;
+      try {
+        const errJson = await res.json();
+        if (errJson?.errorMessage) errorMessage = errJson.errorMessage;
+        else if (errJson?.message) errorMessage = errJson.message;
+      } catch {
+        // ignore if no valid JSON
+      }
+      throw new Error(errorMessage);
     }
 
     return (await res.json()) as T;
   } catch (err) {
     console.error("Error fetching data:", err);
-
-    if (dummyData !== undefined) {
-      return dummyData;
-    }
-
+    if (dummyData !== undefined) return dummyData;
     throw err;
   }
 };
