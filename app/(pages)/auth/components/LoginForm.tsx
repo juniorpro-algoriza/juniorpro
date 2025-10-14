@@ -1,15 +1,15 @@
 "use client";
 
+import { Suspense, useActionState, useEffect, useState } from "react";
 import { Button, Input } from "@components";
 import { initialState } from "@server/lib";
 import { Loader } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { signIn } from "../server";
 import { EyeCloseIcon, EyeIcon } from "@icons";
 import { useSearchParams } from "next/navigation";
 
-export const LoginForm = () => {
+const LoginFormContent = () => {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
   const [type, setType] = useState("password");
   const searchParams = useSearchParams();
@@ -31,6 +31,7 @@ export const LoginForm = () => {
         type="email"
         placeholder="Enter email address"
       />
+
       <div>
         <div className="relative">
           <Input
@@ -70,5 +71,17 @@ export const LoginForm = () => {
         Login
       </Button>
     </form>
+  );
+};
+
+export const LoginForm = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="text-center text-sm text-gray-400">Loading...</div>
+      }
+    >
+      <LoginFormContent />
+    </Suspense>
   );
 };

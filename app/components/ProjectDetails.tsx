@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import {
   CalendarIcon,
   ClockIcon,
@@ -13,7 +15,7 @@ import { joinProject } from "@server";
 import { toast } from "sonner";
 import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 interface Props {
   data: ProjectDetailsResponse;
@@ -25,23 +27,8 @@ export const ProjectDetails = ({ data }: Props) => {
   const searchParams = useSearchParams();
   const [isJoining, setIsJoining] = useState(false);
 
-  const handleStartChallenge = async () => {
-    const userType = Cookies.get("user_type");
-
-    // If not logged in → redirect to login with redirect & join params
-    if (!userType) {
-      toast.info("Please log in or register to continue");
-      router.push(
-        `/auth/login?redirect=/projectDetails/${projectDetails.id}&join=${projectDetails.id}`
-      );
-      return;
-    }
-
-    await joinNow();
-  };
-
-  // ✅ Handles joining logic (also used after redirect)
-  const joinNow = async () => {
+  // useCallback prevents new function reference each render
+  const joinNow = useCallback(async () => {
     try {
       setIsJoining(true);
       const result = await joinProject(Number(projectDetails.id));
@@ -59,17 +46,32 @@ export const ProjectDetails = ({ data }: Props) => {
     } finally {
       setIsJoining(false);
     }
+  }, [projectDetails.id, router]);
+
+  const handleStartChallenge = async () => {
+    const userType = Cookies.get("user_type");
+
+    // If not logged in → redirect to login with redirect & join params
+    if (!userType) {
+      toast.info("Please log in or register to continue");
+      router.push(
+        `/auth/login?redirect=/projectDetails/${projectDetails.id}&join=${projectDetails.id}`
+      );
+      return;
+    }
+
+    await joinNow();
   };
 
-  // auto-join when coming back from login (if ?join param exists)
+  // ✅ auto-join when coming back from login (if ?join param exists)
   useEffect(() => {
     const joinId = searchParams.get("join");
     const userType = Cookies.get("user_type");
     if (joinId && userType) {
       joinNow();
-      router.replace(`/projectDetails/${joinId}`); // Clean URL (remove ?join)
+      router.replace(`/projectDetails/${joinId}`);
     }
-  }, [searchParams]);
+  }, [searchParams, joinNow, router]);
 
   return (
     <div className="px-20 py-8">
