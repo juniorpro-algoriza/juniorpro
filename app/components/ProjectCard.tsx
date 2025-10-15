@@ -57,24 +57,19 @@ export const ProjectCard = ({
     >
       {/* Image */}
       <div className="relative w-full h-48">
-        {imageUrl ? (
-          <Image
-            src={
-              String(imageUrl).startsWith("/")
-                ? imageUrl
-                : "/images/featued-Project-image.svg"
-            }
-            width={500}
-            height={500}
-            alt="project image"
-            className="object-cover w-full h-full"
-            priority
-          />
-        ) : (
-          <div className="bg-gray-100 w-full h-full flex items-center justify-center text-gray-400">
-            No Image Added
-          </div>
-        )}
+        <Image
+          className="w-full rounded-xl"
+          src={
+            imageUrl?.startsWith("http")
+              ? imageUrl
+              : imageUrl
+                ? `/${imageUrl.replace(/^\/+/, "")}`
+                : "/images/featured-Project-image.svg"
+          }
+          width={500}
+          height={500}
+          alt="project image"
+        />
 
         {category && (
           <span className="absolute top-2 left-2 px-3 py-1 text-xs font-medium rounded-full bg-violet-50 text-violet-normal">
