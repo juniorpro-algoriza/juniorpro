@@ -1,17 +1,18 @@
-import {ServerTableWrapper} from '../../tables/ServerTableWrapper';
+import { ServerTableWrapper } from "../../tables/ServerTableWrapper";
 import {
   DashboardHeader,
   DashboardPracticeZone,
   DashboardStatsContainer,
-} from './components';
+} from "./components";
 
 const AdminDashboardPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{page?: string}>;
+  searchParams: Promise<{ page?: string; search?: string }>;
 }) => {
-  const {page} = await searchParams;
-  const pageNumber = Number(page) || 1;
+  const params = await searchParams;
+  const pageNumber = Number(params.page) || 1;
+  const searchText = params.search || undefined;
 
   return (
     <div className="py-3 px-6 bg-stone-50 space-y-6">
@@ -24,6 +25,7 @@ const AdminDashboardPage = async ({
           type="contributor"
           view="dashboard"
           pageNumber={pageNumber}
+          searchText={searchText}
         />
       </div>
     </div>

@@ -32,9 +32,11 @@ export const userConfigs = {
     endpoint: "contributor/get-all",
     tableColumns: [
       { header: "Name", key: "name" },
-      { header: "Juniors", key: "juniorsCount" },
       { header: "Email", key: "email" },
+      { header: "Juniors", key: "juniorsCount" },
       { header: "Status", key: "status" },
+      { header: "Wallet", key: "wallet" },
+      { header: "Points", key: "points" },
       { header: "Joined On", key: "joinedOn" },
       {
         header: "Action",
@@ -48,7 +50,6 @@ export const userConfigs = {
       add: "AddContributor",
       edit: "EditContributorProfile",
       assignPoints: "AssignPointsForContributors",
-
     },
     tabs: ["Projects", "Practice Zone", "Juniors"],
   },
@@ -59,8 +60,11 @@ export const userConfigs = {
     tableColumns: [
       { header: "Name", key: "name" },
       { header: "Email", key: "email" },
+      { header: "Contributor", key: "contributorName" },
+      { header: "Points", key: "points" },
+      { header: "Projects", key: "activeProjects" },
       { header: "Status", key: "status" },
-      // { header: "Joined On", key: "joinedOn" },
+      { header: "Joined On", key: "joinedOn" },
       {
         header: "Action",
         key: "actionHref",
@@ -78,28 +82,20 @@ export const userConfigs = {
 
   "junior-contributor": {
     entity: "Junior",
-    endpoint: "Contributor/juniors", // the API endpoint you already have
+    endpoint: "Contributor/juniors",
     tableColumns: [
       { header: "Name", key: "name" },
       { header: "Points", key: "points" },
       { header: "Active Projects", key: "activeProjects" },
       { header: "Completed Projects", key: "completedProjects" },
-      // {
-      //   header: "Action",
-      //   key: "actionHref",
-      //   isAction: true,
-      //   actionLabel: "View",
-      //   actionIcon: <EyeIcon size={16} />,
-      // },
     ],
     modals: {
       add: "AddJuniorForContributor",
       edit: "EditJuniorContributor",
       assignPoints: "AssignPointsForJuniors",
     },
-    tabs: ["Juniors"], 
+    tabs: ["Juniors"],
   },
-
 } as const;
 
 export type UserType = keyof typeof userConfigs;

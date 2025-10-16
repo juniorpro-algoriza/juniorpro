@@ -1,17 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { GenericTable } from "./GenericTable";
 import { userConfigs, type UserType } from "../../../config/userConfig";
 import { Button, Input, ModalLink } from "@components";
 import { SearchIcon } from "lucide-react";
 import { DiamondIcon } from "@icons";
 import { useMediaQuery } from "usehooks-ts";
+import { useRouter, useSearchParams } from "next/navigation";
+
+type TableData = Record<string, string | number | React.ReactNode>;
 
 interface TableContainerProps {
   type: UserType;
-  initialData: any[];
+  initialData: TableData[];
   title: string;
   managerId?: number;
   view?: "full" | "dashboard";
@@ -30,7 +32,34 @@ export const TableContainer: React.FC<TableContainerProps> = ({
   pageSize = 10,
 }) => {
   const config = userConfigs[type];
-  const [search, setSearch] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+
+  // Get initial search from URL
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+
+  // Handle search with debouncing
+  const handleSearch = (value: string) => {
+    setSearch(value);
+
+    // Debounce the actual search
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value) {
+        params.set("search", value);
+      } else {
+        params.delete("search");
+      }
+      params.set("page", "1"); // Reset to page 1 on search
+
+      startTransition(() => {
+        router.push(`?${params.toString()}`);
+      });
+    }, 500);
+
+    return () => clearTimeout(timer);
+  };
 
   // Filter columns for dashboard view
   const columns =
@@ -40,22 +69,15 @@ export const TableContainer: React.FC<TableContainerProps> = ({
         )
       : config.tableColumns;
 
-  // Apply search
-  let filteredData = initialData?.filter(
-    (item) =>
-      item.name?.toLowerCase().includes(search.toLowerCase()) ||
-      item.email?.toLowerCase().includes(search.toLowerCase())
-  );
-
-  // Apply dashboard limit of 6 rows
-  if (view === "dashboard") {
-    filteredData = filteredData.slice(0, 6);
-  }
+  // For dashboard view, limit to 6 rows
+  const displayData =
+    view === "dashboard" ? initialData.slice(0, 6) : initialData;
 
   const totalPages = Math.ceil(total / pageSize);
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
+
   return (
-    <div className="bg-white rounded-[20px]  mt-4 drop-shadow-xl border  border-border-primary">
+    <div className="bg-white rounded-[20px] mt-4 drop-shadow-xl border border-border-primary">
       {/* Header */}
       <div className="p-3 md:p-6 flex items-center justify-between gap-3 flex-wrap">
         <h3 className="text-xl font-medium text-yankees-blue">
@@ -89,12 +111,22 @@ export const TableContainer: React.FC<TableContainerProps> = ({
                   </ModalLink>
                 )}
             </div>
-            <Input
-              placeholder={`Search for ${config.entity}s...`}
-              onChange={(e: any) => setSearch(e.target.value)}
-              leftIcon={<SearchIcon size={20} />}
-              className="shadow-sm w-64 h-12 text-sm"
-            />
+            <div className="relative">
+              <Input
+                placeholder={`Search for ${config.entity}s...`}
+                value={search}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleSearch(e.target.value)
+                }
+                leftIcon={<SearchIcon size={20} />}
+                className="shadow-sm w-64 h-12 text-sm"
+              />
+              {isPending && (
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <div className="animate-spin h-4 w-4 border-2 border-blue-600 border-t-transparent rounded-full" />
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           <a
@@ -107,11 +139,11 @@ export const TableContainer: React.FC<TableContainerProps> = ({
       </div>
 
       {/* Table */}
-      <GenericTable columns={[...columns]} data={filteredData} />
+      <GenericTable columns={[...columns]} data={displayData} />
 
-      {/* Pagination (show in both dashboard & full) */}
+      {/* Pagination */}
       {view === "full" && totalPages > 1 && (
-        <div className=" flex items-center justify-between border-t border-gray-200 bg-white shadow-sm rounded-b-[10px] px-6 py-4 z-10">
+        <div className="flex items-center justify-between border-t border-gray-200 bg-white shadow-sm rounded-b-[10px] px-6 py-4 z-10">
           <p className="text-sm text-gray-500">
             Page {pageNumber} of {totalPages}
           </p>
@@ -119,9 +151,11 @@ export const TableContainer: React.FC<TableContainerProps> = ({
             <Button
               intent="unset"
               className="px-4 py-2 rounded-lg disabled:opacity-50"
-              disabled={pageNumber === 1}
+              disabled={pageNumber === 1 || isPending}
               onClick={() => {
-                window.location.href = `?page=${pageNumber - 1}`;
+                const params = new URLSearchParams(searchParams.toString());
+                params.set("page", String(pageNumber - 1));
+                router.push(`?${params.toString()}`);
               }}
             >
               Previous
@@ -129,9 +163,11 @@ export const TableContainer: React.FC<TableContainerProps> = ({
             <Button
               intent="primary"
               className="px-4 py-2 rounded-lg disabled:opacity-50"
-              disabled={pageNumber === totalPages}
+              disabled={pageNumber === totalPages || isPending}
               onClick={() => {
-                window.location.href = `?page=${pageNumber + 1}`;
+                const params = new URLSearchParams(searchParams.toString());
+                params.set("page", String(pageNumber + 1));
+                router.push(`?${params.toString()}`);
               }}
             >
               Next
