@@ -1,18 +1,24 @@
-import {UserProfile} from '../../../profile/UserProfile';
-import {getUserDetails} from '../../../server/getUser';
-import {UserTabs} from '../../../tabs';
+export const dynamic = "force-dynamic";
+
+import { getCareerTypes, getJuniorData } from "@server";
+import { ProfileCard } from "../../../junior/profile/components";
+
 export default async function JuniorProfilePage({
   params,
 }: {
-  params: Promise<{id: string}>;
+  params: Promise<{ id: string }>;
 }) {
-  const {id} = await params;
-  const junior = await getUserDetails('junior', Number(id));
+  const { id } = await params;
+
+  const profileData = await getJuniorData(Number(id));
+  const careerTypesData = await getCareerTypes();
 
   return (
-    <>
-      <UserProfile userType="junior" user={junior} />;
-      <UserTabs userId={Number(id)} userType="junior" />
-    </>
+    <div className="min-h-screen py-3 px-6 space-y-5 bg-stone-50">
+      <ProfileCard
+        profileData={profileData}
+        careerTypesData={careerTypesData}
+      />
+    </div>
   );
 }

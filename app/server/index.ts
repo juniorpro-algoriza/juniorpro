@@ -1,4 +1,3 @@
-export { getJuniorsData } from "./getJuniorData";
 export { getCareerTypes } from "./getCareerTypes";
 export { getFreeTasks } from "./getFreeTasks";
 export { getJuniorsAge } from "./getJuniorsAge";
@@ -17,3 +16,4 @@ export { inviteExistingJunior } from "./inviteExistingJunior";
 export { joinProject } from "./joinProject";
 export { getJoinedProjects } from "./getJoinedProjectsJunior";
 export { getLandingProjectDetails } from "./getLandingProjectDetails";
+export { getJuniorData } from "./getJuniorData";
