@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { signIn } from "../server";
 import { EyeCloseIcon, EyeIcon } from "@icons";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const LoginFormContent = () => {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
@@ -48,9 +49,12 @@ const LoginFormContent = () => {
           </div>
         </div>
         <div className="text-right pt-2">
-          <a href="#" className="text-sm text-cadetGray font-medium">
-            Forget Password?
-          </a>
+          <Link
+            href="/auth/forget-password"
+            className="text-sm text-violet-normal font-medium hover:underline"
+          >
+            Forgot Password?
+          </Link>
         </div>
       </div>
 
