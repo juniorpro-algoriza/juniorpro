@@ -1,9 +1,9 @@
 "use client";
 
-import { Suspense, useActionState, useEffect, useState } from "react";
 import { Button, Input } from "@components";
 import { initialState } from "@server/lib";
 import { Loader } from "lucide-react";
+import { useActionState, useEffect, useState, Suspense } from "react";
 import { toast } from "sonner";
 import { signIn } from "../server";
 import { EyeCloseIcon, EyeIcon } from "@icons";
@@ -20,6 +20,7 @@ const LoginFormContent = () => {
 
   useEffect(() => {
     const { error } = state;
+
     if (error) toast.error(error, { id: "login-error" });
     else toast.dismiss("login-error");
   }, [state]);
@@ -32,7 +33,6 @@ const LoginFormContent = () => {
         type="email"
         placeholder="Enter email address"
       />
-
       <div>
         <div className="relative">
           <Input
@@ -57,7 +57,6 @@ const LoginFormContent = () => {
           </Link>
         </div>
       </div>
-
       {/* Preserve redirect & join params */}
       {redirectParam && (
         <input type="hidden" name="redirect" value={redirectParam} />

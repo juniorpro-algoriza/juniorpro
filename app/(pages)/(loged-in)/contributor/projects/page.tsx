@@ -32,7 +32,7 @@ const ProjectsPage = async () => {
             >
               <ProjectCard
                 project={p}
-                showDescription={false}
+                showDescription={true}
                 showDueDate
                 showJuniors
                 showBadge

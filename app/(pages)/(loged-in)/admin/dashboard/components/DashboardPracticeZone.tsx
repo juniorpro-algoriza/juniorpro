@@ -38,7 +38,7 @@ export const DashboardPracticeZone = async () => {
           <ProjectCard
             key={project.id}
             project={project}
-            showDescription={false}
+            showDescription={true}
             showDueDate={false}
             showJuniors={true}
             showRating={false}

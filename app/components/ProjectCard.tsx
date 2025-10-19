@@ -56,9 +56,9 @@ export const ProjectCard = ({
       className={`cursor-pointer bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-border-primary overflow-hidden ${className}`}
     >
       {/* Image */}
-      <div className="relative w-full h-48">
+      <div className="relative w-full h-48 overflow-hidden">
         <Image
-          className="w-full rounded-xl"
+          className="object-cover w-full "
           src={
             imageUrl?.startsWith("http")
               ? imageUrl
@@ -79,9 +79,9 @@ export const ProjectCard = ({
       </div>
 
       {/* Content */}
-      <div className="p-4 flex flex-col justify-between">
+      <div className="p-4 flex flex-col flex-1">
         <div className="mb-3">
-          <h4 className="text-lg font-semibold text-yankees-blue mb-1">
+          <h4 className="text-lg font-semibold text-yankees-blue mb-1 line-clamp-1">
             {project.title}
           </h4>
           {showDescription && description && (
@@ -90,7 +90,7 @@ export const ProjectCard = ({
         </div>
 
         {/* Badges */}
-        <div className="flex gap-2 pb-3 overflow-hidden whitespace-nowrap">
+        <div className="flex flex-wrap gap-2 pb-3">
           {showStatus && (
             <Badge
               label={status}
@@ -109,7 +109,7 @@ export const ProjectCard = ({
             <Badge
               label={`Age: ${ageRange}`}
               variant="blue"
-              className="px-3 py-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap"
+              className="px-3 py-1 text-xs"
             />
           )}
         </div>

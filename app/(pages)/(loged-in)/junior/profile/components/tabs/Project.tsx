@@ -73,7 +73,7 @@ export const Projects = () => {
                 >
                   <ProjectCard
                     project={p}
-                    showDescription={false}
+                    showDescription={true}
                     showDueDate={true}
                     showJuniors={true}
                     showBadgeNextToDueDate={false}

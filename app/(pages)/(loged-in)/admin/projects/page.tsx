@@ -64,14 +64,14 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
             >
               <ProjectCard
                 project={p}
-                showDescription={false}
+                showDescription={true}
                 showDueDate={true}
                 showJuniors={true}
                 showBadgeNextToDueDate={false}
                 showBadge={true}
                 showRating={false}
-                 showStatus={true}
-            showAge={true}
+                showStatus={true}
+                showAge={true}
                 buttonText="View Project"
               />
             </div>
