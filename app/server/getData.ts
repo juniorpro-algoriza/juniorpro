@@ -8,7 +8,6 @@ interface Props<T = unknown> {
   dummyData?: T;
   body?: unknown;
   params?: Record<string, string | number | undefined>;
-  timeout?: number;
 }
 
 const apiRootUrl = process.env.API_ROOT_URL as string;
@@ -19,7 +18,6 @@ export const getData = async <T>({
   body,
   dummyData,
   params,
-  timeout = 15000,
 }: Props<T>): Promise<T> => {
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
@@ -45,7 +43,6 @@ export const getData = async <T>({
       headers: safeHeaders,
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-store",
-      signal: AbortSignal.timeout(timeout),
     });
 
     if (!res.ok) {
