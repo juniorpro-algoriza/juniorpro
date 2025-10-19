@@ -5,8 +5,8 @@ import { Input, Button } from "@components";
 import { toast } from "sonner";
 import { Loader, MailCheck } from "lucide-react";
 import Link from "next/link";
-import { forgetPassword } from "../server";
 import { Logo } from "./Logo";
+import { resetPassword } from "../server";
 
 export const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ export const ForgotPasswordForm = () => {
     formData.append("email", email);
 
     try {
-      const result = await forgetPassword(formData);
+      const result = await resetPassword(formData);
 
       if ("error" in result) throw new Error(result.error);
 

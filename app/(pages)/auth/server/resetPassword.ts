@@ -4,7 +4,7 @@ import { getData } from "@server";
 
 type ForgetPasswordResponse = { success: true } | { error: string };
 
-export async function forgetPassword(
+export async function resetPassword(
   formData: FormData
 ): Promise<ForgetPasswordResponse> {
   const email = formData.get("email");
