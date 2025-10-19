@@ -21,9 +21,9 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "How it works", href: "#how-it-works" },
-    { label: "Projects", href: "#projects" },
-    { label: "Why choose us", href: "#trusted-orgs" },
+    { label: "How it works", href: "/#how-it-works" },
+    { label: "Projects", href: "/#projects" },
+    { label: "Why choose us", href: "/#trusted-orgs" },
     { label: "Pricing", href: "/pricing" },
   ];
 
@@ -82,7 +82,7 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
       <div className="flex items-center gap-4">
         {isAuthenticated ? (
           <Link
-            href="auth/login"
+            href="/auth/login"
             className="flex items-center gap-2 bg-violet-normal text-white px-5 py-2 rounded-md hover:bg-violet-hover focus:ring-2 focus:ring-primary-200 transition"
           >
             My Dashboard

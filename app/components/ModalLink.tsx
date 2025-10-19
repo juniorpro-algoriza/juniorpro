@@ -11,7 +11,9 @@ export type ModalName =
   | "AddContributor"
   | "AssignContributor"
   | "EditContributorProfile"
-  | "AssignPointsForContributors" | "AssignPointsForJuniors";
+  | "AssignPointsForContributors"
+  | "AssignPointsForJuniors"
+  | "EditJuniorsProfile";
 
 interface ModalLinkProps {
   children: ReactNode;

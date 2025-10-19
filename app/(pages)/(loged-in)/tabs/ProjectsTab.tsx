@@ -1,8 +1,8 @@
-import {ProjectCard} from '@components';
-import {getProjects} from '@server';
+import { ProjectCard } from "@components";
+import { getProjects } from "@server";
 
-export const ProjectsTab = async ({limit}: {limit: number}) => {
-  const {data: practiceZoneProjects} = await getProjects({
+export const ProjectsTab = async ({ limit }: { limit: number }) => {
+  const { data: practiceZoneProjects } = await getProjects({
     limit: limit,
     pageNum: 1,
     projectType: 1,
@@ -13,7 +13,7 @@ export const ProjectsTab = async ({limit}: {limit: number}) => {
         <ProjectCard
           key={project.id}
           project={project}
-          showDescription={false}
+          showDescription={true}
           showDueDate={false}
           showJuniors={true}
           showRating={false}

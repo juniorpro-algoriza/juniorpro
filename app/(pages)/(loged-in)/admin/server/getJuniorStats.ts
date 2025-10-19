@@ -17,7 +17,6 @@ export const getJuniorStats = async (): Promise<Stats[]> => {
     { label: "Juniors", value: data.activeJuniors },
     { label: "Pending Reviews", value: data.pendingReviews },
     { label: "Today's Sessions", value: data.todaysSessions },
-    { label: "Waiting List", value: data.waitingList },
   ];
   return stats;
 };

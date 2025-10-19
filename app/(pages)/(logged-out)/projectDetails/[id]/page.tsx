@@ -1,18 +1,15 @@
 import { ProjectDetails } from "@components";
-import { getLandingProjectDetails } from "@server";
+import { getProjectDetails } from "../../home/server";
 
-interface LandingProjectDetailsProps {
-  params: Promise<{
-    id: string;
-  }>;
+export default async function ProjectDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const id = Number(resolvedParams.id);
+
+  const data = await getProjectDetails(id);
+
+  if (!data?.projectDetails) {
+    return <div className="p-10 text-center text-gray-600">Project not found</div>;
+  }
+
+  return <ProjectDetails data={data} />;
 }
-
-const LandingProjectDetails = async ({
-  params,
-}: LandingProjectDetailsProps) => {
-  const { id } = await params;
-  const projectData = await getLandingProjectDetails(id);
-  console.log(projectData);
-  return <ProjectDetails />;
-};
-export default LandingProjectDetails;

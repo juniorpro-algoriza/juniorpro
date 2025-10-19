@@ -36,7 +36,7 @@ const ProjectsPage = async () => {
                 showAge={false}
                 showStatus={false}
                 project={p}
-                showDescription={false}
+                showDescription={true}
                 showDueDate={true}
                 showJuniors={true}
                 showBadgeNextToDueDate={false}

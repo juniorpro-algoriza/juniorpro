@@ -97,7 +97,7 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  showDescription={false}
+                  showDescription={true}
                   showDueDate={false}
                   showJuniors={true}
                   showRating={false}
@@ -119,7 +119,7 @@ export const UserTabs = async ({ userType, userId }: UserTabsProps) => {
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  showDescription={false}
+                  showDescription={true}
                   showDueDate={false}
                   showJuniors={true}
                   showRating={false}

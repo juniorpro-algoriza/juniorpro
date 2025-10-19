@@ -17,7 +17,6 @@ export const getContributorStats = async (): Promise<Stats[]> => {
   const stats: Stats[] = [
     { label: "Active Contributors", value: data.activeContributors },
     { label: "Today's Sessions", value: data.todaysSessions },
-    { label: "Waiting List", value: data.waitingList },
     { label: "Wallet", value: data.wallet },
   ];
 

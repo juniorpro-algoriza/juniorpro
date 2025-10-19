@@ -3,14 +3,21 @@
 import { Button, Input } from "@components";
 import { initialState } from "@server/lib";
 import { Loader } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState, Suspense } from "react";
 import { toast } from "sonner";
 import { signIn } from "../server";
 import { EyeCloseIcon, EyeIcon } from "@icons";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-export const LoginForm = () => {
+const LoginFormContent = () => {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
   const [type, setType] = useState("password");
+  const searchParams = useSearchParams();
+
+  const redirectParam = searchParams.get("redirect");
+  const joinParam = searchParams.get("join");
+
   useEffect(() => {
     const { error } = state;
 
@@ -42,11 +49,20 @@ export const LoginForm = () => {
           </div>
         </div>
         <div className="text-right pt-2">
-          <a href="#" className="text-sm text-cadetGray font-medium">
-            Forget Password?
-          </a>
+          <Link
+            href="/auth/forget-password"
+            className="text-sm text-violet-normal font-medium hover:underline"
+          >
+            Forgot Password?
+          </Link>
         </div>
       </div>
+      {/* Preserve redirect & join params */}
+      {redirectParam && (
+        <input type="hidden" name="redirect" value={redirectParam} />
+      )}
+      {joinParam && <input type="hidden" name="join" value={joinParam} />}
+
       <Button
         icon={isPending ? <Loader className="animate-spin" /> : null}
         disabled={isPending}
@@ -58,5 +74,17 @@ export const LoginForm = () => {
         Login
       </Button>
     </form>
+  );
+};
+
+export const LoginForm = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="text-center text-sm text-gray-400">Loading...</div>
+      }
+    >
+      <LoginFormContent />
+    </Suspense>
   );
 };

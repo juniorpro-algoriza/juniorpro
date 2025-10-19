@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
-import { ProjectCard } from '@components';
-import { InfiniteCarousel } from '@components/client';
-import { getJoinedProjects } from '@server';
-import { normalizeProject, sleep } from '@utils';
-import { JoinedProject } from '../../../../../server/getJoinedProjectsJunior';
-import { NormalizedProject } from '../../../../../types/Projects';
-
+import { ProjectCard } from "@components";
+import { InfiniteCarousel } from "@components/client";
+import { getJoinedProjects } from "@server";
+import { normalizeProject, sleep } from "@utils";
+import { JoinedProject } from "../../../../../server/getJoinedProjectsJunior";
+import { NormalizedProject } from "../../../../../types/Projects";
 
 interface ProjectsCarouselProps {
   projects: JoinedProject[];
@@ -18,14 +17,15 @@ export const ProjectsCarousel = ({
   projectType,
 }: ProjectsCarouselProps) => {
   // Use normalizeProject to get proper ProjectType
-  const normalizedProjects: NormalizedProject[] = initialProjects.map((project) =>
-    normalizeProject({
-      ...project,
-      projectType: project.projectType, // numeric from API
-      nameEn: project.projectNameEn,
-      categoryNameEn: project.categoryNameEn,
-      levelNameEn: '', // optional description
-    })
+  const normalizedProjects: NormalizedProject[] = initialProjects.map(
+    (project) =>
+      normalizeProject({
+        ...project,
+        projectType: project.projectType, // numeric from API
+        nameEn: project.projectNameEn,
+        categoryNameEn: project.categoryNameEn,
+        levelNameEn: "", // optional description
+      })
   );
 
   const hasMore = initialProjects.length >= 10;
@@ -52,11 +52,11 @@ export const ProjectsCarousel = ({
           projectType: project.projectType,
           nameEn: project.projectNameEn,
           categoryNameEn: project.categoryNameEn,
-          levelNameEn: '', // optional description
+          levelNameEn: "", // optional description
         })
       );
     } catch (error) {
-      console.error('Error loading more projects:', error);
+      console.error("Error loading more projects:", error);
       return [];
     }
   };
@@ -68,7 +68,7 @@ export const ProjectsCarousel = ({
       renderItem={(project) => (
         <ProjectCard
           project={project}
-          showDescription={false}
+          showDescription={true}
           showBadgeNextToDueDate={false}
           showDueDate={true}
           showJuniors={false}
@@ -88,7 +88,7 @@ export const ProjectsCarousel = ({
       showViewAll={hasMore}
       viewAllText="View All"
       onViewAll={() => {
-        console.log('View all joined projects clicked');
+        console.log("View all joined projects clicked");
       }}
     />
   );

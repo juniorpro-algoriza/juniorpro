@@ -8,9 +8,11 @@ export const joinProject = async (projectId: number) => {
       params: { projectId },
     });
     return { success: true, data: response };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error joining project:", error);
-    return { success: false, error: error.message || "Failed to join project" };
+    if (error instanceof Error) {
+      return { success: false, error: error.message };
+    }
+    return { success: false, error: "Failed to join project" };
   }
 };

@@ -7,3 +7,4 @@ export { SignUpRadio as SignUpTabs } from "./SignUpRadio";
 export { SocialLoginButtons } from "./SocialLoginButtons";
 export { WelcomeMessage } from "./WelcomeMessage";
 export { SignUpForm } from "./SignUpForm";
+export { ForgotPasswordForm } from "./ForgotPasswordForm";

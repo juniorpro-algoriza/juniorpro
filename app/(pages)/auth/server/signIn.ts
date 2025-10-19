@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 const Schema = z.object({
   email: z.string().email(),
   password: z.string(),
+  redirect: z.string().optional(),
+  join: z.string().optional(),
 });
 
 export const signIn = async (
@@ -15,7 +17,6 @@ export const signIn = async (
   formData: FormData
 ): Promise<ActionState> => {
   const baseUrl = process.env.API_ROOT_URL;
-
   const dataObject = Object.fromEntries(formData);
   const parsed = Schema.safeParse(dataObject);
 
@@ -23,9 +24,8 @@ export const signIn = async (
     return { success: false, error: "Invalid email or password" };
   }
 
-  const { email, password } = parsed.data;
+  const { email, password, redirect: redirectUrl, join } = parsed.data;
 
-  // Step 1: Login request
   const res = await fetch(`${baseUrl}/User/Login`, {
     method: "POST",
     headers: {
@@ -35,18 +35,12 @@ export const signIn = async (
     body: JSON.stringify({ email, password }),
   });
 
-  if (!res.ok) {
-    return { success: false, error: "Invalid credentials" };
-  }
+  if (!res.ok) return { success: false, error: "Invalid credentials" };
 
   const result = await res.json();
   const token = result?.accessToken;
+  if (!token) return { success: false, error: "No token returned from API" };
 
-  if (!token) {
-    return { success: false, error: "No token returned from API" };
-  }
-
-  // Step 2: Save token in cookie
   const cookieStore = await cookies();
   cookieStore.set("auth_token", token, {
     httpOnly: true,
@@ -55,16 +49,12 @@ export const signIn = async (
     path: "/",
   });
 
-  // Step 3: Fetch user profile
   const profileRes = await fetch(`${baseUrl}/User/profile`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   });
 
-  if (!profileRes.ok) {
+  if (!profileRes.ok)
     return { success: false, error: "Failed to fetch user profile" };
-  }
 
   const profile = await profileRes.json();
   const userType = profile.userType;
@@ -74,7 +64,14 @@ export const signIn = async (
     sameSite: "strict",
     path: "/",
   });
-  // Step 4: Redirect based on userType
+
+  // Handle redirect if present, i used for join project flow
+  if (redirectUrl) {
+    if (join) redirect(`${redirectUrl}?join=${join}`);
+    redirect(redirectUrl);
+  }
+
+  // Default redirects
   switch (userType) {
     case 1:
       redirect("/admin/dashboard");

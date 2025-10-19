@@ -6,6 +6,9 @@ import {
   TestimonialsSection,
   TrustedOrganizationsSection,
 } from "./components";
+
+export const dynamic = "force-dynamic";
+
 import { ProjectsSection } from "./components/ProjectsSection";
 
 export default async function HomePage() {

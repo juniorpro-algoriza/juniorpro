@@ -1,13 +1,17 @@
-import {ServerTableWrapper} from '../../tables';
-import {ProjectManagerHeader, ProjectManagerStatsContainer} from './components';
+import { ServerTableWrapper } from "../../tables";
+import {
+  ProjectManagerHeader,
+  ProjectManagerStatsContainer,
+} from "./components";
 
 const AdminProductManagerPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{page?: string}>;
+  searchParams: Promise<{ page?: string; search?: string }>;
 }) => {
-  const {page} = await searchParams;
-  const pageNumber = Number(page) || 1;
+  const params = await searchParams;
+  const pageNumber = Number(params.page) || 1;
+  const searchText = params.search || undefined;
 
   return (
     <div className="min-h-screen py-3 px-6 bg-stone-50 space-y-6">
@@ -17,6 +21,7 @@ const AdminProductManagerPage = async ({
         title="Project Managers"
         type="project-manager"
         pageNumber={pageNumber}
+        searchText={searchText}
       />
     </div>
   );

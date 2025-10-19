@@ -4,11 +4,14 @@ import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
 export const DashboardPracticeZone = async () => {
-  const { data: practiceZoneProjects, hasNextPage, total } = await getProjects({
+  const {
+    data: practiceZoneProjects,
+    hasNextPage,
+    total,
+  } = await getProjects({
     limit: 2,
     pageNum: 1,
-    projectType: 1,
-
+    projectType: 2 | 3, // Practice Zone & Challenges
   });
 
   return (
@@ -35,7 +38,7 @@ export const DashboardPracticeZone = async () => {
           <ProjectCard
             key={project.id}
             project={project}
-            showDescription={false}
+            showDescription={true}
             showDueDate={false}
             showJuniors={true}
             showRating={false}
@@ -43,7 +46,7 @@ export const DashboardPracticeZone = async () => {
             showStatus={true}
             showAge={true}
             showBadgeNextToDueDate={false}
-            buttonText="View Project" 
+            buttonText="View Project"
           />
         ))}
       </div>

@@ -21,12 +21,17 @@ export const getData = async <T>({
 }: Props<T>): Promise<T> => {
   try {
     const { headers } = (await getFetchHeaders(!!body)) || {};
-    if (!headers) throw new Error("No headers found");
+
+    const safeHeaders =
+      headers ||
+      (body
+        ? { "Content-Type": "application/json" }
+        : { Accept: "application/json" });
 
     const queryString = params
       ? new URLSearchParams(
           Object.entries(params)
-            .filter(([, v]) => v !== undefined) // skip undefined
+            .filter(([, v]) => v !== undefined)
             .map(([k, v]) => [k, String(v)])
         ).toString()
       : "";
@@ -35,16 +40,27 @@ export const getData = async <T>({
 
     const res = await fetch(finalUrl, {
       method,
-      headers,
+      headers: safeHeaders,
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-store",
     });
 
-    if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+    if (!res.ok) {
+      let errorMessage = `Request failed: ${res.status}`;
+      try {
+        const errJson = await res.json();
+        if (errJson?.errorMessage) errorMessage = errJson.errorMessage;
+        else if (errJson?.message) errorMessage = errJson.message;
+      } catch {
+        // ignore if no valid JSON
+      }
+      throw new Error(errorMessage);
+    }
 
     return (await res.json()) as T;
   } catch (err) {
     console.error("Error fetching data:", err);
-    return dummyData as T;
+    if (dummyData !== undefined) return dummyData;
+    throw err;
   }
 };
