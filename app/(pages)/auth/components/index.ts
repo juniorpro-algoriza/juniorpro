@@ -8,3 +8,4 @@ export { SocialLoginButtons } from "./SocialLoginButtons";
 export { WelcomeMessage } from "./WelcomeMessage";
 export { SignUpForm } from "./SignUpForm";
 export { ForgotPasswordForm } from "./ForgotPasswordForm";
+export { VerifyResetPassword } from "./VerifyResetPassword";

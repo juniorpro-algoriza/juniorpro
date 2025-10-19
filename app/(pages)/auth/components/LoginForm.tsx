@@ -50,10 +50,10 @@ const LoginFormContent = () => {
         </div>
         <div className="text-right pt-2">
           <Link
-            href="/auth/forget-password"
+            href="/auth/reset-password"
             className="text-sm text-violet-normal font-medium hover:underline"
           >
-            Forgot Password?
+            Forgot Password?{" "}
           </Link>
         </div>
       </div>
