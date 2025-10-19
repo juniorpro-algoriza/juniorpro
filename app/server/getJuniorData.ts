@@ -10,6 +10,7 @@ export const getJuniorData = async (id: number): Promise<ProfileData> => {
   });
 
   return {
+    name: data?.name,
     firstName: String(data?.firstName || data?.firstName?.split(" ")[0] || ""),
     lastName: String(data?.lastName || data?.lastName?.split(" ")[1] || ""),
     email: String(data?.email || ""),

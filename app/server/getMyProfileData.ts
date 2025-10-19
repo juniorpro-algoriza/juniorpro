@@ -7,6 +7,7 @@ export const getMyProfileData = async (): Promise<ProfileData> => {
     method: "GET",
   });
   return {
+    name: data?.name,
     firstName: String(data?.firstName || ""),
     lastName: String(data?.lastName || ""),
     email: String(data?.email || ""),

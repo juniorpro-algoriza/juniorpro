@@ -68,7 +68,7 @@ export const ProjectDetails = ({ data }: Props) => {
       joinNow();
       router.replace(`/projectDetails/${joinId}`); // Clean URL (remove ?join)
     }
-  }, [searchParams]);
+  }, []);
 
   return (
     <div className="px-20 py-8">

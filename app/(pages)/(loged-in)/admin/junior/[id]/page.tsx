@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { getCareerTypes, getJuniorData } from "@server";
-import { ProfileCard } from "../../../junior/profile/components";
+import { ProfileCard } from "../components/ProfileCard";
 
 export default async function JuniorProfilePage({
   params,
