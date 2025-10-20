@@ -41,10 +41,9 @@ export const DashboardPracticeZone = async () => {
             showDescription={true}
             showDueDate={false}
             showJuniors={true}
-            showRating={false}
             showBadge={true}
             showStatus={true}
-            showAge={true}
+            showAge={false}
             showBadgeNextToDueDate={false}
             buttonText="View Project"
           />

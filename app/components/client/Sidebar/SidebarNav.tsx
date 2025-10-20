@@ -41,7 +41,7 @@ const contributorMenuItems = [
   { href: "/contributor/dashboard", icon: HomeIcon, label: "Dashboard" },
   { href: "/contributor/juniors", icon: UserIcon, label: "Juniors" },
   {
-    href: "/contributor/projects/?junior=anas",
+    href: "/contributor/projects",
     icon: DocumentIcon,
 
     label: "Projects",

@@ -24,11 +24,13 @@ export const ProjectsCarousel = ({
       renderItem={(project) => (
         <ProjectCard
           project={project}
-          buttonText="Join Now"
           showDescription={true}
-          showLastUpdated={true}
           showAge={false}
           showStatus={false}
+          showLevel={true}
+          showRating={true}
+          showBadge={true}
+          showProjectType={true}
         />
       )}
       getItemKey={(project, index) => `${project.id}-${projectType}-${index}`}
