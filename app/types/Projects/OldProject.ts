@@ -1,3 +1,4 @@
+import { ProjectLevel } from "./ProjectLevel";
 import type { ProjectStatus } from "./ProjectStatus";
 import type { ProjectType } from "./ProjectType";
 
@@ -15,4 +16,5 @@ export type Project = {
   juniors?: string[];
   ageRange?: string;
   modificationDate?: Date;
+  level?: ProjectLevel;
 };

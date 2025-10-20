@@ -30,9 +30,11 @@ export function normalizeProject(apiProject: any): NormalizedProject {
   return {
     id: apiProject.id,
     title: apiProject.nameEn || apiProject.projectNameEn || "Untitled Project",
-    description: apiProject.levelNameEn || "",
+    description: apiProject.description || "No description provided.",
     imageUrl: apiProject.image,
     category: apiProject.categoryNameEn,
+    level: apiProject.levelNameEn || apiProject.levelAr,
+    rating: apiProject.feedback || 4,
     projectType,
     status,
     modificationDate: apiProject.modificationDate,
