@@ -7,7 +7,7 @@ import { Button, Input, ModalLink } from "@components";
 import { SearchIcon } from "lucide-react";
 import { DiamondIcon } from "@icons";
 import { useMediaQuery } from "usehooks-ts";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 type TableData = Record<string, string | number | React.ReactNode>;
 
@@ -34,6 +34,7 @@ export const TableContainer: React.FC<TableContainerProps> = ({
   const config = userConfigs[type];
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { id } = useParams();
   const [isPending, startTransition] = useTransition();
 
   // Get initial search from URL
@@ -87,7 +88,10 @@ export const TableContainer: React.FC<TableContainerProps> = ({
         {view === "full" ? (
           <div className="flex items-center gap-3 flex-wrap">
             <div className="flex gap-3 items-center">
-              <ModalLink name={config.modals.add}>
+              <ModalLink
+                name={config.modals.add}
+                query={{ contributorId: Number(id) }}
+              >
                 <Button
                   intent="primary"
                   size={isSmallScreen ? "small" : "medium"}

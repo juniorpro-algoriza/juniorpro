@@ -8,18 +8,14 @@ import { CloseButton } from "@headlessui/react";
 import { getData, getLookup } from "@server";
 import { toast } from "sonner";
 import { Lookup } from "@types";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface AddJuniorProps {
   onAdded?: (newJunior: any) => void;
   onClose?: () => void;
-  contributorId?: number;
 }
 
-export const AddJuniors = ({
-  onAdded,
-  onClose,
-  contributorId,
-}: AddJuniorProps) => {
+export const AddJuniors = ({ onAdded, onClose }: AddJuniorProps) => {
   const initialFormData = {
     firstName: "",
     lastName: "",
@@ -31,6 +27,9 @@ export const AddJuniors = ({
   const [contributors, setContributors] = useState<Lookup[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const contributorId = Number(searchParams.get("contributorId"));
+  const router = useRouter();
 
   // Fetch contributors list (unless contributorId was passed)
   useEffect(() => {
@@ -39,7 +38,7 @@ export const AddJuniors = ({
       setContributors(data);
     };
     fetchContributors();
-  }, [contributorId]);
+  }, []);
 
   const handleChange = (
     field: keyof typeof formData,
@@ -60,8 +59,8 @@ export const AddJuniors = ({
         birthDate: new Date().toISOString(),
       };
       // include contributorId if available
-      if (formData.contributorId)
-        body.contributorId = Number(formData.contributorId);
+      if (formData.contributorId || contributorId)
+        body.contributorId = Number(formData.contributorId || contributorId);
 
       const newJunior = await getData({
         url: "junior/add",
@@ -69,6 +68,7 @@ export const AddJuniors = ({
         body,
       });
       toast.success("Junior added successfully!");
+      router.refresh();
       onAdded?.(newJunior);
       onClose?.();
       setFormData(initialFormData);
@@ -80,7 +80,7 @@ export const AddJuniors = ({
       setSaving(false);
     }
   };
-
+  console.log(contributorId);
   return (
     <Modal panelClassName="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
       <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-2">
@@ -121,16 +121,15 @@ export const AddJuniors = ({
         />
 
         {/* Only show contributor select if contributorId is not preselected */}
-        {!contributorId && (
-          <Select
-            label="Select Contributor (optional)"
-            value={formData.contributorId}
-            options={contributors}
-            onChange={(val) =>
-              setFormData({ ...formData, contributorId: Number(val) })
-            }
-          />
-        )}
+        <Select
+          label="Select Contributor (optional)"
+          value={contributorId ? contributorId : formData.contributorId}
+          options={contributors}
+          onChange={(val) =>
+            setFormData({ ...formData, contributorId: Number(val) })
+          }
+          disabled={contributorId ? true : false}
+        />
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </div>

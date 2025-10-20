@@ -5,7 +5,7 @@ import { useState, useEffect, Fragment } from "react";
 import { Button, Input, Modal } from "@components";
 import { CloseButton } from "@headlessui/react";
 import { XIcon } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getData } from "@server";
 import { toast } from "sonner";
 
@@ -31,7 +31,7 @@ export const EditContributorProfile = ({
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const router = useRouter();
   const searchParams = useSearchParams();
   const contributorId = searchParams.get("id");
 
@@ -98,6 +98,7 @@ export const EditContributorProfile = ({
       setProfile({ ...profile });
       onUpdated?.({ ...profile });
       toast.success("Profile updated successfully!");
+      router.refresh();
       if (onClose) onClose();
     } catch (err: any) {
       console.error(err);
