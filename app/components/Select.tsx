@@ -53,20 +53,21 @@ export const Select = ({
           {label}
         </label>
       )}
-   <Listbox
-    value={value}
-    onChange={(val) => {
-     if (multiple) {
-      (onChange as (v: (string | number)[]) => void)(val as (string | number)[]);
-    } else {
-      (onChange as (v: string | number) => void)(val as string | number);
-    }
-  }}
-    multiple={multiple}
-    disabled={disabled}
-  >
-
-        <div className="relative">
+      <Listbox
+        value={value}
+        onChange={(val) => {
+          if (multiple) {
+            (onChange as (v: (string | number)[]) => void)(
+              val as (string | number)[]
+            );
+          } else {
+            (onChange as (v: string | number) => void)(val as string | number);
+          }
+        }}
+        multiple={multiple}
+        disabled={disabled}
+      >
+        <div className={`relative ${disabled ? "opacity-40" : "opacity-100"}`}>
           <Listbox.Button className="relative w-full cursor-default rounded-lg border border-[#DFE1E8] bg-white px-3 py-2 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-normal sm:text-sm">
             <span className="block truncate">
               {multiple

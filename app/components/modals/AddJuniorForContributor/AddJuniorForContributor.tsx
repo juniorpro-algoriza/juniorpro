@@ -11,6 +11,7 @@ import {
   inviteContributorJunior,
 } from "../../../server/addJuniorForContributor";
 import { Tabs } from "@components/client";
+import { useRouter } from "next/navigation";
 
 export const AddJuniorForContributor = ({
   onClose,
@@ -32,6 +33,7 @@ export const AddJuniorForContributor = ({
   // Invite Junior state
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviting, setInviting] = useState(false);
+  const router = useRouter();
 
   const handleFormChange = (field: keyof typeof formData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -42,6 +44,7 @@ export const AddJuniorForContributor = ({
     try {
       await addContributorJunior(formData);
       toast.success("Junior added successfully!");
+      router.refresh();
       onClose?.();
     } catch (err: any) {
       toast.error(err.message || "Failed to add junior.");

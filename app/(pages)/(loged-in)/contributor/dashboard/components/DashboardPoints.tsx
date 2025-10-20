@@ -82,8 +82,7 @@ export const DashboardPoints = async ({
                   {points}
                 </p>
               </div>
-              <ModalLink name="AssignPointsForJuniors">
-                {" "}
+              <ModalLink name="AssignPointsForJuniors" query={{ juniorId: id }}>
                 <Button
                   intent="tertiary"
                   size="small"

@@ -6,6 +6,7 @@ import { Button, Input, Modal, Select } from "@components";
 import { getData } from "@server";
 import { toast } from "sonner";
 import { CloseButton } from "@headlessui/react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface AssignPointsForJuniorProps {
   contributorId: number; // only show juniors for this contributor
@@ -33,10 +34,12 @@ export const AssignPointsForJuniors = ({
   onClose,
   onAssigned,
 }: AssignPointsForJuniorProps) => {
+  const juniorId = Number(useSearchParams().get("juniorId"));
   const [juniors, setJuniors] = useState<Junior[]>([]);
-  const [selectedJunior, setSelectedJunior] = useState<number | null>(null);
+  const [selectedJunior, setSelectedJunior] = useState<number | null>(juniorId);
   const [points, setPoints] = useState<number>(0);
   const [saving, setSaving] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchJuniors = async () => {
@@ -72,6 +75,7 @@ export const AssignPointsForJuniors = ({
       });
 
       toast.success("Points assigned successfully!");
+      router.refresh();
       onAssigned?.({ juniorId: selectedJunior, points });
       onClose?.();
     } catch (err: any) {
@@ -87,13 +91,14 @@ export const AssignPointsForJuniors = ({
       <h3 className="text-lg font-semibold mb-4">Assign Points to Junior</h3>
 
       <Select
-        label="Select Junior"
+        label="Junior"
         options={[
           { label: "Select...", value: "" },
           ...juniors.map((j) => ({ label: j.name, value: j.id })),
         ]}
-        value={selectedJunior ?? ""}
+        value={juniorId ? juniorId : selectedJunior}
         onChange={(val) => setSelectedJunior(Number(val))}
+        disabled={juniorId ? true : false}
       />
 
       <Input
@@ -104,15 +109,20 @@ export const AssignPointsForJuniors = ({
       />
 
       <div className="flex gap-3 mt-6">
-        <Button intent="primary" className="flex-1" onClick={handleSave} disabled={saving}>
+        <Button
+          intent="primary"
+          className="flex-1"
+          onClick={handleSave}
+          disabled={saving}
+        >
           {saving ? "Assigning..." : "Assign Points"}
         </Button>
-        
-          <CloseButton as={Fragment}>
-                <Button intent="unset" className="flex-1" onClick={onClose}>
-                  Cancel
-                </Button>
-              </CloseButton>
+
+        <CloseButton as={Fragment}>
+          <Button intent="unset" className="flex-1" onClick={onClose}>
+            Cancel
+          </Button>
+        </CloseButton>
       </div>
     </Modal>
   );
