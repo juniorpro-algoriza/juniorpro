@@ -75,7 +75,7 @@ export const ProjectCard = ({
   return (
     <div
       data-id={id}
-      className={`cursor-pointer bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-border-primary overflow-hidden flex flex-col ${className}`}
+      className={`cursor-pointer bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-border-primary overflow-hidden flex flex-col h-[420px] ${className}`}
     >
       {/* Image */}
       <div className="relative w-full h-48 overflow-hidden flex-shrink-0">
@@ -134,8 +134,10 @@ export const ProjectCard = ({
             {project.title}
           </h4>
           {showDescription && description && (
-            <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
-              {description}
+            <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+              {description.length > 60
+                ? description.slice(0, 60) + "..."
+                : description}
             </p>
           )}
         </div>

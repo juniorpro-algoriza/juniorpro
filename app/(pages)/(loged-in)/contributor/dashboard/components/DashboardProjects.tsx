@@ -47,9 +47,9 @@ export const DashboardProjects = async () => {
                   showDueDate
                   showJuniors
                   showBadge
-                  showRating={false}
+                  showRating={true}
                   showAge={false}
-                  showProjectType={false}
+                  showProjectType={true}
                   buttonText="View Project"
                 />
               </div>
