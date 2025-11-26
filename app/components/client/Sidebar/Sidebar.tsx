@@ -43,20 +43,19 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
       <aside
         className={`
-          w-72 bg-white border-r border-bright-gray fixed z-20 h-screen transition-all duration-300 ease-in-out
-          ${
-            isMobile
-              ? isOpen
-                ? "translate-x-0"
-                : "-translate-x-full"
-              : isOpen
-                ? "translate-x-0"
-                : "-translate-x-full"
+          w-85 bg-white border-r border-bright-gray fixed z-20 h-screen transition-all duration-300 ease-in-out
+          ${isMobile
+            ? isOpen
+              ? "translate-x-0"
+              : "-translate-x-full"
+            : isOpen
+              ? "translate-x-0"
+              : "-translate-x-full"
           }
           ${className}
         `}
       >
-        <div className="flex flex-col h-full px-4">
+        <div className="flex flex-col h-full px-4 overflow-y-auto">
           <div className="p-4">
             <Image
               unoptimized
@@ -66,7 +65,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
             />
           </div>
           <SidebarUserInfo />
-          <SidebarNav />
+          <SidebarNav /> 
         </div>
       </aside>
     </>

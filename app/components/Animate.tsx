@@ -18,7 +18,7 @@ export const Animate = ({
     duration,
   });
   return (
-    <div ref={parent} className={className} dir="rtl">
+    <div ref={parent} className={className}>
       {children}
     </div>
   );

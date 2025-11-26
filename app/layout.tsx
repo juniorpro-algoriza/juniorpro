@@ -1,4 +1,4 @@
-import { ibmPlexSansArabic } from "@lib";
+import { inter } from "@lib";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 import type { ReactNode } from "react";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Junior Pro - Your Path to Junior Developer Success",
 };
 
-const bodyStyle = twMerge("antialiased", ibmPlexSansArabic.className);
+const bodyStyle = twMerge("antialiased", inter.className);
 
 interface RootLayoutProps {
   children: ReactNode;

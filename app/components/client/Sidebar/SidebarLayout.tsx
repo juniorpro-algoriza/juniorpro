@@ -13,7 +13,7 @@ export const SidebarLayout = ({ children }: { children: ReactNode }) => {
       <div
         className={`
           flex-1 min-w-0 transition-all duration-300 ease-in-out
-          ${isOpen && !isMobile ? "pl-72" : "pl-0"}
+          ${isOpen && !isMobile ? "pl-85" : "pl-0"}
         `}
       >
         <div className="w-full min-w-0 max-w-none">
