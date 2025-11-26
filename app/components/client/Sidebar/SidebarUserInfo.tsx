@@ -7,27 +7,21 @@ import badge from "@public/images/badge-icon.png";
 
 import { useAtom } from "jotai";
 import Image from "next/image";
-import { ArrowIncreaseIcon } from "../../../icons/ArrowIncrease";
-import Progress from "../../Progress";
+import { ArrowIncreaseIcon } from "@icons";
+import {Progress} from "@components";
+import { UserCard } from "@components/client";
 
 export const SidebarUserInfo = () => {
   const [{ firstName, lastName, image, }] = useAtom(userAtom);
   return (
     <div className="p-2 space-y-4">
-      <div className="flex items-center space-x-3 rounded-2xl transition-all duration-200">
-        <Image
-          unoptimized
-          className=" w-12 h-12 flex-shrink-0 transition-transform duration-200 hover:scale-105"
-          src={image ? image : ContributorAvatar}
-          alt="Contributor Avatar"
-        />
-        <div className="min-w-0 flex-1 space-y-1">
-          <p className="font-medium text-maastricht-blue truncate">
-            {firstName} {lastName}
-          </p>
-          <p className="text-sm text-storm-400 truncate">Level 5 - 1,250XP</p>
-        </div>
-      </div>
+      <UserCard
+        image={image || ContributorAvatar.src}
+        firstName={firstName}
+        lastName={lastName}
+        level={5}
+        xp={1250}
+      />
       <div className="p-3 space-y-2.5 rounded-2xl [background:linear-gradient(135deg,#EEF2FF_0%,#FAF5FF_100%)]">
         <div className="flex items-center justify-between">
           <p className="text-gray-600 text-[13px] font-medium">Level Progress</p>

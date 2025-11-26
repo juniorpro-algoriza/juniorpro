@@ -65,7 +65,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
             />
           </div>
           <SidebarUserInfo />
-          <SidebarNav />
+          <SidebarNav /> 
         </div>
       </aside>
     </>
