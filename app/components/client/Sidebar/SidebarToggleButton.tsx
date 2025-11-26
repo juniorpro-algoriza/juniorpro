@@ -13,7 +13,7 @@ export const SidebarToggleButton = () => {
       onClick={toggleSidebar}
       className={`
         fixed top-4 z-30 bg-white border border-bright-gray ${isOpen ? 'p-1 rounded-full' : 'p-2 rounded-lg'} shadow-md cursor-pointer transition-all duration-300
-        ${isOpen && !isMobile ? 'left-[270px]' : 'left-4'}
+        ${isOpen && !isMobile ? 'left-[320px]' : 'left-4'}
       `}
       aria-label='Toggle sidebar'
     >

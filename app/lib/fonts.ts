@@ -1,12 +1,7 @@
-import { IBM_Plex_Sans_Arabic, JetBrains_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-export const jetBrainsMono = JetBrains_Mono({
+export const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-});
-
-export const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'], // Add the required weight property
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 });

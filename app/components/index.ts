@@ -13,3 +13,5 @@ export { PurchaseCard } from "./PurchaseCard";
 export { PointsCard } from "./PointsCard";
 export { Select } from "./Select";
 export { ProjectDetails } from "./ProjectDetails";
+export { MainCard } from "./MainCard";
+export { Progress } from "./Progress";

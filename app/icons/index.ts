@@ -32,3 +32,9 @@ export { BurgerIcon } from "./BurgerIcon";
 export { ClockIcon } from "./ClockIcon";
 export { CalendarCodeIcon } from "./CalendarCodeIcon";
 export { CheckMarkIcon } from "./CheckMarkIcon";
+export { ArrowIncreaseIcon } from "./ArrowIncrease";
+export { LightningIcon } from "./Lightning";
+export { GoalIcon } from "./GoalIcon";
+export { PlayIcon } from "./PlayIcon";
+export { OpenBookIcon } from "./OpenBook";
+
