@@ -1,0 +1,2 @@
+-remove un used pages like projects page
+-Icons files to be all the same

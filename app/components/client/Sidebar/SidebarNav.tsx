@@ -2,24 +2,37 @@
 
 import { useSidebar } from "@atoms";
 import {
-  CalendarIcon,
   // ChatIcon,
   DiamondIcon,
   DocumentIcon,
   FolderDetailsIcon,
   HomeIcon,
   LogoutIcon,
-  SettingsIcon,
   UserIcon,
   UserManagerIcon,
   UsersIcon,
 } from "@icons";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "../../../(pages)/auth/server";
-import { useTransition } from "react";
+import { useTransition, ComponentType } from "react";
+import HomeImage from "@public/images/home-icon.png"
+import MissionsImage from "@public/images/rocket-icon.png"
+import CollaborationImage from "@public/images/collaboration-icon.png"
+import ChallengesImage from "@public/images/trophy-icon.png"
+import AchievementsImage from "@public/images/medal-icon.png"
+import PointsShopImage from "@public/images/shopping-bag-icon.png"
+import StarSingleImage from "@public/images/star-single.png"
 
-const adminMenuItems = [
+interface MenuItem {
+  href: string;
+  icon?: ComponentType;
+  label: string;
+  image?: string;
+}
+
+const adminMenuItems: MenuItem[] = [
   { href: "/admin/dashboard", icon: HomeIcon, label: "Dashboard" },
   { href: "/admin/junior", icon: UserIcon, label: "Juniors" },
   {
@@ -37,7 +50,7 @@ const adminMenuItems = [
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
-const contributorMenuItems = [
+const contributorMenuItems: MenuItem[] = [
   { href: "/contributor/dashboard", icon: HomeIcon, label: "Dashboard" },
   { href: "/contributor/juniors", icon: UserIcon, label: "Juniors" },
   {
@@ -50,12 +63,17 @@ const contributorMenuItems = [
   // { href: "/contributor/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
-const juniorMenuItems = [
-  { href: "/junior/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/junior/projects", icon: DocumentIcon, label: "Projects" },
+const juniorMenuItems: MenuItem[] = [
+  { href: "/junior/dashboard", image: HomeImage.src, label: "Dashboard" },
+  { href: "/junior/missions", image: MissionsImage.src, label: "Missions" },
+  { href: "/junior/collaboration", image: CollaborationImage.src, label: "Collaboration" },
+  { href: "/junior/challenges", image: ChallengesImage.src, label: "Challenges" },
+  { href: "/junior/achievements", image: AchievementsImage.src, label: "Achievements" },
+  { href: "/junior/points-shop", image: PointsShopImage.src, label: "Points Shop" },
+  // { href: "/junior/projects", icon: DocumentIcon, label: "Projects" },
   // { href: "/junior/chat", icon: ChatIcon, label: "Chat" },
-  { href: "/junior/schedule", icon: CalendarIcon, label: "Schedule" },
-  { href: "/junior/profile", icon: SettingsIcon, label: "My Profile" },
+  // { href: "/junior/schedule", icon: CalendarIcon, label: "Schedule" },
+  // { href: "/junior/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
 export const SidebarNav = () => {
@@ -105,7 +123,7 @@ export const SidebarNav = () => {
   };
 
   return (
-    <nav className="flex-1 p-4 overflow-y-auto space-y-2">
+    <nav className="flex-1 p-4  space-y-2">
       <ul className="space-y-2">
         {menuItems.map((item, index) => {
           const Icon = item.icon;
@@ -120,7 +138,8 @@ export const SidebarNav = () => {
                   ${active ? "bg-violet-light text-violet-normal" : "text-yankees-blue hover:bg-gray-100"}
                 `}
               >
-                <Icon />
+                {item.image && <Image src={item.image} alt={item.label} width={28} height={28} className="w-6 h-auto" />}
+                {Icon && <Icon />}
                 <p className="truncate">{item.label}</p>
               </Link>
             </li>
@@ -128,6 +147,13 @@ export const SidebarNav = () => {
         })}
       </ul>
 
+      <div className="border border-[#C6D2FF] bg-[#EEF2FF] rounded-3xl p-3  my-7  flex items-center justify-center gap-3">
+        <Image src={StarSingleImage.src} alt="star" width={40} height={40} />
+        <div className="space-y-1">
+          <p className="font-bold text-sm">Daily Tip</p>
+          <p className="font-medium text-sm text-gray-600">Practice daily, even if just for 10 minutes. Consistency wins!</p>
+        </div>
+      </div>
       <div className="py-4 border-t border-border-secondary">
         <button
           onClick={handleLogout}

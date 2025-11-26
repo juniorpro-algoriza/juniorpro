@@ -127,6 +127,10 @@
   --color-gray-badge-50: #eef0f3;
   --color-gray-badge-400: #7e8ca0;
 
+  /* new colors  */
+  --color-purple-main: #9810FA;
+  --color-blue-main: #155DFC;
+
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;
 
