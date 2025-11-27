@@ -42,7 +42,7 @@ export const UpcomingSession = () => {
             <div className="py-1 px-3 border border-gray-200 rounded-full font-medium text-sm text-gray-600">
               {item.tag}
             </div>
-            <div className="text-[13px] text-gray-600 flex items-center">
+            <div className="text-13 text-gray-600 flex items-center">
               <Clock className="mr-1 size-4" />
               {item.timeLeft}
             </div>

@@ -17,13 +17,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "../../../(pages)/auth/server";
 import { useTransition, ComponentType } from "react";
-import HomeImage from "@public/images/home-icon.png"
-import MissionsImage from "@public/images/rocket-icon.png"
-import CollaborationImage from "@public/images/collaboration-icon.png"
-import ChallengesImage from "@public/images/trophy-icon.png"
-import AchievementsImage from "@public/images/medal-icon.png"
-import PointsShopImage from "@public/images/shopping-bag-icon.png"
-import StarSingleImage from "@public/images/star-single.png"
+import HomeImage from "@public/images/home-icon.png";
+import MyJourneyImage from "@public/images/rocket-icon.png";
+import CollaborationImage from "@public/images/collaboration-icon.png";
+import ChallengesImage from "@public/images/trophy-icon.png";
+import AchievementsImage from "@public/images/medal-icon.png";
+import PointsShopImage from "@public/images/shopping-bag-icon.png";
+import StarSingleImage from "@public/images/star-single.png";
+import { Tip } from "../Tip";
 
 interface MenuItem {
   href: string;
@@ -65,11 +66,31 @@ const contributorMenuItems: MenuItem[] = [
 
 const juniorMenuItems: MenuItem[] = [
   { href: "/junior/dashboard", image: HomeImage.src, label: "Dashboard" },
-  { href: "/junior/missions", image: MissionsImage.src, label: "Missions" },
-  { href: "/junior/collaboration", image: CollaborationImage.src, label: "Collaboration" },
-  { href: "/junior/challenges", image: ChallengesImage.src, label: "Challenges" },
-  { href: "/junior/achievements", image: AchievementsImage.src, label: "Achievements" },
-  { href: "/junior/points-shop", image: PointsShopImage.src, label: "Points Shop" },
+  {
+    href: "/junior/my-journey",
+    image: MyJourneyImage.src,
+    label: "My Journey",
+  },
+  {
+    href: "/junior/collaboration",
+    image: CollaborationImage.src,
+    label: "Collaboration",
+  },
+  {
+    href: "/junior/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
+    href: "/junior/achievements",
+    image: AchievementsImage.src,
+    label: "Achievements",
+  },
+  {
+    href: "/junior/points-shop",
+    image: PointsShopImage.src,
+    label: "Points Shop",
+  },
   // { href: "/junior/projects", icon: DocumentIcon, label: "Projects" },
   // { href: "/junior/chat", icon: ChatIcon, label: "Chat" },
   // { href: "/junior/schedule", icon: CalendarIcon, label: "Schedule" },
@@ -138,7 +159,15 @@ export const SidebarNav = () => {
                   ${active ? "bg-violet-light text-violet-normal" : "text-yankees-blue hover:bg-gray-100"}
                 `}
               >
-                {item.image && <Image src={item.image} alt={item.label} width={28} height={28} className="w-6 h-auto" />}
+                {item.image && (
+                  <Image
+                    src={item.image}
+                    alt={item.label}
+                    width={28}
+                    height={28}
+                    className="w-6 h-auto"
+                  />
+                )}
                 {Icon && <Icon />}
                 <p className="truncate">{item.label}</p>
               </Link>
@@ -146,14 +175,11 @@ export const SidebarNav = () => {
           );
         })}
       </ul>
-
-      <div className="border border-[#C6D2FF] bg-[#EEF2FF] rounded-3xl p-3  my-7  flex items-center justify-center gap-3">
-        <Image src={StarSingleImage.src} alt="star" width={40} height={40} />
-        <div className="space-y-1">
-          <p className="font-bold text-sm">Daily Tip</p>
-          <p className="font-medium text-sm text-gray-600">Practice daily, even if just for 10 minutes. Consistency wins!</p>
-        </div>
-      </div>
+      <Tip
+        title="Daily Tip"
+        description="Practice daily, even if just for 10 minutes. Consistency wins!"
+        image={StarSingleImage.src}
+      />
       <div className="py-4 border-t border-border-secondary">
         <button
           onClick={handleLogout}

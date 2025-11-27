@@ -37,4 +37,5 @@ export { LightningIcon } from "./Lightning";
 export { GoalIcon } from "./GoalIcon";
 export { PlayIcon } from "./PlayIcon";
 export { OpenBookIcon } from "./OpenBook";
+export { GlowingStarIcon } from "./GlowingStar";
 

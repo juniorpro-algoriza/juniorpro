@@ -1,7 +1,3 @@
-server files location
-user config
-401 error handling
-login invitation
 
 # JuniorPro Enhancement Roadmap
 

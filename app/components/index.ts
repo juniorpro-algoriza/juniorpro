@@ -15,3 +15,13 @@ export { Select } from "./Select";
 export { ProjectDetails } from "./ProjectDetails";
 export { MainCard } from "./MainCard";
 export { Progress } from "./Progress";
+export { Breadcrumb } from "./Breadcrumb";
+export {
+  Timeline,
+  TimelineContent,
+  TimelineHeader,
+  TimelineIndicator,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineTitle,
+} from "./Timeline";

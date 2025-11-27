@@ -36,14 +36,14 @@ export const WhatsNext = () => {
       </div>
       {missions.map((item, index) => (
         <div key={index}>
-          <Link href={item.link} >
+          <Link href={item.link}>
             <MainCard classname="group flex gap-6 items-center">
               <div className="space-y-1.5 w-full">
                 <div className="flex items-center gap-3">
                   <div className="py-1 px-3 border border-gray-200 rounded-full font-medium text-sm text-gray-600">
                     {item.tag}
                   </div>
-                  <p className="text-[13px] text-gray-600">{item.timeLeft}</p>
+                  <p className="text-13 text-gray-600">{item.timeLeft}</p>
                 </div>
 
                 <p className="font-medium">{item.title}</p>
