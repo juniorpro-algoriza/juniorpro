@@ -26,13 +26,13 @@ export default async function PathPage({
           },
         ]}
       />
-      <div className="space-y-7 max-w-[700px] mx-auto">
+      <div className="space-y-7 mx-auto">
         <PathHeader
           image={StarImage.src}
           title="Web Development Basics"
           description="Learn HTML, CSS, and build your first websites"
         />
-        <PathTimeline />
+        <PathTimeline pathId={id} />
       </div>
     </>
   );

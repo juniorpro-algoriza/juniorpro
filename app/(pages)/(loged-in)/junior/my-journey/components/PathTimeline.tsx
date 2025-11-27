@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import {
-    MainCard,
+  MainCard,
   Timeline,
   TimelineContent,
   TimelineHeader,
@@ -12,49 +12,49 @@ import DiamondImage from "@public/images/diamond-icon-2.png";
 import { cx } from "@lib";
 import { CircleCheck, Clock, Lock, Trophy } from "lucide-react";
 import Image from "next/image";
-export const PathTimeline = () => {
+import Link from "next/link";
+export const PathTimeline = ({ pathId }: { pathId: string }) => {
   return (
-    <Timeline>
-        {items.map((item) => (
-          <TimelineItem
-            className="group-data-[orientation=vertical]/timeline:ms-10 group-data-[orientation=vertical]/timeline:not-last:pb-8"
-            key={item.id}
-            step={item.id}
-          >
-            <TimelineHeader>
-              <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5 bg-gray-200" />
+    <Timeline className="xl:max-w-4/5">
+      {items.map((item) => (
+        <TimelineItem
+          className="group-data-[orientation=vertical]/timeline:ms-10 group-data-[orientation=vertical]/timeline:not-last:pb-8"
+          key={item.id}
+          step={item.id}
+        >
+          <TimelineHeader>
+            <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5 bg-gray-200" />
 
-              <TimelineIndicator
-                className={cx(
-                  "group-data-[orientation=vertical]/timeline:-left-7 flex size-10 items-center justify-center border-none group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground shadow-main p-1",
-                  item.status === "locked"
-                    ? "bg-gray-100 opacity-50"
-                    : "bg-white"
-                )}
-              >
-                {item.status === "completed" && (
-                  <div className="w-full h-full rounded-full bg-[#00BC7D] flex items-center justify-center text-white">
-                    <CircleCheck />
-                  </div>
-                )}
-
-                {item.status === "current" && (
-                  <div className="w-full h-full rounded-full bg-[#4F39F6] flex items-center justify-center text-white">
-                    {item.id}
-                  </div>
-                )}
-
-                {item.status === "locked" && (
-                  <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                    <Lock className="size-4" />
-                  </div>
-                )}
-              </TimelineIndicator>
-            </TimelineHeader>
-
-            <TimelineContent
-              className={item.status === "locked" ? "opacity-50" : ""}
+            <TimelineIndicator
+              className={cx(
+                "group-data-[orientation=vertical]/timeline:-left-7 flex size-10 items-center justify-center border-none group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground shadow-main p-1",
+                item.status === "locked" ? "bg-gray-100 opacity-50" : "bg-white"
+              )}
             >
+              {item.status === "completed" && (
+                <div className="w-full h-full rounded-full bg-[#00BC7D] flex items-center justify-center text-white">
+                  <CircleCheck />
+                </div>
+              )}
+
+              {item.status === "current" && (
+                <div className="w-full h-full rounded-full bg-[#4F39F6] flex items-center justify-center text-white">
+                  {item.id}
+                </div>
+              )}
+
+              {item.status === "locked" && (
+                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+                  <Lock className="size-4" />
+                </div>
+              )}
+            </TimelineIndicator>
+          </TimelineHeader>
+
+          <TimelineContent
+            className={item.status === "locked" ? "opacity-50" : ""}
+          >
+            <Link href={`/junior/my-journey/${pathId}/${item.id}`}>
               <MainCard classname="border border-gray-100 space-y-3">
                 <div className="flex items-center md:gap-4 gap-2 flex-wrap">
                   <h3 className="capitalize text-15 font-bold">{item.title}</h3>
@@ -100,13 +100,13 @@ export const PathTimeline = () => {
                   </div>
                 )}
               </MainCard>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
-  )
-}
-
+            </Link>
+          </TimelineContent>
+        </TimelineItem>
+      ))}
+    </Timeline>
+  );
+};
 
 const items = [
   {
