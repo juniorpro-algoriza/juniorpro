@@ -2,7 +2,7 @@
 import { userAtom } from "@atoms";
 import ContributorAvatar from "@public/images/contributor-avatar.png";
 import Fire from "@public/images/fire-icon.png";
-import Diamond from "@public/images/diamond-icon.png";
+import Diamond2 from "@public/images/diamond-icon-2.png";
 import badge from "@public/images/badge-icon.png";
 
 import { useAtom } from "jotai";
@@ -42,14 +42,14 @@ export const SidebarUserInfo = () => {
           </p>
         </div>
         <div className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1">
-          <Image src={Diamond} alt="diamond" width={30} height={30} />
+          <Image src={Diamond2} alt="diamond" width={25} height={25}/>
           <p className="font-bold">350</p>
           <p className="text-10 text-gray-600 font-medium text-center">
             Points
           </p>
         </div>
         <div className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1">
-          <Image src={badge} alt="badge" width={30} height={30} />
+          <Image src={badge} alt="badge" width={30} height={30}/>
           <p className="font-bold">7</p>
           <p className="text-10 text-gray-600 font-medium text-center">
             Badges

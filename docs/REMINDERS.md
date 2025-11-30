@@ -10,3 +10,4 @@
 --un wanted pages in junior portal
 --force dynamic
 --un used icons after changing it to images
+--buttons un wanted variants

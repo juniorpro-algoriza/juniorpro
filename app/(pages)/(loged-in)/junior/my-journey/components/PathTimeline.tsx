@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 export const PathTimeline = ({ pathId }: { pathId: string }) => {
   return (
-    <Timeline className="xl:max-w-4/5">
+    <Timeline>
       {items.map((item) => (
         <TimelineItem
           className="group-data-[orientation=vertical]/timeline:ms-10 group-data-[orientation=vertical]/timeline:not-last:pb-8"

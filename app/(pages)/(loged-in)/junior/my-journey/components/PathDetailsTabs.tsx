@@ -2,6 +2,9 @@ import { Tabs } from "@components/client";
 import { TabData } from "@types";
 import { Book, FileText, Upload } from "lucide-react";
 import React from "react";
+import { StepByStepGuide } from "./StepByStepGuide";
+import { LearningResources } from "./LearningResources";
+import { SubmitYourWork } from "./SubmitYourWork";
 
 export const PathDetailsTabs = () => {
   const tabsData: TabData[] = [
@@ -12,13 +15,7 @@ export const PathDetailsTabs = () => {
           <span>Step by Step Guide</span>
         </div>
       ),
-      content: (
-        <>
-          <h2 className="text-2xl font-medium text-yankees-blue">
-            Step by Step Guide
-          </h2>
-        </>
-      ),
+      content: <StepByStepGuide />,
     },
     {
       name: (
@@ -27,13 +24,7 @@ export const PathDetailsTabs = () => {
           <span>Learning Resources</span>
         </div>
       ),
-      content: (
-        <>
-          <h2 className="text-2xl font-medium text-yankees-blue">
-            Learning Resources
-          </h2>
-        </>
-      ),
+      content: <LearningResources />,
     },
     {
       name: (
@@ -42,15 +33,11 @@ export const PathDetailsTabs = () => {
           <span>Submission</span>
         </div>
       ),
-      content: (
-        <>
-          <h2 className="text-2xl font-medium text-yankees-blue">Submission</h2>
-        </>
-      ),
+      content: <SubmitYourWork />,
     },
   ];
   return (
-    <div>
+    <div className="xl:max-w-4/5">
       <Tabs tabs={tabsData} />
     </div>
   );

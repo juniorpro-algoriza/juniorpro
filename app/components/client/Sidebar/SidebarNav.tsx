@@ -18,8 +18,8 @@ import { usePathname } from "next/navigation";
 import { signOut } from "../../../(pages)/auth/server";
 import { useTransition, ComponentType } from "react";
 import HomeImage from "@public/images/home-icon.png";
-import MyJourneyImage from "@public/images/rocket-icon.png";
-import CollaborationImage from "@public/images/collaboration-icon.png";
+import MyJourneyImage from "@public/images/map-icon.png";
+import CollaborationImage from "@public/images/hand-shake-icon.png";
 import ChallengesImage from "@public/images/trophy-icon.png";
 import AchievementsImage from "@public/images/medal-icon.png";
 import PointsShopImage from "@public/images/shopping-bag-icon.png";
@@ -69,7 +69,7 @@ const juniorMenuItems: MenuItem[] = [
   {
     href: "/junior/my-journey",
     image: MyJourneyImage.src,
-    label: "My Journey",
+    label: "My Learning Journey",
   },
   {
     href: "/junior/collaboration",

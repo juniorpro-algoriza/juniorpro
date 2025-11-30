@@ -130,6 +130,7 @@
   /* new colors  */
   --color-purple-main: #9810FA;
   --color-blue-main: #155DFC;
+  --color-dark-blue-main: #4F39F6;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;

@@ -17,15 +17,46 @@ export async function middleware(req: NextRequest) {
     (path.startsWith("/auth/login") || path.startsWith("/auth/sign-up")) &&
     token
   ) {
+    // Check if there's a redirect parameter
+    const redirectParam = req.nextUrl.searchParams.get("redirect");
+
+    if (redirectParam) {
+      // Determine if user is authorized for the redirect destination
+      const roleMap = {
+        "/admin": 1,
+        "/junior": 2,
+        "/contributor": 3,
+        "/project/manager": 4,
+      };
+
+      let isAuthorized = true;
+      for (const [prefix, requiredType] of Object.entries(roleMap)) {
+        if (redirectParam.startsWith(prefix) && userType !== requiredType) {
+          isAuthorized = false;
+          break;
+        }
+      }
+
+      // Redirect to original page if authorized, otherwise to dashboard
+      if (isAuthorized) {
+        return NextResponse.redirect(new URL(redirectParam, req.url));
+      }
+    }
+
+    // Default dashboard redirects
     switch (userType) {
       case 1:
         return NextResponse.redirect(new URL("/admin/dashboard", req.url));
       case 2:
         return NextResponse.redirect(new URL("/junior/dashboard", req.url));
       case 3:
-        return NextResponse.redirect(new URL("/contributor/dashboard", req.url));
+        return NextResponse.redirect(
+          new URL("/contributor/dashboard", req.url)
+        );
       case 4:
-        return NextResponse.redirect(new URL("/project/manager/dashboard", req.url));
+        return NextResponse.redirect(
+          new URL("/project/manager/dashboard", req.url)
+        );
       default:
         return NextResponse.redirect(new URL("/", req.url));
     }
@@ -67,7 +98,10 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  // Add current pathname to headers for server components
+  const response = NextResponse.next();
+  response.headers.set("x-pathname", req.nextUrl.pathname);
+  return response;
 }
 
 export const config = {

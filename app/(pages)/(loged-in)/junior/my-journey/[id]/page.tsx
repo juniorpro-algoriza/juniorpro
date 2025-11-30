@@ -26,7 +26,7 @@ export default async function PathPage({
           },
         ]}
       />
-      <div className="space-y-7 mx-auto">
+      <div className="space-y-7 xl:max-w-4/5">
         <PathHeader
           image={StarImage.src}
           title="Web Development Basics"

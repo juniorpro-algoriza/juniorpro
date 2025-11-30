@@ -1,5 +1,5 @@
 import { Breadcrumb } from "@components";
-import { PathDetailsHeader, PathDetailsTabs } from "../../components";
+import { PathDetailsHeader, PathDetailsTabs, StuckOnAProblem } from "../../components";
 
 export default async function PathDetailPage({
   params,
@@ -31,6 +31,7 @@ export default async function PathDetailPage({
       />
       <PathDetailsHeader/>
       <PathDetailsTabs/>
+      <StuckOnAProblem/>
     </>
   );
 }

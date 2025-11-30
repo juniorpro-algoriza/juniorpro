@@ -65,7 +65,7 @@ export const Tabs: React.FC<TabsProps> = ({
 };
 
 const defaultTabListClass =
-  "flex space-x-1 rounded-2xl bg-white border border-gray-200 px-4 py-2 mb-3 w-fit ";
+  "flex space-x-1 rounded-2xl bg-white border border-gray-200 px-4 py-2 mb-3 w-fit max-w-full overflow-auto";
 
 const defaultTabClass = cva({
   base: [
