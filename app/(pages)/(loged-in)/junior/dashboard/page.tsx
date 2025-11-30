@@ -13,7 +13,7 @@ import {
 
 const DashboardPage = async () => {
   return (
-    <div className="min-h-screen py-3 px-6 space-y-5 bg-[#FAFBFC]">
+    <>
       <DashboardHeader />
       <DashboardCards />
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-8 gap-4 mt-8">
@@ -27,7 +27,7 @@ const DashboardPage = async () => {
           <LeaderBoard />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -119,23 +119,21 @@ export { Textarea };
 const textarea = cva({
   base: [
     "w-full",
-    "px-3",
-    "py-2",
+    "px-4",
+    "py-3",
     "focus:ring-2",
-    "focus:ring-violet-normal",
-    "rounded-lg",
+    "focus:ring-blue-main",
+    "rounded-2xl",
     "border",
     "transition-all",
     "duration-200",
     "outline-none",
-    "placeholder:text-cadetGray",
-    "placeholder:font-medium",
-    "text-cadetGray",
-    "resize-none", // disable manual resizing
+    "placeholder:text-gray-300",
+    "placeholder:max-md:text-sm",
   ],
   variants: {
     state: {
-      default: "border-border-primary bg-white",
+      default: "border-gray-200 bg-white",
       error: "border-red-500 ring-2 ring-red-100",
       disabled:
         "bg-white opacity-60 border-platinum text-gray-500 cursor-not-allowed",

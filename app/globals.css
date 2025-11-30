@@ -130,6 +130,7 @@
   /* new colors  */
   --color-purple-main: #9810FA;
   --color-blue-main: #155DFC;
+  --color-dark-blue-main: #4F39F6;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;
@@ -138,6 +139,10 @@
   --shadow-soft: 0px 4px 15px 0px rgba(0 0 0 / 0.08);
   --shadow-main: 0px 2px 3px 0px rgba(0 0 0 / 0.10);
 
+  /* Font sizes */
+  --text-10: 10px;
+  --text-13: 13px;
+  --text-15: 15px;
 }
 
 /* !! Themes */
@@ -148,19 +153,5 @@
 
   [data-theme='other'] {
     --color-primary-50: #ffffff;
-  }
-}
-*{
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent; /* or any color */
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background: linear-gradient(180deg, #615FFF 0%, #AD46FF 100%);
   }
 }

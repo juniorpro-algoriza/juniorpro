@@ -38,7 +38,7 @@ export const InviteExistingTab = () => {
         onChange={(e) => setEmail(e.target.value)}
         className="w-full"
       />
-      <p className="text-dark-electric-blue text-[13px] font-light">
+      <p className="text-dark-electric-blue text-13 font-light">
         We'll send an invitation to this email address. The junior must accept
         the invitation to link accounts.
       </p>

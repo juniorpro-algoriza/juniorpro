@@ -1,6 +1,9 @@
 "use server";
 
 import { getFetchHeaders } from "@server";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { cookies } from "next/headers";
 
 interface Props<T = unknown> {
   url: string;
@@ -20,10 +23,10 @@ export const getData = async <T>({
   params,
 }: Props<T>): Promise<T> => {
   try {
-    const { headers } = (await getFetchHeaders(!!body)) || {};
+    const { headers: fetchHeaders } = (await getFetchHeaders(!!body)) || {};
 
     const safeHeaders =
-      headers ||
+      fetchHeaders ||
       (body
         ? { "Content-Type": "application/json" }
         : { Accept: "application/json" });
@@ -46,6 +49,18 @@ export const getData = async <T>({
     });
 
     if (!res.ok) {
+      // Handle 401 Unauthorized
+      if (res.status === 401) {
+        const cookieStore = await cookies();
+        cookieStore.delete("auth_token");
+        cookieStore.delete("user_type");
+
+        const headersList = await headers();
+        const currentPath = headersList.get("x-pathname") || "/";
+        redirect(`/auth/login?redirect=${encodeURIComponent(currentPath)}`);
+      }
+
+      // Handle other errors
       let errorMessage = `Request failed: ${res.status}`;
       try {
         const errJson = await res.json();

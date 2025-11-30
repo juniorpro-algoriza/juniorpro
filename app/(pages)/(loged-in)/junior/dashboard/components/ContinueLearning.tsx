@@ -47,7 +47,7 @@ export const ContinueLearning = () => {
         />
         <div className="space-y-1">
           <p className="text-sm font-medium">You're Building Momentum!</p>
-          <p className="text-[13px] text-gray-600">
+          <p className="text-13 text-gray-600">
             Finishing what you started is a superpower. Let's keep that streak
             going!
           </p>
@@ -68,14 +68,12 @@ export const ContinueLearning = () => {
               <div className="py-1 px-3 border border-gray-200 rounded-full font-medium text-sm text-gray-600">
                 {item.tag}
               </div>
-              <p className="text-[13px] text-gray-600">{item.timeLeft}</p>
+              <p className="text-13 text-gray-600">{item.timeLeft}</p>
             </div>
 
             <p className="font-medium">{item.title}</p>
             <p className="text-sm text-gray-600">{item.description}</p>
-            <p className="text-[13px] text-gray-600">
-              {item.progress}% complete
-            </p>
+            <p className="text-13 text-gray-600">{item.progress}% complete</p>
 
             <Progress width={item.progress} />
           </div>

@@ -1,5 +1,13 @@
+-401 error handling
+-renaming components folder _ in start
 -remove un used pages like projects page
 -Icons files to be all the same
+--apply prittier and husky
 - remove 
 --<DashboardProjects />
 --<DashboardTasks />
+--unused images
+--un wanted pages in junior portal
+--force dynamic
+--un used icons after changing it to images
+--buttons un wanted variants

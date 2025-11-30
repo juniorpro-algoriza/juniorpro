@@ -13,7 +13,8 @@ export type ModalName =
   | "EditContributorProfile"
   | "AssignPointsForContributors"
   | "AssignPointsForJuniors"
-  | "EditJuniorsProfile";
+  | "EditJuniorsProfile"
+  | "MissionCompleted";
 
 interface ModalLinkProps {
   children: ReactNode;

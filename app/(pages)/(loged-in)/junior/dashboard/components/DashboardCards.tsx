@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TargetWithArrow from "@public/images/target_with_arrow.png"
+import TargetWithArrow from "@public/images/target_with_arrow.png";
 import { MainCard } from "@components";
 
 // interface DashboardStats {
@@ -64,9 +64,9 @@ export const DashboardCards = async () => {
               height={48}
               className="size-12"
             />
-            <p className="text-[13px] text-gray-600">{card.label}</p>
+            <p className="text-13 text-gray-600">{card.label}</p>
             <p className="font-bold lg:text-[32px] text-[24px]">{card.value}</p>
-            <p className={`text-[13px] ${card.subtextColor}`}>{card.subtext}</p>
+            <p className={`text-13 ${card.subtextColor}`}>{card.subtext}</p>
           </MainCard>
         ))}
       </div>
