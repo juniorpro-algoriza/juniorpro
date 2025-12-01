@@ -5,12 +5,9 @@ import {
   // ChatIcon,
   DiamondIcon,
   DocumentIcon,
-  FolderDetailsIcon,
   HomeIcon,
   LogoutIcon,
   UserIcon,
-  UserManagerIcon,
-  UsersIcon,
 } from "@icons";
 import Link from "next/link";
 import Image from "next/image";
@@ -34,19 +31,32 @@ interface MenuItem {
 }
 
 const adminMenuItems: MenuItem[] = [
-  { href: "/admin/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/admin/junior", icon: UserIcon, label: "Juniors" },
+  { href: "/admin/dashboard", image: HomeImage.src, label: "Dashboard" },
   {
-    href: "/admin/contributor",
-    icon: UsersIcon,
-    label: "Contributors",
+    href: "/admin/paths",
+    image: MyJourneyImage.src,
+    label: "Paths",
   },
   {
-    href: "/admin/project-manager",
-    icon: UserManagerIcon,
-    label: "Project Managers",
+    href: "/admin/collaboration",
+    image: CollaborationImage.src,
+    label: "Collaboration",
   },
-  { href: "/admin/projects", icon: FolderDetailsIcon, label: "Projects" },
+  {
+    href: "/admin/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
+    href: "/admin/achievements",
+    image: AchievementsImage.src,
+    label: "Achievements",
+  },
+  {
+    href: "/admin/points-shop",
+    image: PointsShopImage.src,
+    label: "Points Shop",
+  },
   // { href: "/admin/schedule", icon: CalendarIcon, label: "Schedule" },
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
@@ -67,9 +77,9 @@ const contributorMenuItems: MenuItem[] = [
 const juniorMenuItems: MenuItem[] = [
   { href: "/junior/dashboard", image: HomeImage.src, label: "Dashboard" },
   {
-    href: "/junior/my-journey",
+    href: "/junior/paths",
     image: MyJourneyImage.src,
-    label: "My Learning Journey",
+    label: "Paths",
   },
   {
     href: "/junior/collaboration",
@@ -175,11 +185,13 @@ export const SidebarNav = () => {
           );
         })}
       </ul>
-      <Tip
-        title="Daily Tip"
-        description="Practice daily, even if just for 10 minutes. Consistency wins!"
-        image={StarSingleImage.src}
-      />
+      {userRole === "junior" && (
+        <Tip
+          title="Daily Tip"
+          description="Practice daily, even if just for 10 minutes. Consistency wins!"
+          image={StarSingleImage.src}
+        />
+      )}
       <div className="py-4 border-t border-border-secondary">
         <button
           onClick={handleLogout}

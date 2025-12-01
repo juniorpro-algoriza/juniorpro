@@ -1,5 +1,9 @@
 import { Breadcrumb } from "@components";
-import { PathDetailsHeader, PathDetailsTabs, StuckOnAProblem } from "../../components";
+import {
+  PathDetailsHeader,
+  PathDetailsTabs,
+  StuckOnAProblem,
+} from "../../components";
 
 export default async function PathDetailPage({
   params,
@@ -17,21 +21,21 @@ export default async function PathDetailPage({
           },
           {
             title: "My Journey",
-            href: "/junior/my-journey",
+            href: "/junior/paths",
           },
           {
             title: "Path",
-            href: `/junior/my-journey/${id}`,
+            href: `/junior/paths/${id}`,
           },
           {
             title: "Path Detail",
-            href: `/junior/my-journey/${id}/${pathDetailsId}`,
+            href: `/junior/paths/${id}/${pathDetailsId}`,
           },
         ]}
       />
-      <PathDetailsHeader/>
-      <PathDetailsTabs/>
-      <StuckOnAProblem/>
+      <PathDetailsHeader />
+      <PathDetailsTabs />
+      <StuckOnAProblem />
     </>
   );
 }
