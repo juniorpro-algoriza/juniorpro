@@ -18,11 +18,11 @@ export default async function PathPage({
           },
           {
             title: "My Journey",
-            href: "/junior/my-journey",
+            href: "/junior/paths",
           },
           {
             title: "Path",
-            href: `/junior/my-journey/${id}`,
+            href: `/junior/paths/${id}`,
           },
         ]}
       />

@@ -22,11 +22,8 @@ export const MyCurrentPath = ({
       <div className="grid xl:grid-cols-3 sm:grid-cols-2 gap-5">
         {paths.map((path) => (
           <div key={path.id}>
-            <Link href={`/junior/my-journey/${path.id}`}>
-              <MainCard
-                classname=" border border-[#A3B3FF] lg:space-y-4 space-y-2"
-                
-              >
+            <Link href={`/junior/paths/${path.id}`}>
+              <MainCard classname=" border border-[#A3B3FF] lg:space-y-4 space-y-2">
                 <Image
                   src={path.image}
                   alt="Current path Image"
