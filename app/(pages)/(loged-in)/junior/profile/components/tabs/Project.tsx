@@ -51,7 +51,7 @@ export const Projects = () => {
             Projects ({projects.length})
           </h2>
           <div className="flex items-center gap-2">
-            <SearchInput />
+            <SearchInput placeholder="Search for projects..." />
           </div>
         </div>
 

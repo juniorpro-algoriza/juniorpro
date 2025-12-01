@@ -5,11 +5,11 @@ import { SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDebounceValue } from "usehooks-ts";
-import { cx } from "@lib";
 interface SearchInputProps {
   className?: string;
+  placeholder?:string
 }
-export const SearchInput = ({ className }: SearchInputProps) => {
+export const SearchInput = ({ className ,placeholder}: SearchInputProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -34,13 +34,10 @@ export const SearchInput = ({ className }: SearchInputProps) => {
     <div className="relative">
       <Input
         type="text"
-        placeholder="Search for projects..."
+        placeholder={placeholder}
         onChange={(e) => setDebouncedQuery(e.target.value)}
-        className={cx(
-          "mt-2 shadow-lg rounded-lg  py-3 active:ring-0 active:border-0 focus:ring-2 focus:border-0 ring-violet-normal",
-          className
-        )}
-        leftIcon={<SearchIcon className="mt-2" />}
+        className={className}
+        leftIcon={<SearchIcon />}
       />
     </div>
   );
