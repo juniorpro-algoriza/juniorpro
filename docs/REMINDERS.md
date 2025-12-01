@@ -3,6 +3,7 @@
 -remove un used pages like projects page
 -Icons files to be all the same
 --apply prittier and husky
+--remove icons that can be replaces by lucide
 - remove 
 --<DashboardProjects />
 --<DashboardTasks />

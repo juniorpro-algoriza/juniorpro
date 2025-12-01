@@ -84,7 +84,7 @@ const button = cva({
         main:
           "bg-white text-dark-blue-main hover:bg-dark-blue-main/5 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main/10 border-b-3 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
         main2:
-          "bg-dark-blue-main text-white hover:bg-dark-blue-main/85 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main/10 border-b-3 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
+          "bg-dark-blue-main text-white hover:bg-dark-blue-main/85 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main/10 border-b-3 border-[#372AAC] [box-shadow:0px_1px_3px_0px_#0000001A] ",
       },
     size: {
       small: "px-3 py-1.5 text-sm",

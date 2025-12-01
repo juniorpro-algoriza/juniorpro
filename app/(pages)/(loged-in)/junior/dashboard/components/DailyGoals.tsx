@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { MainCard, Progress } from "@components";
-import { GoalIcon } from "@icons";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Target } from "lucide-react";
 import { cx } from "@lib";
 
 export const DailyGoals = () => {
@@ -15,7 +14,7 @@ export const DailyGoals = () => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex items-center gap-2">
-          <GoalIcon className="text-blue-main" />
+          <Target className="size-4 text-blue-main" />
           <p>Daily Goal</p>
         </div>
 

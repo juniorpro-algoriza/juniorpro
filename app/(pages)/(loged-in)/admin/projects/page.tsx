@@ -51,7 +51,7 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
                 Add Project
               </Button>
             </Link>
-            <SearchInput className="py-2" />
+            <SearchInput className="py-2" placeholder="Search for projects..." />
           </div>
         </div>
 
