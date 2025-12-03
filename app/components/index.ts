@@ -25,3 +25,13 @@ export {
   TimelineSeparator,
   TimelineTitle,
 } from "./Timeline";
+export {
+  Stepper,
+  StepperDescription,
+  StepperIndicator,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
+  StepperTrigger,
+} from "./Stepper";
+export { CodeBlockInput } from "./CodeBlockInput";
