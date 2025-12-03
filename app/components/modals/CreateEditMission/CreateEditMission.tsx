@@ -213,7 +213,7 @@ export const CreateEditMission = () => {
 
   return (
     <Modal panelClassName="w-full max-w-2xl p-6 bg-white rounded-2xl shadow-xl max-h-[95dvh]">
-      <div className="flex items-center justify-between border-b border-gray-100 pb-2 gap-3 flex-wrap">
+      <div className="border-b border-gray-100 pb-2 space-y-5 ">
         <div className="text-nowrap">
           <h2 className="text-xl font-bold text-midnight">
             {isEditing ? "Edit Mission" : "Create Mission"}

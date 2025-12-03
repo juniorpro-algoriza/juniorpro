@@ -10,13 +10,15 @@ const MyJourneyPage = () => {
         title={`My Learning Journey`}
         description="Pick a path to start learning new superpowers!"
       />
-      <Tip
-        title="Your Unique Path to Success!"
-        description="Everyone learns at their own pace, and that's perfectly fine! These learning paths are designed just for you. Take your time with each mission, ask questions when you need help, and celebrate every step forward. You're building skills that will open doors to amazing opportunities!"
-        image={StarGroup.src}
-        className="gap-5 my-5"
-        imageClassname="w-16"
-      />
+      <div className="xl:w-4/5">
+        <Tip
+          title="Your Unique Path to Success!"
+          description="Everyone learns at their own pace, and that's perfectly fine! These learning paths are designed just for you. Take your time with each mission, ask questions when you need help, and celebrate every step forward. You're building skills that will open doors to amazing opportunities!"
+          image={StarGroup.src}
+          className="gap-5 my-5"
+          imageClassname="w-16"
+        />
+      </div>
       <MyCurrentPath
         paths={[
           {

@@ -17,7 +17,7 @@ export default async function PathPage({
             href: "/junior",
           },
           {
-            title: "My Journey",
+            title: "Learning Paths",
             href: "/junior/paths",
           },
           {

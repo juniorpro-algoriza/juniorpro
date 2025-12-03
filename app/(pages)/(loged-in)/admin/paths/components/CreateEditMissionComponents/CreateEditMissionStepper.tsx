@@ -20,7 +20,7 @@ export function CreateEditMissionStepper({
   }[];
 }) {
   return (
-    <Stepper value={value} className="min-w-[250px]">
+    <Stepper value={value} className="w-full ">
       {steps.map(({ step, title }) => (
         <StepperItem
           className="relative flex-1 flex-col!"

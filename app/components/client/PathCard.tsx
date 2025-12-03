@@ -29,7 +29,7 @@ export const PathCard = ({
   return (
     <div key={path.id}>
       <Link href={`/${userType}/paths/${path.id}`}>
-        <MainCard classname={cx(" lg:space-y-4 space-y-2", cardClassName)}>
+        <MainCard classname={cx(" space-y-2", cardClassName)}>
           <Image
             src={path.image}
             alt="Current path Image"
@@ -53,7 +53,7 @@ export const PathCard = ({
               />
             </div>
           )}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap mt-4">
             <div className="px-2 py-1 bg-gray-50 border border-gray-200 rounded-full flex items-center gap-2 text-gray-600">
               <Target className="size-4" />
               <p className="text-13">

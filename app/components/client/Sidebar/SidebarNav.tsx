@@ -20,8 +20,6 @@ import CollaborationImage from "@public/images/hand-shake-icon.png";
 import ChallengesImage from "@public/images/trophy-icon.png";
 import AchievementsImage from "@public/images/medal-icon.png";
 import PointsShopImage from "@public/images/shopping-bag-icon.png";
-import StarSingleImage from "@public/images/star-single.png";
-import { Tip } from "../Tip";
 
 interface MenuItem {
   href: string;
@@ -185,13 +183,13 @@ export const SidebarNav = () => {
           );
         })}
       </ul>
-      {userRole === "junior" && (
+      {/* {userRole === "junior" && (
         <Tip
           title="Daily Tip"
           description="Practice daily, even if just for 10 minutes. Consistency wins!"
           image={StarSingleImage.src}
         />
-      )}
+      )} */}
       <div className="py-4 border-t border-border-secondary">
         <button
           onClick={handleLogout}

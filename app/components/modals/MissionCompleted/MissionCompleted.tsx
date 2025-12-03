@@ -59,26 +59,29 @@ export const MissionCompleted = () => {
   }, []);
 
   return (
-    <Modal panelClassName="w-full max-w-xl p-8 py-20 text-center bg-white rounded-2xl shadow-xl place-items-center sm:space-y-6 relative overflow-hidden">
+    <Modal panelClassName="w-full max-w-xl p-8 text-center bg-white rounded-2xl shadow-xl place-items-center sm:space-y-6 relative overflow-hidden">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none z-50"
       />
-      <Image
-        src={CelebrateImage}
-        alt="Celebrate Icon"
-        className="sm:w-[250px] w-[150px] relative z-10 mb-0"
-        width={250}
-        height={250}
-      />
+      <div className="relative">
+        <Image
+          src={CelebrateImage}
+          alt="Celebrate Icon"
+          className="sm:w-[250px] w-[150px] relative z-10 mb-0"
+          width={250}
+          height={250}
+        />
+        <div className="sm:size-[150px] size-[100px] rounded-full bg-[#F5F6F8] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+      </div>
       <h2 className="font-bold sm:text-3xl text-xl  relative z-10">
-        Woho! You Completed the Mission!
+        You Completed the Mission!
       </h2>
       <p className="text-gray-600 sm:text-2xl text-lg relative z-10">
         HTML Basics
       </p>
-      <div className="grid grid-cols-2 w-full sm:gap-5 gap-3 relative z-10">
-        <MainCard classname="space-y-2 place-items-center">
+      <div className="flex justify-center w-full sm:gap-5 gap-3 relative z-10">
+        <MainCard classname="space-y-2 place-items-center w-[150px] shadow-none border-[#F3F4F6] bg-[#F9FAFB]">
           <Image
             src={LightningImage}
             alt="Lightning Icon"
@@ -88,9 +91,9 @@ export const MissionCompleted = () => {
           />
 
           <p className="font-semibold text-3xl">+40</p>
-          <p className="text-gray-400 text-13 font-bold">XP Earned</p>
+          <p className="text-gray-300 text-13 font-bold">XP Earned</p>
         </MainCard>
-        <MainCard classname="space-y-2 place-items-center">
+        <MainCard classname="space-y-2 place-items-center max-w-[150px] shadow-none border-[#F3F4F6] bg-[#F9FAFB]">
           <Image
             src={Diamond2Image}
             alt="Diamond2 Icon"
@@ -99,7 +102,7 @@ export const MissionCompleted = () => {
             height={60}
           />
           <p className="font-semibold text-3xl">+1</p>
-          <p className="text-gray-400 text-13 font-bold">Points Earned</p>
+          <p className="text-gray-300 text-13 font-bold">Points Earned</p>
         </MainCard>
       </div>
       <CloseButton as={Fragment}>

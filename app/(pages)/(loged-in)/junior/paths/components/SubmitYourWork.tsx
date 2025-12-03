@@ -9,7 +9,7 @@ import Image from "next/image";
 import RocketImage from "@public/images/rocket-icon.png";
 
 export const SubmitYourWork = ({
-  isSubmitted = true,
+  isSubmitted = false,
 }: {
   isSubmitted?: boolean;
 }) => {
