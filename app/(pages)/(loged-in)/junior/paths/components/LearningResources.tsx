@@ -8,7 +8,7 @@ export const LearningResources = () => {
       {resources.map((resource, index) => (
         <MainCard
           key={index}
-          classname="bg-[#F9FAFB] border border-gray-100 flex items-center gap-3 justify-between"
+          classname="bg-[#F9FAFB]  flex items-center gap-3 justify-between"
         >
           <div className="flex items-center gap-3">
             <div className="size-12 flex items-center justify-center rounded-2xl bg-white border border-gray-200 text-gray-600">
@@ -22,8 +22,6 @@ export const LearningResources = () => {
           <ExternalLink className="text-gray-300 size-5" />
         </MainCard>
       ))}
-
-
     </div>
   );
 };

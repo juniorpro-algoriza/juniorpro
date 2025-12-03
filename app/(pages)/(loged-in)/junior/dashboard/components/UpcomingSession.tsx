@@ -1,25 +1,23 @@
-import { MainCard } from "@components";
+import { MainCard, TAG_COLORS } from "@components";
 import React from "react";
 import { Clock } from "lucide-react";
 import CalenderImage from "@public/images/calendar.png";
 import Image from "next/image";
+import { cx } from "@lib";
 export const UpcomingSession = () => {
   const session = [
     {
       tag: "Mission",
-      timeLeft: "1 hour",
       title: "JavaScript Loops & Iterations",
       description: "Tomorrow, 10:00 AM",
     },
     {
       tag: "Challenge",
-      timeLeft: "1 hour",
       title: "React State Management",
       description: "Tomorrow, 10:00 AM",
     },
     {
-      tag: "Project",
-      timeLeft: "1 hour",
+      tag: "Collaboration",
       title: "Build a Weather App",
       description: "Tomorrow, 10:00 AM",
     },
@@ -39,17 +37,21 @@ export const UpcomingSession = () => {
       {session.map((item, index) => (
         <MainCard classname="group items-center space-y-1.5" key={index}>
           <div className="flex items-center gap-3">
-            <div className="py-1 px-3 border border-gray-200 rounded-full font-medium text-sm text-gray-600">
+            <div
+              className={cx(
+                "py-1 px-3 border rounded-full font-medium text-sm",
+                TAG_COLORS[item.tag as keyof typeof TAG_COLORS]
+              )}
+            >
               {item.tag}
             </div>
             <div className="text-13 text-gray-600 flex items-center">
               <Clock className="mr-1 size-4" />
-              {item.timeLeft}
+              {item.description}
             </div>
           </div>
 
           <p className="font-medium">{item.title}</p>
-          <p className="text-sm text-gray-600">{item.description}</p>
         </MainCard>
       ))}
     </MainCard>

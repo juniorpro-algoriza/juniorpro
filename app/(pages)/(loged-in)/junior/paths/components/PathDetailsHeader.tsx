@@ -7,7 +7,7 @@ import { ArrowIncreaseIcon } from "@icons";
 import TargetImage from "@public/images/target_with_arrow.png";
 export const PathDetailsHeader = () => {
   return (
-    <MainCard classname="relative border border-gray-100 xl:max-w-4/5">
+    <MainCard classname="relative  xl:max-w-4/5">
       <div className="relative z-[2] lg:space-y-4 space-y-2">
         <div className="flex items-center gap-3">
           <div className="px-3 py-1 border border-green-200 bg-green-50 rounded-xl text-13 font-bold capitalize text-green-800">
@@ -60,7 +60,13 @@ export const PathDetailsHeader = () => {
           </div>
         </div>
       </div>
-      <Image src={TargetImage.src} alt="Target Image" width={250} height={250} className="absolute top-0 right-0 opacity-10 " />
+      <Image
+        src={TargetImage.src}
+        alt="Target Image"
+        width={250}
+        height={250}
+        className="absolute top-0 right-0 opacity-10 "
+      />
     </MainCard>
   );
 };

@@ -55,7 +55,7 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
             className={item.status === "locked" ? "opacity-50" : ""}
           >
             <Link href={`/junior/paths/${pathId}/${item.id}`}>
-              <MainCard classname="border border-gray-100 space-y-3">
+              <MainCard classname=" space-y-3">
                 <div className="flex items-center md:gap-4 gap-2 flex-wrap">
                   <h3 className="capitalize text-15 font-bold">{item.title}</h3>
                   <div className="capitalize text-xs font-bold bg-green-50 p-1 rounded-md text-green-700">

@@ -30,7 +30,7 @@ export const StepGuide = ({
 
     <div className="space-y-4">
       {guideSteps.map((step, index) => (
-        <MainCard key={step.id} classname="p-0 border border-gray-100">
+        <MainCard key={step.id} classname="p-0 ">
           <div className="px-5 py-3 border-b border-gray-100 text-gray-600 flex items-center justify-between gap-3 bg-[#F9FAFB80]">
             <p className="text-sm">Step {index + 1}</p>
             <XIcon
@@ -67,7 +67,7 @@ export const StepGuide = ({
               }
               placeholder="// Code helper for this step..."
             />
-          </div>  
+          </div>
         </MainCard>
       ))}
     </div>

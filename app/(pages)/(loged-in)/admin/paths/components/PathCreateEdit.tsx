@@ -1,14 +1,13 @@
-import { Button, Input, MainCard, ModalLink, Textarea } from "@components";
+import { Button, Input, MainCard, ModalLink, PATH_ICON, Textarea } from "@components";
 import Image from "next/image";
 import React from "react";
-import { PATH_ICON } from "../../../../../components/lib/pathIcon";
 import { PanelsTopLeft, Plus } from "lucide-react";
 
 export const PathCreateEdit = () => {
   return (
     <div className="xl:max-w-4/5 space-y-5">
       <form action="" className="flex max-md:flex-col w-full gap-5">
-        <MainCard classname="border border-gray-100 flex-1 ">
+        <MainCard classname=" flex-1 ">
           <Input
             label="Path Name"
             name="pathName"
@@ -20,7 +19,7 @@ export const PathCreateEdit = () => {
             placeholder="e.g., Learn the fundamentals of web development and build your first full-stack application."
           />
         </MainCard>
-        <MainCard classname="border border-gray-100 space-y-4 xl:min-w-[350px] min-w-[250px]">
+        <MainCard classname=" space-y-4 xl:min-w-[350px] min-w-[250px]">
           <p className="text-sm text-midnight">
             Path Icon
             <span className="px-2 py-1 rounded-lg text-13 bg-gray-50 ms-3">
@@ -44,7 +43,7 @@ export const PathCreateEdit = () => {
           </div>
         </MainCard>
       </form>
-      <MainCard classname="border border-gray-100 space-y-5">
+      <MainCard classname=" space-y-5">
         <div className="flex justify-between items-center gap-3 flex-wrap">
           <p className="text-sm text-midnight">
             Learning Journey
@@ -59,7 +58,7 @@ export const PathCreateEdit = () => {
             </Button>
           </ModalLink>
         </div>
-        <MainCard classname="border border-gray-100 bg-[#F9FAFB80] place-items-center space-y-2">
+        <MainCard classname=" bg-[#F9FAFB80] place-items-center space-y-2">
           <div className="flex items-center justify-center border border-gray-200 text-gray-600 p-3 rounded-full w-fit">
             <PanelsTopLeft />
           </div>

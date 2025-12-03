@@ -16,7 +16,7 @@ export const SubmitYourWork = ({
   const router = useRouter();
 
   return !isSubmitted ? (
-    <MainCard classname="border border-gray-100">
+    <MainCard>
       <form>
         <h2 className="font-semibold md:text-lg text-base">Submit Your Work</h2>
         <p className="text-gray-600 mt-2 md:text-base text-sm">
@@ -61,7 +61,7 @@ export const SubmitYourWork = ({
       </form>
     </MainCard>
   ) : (
-    <MainCard classname="border border-gray-100 space-y-5">
+    <MainCard classname=" space-y-5">
       <div className="flex md:flex-row flex-col md:items-center gap-5">
         <div className="p-3 shrink-0 rounded-2xl bg-gray-50 w-fit">
           <Image
@@ -82,9 +82,9 @@ export const SubmitYourWork = ({
           </p>
         </div>
       </div>
-      <MainCard classname="border border-gray-100 space-y-2 ">
+      <MainCard classname=" space-y-2 ">
         <p className="text-13 text-blue-main font-bold">Your Submission</p>
-        <MainCard classname="border border-gray-100 flex  gap-3 md:flex-row flex-col md:items-center shadow-none">
+        <MainCard classname=" flex  gap-3 md:flex-row flex-col md:items-center shadow-none">
           <div className="p-3 rounded-2xl bg-dark-blue-main/10 text-dark-blue-main w-fit h-fit">
             <ExternalLink className="size-5" />
           </div>

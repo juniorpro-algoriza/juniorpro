@@ -20,7 +20,7 @@ export const PathCard = ({
   return (
     <div key={path.id}>
       <Link href={`/${userType}/paths/${path.id}`}>
-        <MainCard classname=" border border-gray-100 lg:space-y-4 space-y-2">
+        <MainCard classname="  lg:space-y-4 space-y-2">
           <Image
             src={path.image}
             alt="Current path Image"

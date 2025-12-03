@@ -12,7 +12,7 @@ export const PathHeader = ({
   description: string;
 }) => {
   return (
-    <MainCard classname="border border-gray-100 sm:p-6 flex items-center sm:gap-7 gap-3 flex-wrap">
+    <MainCard classname=" sm:p-6 flex items-center sm:gap-7 gap-3 flex-wrap">
       <div className="p-3 rounded-2xl bg-[#F5F6F8B0] sm:size-16 size-14">
         <Image src={image} alt={title} width={40} height={40} />
       </div>

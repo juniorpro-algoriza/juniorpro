@@ -35,3 +35,5 @@ export {
   StepperTrigger,
 } from "./Stepper";
 export { CodeBlockInput } from "./CodeBlockInput";
+export { TAG_COLORS ,PATH_ICON} from "./lib/constants";
+
