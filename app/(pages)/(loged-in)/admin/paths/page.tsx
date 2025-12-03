@@ -4,6 +4,7 @@ import { Button } from "@components";
 import { Plus } from "lucide-react";
 import { PathsFilters } from "./components";
 import ShootingStarImage from "@public/images/shooting-star.png";
+import Link from "next/link";
 
 const PathsPage = () => {
   return (
@@ -12,10 +13,12 @@ const PathsPage = () => {
         title="Path Management"
         description="Create, organize, and track structured learning journeys for your juniors."
         end={
-          <Button intent="main2" size="mainDefault">
-            <Plus className="size-4" />
-            New Path
-          </Button>
+          <Link href="/admin/paths/new-path">
+            <Button intent="main2" size="mainDefault">
+              <Plus className="size-4" />
+              New Path
+            </Button>
+          </Link>
         }
       />
       <div className="xl:max-w-4/5 space-y-5 md:mt-10">

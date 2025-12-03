@@ -12,3 +12,4 @@
 --force dynamic
 --un used icons after changing it to images
 --buttons un wanted variants
+-- /* eslint-disable @typescript-eslint/no-explicit-any */

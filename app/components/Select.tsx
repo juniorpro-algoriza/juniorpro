@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment } from "react";
-import { Listbox, Transition } from "@headlessui/react";
+import { Listbox, ListboxOption, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDown } from "lucide-react";
 
 export interface SelectOption {
@@ -10,7 +10,7 @@ export interface SelectOption {
 }
 
 interface BaseProps {
-  label?: string;
+  label?: string | React.ReactNode;
   options: SelectOption[];
   placeholder?: string;
   disabled?: boolean;
@@ -89,9 +89,9 @@ export const Select = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-2xl bg-white py-1 shadow-lg ring-1 ring-gray-200 ring-opacity-5 focus:outline-none sm:text-sm z-50">
+            <div className="absolute mt-1 max-h-60 w-full overflow-auto rounded-2xl bg-white py-1 shadow-lg ring-1 ring-gray-200 ring-opacity-5 focus:outline-none sm:text-sm z-50">
               {options.map((option) => (
-                <Listbox.Option
+                <ListboxOption
                   key={option.value}
                   value={option.value}
                   className={({ active }) =>
@@ -116,9 +116,9 @@ export const Select = ({
                       ) : null}
                     </>
                   )}
-                </Listbox.Option>
+                </ListboxOption>
               ))}
-            </Listbox.Options>
+            </div>
           </Transition>
         </div>
       </Listbox>

@@ -21,40 +21,48 @@ Welcome to the JuniorPro project! This document provides a comprehensive guide t
 ## 🚀 Technologies & Libraries
 
 ### Core Framework & Language
+
 - **[Next.js 15.3.5](https://nextjs.org/)** - React framework with App Router
 - **[React 19.0.0](https://react.dev/)** - UI library
 - **[TypeScript 5](https://www.typescriptlang.org/)** - Type-safe JavaScript
 
 ### Styling
+
 - **[Tailwind CSS 4](https://tailwindcss.com/)** - Utility-first CSS framework
 - **[@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms)** - Form styling plugin
 - **[tailwind-merge](https://github.com/dcastil/tailwind-merge)** - Utility for merging Tailwind classes
 
 ### UI Libraries & Components
+
 - **[Headless UI](https://headlessui.com/)** - Unstyled, accessible UI components (Dialog, Select, etc.)
 - **[Lucide React](https://lucide.dev/)** - Icon library
 - **[sonner](https://sonner.emilkowal.ski/)** - Toast notifications
 - **[nextjs-toploader](https://www.npmjs.com/package/nextjs-toploader)** - Page loading indicator
 
 ### State Management
+
 - **[Jotai](https://jotai.org/)** - Primitive and flexible state management
   - Located in `app/atoms/` directory
   - Provides global state for sidebar, user data, etc.
 
 ### Form & Validation
+
 - **[Zod 4](https://zod.dev/)** - Schema validation library
 - **[CVA](https://cva.style/)** - Class Variance Authority for component variants
 
 ### Animation & Interactions
+
 - **[@formkit/auto-animate](https://auto-animate.formkit.com/)** - Automatic animations
 - **[Embla Carousel](https://www.embla-carousel.com/)** - Carousel/slider library
   - With autoplay and wheel gesture plugins
 
 ### Utilities
+
 - **[usehooks-ts](https://usehooks-ts.com/)** - TypeScript-ready React hooks
 - **[js-cookie](https://github.com/js-cookie/js-cookie)** - Cookie management
 
 ### Development Tools
+
 - **ESLint** - Code linting with Next.js and Prettier plugins
 - **Prettier** - Code formatting
 - **pnpm** - Package manager (v10.13.1)
@@ -128,7 +136,7 @@ juniorpro_production/
 │   └── layout.tsx            # Root layout
 │
 ├── docs/                     # Project documentation (this folder)
-├── public/                   # Static assets 
+├── public/                   # Static assets
 ├── node_modules/             # Dependencies
 ├── .env.local                # Environment variables
 ├── .gitignore
@@ -144,6 +152,7 @@ juniorpro_production/
 ```
 
 ### Path Aliases (from `tsconfig.json`)
+
 The project uses path aliases for clean imports:
 
 ```typescript
@@ -163,6 +172,7 @@ The project uses path aliases for clean imports:
 ```
 
 **Example usage:**
+
 ```typescript
 import { Button, Input } from "@components";
 import { getData } from "@server";
@@ -257,6 +267,7 @@ const JuniorSchema = BaseSchema.extend({
 **Juniors** can optionally provide a `contributorEmail` to be linked with a contributor during registration.
 
 **Cookies Set:**
+
 - `signup_email` (httpOnly, secure) - Used for OTP verification
 
 ---
@@ -368,16 +379,22 @@ export const signIn = async (
 
   // Step 5: Redirect based on role
   switch (userType) {
-    case 1: redirect("/admin/dashboard");
-    case 2: redirect("/junior/dashboard");
-    case 3: redirect("/contributor/dashboard");
-    case 4: redirect("/project/dashboard");
-    default: redirect("/");
+    case 1:
+      redirect("/admin/dashboard");
+    case 2:
+      redirect("/junior/dashboard");
+    case 3:
+      redirect("/contributor/dashboard");
+    case 4:
+      redirect("/project/dashboard");
+    default:
+      redirect("/");
   }
 };
 ```
 
 **Cookies Set:**
+
 - `auth_token` (httpOnly, secure) - JWT access token
 - `user_type` (secure, NOT httpOnly) - User role (1-4)
 
@@ -385,14 +402,15 @@ export const signIn = async (
 
 ### 4. User Roles
 
-| Role ID | Role Name        | Dashboard Route           |
-|---------|------------------|---------------------------|
-| 1       | Admin            | `/admin/dashboard`        |
-| 2       | Junior           | `/junior/dashboard`       |
-| 3       | Contributor      | `/contributor/dashboard`  |
-| 4       | Project Manager  | `/project/manager/dashboard` |
+| Role ID | Role Name       | Dashboard Route              |
+| ------- | --------------- | ---------------------------- |
+| 1       | Admin           | `/admin/dashboard`           |
+| 2       | Junior          | `/junior/dashboard`          |
+| 3       | Contributor     | `/contributor/dashboard`     |
+| 4       | Project Manager | `/project/manager/dashboard` |
 
 The `user_type` cookie determines:
+
 - Which dashboard the user is redirected to after login
 - Which routes the user can access (enforced by middleware)
 
@@ -470,9 +488,10 @@ export async function resetPassword(
 
     return { success: true };
   } catch (err: unknown) {
-    const message = err instanceof Error
-      ? err.message
-      : "Error sending reset email. Please try again.";
+    const message =
+      err instanceof Error
+        ? err.message
+        : "Error sending reset email. Please try again.";
     return { error: message };
   }
 }
@@ -528,6 +547,7 @@ This ensures all API calls automatically include the user's authentication token
 **File:** `middleware.ts`
 
 The middleware runs on **every request** to protected routes and handles:
+
 - **Authentication checks** (token existence)
 - **Role-based authorization** (user_type matching)
 - **Redirects** for unauthorized access
@@ -554,11 +574,20 @@ export async function middleware(req: NextRequest) {
   // 1. Redirect logged-in users away from auth pages
   if (path.startsWith("/auth/login") && token) {
     switch (userType) {
-      case 1: return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-      case 2: return NextResponse.redirect(new URL("/junior/dashboard", req.url));
-      case 3: return NextResponse.redirect(new URL("/contributor/dashboard", req.url));
-      case 4: return NextResponse.redirect(new URL("/project/manager/dashboard", req.url));
-      default: return NextResponse.redirect(new URL("/", req.url));
+      case 1:
+        return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+      case 2:
+        return NextResponse.redirect(new URL("/junior/dashboard", req.url));
+      case 3:
+        return NextResponse.redirect(
+          new URL("/contributor/dashboard", req.url)
+        );
+      case 4:
+        return NextResponse.redirect(
+          new URL("/project/manager/dashboard", req.url)
+        );
+      default:
+        return NextResponse.redirect(new URL("/", req.url));
     }
   }
 
@@ -599,6 +628,7 @@ export const config = {
 ```
 
 **Key Features:**
+
 - ✅ Prevents logged-in users from accessing login/signup pages
 - ✅ Redirects unauthenticated users to login
 - ✅ Preserves intended destination with `?redirect=` query param
@@ -663,6 +693,7 @@ API_ROOT_URL=https://juniorpro-001-site1.ntempurl.com/api
 ```
 
 This is used in:
+
 - All auth server actions (`signIn.ts`, `signUp.ts`, etc.)
 - The `getData()` service for API calls
 
@@ -671,6 +702,7 @@ This is used in:
 ### 11. Security Best Practices
 
 ✅ **Implemented:**
+
 - `httpOnly` cookies for auth token (prevents XSS attacks)
 - `secure` flag (HTTPS only)
 - `sameSite: strict` (CSRF protection)
@@ -692,11 +724,11 @@ import { getFetchHeaders } from "@server";
 
 export async function getCurrentUser() {
   const { headers } = await getFetchHeaders();
-  
+
   const res = await fetch(`${process.env.API_ROOT_URL}/User/profile`, {
     headers,
   });
-  
+
   return await res.json();
 }
 ```
@@ -710,11 +742,11 @@ import { getFetchHeaders } from "@server";
 
 export async function protectedAction() {
   const authHeaders = await getFetchHeaders();
-  
+
   if (!authHeaders) {
     throw new Error("Unauthorized");
   }
-  
+
   // Your protected logic here
 }
 ```
@@ -754,6 +786,7 @@ export const getData = async <T>({ url, method, body, params }: Props<T>): Promi
 ```
 
 **Key Features:**
+
 - Automatic authentication headers via `getFetchHeaders()`
 - Query parameter support
 - Error handling with JSON error messages
@@ -761,11 +794,13 @@ export const getData = async <T>({ url, method, body, params }: Props<T>): Promi
 - No caching (`cache: "no-store"`)
 
 **Environment Variable:**
+
 - `API_ROOT_URL` - Base API URL (from `.env.local`)
 
 ### Service Examples
 
 #### GET Request
+
 ```typescript
 // app/server/getProjects.ts
 import { getData } from "./getData";
@@ -780,6 +815,7 @@ export const getProjects = async () => {
 ```
 
 #### POST Request with Body
+
 ```typescript
 // app/server/joinProject.ts
 export const joinProject = async (projectId: number) => {
@@ -792,6 +828,7 @@ export const joinProject = async (projectId: number) => {
 ```
 
 #### GET with Query Parameters
+
 ```typescript
 export const getUserData = async (userId: string) => {
   return await getData({
@@ -827,6 +864,7 @@ export const getUserData = async (userId: string) => {
 ### Authentication & Headers
 
 Headers are managed by `getFetchHeaders.ts`:
+
 - Retrieves `auth_token` from cookies
 - Sets `Content-Type: application/json` for requests with body
 - Used automatically by `getData()`
@@ -885,6 +923,7 @@ Components are located in `app/components/` and follow a modular, reusable archi
 ### Base Components
 
 #### `Modal.tsx` - Base Modal Component
+
 Uses **Headless UI Dialog** with custom animations:
 
 ```typescript
@@ -896,10 +935,11 @@ interface ModalProps {
   panelClassName?: string;
 }
 
-export const Modal: React.FC<ModalProps>
+export const Modal: React.FC<ModalProps>;
 ```
 
 **Features:**
+
 - Slide-up animation with opacity fade
 - Backdrop blur
 - Close on `router.back()`
@@ -933,6 +973,7 @@ modals/
 ```
 
 Each modal:
+
 1. Wraps the base `Modal` component
 2. Contains its own form logic and state
 3. Calls server actions via `getData()`
@@ -940,6 +981,7 @@ Each modal:
 5. Exports through `index.ts`
 
 #### Client Components
+
 Components using hooks or browser APIs are marked with `"use client"`:
 
 ```typescript
@@ -951,10 +993,11 @@ import { Modal } from "@components";
 export const MyModal = () => {
   const [data, setData] = useState(null);
   // ...
-}
+};
 ```
 
 #### Server Components
+
 Default in Next.js App Router - can directly call server functions:
 
 ```typescript
@@ -1003,15 +1046,16 @@ Each user type configuration includes:
 
 ```typescript
 interface UserConfig {
-  entity: string;              // User type display name (e.g., "Junior", "Contributor")
-  endpoint: string;            // API endpoint to fetch users (e.g., "junior/get-all")
-  tableColumns: Column[];      // Table column configuration
-  modals: {                    // Modal names for CRUD operations
-    add: ModalName;            // Add new user modal
-    edit: ModalName;           // Edit user modal
-    assignPoints?: ModalName;  // Optional: Assign points modal
+  entity: string; // User type display name (e.g., "Junior", "Contributor")
+  endpoint: string; // API endpoint to fetch users (e.g., "junior/get-all")
+  tableColumns: Column[]; // Table column configuration
+  modals: {
+    // Modal names for CRUD operations
+    add: ModalName; // Add new user modal
+    edit: ModalName; // Edit user modal
+    assignPoints?: ModalName; // Optional: Assign points modal
   };
-  tabs: string[];              // Profile page tab names
+  tabs: string[]; // Profile page tab names
 }
 ```
 
@@ -1149,7 +1193,7 @@ export const UserProfile = ({ userType, userId }: ProfileProps) => {
   return (
     <div>
       <h1>{config.entity} Profile</h1>
-      
+
       {/* Edit button with dynamic modal */}
       <ModalLink name={config.modals.edit} query={{ id: userId }}>
         <Button>Edit Profile</Button>
@@ -1178,7 +1222,6 @@ export const UserProfile = ({ userType, userId }: ProfileProps) => {
 
 ---
 
-
 ### Advanced: Dynamic Endpoints
 
 Fetch data using the config's endpoint:
@@ -1189,7 +1232,7 @@ import { userConfigs, type UserType } from "@/app/config/userConfig";
 
 export async function getUsersByType(type: UserType) {
   const config = userConfigs[type];
-  
+
   return await getData({
     url: config.endpoint,
     method: "GET",
@@ -1213,21 +1256,21 @@ The project includes a reusable `Table` component for displaying tabular data. I
 
 ```typescript
 interface Column {
-  header: string;           // Column header text
-  key: string;             // Key to access data from row object
-  isAction?: boolean;      // Is this an action column?
-  actionLabel?: string;    // Label for action button
-  actionIcon?: ReactNode;  // Icon for action button
-  href?: string;           // Default href for action links
+  header: string; // Column header text
+  key: string; // Key to access data from row object
+  isAction?: boolean; // Is this an action column?
+  actionLabel?: string; // Label for action button
+  actionIcon?: ReactNode; // Icon for action button
+  href?: string; // Default href for action links
   actionClassName?: string; // Custom styling for action button
 }
 
 interface TableProps<T> {
-  columns: Column[];       // Array of column definitions
-  data: T[];              // Array of data objects
-  tableHeight?: string;   // Custom height (default: "max-h-96")
+  columns: Column[]; // Array of column definitions
+  data: T[]; // Array of data objects
+  tableHeight?: string; // Custom height (default: "max-h-96")
   renderRow?: (item: T) => ReactNode; // Custom row renderer
-  emptyMessage?: string;  // Message when no data (default: "No data available")
+  emptyMessage?: string; // Message when no data (default: "No data available")
 }
 ```
 
@@ -1274,6 +1317,7 @@ const JuniorsPage = () => {
 ```
 
 **Key Points:**
+
 - `columns[].key` must match the property names in your data objects
 - Data is automatically rendered from the objects
 - Empty state is handled automatically
@@ -1321,6 +1365,7 @@ const ContributorsPage = () => {
 ```
 
 **Action Column Options:**
+
 - `isAction: true` - Marks column as action column
 - `actionLabel` - Button text (e.g., "View", "Edit", "Delete")
 - `actionIcon` - React component/icon to display
@@ -1421,6 +1466,7 @@ const TasksPage = () => {
 ```
 
 **When to use `renderRow`:**
+
 - ✅ Need custom cell formatting (badges, colors, etc.)
 - ✅ Multiple actions per row
 - ✅ Nested data or complex display logic
@@ -1476,7 +1522,7 @@ export default async function TasksPage() {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6">
       <h2 className="text-2xl font-bold mb-4">All Tasks</h2>
-      
+
       <Table
         columns={[
           { header: "Title", key: "title" },
@@ -1530,7 +1576,7 @@ export default async function TasksPage() {
       Contributors ({contributors.length})
     </h3>
   </div>
-  
+
   <Table
     columns={columns}
     data={contributors}
@@ -1648,17 +1694,19 @@ export default async function ProjectTasksPage({ params }: PageProps) {
 #### ✅ Do's
 
 1. **Use TypeScript interfaces** for type safety
+
    ```typescript
    interface User {
      id: number;
      name: string;
      email: string;
    }
-   
+
    const users: User[] = await getUsers();
    ```
 
 2. **Map data for dynamic hrefs in action columns**
+
    ```typescript
    data={items.map(item => ({
      ...item,
@@ -1667,11 +1715,13 @@ export default async function ProjectTasksPage({ params }: PageProps) {
    ```
 
 3. **Provide meaningful empty messages**
+
    ```typescript
-   emptyMessage="No tasks available. Create one to get started!"
+   emptyMessage = "No tasks available. Create one to get started!";
    ```
 
 4. **Use custom rendering for complex cells**
+
    ```typescript
    renderRow={(item) => (
      <tr key={item.id}>
@@ -1726,7 +1776,7 @@ export default function ClientTable({ initialData }) {
         onChange={(e) => setFilter(e.target.value)}
         className="mb-4 px-4 py-2 border rounded"
       />
-      
+
       <Table
         columns={[
           { header: "Name", key: "name" },
@@ -1825,10 +1875,10 @@ import { createTask } from "@server";
 export const CreateTask = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   // Get projectId from URL query params
   const projectId = Number(searchParams.get("projectId"));
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -1846,7 +1896,7 @@ export const CreateTask = () => {
         ...formData,
         projectId,
       });
-      
+
       toast.success("Task created successfully!");
       router.back(); // Close modal
       router.refresh(); // Refresh server data
@@ -1882,7 +1932,7 @@ export const CreateTask = () => {
           onChange={(e) => handleChange("title", e.target.value)}
           placeholder="Enter task title"
         />
-        
+
         <Textarea
           label="Description"
           value={formData.description}
@@ -1902,7 +1952,7 @@ export const CreateTask = () => {
         >
           {saving ? "Creating..." : "Create Task"}
         </Button>
-        
+
         <CloseButton as={Fragment}>
           <Button
             intent="secondary"
@@ -1933,6 +1983,7 @@ export default function Loading() {
 ```
 
 **Key Changes from Traditional Modals:**
+
 - ❌ No `projectId`, `onClose`, or `onCreated` props
 - ✅ Get `projectId` from `useSearchParams()`
 - ✅ Use `router.back()` to close modal
@@ -1952,10 +2003,44 @@ export type ModalName =
   | "AddJuniors"
   | "EditProfile"
   | "AddProjectManager"
-  | "CreateTask"  // ← Add your new modal here
+  | "CreateTask" // ← Add your new modal here
   | "EditJuniorsProfile"
   | "AssignPointsForJuniors";
 ```
+
+---
+
+#### Step 4.5: Add Modal to Schema Validation (CRITICAL)
+
+**File:** `app/components/schemas/modalNameSchema.ts`
+
+⚠️ **IMPORTANT:** You must also add your modal name to the Zod schema validation. Without this step, you'll get a **404 error** when trying to open the modal.
+
+```typescript
+import { z } from "zod";
+
+export const modalNameSchema = z.enum([
+  "AddJuniorForContributor",
+  "EditProfile",
+  "AddProjectManager",
+  "EditProjectManagerProfile",
+  "AddJuniors",
+  "AddContributor",
+  "EditContributorProfile",
+  "EditJuniorsProfile",
+  "AssignContributor",
+  "AssignPointsForContributors",
+  "AssignPointsForJuniors",
+  "MissionCompleted",
+  "CreateTask", // ← Add your new modal here
+]);
+```
+
+**Why this is needed:**
+
+- The modal slot page (`app/(pages)/@modalSlot/(.)modal/[name]/page.tsx`) validates the modal name using this schema
+- If the name isn't in the schema, the validation fails and returns a 404
+- Both `ModalName` type and `modalNameSchema` must be kept in sync
 
 ---
 
@@ -1964,6 +2049,7 @@ export type ModalName =
 The project uses **ModalLink** component with Next.js parallel routes for modal navigation.
 
 **How it works:**
+
 1. `ModalLink` creates a link to `/modal/[ModalName]`
 2. The `@modalSlot` parallel route intercepts this URL
 3. Modal component is dynamically loaded by name
@@ -1989,9 +2075,9 @@ export default function ProjectPage() {
 
 ```typescript
 interface ModalLinkProps {
-  children: ReactNode;      // Clickable element (button, link, etc.)
-  name: ModalName;          // Name of modal (must match modal folder name)
-  className?: string;       // Optional CSS classes
+  children: ReactNode; // Clickable element (button, link, etc.)
+  name: ModalName; // Name of modal (must match modal folder name)
+  className?: string; // Optional CSS classes
   query?: Record<string, string | number>; // Query parameters for modal
 }
 ```
@@ -1999,6 +2085,7 @@ interface ModalLinkProps {
 **Examples from the Project:**
 
 1. **Edit Junior Profile (with query params):**
+
 ```typescript
 <ModalLink name="EditJuniorsProfile" query={{ id: juniorId }}>
   <Button intent="primary">
@@ -2008,6 +2095,7 @@ interface ModalLinkProps {
 ```
 
 2. **Assign Points (with user ID):**
+
 ```typescript
 <ModalLink name="AssignPointsForJuniors" query={{ juniorId: id }}>
   <Button intent="secondary" className="flex items-center gap-2">
@@ -2018,6 +2106,7 @@ interface ModalLinkProps {
 ```
 
 3. **Add Junior (no query params):**
+
 ```typescript
 <ModalLink name="AddJuniors">
   <Button intent="primary">
@@ -2046,10 +2135,10 @@ import { toast } from "sonner";
 export const CreateTask = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  
+
   // Get query params from URL
   const projectId = Number(searchParams.get("projectId"));
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -2063,7 +2152,7 @@ export const CreateTask = () => {
         ...formData,
         projectId, // From query params
       });
-      
+
       toast.success("Task created successfully!");
       router.back(); // Close modal
       router.refresh(); // Refresh data
@@ -2078,7 +2167,7 @@ export const CreateTask = () => {
     <Modal panelClassName="w-full max-w-md p-6 bg-white rounded-2xl">
       <div className="space-y-4">
         <h2 className="text-xl font-bold">Create Task</h2>
-        
+
         <Input
           label="Title"
           value={formData.title}
@@ -2087,7 +2176,7 @@ export const CreateTask = () => {
             title: e.target.value
           }))}
         />
-        
+
         <Button
           intent="primary"
           onClick={handleSave}
@@ -2103,6 +2192,7 @@ export const CreateTask = () => {
 ```
 
 **Key Points:**
+
 - ✅ No `onClose` or `onCreated` props needed
 - ✅ Use `router.back()` to close modal
 - ✅ Use `router.refresh()` to update server data
@@ -2164,7 +2254,7 @@ const loadModal = async (name: ModalName) => {
 
 const ModalSlotPage = async ({ params }: ModalSlotPageProps) => {
   const { name } = await params;
-  
+
   // Validate modal name
   const parsedName = modalNameSchema.safeParse(name);
   if (!parsedName.success) {
@@ -2178,6 +2268,7 @@ const ModalSlotPage = async ({ params }: ModalSlotPageProps) => {
 ```
 
 This pattern:
+
 - ✅ Automatically imports the correct modal component
 - ✅ No manual routing needed
 - ✅ Type-safe modal names
@@ -2253,6 +2344,5 @@ Custom theme defined in `app/globals.css`:
 - Dark mode support with `[data-theme='dark']`
 
 ---
-
 
 **Happy coding! 🚀**

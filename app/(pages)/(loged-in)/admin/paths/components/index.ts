@@ -1,1 +1,2 @@
-export * from "./PathsFilters";
+export { PathsFilters } from "./PathsFilters";
+export { PathCreateEdit } from "./PathCreateEdit";
