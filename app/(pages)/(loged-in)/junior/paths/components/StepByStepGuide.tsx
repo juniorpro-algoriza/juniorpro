@@ -44,7 +44,7 @@ export const StepByStepGuide = () => {
             <div className="p-5 border-t border-gray-100 space-y-5">
               <p className="text-sm text-gray-600">{item.details}</p>
 
-              <pre className="text-sm p-5 rounded-2xl  bg-gray-50 overflow-x-auto">
+              <pre className="text-sm p-5 rounded-2xl  bg-gray-50 overflow-x-auto border border-gray-200">
                 {item.code}
               </pre>
             </div>

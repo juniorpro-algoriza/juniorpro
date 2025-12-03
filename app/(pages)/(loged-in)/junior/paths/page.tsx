@@ -1,6 +1,7 @@
 import { Header, Tip } from "@components/client";
 import React from "react";
-import ShootingStarImage from "@public/images/shooting-star.png";
+import StarGroup from "@public/images/3d-star-group.png";
+import Code3d from "@public/images/code-3d.png";
 import { MyCurrentPath, RecommendedForYou } from "./components";
 const MyJourneyPage = () => {
   return (
@@ -12,17 +13,21 @@ const MyJourneyPage = () => {
       <Tip
         title="Your Unique Path to Success!"
         description="Everyone learns at their own pace, and that's perfectly fine! These learning paths are designed just for you. Take your time with each mission, ask questions when you need help, and celebrate every step forward. You're building skills that will open doors to amazing opportunities!"
-        image={ShootingStarImage.src}
-        className="gap-5 pb-7 my-5"
+        image={StarGroup.src}
+        className="gap-5 my-5"
+        imageClassname="w-16"
       />
       <MyCurrentPath
         paths={[
           {
             id: 1,
-            image: ShootingStarImage.src,
+            image: Code3d.src,
             title: "Web Development Basics",
             description: "Learn HTML, CSS, and build your first websites",
             progress: 80,
+            missions: 2,
+            xp: 25,
+            points: 12,
           },
         ]}
       />
@@ -30,23 +35,21 @@ const MyJourneyPage = () => {
         paths={[
           {
             id: 2,
-            image: ShootingStarImage.src,
+            image: Code3d.src,
             title: "Python Programming",
             description: "Connect your apps to real-world data and services",
-            includes: {
-              missions: 2,
-              collaborations: 3,
-            },
+            missions: 2,
+            xp: 25,
+            points: 12,
           },
           {
-            id:3,
-            image: ShootingStarImage.src,
+            id: 3,
+            image: Code3d.src,
             title: "API Integration",
             description: "Connect your apps to real-world data and services",
-            includes: {
-              missions: 2,
-              collaborations: 3,
-            },
+            missions: 2,
+            xp: 25,
+            points: 12,
           },
         ]}
       />

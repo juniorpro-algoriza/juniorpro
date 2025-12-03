@@ -11,7 +11,7 @@ import { Progress } from "@components";
 import { UserCard } from "@components/client";
 
 export const SidebarUserInfo = () => {
-  const [{ firstName, lastName, image }] = useAtom(userAtom);
+  const [{ firstName, lastName, image,userType }] = useAtom(userAtom);
   return (
     <div className="p-2 space-y-4">
       <UserCard
@@ -20,7 +20,7 @@ export const SidebarUserInfo = () => {
         lastName={lastName}
         level={5}
         xp={1250}
-        gender="male"
+        userType={userType}
       />
       <div className="p-3 space-y-2.5 rounded-2xl [background:linear-gradient(135deg,#EEF2FF_0%,#FAF5FF_100%)]">
         <div className="flex items-center justify-between">

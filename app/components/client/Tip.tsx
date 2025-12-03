@@ -8,12 +8,14 @@ export const Tip = ({
   image,
   className,
   isOneLiner = false,
+  imageClassname
 }: {
   title: string;
   description: string;
   image: string;
   className?: string;
   isOneLiner?: boolean;
+  imageClassname?:string
 }) => {
   return !isOneLiner ? (
     <div
@@ -25,9 +27,9 @@ export const Tip = ({
       <Image
         src={image}
         alt="Tip Icon"
-        width={40}
-        height={40}
-        className="w-10 h-auto"
+        width={100}
+        height={100}
+        className={cx("w-10 h-auto",imageClassname)}
       />
       <div className="space-y-1">
         <p className="font-bold text-sm">{title}</p>
@@ -44,9 +46,9 @@ export const Tip = ({
       <Image
         src={image}
         alt="Tip Icon"
-        width={40}
-        height={40}
-        className="w-6 h-auto"
+        width={100}
+        height={100}
+        className={cx("w-6 h-auto",imageClassname)}
       />
       <p className="font-bold text-sm">{title}</p>
       <p className="font-medium text-sm text-gray-600">{description}</p>

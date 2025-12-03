@@ -35,7 +35,7 @@ const adminMenuItems: MenuItem[] = [
   {
     href: "/admin/paths",
     image: MyJourneyImage.src,
-    label: "Paths",
+    label: "Learning Paths",
   },
   {
     href: "/admin/collaboration",
@@ -79,7 +79,7 @@ const juniorMenuItems: MenuItem[] = [
   {
     href: "/junior/paths",
     image: MyJourneyImage.src,
-    label: "Paths",
+    label: "Learning Paths",
   },
   {
     href: "/junior/collaboration",

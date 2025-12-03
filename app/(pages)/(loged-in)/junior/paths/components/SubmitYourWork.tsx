@@ -1,7 +1,7 @@
 "use client";
-import { Button, Input, MainCard, Textarea } from "@components";
+import { Animate, Button, Input, MainCard, Textarea } from "@components";
 import { Tip } from "@components/client";
-import React from "react";
+import React, { useState } from "react";
 import LambImage from "@public/images/lamb.png";
 import { ExternalLink, Link2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -9,11 +9,12 @@ import Image from "next/image";
 import RocketImage from "@public/images/rocket-icon.png";
 
 export const SubmitYourWork = ({
-  isSubmitted = false,
+  isSubmitted = true,
 }: {
   isSubmitted?: boolean;
 }) => {
   const router = useRouter();
+  const [showSolution, setShowSolution] = useState(false);
 
   return !isSubmitted ? (
     <MainCard>
@@ -61,41 +62,64 @@ export const SubmitYourWork = ({
       </form>
     </MainCard>
   ) : (
-    <MainCard classname=" space-y-5">
-      <div className="flex md:flex-row flex-col md:items-center gap-5">
-        <div className="p-3 shrink-0 rounded-2xl bg-gray-50 w-fit">
+    <div className="space-y-3">
+      <MainCard classname=" space-y-5">
+        <div className="flex md:flex-row flex-col md:items-center">
           <Image
             src={RocketImage}
             alt="Rocket Icon"
-            className="w-[40px] relative z-10"
-            width={40}
-            height={40}
+            className="w-[100px] relative z-10"
+            width={100}
+            height={100}
           />
-        </div>
-        <div className="space-y-1">
-          <h2 className="md:text-2xl text-lg font-semibold">
-            Mission Submitted!
-          </h2>
-          <p className="md:text-base text-sm text-gray-600 font-medium">
-            Great work! Your code has been received. Compare your solution below
-            to learn from our reference implementation.
-          </p>
-        </div>
-      </div>
-      <MainCard classname=" space-y-2 ">
-        <p className="text-13 text-blue-main font-bold">Your Submission</p>
-        <MainCard classname=" flex  gap-3 md:flex-row flex-col md:items-center shadow-none">
-          <div className="p-3 rounded-2xl bg-dark-blue-main/10 text-dark-blue-main w-fit h-fit">
-            <ExternalLink className="size-5" />
-          </div>
-          <div>
-            <p className="font-medium break-all">
-              https://react-icons.github.io/react-icons/search/#q=video%20conf
+          <div className="space-y-1">
+            <h2 className="md:text-2xl text-lg font-semibold">
+              Mission Submitted!
+            </h2>
+            <p className="md:text-base text-sm text-gray-600 font-medium">
+              Great work! Your code has been received. Compare your solution
+              below to learn from our reference implementation.
             </p>
-            <p className="text-13 text-gray-600">Click to view</p>
           </div>
+        </div>
+        <MainCard classname=" space-y-2 ">
+          <p className="text-sm text-gray-600 font-bold">Your Submission</p>
+          <MainCard classname=" flex  gap-3 md:flex-row flex-col md:items-center shadow-none">
+            <div className="p-3 rounded-2xl bg-dark-blue-main/10 text-dark-blue-main w-fit h-fit">
+              <ExternalLink className="size-5" />
+            </div>
+            <div>
+              <p className="font-medium break-all">
+                https://react-icons.github.io/react-icons/search/#q=video%20conf
+              </p>
+              <p className="text-13 text-gray-600">Click to view</p>
+            </div>
+          </MainCard>
         </MainCard>
+        <Button
+          type="button"
+          intent="main"
+          size="mainDefault"
+          onClick={() => setShowSolution((prev) => !prev)}
+        >
+          {showSolution ? "Hide Solution" : "Show Solution"}
+        </Button>
       </MainCard>
-    </MainCard>
+      <Animate>
+        {showSolution && (
+          <MainCard classname=" space-y-2 ">
+            <p className="text-sm text-green-600 font-semibold">
+              Reference Solution
+            </p>
+            <pre className="text-sm p-5 rounded-2xl  bg-gray-50 border border-gray-200 overflow-x-auto">
+              {`<div className="calculator">
+  <div className="display">0</div>
+  {/* Add buttons here */}
+</div>`}
+            </pre>
+          </MainCard>
+        )}
+      </Animate>
+    </div>
   );
 };

@@ -7,11 +7,16 @@ export const LeaderBoard = () => {
   return (
     <MainCard classname="space-y-4">
       <div className="flex items-center gap-3">
-        <Image src={CertificateImage.src} alt="certificate Icon" width={40} height={40} />
+        <Image
+          src={CertificateImage.src}
+          alt="certificate Icon"
+          width={40}
+          height={40}
+        />
         <p className="lg:text-2xl text-xl font-bold">Leader Board</p>
       </div>
-      {[...Array(3)].map((item, index) => (
-        <MainCard classname="g space-y-1.5" key={index}>
+      {[...Array(3)].map((_, index) => (
+        <MainCard key={index} classname="p-3">
           <UserCard firstName="John" lastName="Doe" level={1} xp={100} />
         </MainCard>
       ))}

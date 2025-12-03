@@ -1,6 +1,6 @@
 import { Breadcrumb } from "@components";
 import { PathHeader, PathTimeline } from "../components";
-import StarImage from "@public/images/shooting-star.png";
+import Code3d from "@public/images/code-3d.png";
 
 export default async function PathPage({
   params,
@@ -28,9 +28,10 @@ export default async function PathPage({
       />
       <div className="space-y-7 xl:max-w-4/5">
         <PathHeader
-          image={StarImage.src}
+          image={Code3d.src}
           title="Web Development Basics"
           description="Learn HTML, CSS, and build your first websites"
+          progress={80}
         />
         <PathTimeline pathId={id} />
       </div>

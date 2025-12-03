@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   MainCard,
   Timeline,
   TimelineContent,
@@ -8,11 +9,10 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@components";
-import DiamondImage from "@public/images/diamond-icon-2.png";
 import { cx } from "@lib";
-import { CircleCheck, Clock, Lock, Trophy } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, CircleCheck, Clock, Lock } from "lucide-react";
 import Link from "next/link";
+import { XpAndPoints } from "@components/client";
 export const PathTimeline = ({ pathId }: { pathId: string }) => {
   return (
     <Timeline>
@@ -54,11 +54,11 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
           <TimelineContent
             className={item.status === "locked" ? "opacity-50" : ""}
           >
-            <Link href={`/junior/paths/${pathId}/${item.id}`}>
-              <MainCard classname=" space-y-3">
+            <MainCard classname="flex items-center justify-between">
+              <div className="space-y-3">
                 <div className="flex items-center md:gap-4 gap-2 flex-wrap">
-                  <h3 className="capitalize text-15 font-bold">{item.title}</h3>
-                  <div className="capitalize text-xs font-bold bg-green-50 p-1 rounded-md text-green-700">
+                  <h3 className="capitalize text-lg font-bold">{item.title}</h3>
+                  <div className="capitalize text-sm font-bold bg-green-50 p-1 rounded-md text-green-700">
                     {item.level}
                   </div>
                 </div>
@@ -67,29 +67,11 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
 
                 <div className="flex items-center justify-between flex-wrap gap-2 text-13">
                   <div className="flex items-center gap-4 flex-wrap">
-                    <div className="flex items-center gap-2 text-gray-600">
+                    <div className="px-2 py-1 bg-gray-50 border border-gray-200 rounded-full flex items-center gap-2 text-gray-600">
                       <Clock className="size-4" /> {item.duration}
                     </div>
-                    <div className="flex items-center gap-2 text-yellow-500">
-                      <Trophy className="size-4" />
-                      <span className="text-yellow-700">+{item.xp} XP</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-blue-main">
-                      <Image
-                        src={DiamondImage.src}
-                        alt="Diamond Image"
-                        width={24}
-                        height={24}
-                        className="size-4"
-                      />
-                      +{item.diamonds}
-                    </div>
+                    <XpAndPoints xp={item.xp} points={item.diamonds} />
                   </div>
-                  {item.status === "current" && (
-                    <div className="bg-blue-main/10 text-blue-main py-1 px-3 rounded-full text-13">
-                      {item.progress}% Complete
-                    </div>
-                  )}
                 </div>
 
                 {item.requires && item.status == "locked" && (
@@ -99,8 +81,21 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
                     <span className="font-medium">{item.requires}</span>
                   </div>
                 )}
-              </MainCard>
-            </Link>
+              </div>
+              {item.status === "completed" ? (
+                <Link href={`/junior/paths/${pathId}/${item.id}`}>
+                  <Button intent="main" size="mainDefault">
+                    Review Mission <ArrowRight className="size-4" />
+                  </Button>
+                </Link>
+              ) : item.status === "current" ? (
+                <Link href={`/junior/paths/${pathId}/${item.id}`}>
+                  <Button intent="main2" size="mainDefault">
+                    CONTINUE <ArrowRight className="size-4" />
+                  </Button>
+                </Link>
+              ) : null}
+            </MainCard>
           </TimelineContent>
         </TimelineItem>
       ))}

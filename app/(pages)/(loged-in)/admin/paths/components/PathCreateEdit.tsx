@@ -26,7 +26,7 @@ export const PathCreateEdit = () => {
               Select One
             </span>
           </p>
-          <div className="grid xl:grid-cols-4 sm:grid-cols-6 grid-cols-4 sm:gap-4 gap-2">
+          <div className="grid xl:grid-cols-4 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-7 grid-cols-5 sm:gap-4 gap-2">
             {Object.entries(PATH_ICON).map(([key, value]) => (
               <label key={key} className="cursor-pointer">
                 <input
@@ -36,7 +36,7 @@ export const PathCreateEdit = () => {
                   className="peer sr-only"
                 />
                 <div className="flex items-center justify-center border rounded-3xl aspect-square p-2 transition-all border-gray-100 hover:border-gray-300 peer-checked:border-blue-main peer-checked:bg-blue-main/10">
-                  <Image src={value} alt={key} width={30} height={30} />
+                  <Image src={value} alt={key} width={40} height={40} />
                 </div>
               </label>
             ))}

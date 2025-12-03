@@ -1,23 +1,25 @@
-import Rocket from "@public/images/rocket-icon.png";
-import FireImage from "@public/images/fire-icon2.png";
-import Diamond2Image from "@public/images/diamond-icon-2.png";
-import LightningImage from "@public/images/lightning-icon.png";
-import LambImage from "@public/images/lamb.png";
-import ExperimentImage from "@public/images/experiment.png";
-import TargetImage from "@public/images/target_with_arrow.png";
-import ShootingStarImage from "@public/images/shooting-star.png";
-import TrophyImage from "@public/images/trophy-icon.png";
+import Ui3D from "@public/images/ui-3d.png"
+import API3D from "@public/images/api-3d.png"
+import Bug3D from "@public/images/bug-3d.png"
+import Code3D from "@public/images/code-3d.png"
+import Brain3D from "@public/images/brain-3d.png"
+import Server3D from "@public/images/server-3d.png"
+import Security3D from "@public/images/security-3d.png"
+import Wireframe3D from "@public/images/wireframe-3d.png"
+import Deployment3D from "@public/images/deployment-3d.png"
+import VersionControl3D from "@public/images/version-control-3d.png"
 
 export const PATH_ICON = {
-  "1": Rocket.src,
-  "2": FireImage.src,
-  "3": Diamond2Image.src,
-  "4": LightningImage.src,
-  "5": LambImage.src,
-  "6": ExperimentImage.src,
-  "7": TargetImage.src,
-  "8": TrophyImage.src,
-  "9": ShootingStarImage.src,
+  "1": Ui3D.src,
+  "2": API3D.src,
+  "3": Bug3D.src,
+  "4": Code3D.src,
+  "5": Brain3D.src,
+  "6": Server3D.src,
+  "7": Security3D.src,
+  "8": Wireframe3D.src,
+  "9": Deployment3D.src,
+  "10": VersionControl3D.src,
 };
 
 export const TAG_COLORS = {
