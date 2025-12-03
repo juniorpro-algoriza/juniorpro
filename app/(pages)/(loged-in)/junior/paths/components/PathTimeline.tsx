@@ -54,7 +54,7 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
           <TimelineContent
             className={item.status === "locked" ? "opacity-50" : ""}
           >
-            <MainCard classname="flex items-center justify-between">
+            <MainCard classname="flex items-center justify-between flex-wrap gap-3">
               <div className="space-y-3">
                 <div className="flex items-center md:gap-4 gap-2 flex-wrap">
                   <h3 className="capitalize text-lg font-bold">{item.title}</h3>

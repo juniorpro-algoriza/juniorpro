@@ -20,7 +20,7 @@ export default async function PathDetailPage({
             href: "/junior",
           },
           {
-            title: "My Journey",
+            title: "Learning Paths",
             href: "/junior/paths",
           },
           {

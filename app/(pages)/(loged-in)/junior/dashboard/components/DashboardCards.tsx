@@ -79,7 +79,7 @@ export const DashboardCards = async () => {
               alt={card.label}
               width={100}
               height={100}
-              className="size-28 absolute top-1/2 -translate-y-1/2 right-0 opacity-10"
+              className="size-28 absolute top-1/2 -translate-y-1/2 right-0 opacity-5"
             />
           </MainCard>
         ))}

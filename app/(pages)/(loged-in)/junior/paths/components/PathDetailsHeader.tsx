@@ -52,7 +52,7 @@ export const PathDetailsHeader = () => {
         alt="Target Image"
         width={250}
         height={250}
-        className="absolute top-0 right-0 opacity-10 "
+        className="absolute top-0 right-0 opacity-5 "
       />
     </MainCard>
   );

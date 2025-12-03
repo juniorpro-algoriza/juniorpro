@@ -29,7 +29,7 @@ export const Tip = ({
         alt="Tip Icon"
         width={100}
         height={100}
-        className={cx("w-10 h-auto",imageClassname)}
+        className={cx("w-10 h-auto hidden sm:block",imageClassname)}
       />
       <div className="space-y-1">
         <p className="font-bold text-sm">{title}</p>
