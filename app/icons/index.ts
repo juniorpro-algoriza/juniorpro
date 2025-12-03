@@ -35,5 +35,4 @@ export { CheckMarkIcon } from "./CheckMarkIcon";
 export { ArrowIncreaseIcon } from "./ArrowIncrease";
 export { LightningIcon } from "./Lightning";
 export { PlayIcon } from "./PlayIcon";
-export { OpenBookIcon } from "./OpenBook";
 

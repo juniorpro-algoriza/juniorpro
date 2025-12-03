@@ -1,6 +1,5 @@
 "use client";
 import { userAtom } from "@atoms";
-import ContributorAvatar from "@public/images/contributor-avatar.png";
 import Fire from "@public/images/fire-icon.png";
 import Diamond2 from "@public/images/diamond-icon-2.png";
 import badge from "@public/images/badge-icon.png";
@@ -12,15 +11,16 @@ import { Progress } from "@components";
 import { UserCard } from "@components/client";
 
 export const SidebarUserInfo = () => {
-  const [{ firstName, lastName, image }] = useAtom(userAtom);
+  const [{ firstName, lastName, image,userType }] = useAtom(userAtom);
   return (
     <div className="p-2 space-y-4">
       <UserCard
-        image={image || ContributorAvatar.src}
+        image={image}
         firstName={firstName}
         lastName={lastName}
         level={5}
         xp={1250}
+        userType={userType}
       />
       <div className="p-3 space-y-2.5 rounded-2xl [background:linear-gradient(135deg,#EEF2FF_0%,#FAF5FF_100%)]">
         <div className="flex items-center justify-between">
@@ -33,7 +33,7 @@ export const SidebarUserInfo = () => {
           <p className="text-13 font-medium text-gray-600">250 XP to Level 6</p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-2 px-5 py-2">
+      <div className="grid grid-cols-3 gap-2 ">
         <div className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1">
           <Image src={Fire} alt="fire" width={30} height={30} />
           <p className="font-bold">7</p>
@@ -42,7 +42,7 @@ export const SidebarUserInfo = () => {
           </p>
         </div>
         <div className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1">
-          <Image src={Diamond2} alt="diamond" width={25} height={25}/>
+          <Image src={Diamond2} alt="diamond" width={30} height={30}/>
           <p className="font-bold">350</p>
           <p className="text-10 text-gray-600 font-medium text-center">
             Points

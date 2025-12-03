@@ -1,6 +1,4 @@
-import { MainCard, Progress } from "@components";
-import Image from "next/image";
-import Link from "next/link";
+import { PathCard } from "@components/client";
 import React from "react";
 
 export const MyCurrentPath = ({
@@ -11,7 +9,10 @@ export const MyCurrentPath = ({
     image: string;
     title: string;
     description: string;
-    progress: number;
+    progress?: number;
+    missions: number;
+    xp: number;
+    points: number;
   }[];
 }) => {
   return (
@@ -21,31 +22,7 @@ export const MyCurrentPath = ({
       </h2>
       <div className="grid xl:grid-cols-3 sm:grid-cols-2 gap-5">
         {paths.map((path) => (
-          <div key={path.id}>
-            <Link href={`/junior/paths/${path.id}`}>
-              <MainCard classname=" border border-[#A3B3FF] lg:space-y-4 space-y-2">
-                <Image
-                  src={path.image}
-                  alt="Current path Image"
-                  width={40}
-                  height={40}
-                />
-                <h3 className=" font-bold">{path.title}</h3>
-                <p className="text-gray-600 text-sm">{path.description}</p>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center gap-3">
-                    <p className="text-13 font-medium text-gray-600">
-                      Progress
-                    </p>
-                    <p className="text-purple-main font-bold text-13">
-                      {path.progress}%
-                    </p>
-                  </div>
-                  <Progress width={path.progress} />
-                </div>
-              </MainCard>
-            </Link>
-          </div>
+          <PathCard key={path.id} path={path} userType="junior" cardClassName="border-dark-blue-main" />
         ))}
       </div>
     </div>

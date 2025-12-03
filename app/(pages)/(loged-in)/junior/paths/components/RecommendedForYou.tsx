@@ -9,7 +9,9 @@ export const RecommendedForYou = ({
     image: string;
     title: string;
     description: string;
-    includes: Record<string, number>;
+    missions: number,
+    xp: number,
+    points: number;
   }[];
 }) => {
   return (

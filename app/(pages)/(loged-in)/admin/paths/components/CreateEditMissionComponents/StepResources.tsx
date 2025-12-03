@@ -35,7 +35,7 @@ export const StepResources = ({
 
     <div className="space-y-4">
       {resources.map((resource, index) => (
-        <MainCard key={resource.id} classname="p-0 border border-gray-100">
+        <MainCard key={resource.id} classname="p-0 ">
           <div className="px-5 py-3 border-b border-gray-100 text-gray-600 flex items-center justify-between gap-3 bg-[#F9FAFB80]">
             <p className="text-sm">Resource {index + 1}</p>
             <XIcon

@@ -1,13 +1,13 @@
 "use client";
 
-import { MainCard, Modal } from "@components";
+import { Button, MainCard, Modal } from "@components";
 import Image from "next/image";
 import CelebrateImage from "@public/images/celebrate.png";
-import FireImage from "@public/images/fire-icon2.png";
 import Diamond2Image from "@public/images/diamond-icon-2.png";
 import LightningImage from "@public/images/lightning-icon.png";
 import confetti from "canvas-confetti";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
+import { CloseButton } from "@headlessui/react";
 
 export const MissionCompleted = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -59,7 +59,7 @@ export const MissionCompleted = () => {
   }, []);
 
   return (
-    <Modal panelClassName="w-full max-w-xl p-8 py-20 bg-white rounded-2xl shadow-xl place-items-center space-y-6 relative overflow-hidden">
+    <Modal panelClassName="w-full max-w-xl p-8 py-20 text-center bg-white rounded-2xl shadow-xl place-items-center sm:space-y-6 relative overflow-hidden">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none z-50"
@@ -67,50 +67,46 @@ export const MissionCompleted = () => {
       <Image
         src={CelebrateImage}
         alt="Celebrate Icon"
-        className="w-[150px] relative z-10"
-        width={150}
-        height={150}
+        className="sm:w-[250px] w-[150px] relative z-10 mb-0"
+        width={250}
+        height={250}
       />
-      <h2 className="font-bold text-3xl text-center relative z-10">
+      <h2 className="font-bold sm:text-3xl text-xl  relative z-10">
         Woho! You Completed the Mission!
       </h2>
-      <p className="text-gray-600 text-2xl relative z-10">HTML Basics</p>
-      <div className="grid grid-cols-3 w-full gap-5 relative z-10">
+      <p className="text-gray-600 sm:text-2xl text-lg relative z-10">
+        HTML Basics
+      </p>
+      <div className="grid grid-cols-2 w-full sm:gap-5 gap-3 relative z-10">
         <MainCard classname="space-y-2 place-items-center">
           <Image
             src={LightningImage}
             alt="Lightning Icon"
-            className="w-[38px]"
-            width={38}
-            height={38}
+            className="sm:w-[60px] w-[40px]"
+            width={60}
+            height={60}
           />
 
           <p className="font-semibold text-3xl">+40</p>
-          <p className="text-gray-600 text-13">XP Earned</p>
+          <p className="text-gray-400 text-13 font-bold">XP Earned</p>
         </MainCard>
         <MainCard classname="space-y-2 place-items-center">
           <Image
             src={Diamond2Image}
             alt="Diamond2 Icon"
-            className="w-[38px]"
-            width={38}
-            height={38}
+            className="sm:w-[60px] w-[40px]"
+            width={60}
+            height={60}
           />
           <p className="font-semibold text-3xl">+1</p>
-          <p className="text-gray-600 text-13">Points Earned</p>
-        </MainCard>
-        <MainCard classname="space-y-2 place-items-center">
-          <Image
-            src={FireImage}
-            alt="Fire Icon"
-            className="w-[38px]"
-            width={38}
-            height={38}
-          />
-          <p className="font-semibold text-3xl">7 Days</p>
-          <p className="text-gray-600 text-13">Streak</p>
+          <p className="text-gray-400 text-13 font-bold">Points Earned</p>
         </MainCard>
       </div>
+      <CloseButton as={Fragment}>
+        <Button intent="main2" size="mainDefault" className="lg:w-4/5 w-full">
+          Compare Solution
+        </Button>
+      </CloseButton>
     </Modal>
   );
 };

@@ -35,7 +35,7 @@ export const StepCriteria = ({
       </Button>
     </div>
 
-    <MainCard classname="space-y-4 border border-gray-100">
+    <MainCard classname="space-y-4 ">
       {criteria.map((item, index) => (
         <div key={item.id} className="flex items-center sm:gap-3 gap-1 w-full">
           <div className="p-1 rounded-full bg-green-100 text-green-700">

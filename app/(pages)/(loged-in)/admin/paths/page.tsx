@@ -47,19 +47,17 @@ const paths = [
     image: ShootingStarImage.src,
     title: "Python Programming",
     description: "Connect your apps to real-world data and services",
-    includes: {
-      missions: 2,
-      collaborations: 3,
-    },
+    missions: 2,
+    xp: 25,
+    points: 12,
   },
   {
     id: 3,
     image: ShootingStarImage.src,
     title: "API Integration",
     description: "Connect your apps to real-world data and services",
-    includes: {
-      missions: 2,
-      collaborations: 3,
-    },
+    missions: 2,
+    xp: 25,
+    points: 12,
   },
 ];

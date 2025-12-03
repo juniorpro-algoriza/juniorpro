@@ -6,7 +6,6 @@ import {
   DashboardCards,
   DashboardHeader,
   ContinueLearning,
-  WhatsNext,
   UpcomingSession,
   LeaderBoard,
 } from "./components";
@@ -20,7 +19,6 @@ const DashboardPage = async () => {
         <div className="xl:col-span-2 space-y-6">
           <DailyGoals />
           <ContinueLearning />
-          <WhatsNext />
         </div>
         <div className="space-y-6">
           <UpcomingSession />

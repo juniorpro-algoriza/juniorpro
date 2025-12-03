@@ -13,11 +13,7 @@ export const StepByStepGuide = () => {
   return (
     <div className="space-y-4">
       {guide.map((item) => (
-        <MainCard
-          key={item.number}
-          classname="border border-gray-100 p-0"
-          isAnimated
-        >
+        <MainCard key={item.number} classname=" p-0" isAnimated>
           {/* Header */}
           <div
             className="flex items-center justify-between gap-3 p-5 cursor-pointer"
@@ -48,7 +44,7 @@ export const StepByStepGuide = () => {
             <div className="p-5 border-t border-gray-100 space-y-5">
               <p className="text-sm text-gray-600">{item.details}</p>
 
-              <pre className="text-sm p-5 rounded-2xl border border-gray-100 bg-gray-50 overflow-x-auto">
+              <pre className="text-sm p-5 rounded-2xl  bg-gray-50 overflow-x-auto border border-gray-200">
                 {item.code}
               </pre>
             </div>
@@ -62,7 +58,10 @@ export const StepByStepGuide = () => {
         <div className="grid md:grid-cols-2 gap-3 mt-5">
           {successCriteria.map((item, i) => (
             <div key={i} className="text-gray-600 flex items-center gap-2">
-              <CircleCheck fill="#009966" className=" shrink-0 size-6 text-white" />
+              <CircleCheck
+                fill="#009966"
+                className=" shrink-0 size-6 text-white"
+              />
               {item}
             </div>
           ))}
