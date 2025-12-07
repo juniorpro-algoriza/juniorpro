@@ -14,4 +14,5 @@ export const modalNameSchema = z.enum([
   "AssignPointsForJuniors",
   "MissionCompleted",
   "CreateEditMission",
+  "CreateEditPlan",
 ]);

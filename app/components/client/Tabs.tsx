@@ -13,6 +13,7 @@ export interface TabsProps {
   tabPanelsClassName?: string;
   tabPanelClassName?: string;
   tabStyle?: string;
+  selectedIndex?: number;
   onTabChange?: (index: number) => void;
   children?: React.ReactNode;
 }
@@ -26,11 +27,12 @@ export const Tabs: React.FC<TabsProps> = ({
   tabPanelsClassName = "",
   tabPanelClassName = "",
   tabStyle = "",
+  selectedIndex,
   onTabChange,
   children,
 }) => {
   return (
-    <TabGroup onChange={onTabChange}>
+    <TabGroup selectedIndex={selectedIndex} onChange={onTabChange}>
       <div className="flex items-center justify-between flex-wrap">
         <TabList className={cx(defaultTabListClass, tabListClassName)}>
           {tabs.map((tab, index) => (

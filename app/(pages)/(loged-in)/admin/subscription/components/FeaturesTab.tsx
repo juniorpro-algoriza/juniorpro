@@ -32,19 +32,31 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
       <EnhancedTable>
         <TableHeader>
           <TableRow className="bg-[#F9FAFB] text-gray-600 border-y border-gray-200 uppercase">
-            <TableHead className="h-14 font-semibold">Feature Name</TableHead>
-            <TableHead className="h-14 font-semibold">Description</TableHead>
-            <TableHead className="h-14 font-semibold">Type</TableHead>
-            <TableHead className="h-14 font-semibold">Actions</TableHead>
+            <TableHead className="h-14 font-semibold min-w-[200px]">
+              Feature Name
+            </TableHead>
+            <TableHead className="h-14 font-semibold min-w-[200px]">
+              Description
+            </TableHead>
+            <TableHead className="h-14 font-semibold min-w-[100px]">Type</TableHead>
+            <TableHead className="h-14 font-semibold min-w-[100px]">
+              Actions
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {featuresList.map((feature) => (
             <TableRow key={feature.id} className="border-gray-100">
-              <TableCell className="h-20">{feature.nameEn}</TableCell>
-              <TableCell className="h-20">{feature.description}</TableCell>
-              <TableCell className="h-20">{feature.type}</TableCell>
-              <TableCell className="h-20">
+              <TableCell className="h-20 whitespace-normal break-words">
+                {feature.nameEn}
+              </TableCell>
+              <TableCell className="h-20 whitespace-normal break-words">
+                {feature.description}
+              </TableCell>
+              <TableCell className="h-20 whitespace-normal break-words">
+                {feature.type}
+              </TableCell>
+              <TableCell className="h-20 whitespace-normal break-words">
                 {/* Add action buttons here as needed */}
               </TableCell>
             </TableRow>

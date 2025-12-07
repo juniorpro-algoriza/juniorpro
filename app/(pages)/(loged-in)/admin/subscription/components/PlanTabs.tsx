@@ -7,7 +7,7 @@ export const PlanTabs = () => {
     {
       name: "Monthly",
       content: (
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 md:gap-5 gap-2">
           <PlanCard />
           <PlanCard />
           <PlanCard />
@@ -18,7 +18,7 @@ export const PlanTabs = () => {
     {
       name: "Yearly",
       content: (
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 md:gap-5 gap-2">
           <PlanCard />
           <PlanCard />
           <PlanCard />

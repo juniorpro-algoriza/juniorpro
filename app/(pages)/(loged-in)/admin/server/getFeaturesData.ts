@@ -1,6 +1,8 @@
+"use server";
+
 import { customFetch } from "@server/lib";
 
-export function getFeatures() {
+export async function getFeatures() {
   const features = customFetch("/feature", {
     method: "get",
   });

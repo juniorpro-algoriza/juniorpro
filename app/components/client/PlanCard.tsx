@@ -22,7 +22,7 @@ export const PlanCard = () => {
         1400 <span className="text-gray-600 text-base font-semibold">SAR</span>
       </p>
       <p className="text-gray-600 text-sm">per month</p>
-      <div className="flex items-center gap-2 px-6 py-3 border border-dark-blue-main/20 rounded-3xl text-dark-blue-main bg-blue-main/10 font-medium">
+      <div className="flex items-center gap-2 px-6 py-3 border border-dark-blue-main/20 rounded-3xl text-dark-blue-main bg-blue-main/10 font-medium max-lg:text-sm">
         <Users className="size-5" />
         <span className="font-bold">10</span> Juniors
       </div>
@@ -31,19 +31,19 @@ export const PlanCard = () => {
         <ul className="space-y-2">
           {features.slice(0, 5).map((feature) => (
             <li key={feature} className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CircleCheck className="size-5 text-dark-blue-main" />
+              <div className="flex items-center gap-2 max-lg:text-sm">
+                <CircleCheck className="lg:size-5 size-4 text-dark-blue-main" />
                 {feature}
               </div>
               <div className="p-1 border rounded-lg border-dark-blue-main/20 bg-blue-main/10">
                 <Infinity
-                  className="size-5 text-dark-blue-main"
+                  className="lg:size-5 size-4 text-dark-blue-main"
                   strokeWidth={3}
                 />
               </div>
             </li>
           ))}
-          <li className="ms-7 text-sm font-medium text-gray-400">+ {features.slice(5).length} more features</li>
+          <li className="ms-7 lg:text-sm text-xs font-medium text-gray-400">+ {features.slice(5).length} more features</li>
         </ul>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { Tabs } from "@components/client";
 import { TabData } from "@types";
 import { FileText, Plus } from "lucide-react";
 import React, { useState } from "react";
-import { Button } from "@components";
+import { Button, ModalLink } from "@components";
 import { SearchInput } from "../../../components/client";
 import { PlanTabs } from "./PlanTabs";
 import { FeaturesTable } from "./FeaturesTab";
@@ -49,16 +49,18 @@ export const PlansFeaturesTabs = ({ features }: PlansFeaturesTabsProps) => {
         tabListClassName="border-0 bg-transparent p-0"
       >
         {selectedIndex === 0 && (
-          <div className="flex items-start gap-5">
+          <div className="flex items-start md:gap-5 gap-2 flex-wrap mb-2">
             <SearchInput placeholder="Search for plans..." />
-            <Button intent="main2" size="mainDefault">
-              <Plus />
-              New Plan
-            </Button>
+            <ModalLink name="CreateEditPlan">
+              <Button intent="main2" size="mainDefault">
+                <Plus />
+                New Plan
+              </Button>
+            </ModalLink>
           </div>
         )}
         {selectedIndex === 1 && (
-          <div className="flex items-start gap-5">
+          <div className="flex items-start md:gap-5 gap-2 flex-wrap mb-2">
             <SearchInput placeholder="Search for features..." />
             <Button intent="main2" size="mainDefault">
               <Plus />

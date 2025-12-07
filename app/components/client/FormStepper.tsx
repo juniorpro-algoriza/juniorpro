@@ -7,18 +7,16 @@ import {
 } from "@components";
 import { cx } from "@lib";
 
-export function CreateEditMissionStepper({
-  value,
-  onClick,
-  steps,
-}: {
+interface FormStepperProps {
   value: number;
   onClick: (value: number) => void;
   steps: {
     step: number;
     title: string;
   }[];
-}) {
+}
+
+export function FormStepper({ value, onClick, steps }: FormStepperProps) {
   return (
     <Stepper value={value} className="w-full ">
       {steps.map(({ step, title }) => (
