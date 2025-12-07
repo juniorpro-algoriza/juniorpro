@@ -1,4 +1,4 @@
-import { paths } from "../../../api-schema/schema";
+import { paths } from "../../../api-schema";
 
 export type Path = keyof paths;
 export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';

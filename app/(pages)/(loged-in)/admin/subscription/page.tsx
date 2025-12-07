@@ -1,0 +1,23 @@
+import { Header } from "@components/client";
+import React from "react";
+import { PlansFeaturesTabs } from "./components";
+import { getFeatures } from "../server/getFeaturesData";
+
+const SubscriptionPage = async () => {
+  const features = await getFeatures();
+  console.log("Features data:", features);
+
+  return (
+    <>
+      <Header
+        title="Subscription Management"
+        description="Manage plans, features, and pricing strategies"
+      />
+      <div className="flex items-start justify-between gap-3 w-full">
+        <PlansFeaturesTabs features={features} />
+      </div>
+    </>
+  );
+};
+
+export default SubscriptionPage;

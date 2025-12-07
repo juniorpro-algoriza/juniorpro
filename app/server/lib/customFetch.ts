@@ -1,81 +1,96 @@
 "use server";
-import { cookies } from 'next/headers';
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { cookies, headers } from "next/headers";
+import { redirect } from "next/navigation";
 import {
   AvailableMethods,
   FetchOptions,
   HttpMethod,
   Path,
   SuccessResponse,
-} from '@server/types';
+} from "@server/types";
 
 // Server-side fetch wrapper
 export const createServerFetch = async () => {
   const cookieStore = await cookies();
-  const token = cookieStore.get('auth_token')?.value;
-  
+  const token = cookieStore.get("auth_token")?.value;
+
   return async (url: string, options: RequestInit = {}) => {
-    const headers = new Headers(options.headers);
-    headers.set('Content-Type', 'application/json');
-    headers.set('Accept', 'application/json');
-    
+    const requestHeaders = new Headers(options.headers);
+    requestHeaders.set("Content-Type", "application/json");
+    requestHeaders.set("Accept", "application/json");
+
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`);
+      requestHeaders.set("Authorization", `Bearer ${token}`);
     }
-    
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}${url}`, {
+
+    return fetch(`${process.env.API_ROOT_URL || ""}${url}`, {
       ...options,
-      headers,
-      cache: 'no-store', // Important: prevents caching like your original
+      headers: requestHeaders,
+      cache: "no-store",
     });
   };
 };
 
 // Client-side fetch wrapper
-export const createClientFetch = () => {
+export const createClientFetch = async () => {
   return async (url: string, options: RequestInit = {}) => {
-    const headers = new Headers(options.headers);
-    headers.set('Content-Type', 'application/json');
-    headers.set('Accept', 'application/json');
-    
-    // Get token from client-side cookie
-    const token = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('auth_token='))
-      ?.split('=')[1];
-    
+    const requestHeaders = new Headers(options.headers);
+    requestHeaders.set("Content-Type", "application/json");
+    requestHeaders.set("Accept", "application/json");
+
+    // Get token from client-side cookie (more robust parsing)
+    const token = getCookie("auth_token");
+
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`);
+      requestHeaders.set("Authorization", `Bearer ${token}`);
     }
-    
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}${url}`, {
+
+    return fetch(`${process.env.API_ROOT_URL || ""}${url}`, {
       ...options,
-      headers,
+      headers: requestHeaders,
     });
   };
+};
+
+// Helper function for client-side cookie parsing
+const getCookie = (name: string): string | undefined => {
+  if (typeof document === "undefined") return undefined;
+
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+
+  if (parts.length === 2) {
+    return parts.pop()?.split(";").shift();
+  }
+
+  return undefined;
 };
 
 // Strictly typed fetch function with error handling
 export const customFetch = async <P extends Path, M extends HttpMethod>(
   url: P,
   options: M extends AvailableMethods<P> ? FetchOptions<P, M> : never,
-  isServer: boolean = false,
+  isServer?: boolean
 ): Promise<SuccessResponse<P, M>> => {
+  // Auto-detect environment if not specified
+  const serverSide = isServer ?? typeof window === "undefined";
+
   try {
-    const fetchFn = isServer ? await createServerFetch() : createClientFetch();
-    
+    const fetchFn = serverSide
+      ? await createServerFetch()
+      : await createClientFetch();
+
     let finalUrl = url as string;
-    
+
     // Handle path parameters
-    if ('path' in options && options.path) {
+    if ("path" in options && options.path) {
       Object.entries(options.path).forEach(([key, value]) => {
         finalUrl = finalUrl.replace(`{${key}}`, String(value));
       });
     }
-    
+
     // Handle query parameters
-    if ('params' in options && options.params) {
+    if ("params" in options && options.params) {
       const searchParams = new URLSearchParams();
       Object.entries(options.params).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
@@ -87,31 +102,34 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
         finalUrl += `?${queryString}`;
       }
     }
-    
+
     // Prepare fetch options
     const fetchOptions: RequestInit = {
       method: options.method,
       headers: options.headers,
     };
-    
+
     // Add body for methods that support it
-    if ('data' in options && options.data) {
+    if ("data" in options && options.data) {
       fetchOptions.body = JSON.stringify(options.data);
     }
-    
+
     const response = await fetchFn(finalUrl, fetchOptions);
-    
-    // Handle 401 Unauthorized (only on server)
-    if (!response.ok && response.status === 401 && isServer) {
-      const cookieStore = await cookies();
-      cookieStore.delete('auth_token');
-      cookieStore.delete('user_type');
-      
-      const headersList = await headers();
-      const currentPath = headersList.get('x-pathname') || '/';
-      redirect(`/auth/login?redirect=${encodeURIComponent(currentPath)}`);
+
+    // Handle 401 Unauthorized
+    if (!response.ok && response.status === 401) {
+      if (serverSide) {
+        // Server-side redirect
+        const headersList = await headers();
+        const currentPath = headersList.get("x-pathname") || "/";
+        redirect(`/auth/login?redirect=${encodeURIComponent(currentPath)}`);
+      } else {
+        // Client-side redirect
+        const currentPath = window.location.pathname;
+        window.location.href = `/auth/login?redirect=${encodeURIComponent(currentPath)}`;
+      }
     }
-    
+
     // Handle other errors
     if (!response.ok) {
       let errorMessage = `Request failed: ${response.status}`;
@@ -124,11 +142,11 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
       }
       throw new Error(errorMessage);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error('Error fetching data:', err);
+    console.error("Error fetching data:", err);
     throw err;
   }
 };

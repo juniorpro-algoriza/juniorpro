@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "analyze-bundles": "ANALYZE=true pnpm build",
-    "openapi": "npx openapi-typescript ./api-schema/schema.json -o ./api-schema/schema.d.ts"
+    "openapi": "openapi-typescript https://juniorpro-001-site1.ntempurl.com/docs/v1/swagger.json -o ./api-schema/schema.d.ts"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",

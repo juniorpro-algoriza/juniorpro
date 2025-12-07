@@ -8,3 +8,5 @@ export { Tabs } from "./Tabs";
 export { Header } from "./Header";
 export { Tip } from "./Tip";
 export { PathCard,XpAndPoints } from "./PathCard";
+export { PlanCard } from "./PlanCard";
+
