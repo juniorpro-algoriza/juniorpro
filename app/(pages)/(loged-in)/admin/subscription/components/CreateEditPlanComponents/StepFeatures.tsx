@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Checkbox, Field, Label } from "@headlessui/react";
 import { Input } from "@components";
-import { PlanFormData, Feature, PlanFeature } from "./types";
+import { PlanFormData, Feature } from "./types";
 import { cx } from "@lib";
 
 interface StepFeaturesProps {

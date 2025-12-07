@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, FormEvent, Fragment, useEffect } from "react";
-import { Animate, Button, MainCard, Modal } from "@components";
+import { Button, MainCard, Modal } from "@components";
 import { FormStepper } from "@components/client";
 import { ArrowRight } from "lucide-react";
 import { CloseButton } from "@headlessui/react";
@@ -79,7 +79,7 @@ export const CreateEditPlan = () => {
   }, [currentStep, formData]);
 
   const handleContinue = useCallback(() => {
-    if (true) {
+    if (canProceedToNextStep()) {
       setCurrentStep((p) => p + 1);
     } else {
       toast.warning("Please complete required fields before continuing");

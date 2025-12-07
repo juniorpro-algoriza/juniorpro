@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs } from "@components/client";
-import { Badge, CircleCheck, Eye, InfinityIcon } from "lucide-react";
+import { CircleCheck, Eye, InfinityIcon } from "lucide-react";
 import { Feature, PlanFormData } from "./types";
 import { useMemo } from "react";
 

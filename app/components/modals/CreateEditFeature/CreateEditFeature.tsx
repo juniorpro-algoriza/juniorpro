@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useCallback, FormEvent, Fragment } from "react";
-import { Button, Modal, Input, Textarea, MainCard, Select } from "@components";
+import { Button, Modal, Input, MainCard, Select } from "@components";
 import { ArrowRight } from "lucide-react";
 import { CloseButton } from "@headlessui/react";
 import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
-import { components } from "../../../../api-schema";
 
 /** -------------------- Types -------------------- **/
 interface FeatureFormData {
@@ -40,7 +38,7 @@ export const CreateEditFeature = () => {
       e.preventDefault();
       console.log(formData);
     },
-    [formData, isEditing]
+    [formData]
   );
 
   return (
