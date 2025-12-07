@@ -62,10 +62,12 @@ export const PlansFeaturesTabs = ({ features }: PlansFeaturesTabsProps) => {
         {selectedIndex === 1 && (
           <div className="flex items-start md:gap-5 gap-2 flex-wrap mb-2">
             <SearchInput placeholder="Search for features..." />
-            <Button intent="main2" size="mainDefault">
-              <Plus />
-              New Features
-            </Button>
+            <ModalLink name="CreateEditFeature">
+              <Button intent="main2" size="mainDefault">
+                <Plus />
+                New Features
+              </Button>
+            </ModalLink>
           </div>
         )}
       </Tabs>
