@@ -2,11 +2,11 @@
 
 import { useState, useCallback, FormEvent, Fragment } from "react";
 import { Animate, Button, Modal } from "@components";
+import { FormStepper } from "@components/client";
 import { ArrowRight } from "lucide-react";
 import { CloseButton } from "@headlessui/react";
 import { useSearchParams } from "next/navigation";
 import {
-  CreateEditMissionStepper,
   defaultGuideStep,
   defaultResource,
   defaultCriteria,
@@ -170,7 +170,7 @@ export const CreateEditMission = () => {
 
       const submissionData = {
         ...formData,
-        guideSteps: formData.guideSteps.map(({ id, ...step }) => step),  // eslint-disable-line @typescript-eslint/no-unused-vars
+        guideSteps: formData.guideSteps.map(({ id, ...step }) => step), // eslint-disable-line @typescript-eslint/no-unused-vars
         resources: formData.resources.map(({ id, ...resource }) => resource), // eslint-disable-line @typescript-eslint/no-unused-vars
         criteria: formData.criteria.map(({ id, ...item }) => item), // eslint-disable-line @typescript-eslint/no-unused-vars
       };
@@ -223,7 +223,7 @@ export const CreateEditMission = () => {
           </p>
         </div>
 
-        <CreateEditMissionStepper
+        <FormStepper
           steps={stepData}
           value={currentStep}
           onClick={setCurrentStep}

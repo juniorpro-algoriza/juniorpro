@@ -1786,7 +1786,28 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["JuniorPro.Services.DTO.FeatureModels.FeatureModel"][];
+                        "application/json": components["schemas"]["JuniorPro.Services.DTO.FeatureModels.FeatureModel"][];
+                        "text/json": components["schemas"]["JuniorPro.Services.DTO.FeatureModels.FeatureModel"][];
+                    };
+                };
+            };
+        };
         put: {
             parameters: {
                 query?: never;

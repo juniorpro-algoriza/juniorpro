@@ -13,7 +13,9 @@ export interface TabsProps {
   tabPanelsClassName?: string;
   tabPanelClassName?: string;
   tabStyle?: string;
+  selectedIndex?: number;
   onTabChange?: (index: number) => void;
+  children?: React.ReactNode;
 }
 
 export const Tabs: React.FC<TabsProps> = ({
@@ -25,34 +27,40 @@ export const Tabs: React.FC<TabsProps> = ({
   tabPanelsClassName = "",
   tabPanelClassName = "",
   tabStyle = "",
+  selectedIndex,
   onTabChange,
+  children,
 }) => {
   return (
-    <TabGroup onChange={onTabChange}>
-      <TabList className={cx(defaultTabListClass, tabListClassName)}>
-        {tabs.map((tab, index) => (
-          <Tab
-            key={index}
-            className={({ selected }) => {
-              if (selectedTabClassName && unselectedTabClassName) {
-                return selected ? selectedTabClassName : unselectedTabClassName;
-              }
-              return (
-                tabClassName ||
-                cx(
-                  defaultTabClass({
-                    selected: selected ? "active" : "inactive",
-                  }),
-                  tabStyle
-                )
-              );
-            }}
-          >
-            {tab.name}
-          </Tab>
-        ))}
-      </TabList>
-
+    <TabGroup selectedIndex={selectedIndex} onChange={onTabChange}>
+      <div className="flex items-center justify-between flex-wrap">
+        <TabList className={cx(defaultTabListClass, tabListClassName)}>
+          {tabs.map((tab, index) => (
+            <Tab
+              key={index}
+              className={({ selected }) => {
+                if (selectedTabClassName && unselectedTabClassName) {
+                  return selected
+                    ? selectedTabClassName
+                    : unselectedTabClassName;
+                }
+                return (
+                  tabClassName ||
+                  cx(
+                    defaultTabClass({
+                      selected: selected ? "active" : "inactive",
+                    }),
+                    tabStyle
+                  )
+                );
+              }}
+            >
+              {tab.name}
+            </Tab>
+          ))}
+        </TabList>
+        {children}
+      </div>
       <TabPanels className={tabPanelsClassName}>
         {tabs.map((tab, index) => (
           <TabPanel key={index} className={tabPanelClassName}>

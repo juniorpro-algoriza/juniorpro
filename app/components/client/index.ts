@@ -7,4 +7,6 @@ export { Sidebar, SidebarLayout, UserCard } from "./Sidebar";
 export { Tabs } from "./Tabs";
 export { Header } from "./Header";
 export { Tip } from "./Tip";
-export { PathCard,XpAndPoints } from "./PathCard";
+export { PathCard, XpAndPoints } from "./PathCard";
+export { PlanCard } from "./PlanCard";
+export { FormStepper } from "./FormStepper";

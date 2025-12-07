@@ -36,4 +36,6 @@ export {
 } from "./Stepper";
 export { CodeBlockInput } from "./CodeBlockInput";
 export { TAG_COLORS ,PATH_ICON} from "./lib/constants";
+export {Table as EnhancedTable, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "./EnhancedTable";
+
 
