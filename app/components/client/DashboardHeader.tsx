@@ -6,12 +6,12 @@ import Image from "next/image";
 import BellImage from "@public/images/bell.png";
 import { Header } from "@components/client";
 
-export const DashboardHeader = () => {
+export const DashboardHeader = ({ description }: { description: string }) => {
   const [{ firstName, lastName }] = useAtom(userAtom);
   return (
     <Header
       title={`Welcome Back , ${firstName} ${lastName}!`}
-      description="Ready to level up your coding skills today?"
+      description={description}
       end={
         <Image
           src={BellImage}

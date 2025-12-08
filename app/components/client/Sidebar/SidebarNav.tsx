@@ -2,12 +2,7 @@
 
 import { useSidebar } from "@atoms";
 import {
-  // ChatIcon,
-  DiamondIcon,
-  DocumentIcon,
-  HomeIcon,
   LogoutIcon,
-  UserIcon,
 } from "@icons";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,6 +15,7 @@ import CollaborationImage from "@public/images/hand-shake-icon.png";
 import ChallengesImage from "@public/images/trophy-icon.png";
 import AchievementsImage from "@public/images/medal-icon.png";
 import PointsShopImage from "@public/images/shopping-bag-icon.png";
+import { CircleDollarSign } from "lucide-react";
 
 interface MenuItem {
   href: string;
@@ -55,20 +51,34 @@ const adminMenuItems: MenuItem[] = [
     image: PointsShopImage.src,
     label: "Points Shop",
   },
-  // { href: "/admin/schedule", icon: CalendarIcon, label: "Schedule" },
+  { href: "/admin/subscription", icon: CircleDollarSign , label: "Subscription" },
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
 const contributorMenuItems: MenuItem[] = [
-  { href: "/contributor/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/contributor/juniors", icon: UserIcon, label: "Juniors" },
+  { href: "/contributor/dashboard", image: HomeImage.src, label: "Dashboard" },
   {
-    href: "/contributor/projects",
-    icon: DocumentIcon,
-
-    label: "Projects",
+    href: "/contributor/paths",
+    image: MyJourneyImage.src,
+    label: "Learning Paths",
   },
-  { href: "/contributor/points", icon: DiamondIcon, label: "Points" },
+  {
+    href: "/contributor/collaboration",
+    image: CollaborationImage.src,
+    label: "Collaboration",
+  },
+  {
+    href: "/contributor/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
+    href: "/contributor/points-shop",
+    image: PointsShopImage.src,
+    label: "Points Shop",
+  },
+    { href: "/contributor/subscription", icon: CircleDollarSign , label: "Subscription" },
+
   // { href: "/contributor/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 

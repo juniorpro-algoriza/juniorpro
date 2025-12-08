@@ -3,6 +3,8 @@ import React from "react";
 import { PlansFeaturesTabs } from "./components";
 import { getFeatures } from "../server/getFeaturesData";
 
+export const dynamic = "force-dynamic";
+
 const SubscriptionPage = async () => {
   const features = await getFeatures();
   console.log("Features data:", features);

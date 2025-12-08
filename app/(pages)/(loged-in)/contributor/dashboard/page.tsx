@@ -1,35 +1,68 @@
-export const dynamic = "force-dynamic";
-
-import { getPointsData } from "@server";
-import { JuniorsTable } from "../juniors/components";
+import { DashboardCards, DashboardHeader } from "@components/client";
+import TargetWithArrow from "@public/images/target_with_arrow.png";
+import LightningIcon from "@public/images/lightning-icon.png";
+import TrophyIcon from "@public/images/trophy-icon.png";
+import HandshakeIcon from "@public/images/hand-shake-icon.png";
 import {
-  DashboardHeader,
-  // DashboardJuniors,
-  DashboardPoints,
-  DashboardProjects,
+  CurrentPlan,
+  TrackYourJuniors,
+  UpcomingSessions,
+  YourJuniors,
 } from "./components";
-
 const DashboardPage = async () => {
-  const pointsData = await getPointsData();
+  // const pointsData = await getPointsData();
 
   return (
-    <div className="min-h-screen py-3 px-6 bg-stone-50">
-      {/* Header */}
-      <DashboardHeader />
-
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {/* Left Column - Points Allocation */}
-        <DashboardPoints pointsData={pointsData} />
-
-        {/* Right Column - Projects */}
-        <DashboardProjects />
+    <>
+      <DashboardHeader description="Here's what's happening with your juniors today." />
+      <CurrentPlan />
+      <DashboardCards cardsData={dashboardCardsData} />
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 xl:gap-5 gap-4">
+        <YourJuniors />
+        <div className="xl:space-y-5 space-y-4">
+          <UpcomingSessions />
+          <TrackYourJuniors />
+        </div>
       </div>
 
-      {/* Juniors Table */}
-      <JuniorsTable />
-    </div>
+      {/* <DashboardHeader />
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <DashboardPoints pointsData={pointsData} />
+        <DashboardProjects />
+      </div>
+      <JuniorsTable /> */}
+    </>
   );
 };
 
 export default DashboardPage;
+const dashboardCardsData = [
+  {
+    label: "Total XP",
+    value: "530",
+    subtext: "Combined progress",
+    subtextColor: "text-gray-600",
+    icon: LightningIcon.src,
+  },
+  {
+    label: "Missions Completed",
+    value: "12",
+    subtext: "Across all juniors this week",
+    subtextColor: "text-gray-600",
+    icon: TargetWithArrow.src,
+  },
+  {
+    label: "Challenges Won ",
+    value: "5",
+    subtext: "Across all juniors this week",
+    subtextColor: "text-gray-600",
+    icon: TrophyIcon.src,
+  },
+  {
+    label: "Projects Completed",
+    value: "8",
+    subtext: "2 active teams",
+    subtextColor: "text-gray-600",
+    icon: HandshakeIcon.src,
+  },
+];

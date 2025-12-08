@@ -1,12 +1,11 @@
 "use client";
 
-import { Tabs } from "@components/client";
+import { PlanTabs, Tabs } from "@components/client";
 import { TabData } from "@types";
 import { FileText, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { Button, ModalLink } from "@components";
 import { SearchInput } from "../../../components/client";
-import { PlanTabs } from "./PlanTabs";
 import { FeaturesTable } from "./FeaturesTab";
 import { components } from "../../../../../../api-schema";
 
@@ -28,7 +27,11 @@ export const PlansFeaturesTabs = ({ features }: PlansFeaturesTabsProps) => {
           <span>Plans</span>
         </div>
       ),
-      content: <PlanTabs />,
+      content: (
+        <React.Suspense>
+          <PlanTabs module="admin" />
+        </React.Suspense>
+      ),
     },
     {
       name: (

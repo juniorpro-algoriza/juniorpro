@@ -64,7 +64,7 @@ const button = cva({
     "focus:outline-none",
     "focus:ring-2",
     "focus:ring-offset-2",
-    "disabled:opacity-50",
+    "disabled:opacity-70",
     "disabled:cursor-not-allowed",
     "min-w-max",
     "gap-3"
@@ -82,7 +82,7 @@ const button = cva({
         "bg-transparent text-danger-350 border border-danger-350 hover:bg-danger-50 hover:border-danger-300 hover:text-danger-300 focus:ring-rejected-200 disabled:text-danger-500 disabled:border-danger-500",
         // new 
         main:
-          "bg-white text-dark-blue-main hover:bg-dark-blue-main/5 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main/10 border-b-5 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
+          "bg-white text-dark-blue-main hover:bg-dark-blue-main/5 focus:ring-dark-blue-main/10  border-b-5 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
         main2:
           "bg-dark-blue-main text-white hover:bg-dark-blue-main/85 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main/10 border-b-5 border-[#372AAC] [box-shadow:0px_1px_3px_0px_#0000001A] ",
       },

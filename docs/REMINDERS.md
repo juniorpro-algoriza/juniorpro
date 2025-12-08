@@ -9,7 +9,7 @@
 --<DashboardTasks />
 --unused images
 --un wanted pages in junior portal
---force dynamic
+--export const dynamic = "force-dynamic";
 --un used icons after changing it to images
 --buttons un wanted variants
 -- /* eslint-disable @typescript-eslint/no-explicit-any */
