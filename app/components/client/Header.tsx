@@ -6,10 +6,12 @@ export const Header = ({
   title,
   description,
   end,
+  startIndent=false,
 }: {
   title: string;
   description: string;
   end?: React.ReactNode;
+  startIndent?: boolean;
 }) => {
   const { isOpen } = useSidebar();
   return (
@@ -18,7 +20,7 @@ export const Header = ({
         <h1
           className={cx(
             "lg:text-[32px] text-[24px] font-bold text-yankees-blue mt-2",
-            !isOpen && "pl-12"
+            !isOpen && startIndent && "pl-12"
           )}
         >
           {title}
@@ -26,7 +28,7 @@ export const Header = ({
         <p
           className={cx(
             "text-gray-600 font-medium text-base lg:text-lg",
-            !isOpen && "pl-12"
+            !isOpen && startIndent && "pl-12"
           )}
         >
           {description}

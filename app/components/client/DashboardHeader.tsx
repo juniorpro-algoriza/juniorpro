@@ -12,6 +12,7 @@ export const DashboardHeader = ({ description }: { description: string }) => {
     <Header
       title={`Welcome Back , ${firstName} ${lastName}!`}
       description={description}
+      startIndent
       end={
         <Image
           src={BellImage}

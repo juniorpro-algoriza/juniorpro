@@ -1,14 +1,26 @@
 import React, { Suspense } from "react";
 import { Header, PathCard } from "@components/client";
-import { Button } from "@components";
+import { Breadcrumb, Button } from "@components";
 import { Plus } from "lucide-react";
 import { PathsFilters } from "./components";
-import ShootingStarImage from "@public/images/shooting-star.png";
+import Code3DImage from "@public/images/code-3d.png";
 import Link from "next/link";
 
 const PathsPage = () => {
   return (
     <>
+      <Breadcrumb
+        breadcrumbs={[
+          {
+            title: "Home",
+            href: "/admin/dashboard",
+          },
+          {
+            title: "Learning Paths",
+            href: "/admin/paths",
+          },
+        ]}
+      />
       <Header
         title="Path Management"
         description="Create, organize, and track structured learning journeys for your juniors."
@@ -44,7 +56,7 @@ export default PathsPage;
 const paths = [
   {
     id: 2,
-    image: ShootingStarImage.src,
+    image: Code3DImage.src,
     title: "Python Programming",
     description: "Connect your apps to real-world data and services",
     missions: 2,
@@ -53,7 +65,7 @@ const paths = [
   },
   {
     id: 3,
-    image: ShootingStarImage.src,
+    image: Code3DImage.src,
     title: "API Integration",
     description: "Connect your apps to real-world data and services",
     missions: 2,

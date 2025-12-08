@@ -8,12 +8,14 @@ import {
   ContinueLearning,
   UpcomingSession,
   LeaderBoard,
+  DashboardBanner,
 } from "./components";
 
 const DashboardPage = async () => {
   return (
     <>
       <DashboardHeader description="Ready to level up your coding skills today?" />
+      <DashboardBanner />
       <DashboardCards cardsData={dashboardCardsData} />
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-8 gap-4 mt-8">
         <div className="xl:col-span-2 space-y-6">

@@ -1,12 +1,12 @@
 import { Button, Input, MainCard, ModalLink, PATH_ICON, Textarea } from "@components";
 import Image from "next/image";
 import React from "react";
-import { PanelsTopLeft, Plus } from "lucide-react";
+import { ArrowRight, PanelsTopLeft, Plus } from "lucide-react";
 
 export const PathCreateEdit = () => {
   return (
     <div className="xl:max-w-4/5 space-y-5">
-      <form action="" className="flex max-md:flex-col w-full gap-5">
+      <form className="flex max-md:flex-col w-full gap-5" id="pathForm">
         <MainCard classname=" flex-1 ">
           <Input
             label="Path Name"
@@ -68,6 +68,15 @@ export const PathCreateEdit = () => {
           </p>
         </MainCard>
       </MainCard>
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <Button intent="main" size="mainDefault">
+          Cancel
+        </Button>
+        <Button intent="main2" size="mainDefault" type="submit" form="pathForm">
+          Create Path
+          <ArrowRight className="size-4" />
+        </Button>
+      </div>
     </div>
   );
 };
