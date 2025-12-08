@@ -2,6 +2,7 @@ import { Header } from "@components/client";
 import React from "react";
 import { PlansFeaturesTabs } from "./components";
 import { getFeatures } from "../server/getFeaturesData";
+import { Breadcrumb } from "@components";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,18 @@ const SubscriptionPage = async () => {
 
   return (
     <>
+      <Breadcrumb
+        breadcrumbs={[
+          {
+            title: "Home",
+            href: "/admin/dashboard",
+          },
+          {
+            title: "Subscription",
+            href: "/admin/subscription",
+          },
+        ]}
+      />
       <Header
         title="Subscription Management"
         description="Manage plans, features, and pricing strategies"

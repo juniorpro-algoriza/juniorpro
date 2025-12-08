@@ -14,7 +14,7 @@ export default async function PathPage({
         breadcrumbs={[
           {
             title: "Home",
-            href: "/junior",
+            href: "/junior/dashboard",
           },
           {
             title: "Learning Paths",

@@ -29,7 +29,8 @@ export const PathCard = ({
   return (
     <div key={path.id}>
       <Link href={`/${userType}/paths/${path.id}`}>
-        <MainCard classname={cx(" space-y-2", cardClassName)}>
+        <MainCard classname={cx("relative space-y-2 overflow-hidden", cardClassName)}>
+          <div className="absolute -top-6 -right-6 aspect-square h-[90%] bg-blue-main opacity-4 rounded-full"></div>
           <Image
             src={path.image}
             alt="Current path Image"

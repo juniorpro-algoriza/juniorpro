@@ -8,6 +8,7 @@ import {
   Description,
 } from "@headlessui/react";
 import { sleep } from "@utils";
+import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
@@ -68,6 +69,9 @@ export const Modal = ({
               panelClassName
             )}
           >
+            <div className="absolute top-4 right-4 cursor-pointer text-gray-600">
+              <XIcon className="size-5" onClick={onClose} />
+            </div>
             {title && <DialogTitle className="font-bold">{title}</DialogTitle>}
             {description && <Description>{description}</Description>}
             {children}

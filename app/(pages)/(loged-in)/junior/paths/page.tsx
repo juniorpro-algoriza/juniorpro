@@ -3,9 +3,22 @@ import React from "react";
 import StarGroup from "@public/images/3d-star-group.png";
 import Code3d from "@public/images/code-3d.png";
 import { MyCurrentPath, RecommendedForYou } from "./components";
+import { Breadcrumb } from "@components";
 const MyJourneyPage = () => {
   return (
     <>
+      <Breadcrumb
+        breadcrumbs={[
+          {
+            title: "Home",
+            href: "/junior/dashboard",
+          },
+          {
+            title: "Learning Paths",
+            href: "/junior/paths",
+          },
+        ]}
+      />
       <Header
         title={`My Learning Journey`}
         description="Pick a path to start learning new superpowers!"
