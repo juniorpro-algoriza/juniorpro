@@ -1,7 +1,8 @@
 import { CircleCheck, EllipsisVertical, Infinity, Users } from "lucide-react";
 import React from "react";
+import { Button } from "../Button";
 
-export const PlanCard = () => {
+export const PlanCard = ({ module }: { module: "admin" | "contributor" }) => {
   return (
     <div className="border-2 border-dotted border-gray-200 p-5 rounded-2xl space-y-3">
       <div className="flex justify-between items-center gap-3">
@@ -17,6 +18,11 @@ export const PlanCard = () => {
       <p className="text-gray-600 text-sm">
         Organizations, schools, or youth centers
       </p>
+      {module==="contributor"&&(
+        <Button intent="main" size="mainDefault" disabled className="w-full">
+        Current Plan
+      </Button>
+      )}
       <hr className="border-gray-200" />
       <p className="text-2xl font-black">
         1400 <span className="text-gray-600 text-base font-semibold">SAR</span>

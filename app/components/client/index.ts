@@ -3,10 +3,16 @@
 export { EmptyData } from "./EmptyData";
 export { InfiniteCarousel } from "./InfiniteCarousel";
 export { Select } from "./Select";
-export { Sidebar, SidebarLayout, UserCard } from "./Sidebar";
+export { Sidebar, SidebarLayout } from "./Sidebar";
 export { Tabs } from "./Tabs";
 export { Header } from "./Header";
 export { Tip } from "./Tip";
 export { PathCard, XpAndPoints } from "./PathCard";
 export { PlanCard } from "./PlanCard";
 export { FormStepper } from "./FormStepper";
+export { PlanTabs } from "./PlanTabs";
+export { DashboardHeader } from "./DashboardHeader";
+export { DashboardCards } from "./DashboardCards";
+export { UserCard } from "./UserCard";
+
+
