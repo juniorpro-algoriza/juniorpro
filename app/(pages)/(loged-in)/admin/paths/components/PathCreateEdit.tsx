@@ -1,6 +1,13 @@
-import { Button, Input, MainCard, ModalLink, PATH_ICON, Textarea } from "@components";
+import {
+  Button,
+  Input,
+  MainCard,
+  ModalLink,
+  PATH_ICON,
+  Textarea,
+} from "@components";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import { ArrowRight, PanelsTopLeft, Plus } from "lucide-react";
 
 export const PathCreateEdit = () => {
@@ -51,12 +58,14 @@ export const PathCreateEdit = () => {
               0 Missions
             </span>
           </p>
-          <ModalLink name="CreateEditMission">
-            <Button intent="main" size="mainDefault">
-              <Plus className="size-4" />
-              Add Mission
-            </Button>
-          </ModalLink>
+          <Suspense fallback={null}>
+            <ModalLink name="CreateEditMission">
+              <Button intent="main" size="mainDefault">
+                <Plus className="size-4" />
+                Add Mission
+              </Button>
+            </ModalLink>
+          </Suspense>
         </div>
         <MainCard classname=" bg-[#F9FAFB80] place-items-center space-y-2">
           <div className="flex items-center justify-center border border-gray-200 text-gray-600 p-3 rounded-full w-fit">

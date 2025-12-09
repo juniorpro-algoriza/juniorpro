@@ -1,14 +1,13 @@
 "use client";
 
 import { useSidebar } from "@atoms";
-import {
-  LogoutIcon,
-} from "@icons";
+import { LogoutIcon } from "@icons";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "../../../(pages)/auth/server";
-import { useTransition, ComponentType } from "react";
+import { useTransition, ComponentType, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import HomeImage from "@public/images/home-icon.png";
 import MyJourneyImage from "@public/images/map-icon.png";
 import CollaborationImage from "@public/images/hand-shake-icon.png";
@@ -51,7 +50,11 @@ const adminMenuItems: MenuItem[] = [
     image: PointsShopImage.src,
     label: "Points Shop",
   },
-  { href: "/admin/subscription", icon: CircleDollarSign , label: "Subscription" },
+  {
+    href: "/admin/subscription",
+    icon: CircleDollarSign,
+    label: "Subscription",
+  },
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
@@ -77,7 +80,11 @@ const contributorMenuItems: MenuItem[] = [
     image: PointsShopImage.src,
     label: "Points Shop",
   },
-    { href: "/contributor/subscription", icon: CircleDollarSign , label: "Subscription" },
+  {
+    href: "/contributor/subscription",
+    icon: CircleDollarSign,
+    label: "Subscription",
+  },
 
   // { href: "/contributor/profile", icon: SettingsIcon, label: "My Profile" },
 ];
@@ -124,27 +131,45 @@ export const SidebarNav = () => {
     });
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   const pathname = usePathname();
   const { isMobile, toggleSidebar } = useSidebar();
+  const [userRole, setUserRole] = useState<string>("guest");
 
-  let userRole: string;
+  useEffect(() => {
+    // Priority 1: Check cookie for authenticated user type
+    const userType = Cookies.get("user_type");
 
-  switch (true) {
-    case pathname.startsWith("/admin"):
-      userRole = "admin";
-      break;
-    case pathname.startsWith("/contributor"):
-      userRole = "contributor";
-      break;
-    case pathname.startsWith("/junior"):
-      userRole = "junior";
-      break;
-    case pathname.startsWith("/project-manager"):
-      userRole = "projectManager";
-      break;
-    default:
-      userRole = "guest";
-  }
+    if (userType) {
+      switch (userType) {
+        case "1":
+          setUserRole("admin");
+          return;
+        case "2":
+          setUserRole("junior");
+          return;
+        case "3":
+          setUserRole("contributor");
+          return;
+        case "4":
+          setUserRole("projectManager");
+          return;
+      }
+    }
+
+    // Priority 2: Fallback to pathname sniffing (useful for development/testing or if cookie is missing)
+    if (pathname.startsWith("/admin")) {
+      setUserRole("admin");
+    } else if (pathname.startsWith("/contributor")) {
+      setUserRole("contributor");
+    } else if (pathname.startsWith("/junior")) {
+      setUserRole("junior");
+    } else if (pathname.startsWith("/project/manager")) {
+      setUserRole("projectManager");
+    } else {
+      setUserRole("guest");
+    }
+  }, [pathname]);
 
   const menuItems =
     userRole === "admin"

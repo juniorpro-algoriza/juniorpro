@@ -1,9 +1,10 @@
 "use client";
+import { ModalRenderer } from "@components";
 import { userAtom } from "@atoms";
 import { SidebarLayout } from "@components/client";
 import { getData } from "@server";
 import { useAtom } from "jotai";
-import { useEffect, type ReactNode } from "react";
+import { Suspense, useEffect, type ReactNode } from "react";
 import { User } from "../../atoms/user";
 
 interface LoggedInLayoutProps {
@@ -24,7 +25,14 @@ const LoggedInLayout = ({ children }: Readonly<LoggedInLayoutProps>) => {
     data();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return <SidebarLayout>{children}</SidebarLayout>;
+  return (
+    <SidebarLayout>
+      {children}
+      <Suspense fallback={null}>
+        <ModalRenderer />
+      </Suspense>
+    </SidebarLayout>
+  );
 };
 
 export default LoggedInLayout;

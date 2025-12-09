@@ -9,7 +9,6 @@ export const modalNameSchema = z.enum([
   "AddContributor",
   "EditContributorProfile",
   "EditJuniorsProfile",
-  "AssignContributor",
   "AssignPointsForContributors",
   "AssignPointsForJuniors",
   "MissionCompleted",
