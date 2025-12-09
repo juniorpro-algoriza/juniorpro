@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+import { Suspense } from "react";
 import { Button, ProjectCard } from "@components";
 import { pickRandom } from "@utils";
 import { SearchInput } from "../../components/client";
@@ -51,7 +53,12 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
                 Add Project
               </Button>
             </Link>
-            <SearchInput className="py-2" placeholder="Search for projects..." />
+            <Suspense fallback={null}>
+              <SearchInput
+                className="py-2"
+                placeholder="Search for projects..."
+              />
+            </Suspense>
           </div>
         </div>
 

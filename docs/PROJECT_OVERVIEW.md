@@ -1992,68 +1992,49 @@ export default function Loading() {
 
 ---
 
-#### Step 4: Add Modal to ModalLink Types
+#### Step 4: Register the Modal
 
-**File:** `app/components/ModalLink.tsx`
-
-Add your new modal name to the `ModalName` type:
-
-```typescript
-export type ModalName =
-  | "AddJuniors"
-  | "EditProfile"
-  | "AddProjectManager"
-  | "CreateTask" // ← Add your new modal here
-  | "EditJuniorsProfile"
-  | "AssignPointsForJuniors";
-```
-
----
-
-#### Step 4.5: Add Modal to Schema Validation (CRITICAL)
+**1. Update Schema Validation**
 
 **File:** `app/components/schemas/modalNameSchema.ts`
 
-⚠️ **IMPORTANT:** You must also add your modal name to the Zod schema validation. Without this step, you'll get a **404 error** when trying to open the modal.
+Add your new modal name to the Zod schema. This validates the `?modal=Name` query parameter.
 
 ```typescript
-import { z } from "zod";
-
 export const modalNameSchema = z.enum([
-  "AddJuniorForContributor",
-  "EditProfile",
-  "AddProjectManager",
-  "EditProjectManagerProfile",
-  "AddJuniors",
-  "AddContributor",
-  "EditContributorProfile",
-  "EditJuniorsProfile",
-  "AssignContributor",
-  "AssignPointsForContributors",
-  "AssignPointsForJuniors",
-  "MissionCompleted",
+  // ... existing modals
   "CreateTask", // ← Add your new modal here
 ]);
 ```
 
-**Why this is needed:**
+**2. Update Modal Types**
 
-- The modal slot page (`app/(pages)/@modalSlot/(.)modal/[name]/page.tsx`) validates the modal name using this schema
-- If the name isn't in the schema, the validation fails and returns a 404
-- Both `ModalName` type and `modalNameSchema` must be kept in sync
+**File:** `app/components/types/ModalName.ts`
+
+This is automatically updated if it infers from the schema, but ensure it's in sync.
+
+**3. Register in Modal Renderer**
+
+**File:** `app/components/ModalRenderer.tsx`
+
+You **must** register your new modal component in the `Modals` map to enable dynamic loading.
+
+```typescript
+const Modals: Record<ModalName, LazyExoticComponent<ComponentType<any>>> = {
+  // ... existing modals
+  CreateTask: lazy(() =>
+    import("./modals/CreateTask").then((m) => ({ default: m.CreateTask }))
+  ),
+};
+```
 
 ---
 
 #### Step 5: Use the Modal with ModalLink
 
-The project uses **ModalLink** component with Next.js parallel routes for modal navigation.
+**File:** `app/components/ModalLink.tsx`
 
-**How it works:**
-
-1. `ModalLink` creates a link to `/modal/[ModalName]`
-2. The `@modalSlot` parallel route intercepts this URL
-3. Modal component is dynamically loaded by name
-4. Modal renders without full page navigation
+The `ModalLink` component updates the URL to include `?modal=ModalName`.
 
 **Example Usage:**
 
@@ -2071,133 +2052,28 @@ export default function ProjectPage() {
 }
 ```
 
-**ModalLink API:**
-
-```typescript
-interface ModalLinkProps {
-  children: ReactNode; // Clickable element (button, link, etc.)
-  name: ModalName; // Name of modal (must match modal folder name)
-  className?: string; // Optional CSS classes
-  query?: Record<string, string | number>; // Query parameters for modal
-}
-```
-
-**Examples from the Project:**
-
-1. **Edit Junior Profile (with query params):**
-
-```typescript
-<ModalLink name="EditJuniorsProfile" query={{ id: juniorId }}>
-  <Button intent="primary">
-    Edit Profile
-  </Button>
-</ModalLink>
-```
-
-2. **Assign Points (with user ID):**
-
-```typescript
-<ModalLink name="AssignPointsForJuniors" query={{ juniorId: id }}>
-  <Button intent="secondary" className="flex items-center gap-2">
-    <CoinsIcon size={16} />
-    Assign Points
-  </Button>
-</ModalLink>
-```
-
-3. **Add Junior (no query params):**
-
-```typescript
-<ModalLink name="AddJuniors">
-  <Button intent="primary">
-    Add Junior
-  </Button>
-</ModalLink>
-```
+**Result:**
+Clicking the button updates the URL to: `/current-page?modal=CreateTask&projectId=123`.
 
 ---
 
 #### Step 6: Access Query Params in Modal
 
-Query parameters from `ModalLink` are available via `useSearchParams()`:
-
-**Updated Modal Component:**
+Query parameters are passed **as props** to your modal component by the `ModalRenderer`.
 
 ```typescript
-"use client";
+// Define props interface
+interface CreateTaskProps {
+  projectId: string;
+}
 
-import { useState } from "react";
-import { Button, Input, Modal } from "@components";
-import { useSearchParams, useRouter } from "next/navigation";
-import { createTask } from "@server";
-import { toast } from "sonner";
+export const CreateTask = ({ projectId }: CreateTaskProps) => {
+  // Alternatively, you can use useSearchParams() hook if simpler:
+  // const searchParams = useSearchParams();
+  // const projectId = searchParams.get("projectId");
 
-export const CreateTask = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  // Get query params from URL
-  const projectId = Number(searchParams.get("projectId"));
-
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-  });
-  const [saving, setSaving] = useState(false);
-
-  const handleSave = async () => {
-    setSaving(true);
-    try {
-      await createTask({
-        ...formData,
-        projectId, // From query params
-      });
-
-      toast.success("Task created successfully!");
-      router.back(); // Close modal
-      router.refresh(); // Refresh data
-    } catch (error: any) {
-      toast.error(error.message || "Failed to create task");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  return (
-    <Modal panelClassName="w-full max-w-md p-6 bg-white rounded-2xl">
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Create Task</h2>
-
-        <Input
-          label="Title"
-          value={formData.title}
-          onChange={(e) => setFormData(prev => ({
-            ...prev,
-            title: e.target.value
-          }))}
-        />
-
-        <Button
-          intent="primary"
-          onClick={handleSave}
-          disabled={saving || !formData.title}
-          className="w-full"
-        >
-          {saving ? "Creating..." : "Create Task"}
-        </Button>
-      </div>
-    </Modal>
-  );
-};
+  // ... implementation
 ```
-
-**Key Points:**
-
-- ✅ No `onClose` or `onCreated` props needed
-- ✅ Use `router.back()` to close modal
-- ✅ Use `router.refresh()` to update server data
-- ✅ Get data from `useSearchParams()` instead of props
-- ✅ Modal closes automatically on route back
 
 ---
 
@@ -2205,74 +2081,29 @@ export const CreateTask = () => {
 
 #### Architecture Overview
 
-```
-User clicks ModalLink
-     ↓
-Navigate to /modal/CreateTask?projectId=123
-     ↓
-@modalSlot parallel route intercepts
-     ↓
-Dynamic import: components/modals/CreateTask
-     ↓
-Modal component renders with query params
-     ↓
-User submits → router.back() → Modal closes
+The project uses a **Query Parameter** based modal system. This ensures that modals persist on page refresh and always render "on top" of the current page content.
+
+```mermaid
+graph TD
+    A[User clicks ModalLink] -->|Updates URL| B[?modal=CreateTask]
+    B --> C[ModalRenderer Component]
+    C -->|Reads 'modal' param| D{Is Valid Name?}
+    D -->|Yes| E[Dynamic Import Component]
+    D -->|No| F[Render Nothing]
+    E --> G[Render Modal Overlay]
 ```
 
-#### File Structure
+#### Key Components
 
-```
-app/
-├── (pages)/
-│   └── @modalSlot/              # Parallel route slot
-│       ├── (.)modal/            # Intercept /modal routes
-│       │   └── [name]/
-│       │       └── page.tsx     # Dynamic modal loader
-│       └── default.tsx          # Default (empty) slot
-│
-├── components/
-│   ├── modals/
-│   │   ├── CreateTask/          # Your modal
-│   │   │   ├── CreateTask.tsx
-│   │   │   └── index.ts
-│   │   └── EditJuniorsProfile/
-│   │
-│   └── ModalLink.tsx            # Modal link component
-```
+1.  **ModalLink**: A wrapper around `next/link` that appends `modal=Name` to the current URL.
+2.  **ModalRenderer**: A component placed in the main `Layout`. It listens to the `useSearchParams`, validates the `modal` parameter, and dynamically loads the requested component.
+3.  **Modal**: The base UI component (Headless UI Dialog) that handles the backdrop and frame.
 
-#### Dynamic Modal Loading
+#### Benefits
 
-**File:** `app/(pages)/@modalSlot/(.)modal/[name]/page.tsx`
-
-```typescript
-const loadModal = async (name: ModalName) => {
-  const modal = await import(`../../../../components/modals/${name}`).then(
-    (module) => module[name]
-  );
-  return modal as ComponentType;
-};
-
-const ModalSlotPage = async ({ params }: ModalSlotPageProps) => {
-  const { name } = await params;
-
-  // Validate modal name
-  const parsedName = modalNameSchema.safeParse(name);
-  if (!parsedName.success) {
-    notFound();
-  }
-
-  // Dynamically load and render modal
-  const Modal = await loadModal(parsedName.data);
-  return <Modal />;
-};
-```
-
-This pattern:
-
-- ✅ Automatically imports the correct modal component
-- ✅ No manual routing needed
-- ✅ Type-safe modal names
-- ✅ Falls back to 404 for invalid names
+- **Refresh Support**: Refreshing the page reloads the modal exactly as it was.
+- **Deep Linking**: You can share a URL like `.../dashboard?modal=CreateTask` and it will open the modal for the recipient.
+- **Background Context**: The page content (sidebar, tables) remains visible behind the modal.
 
 ---
 

@@ -1,5 +1,7 @@
 export { Animate } from "./Animate";
 export { Badge } from "./Badge";
+export type { ModalName } from "./types/ModalName";
+export { ModalRenderer } from "./ModalRenderer";
 export { Button } from "./Button";
 export { Footer } from "./Footer";
 export { Input } from "./Input";
@@ -35,7 +37,14 @@ export {
   StepperTrigger,
 } from "./Stepper";
 export { CodeBlockInput } from "./CodeBlockInput";
-export { TAG_COLORS ,PATH_ICON} from "./lib/constants";
-export {Table as EnhancedTable, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "./EnhancedTable";
-
-
+export { TAG_COLORS, PATH_ICON } from "./lib/constants";
+export {
+  Table as EnhancedTable,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./EnhancedTable";
