@@ -11,12 +11,18 @@ import { components } from "../../../../../../api-schema";
 
 type Feature =
   components["schemas"]["JuniorPro.Services.DTO.FeatureModels.FeatureModel"];
+type Package =
+  components["schemas"]["JuniorPro.Services.DTO.PackageModels.GetPackageListModel"];
 
 interface PlansFeaturesTabsProps {
   features: Feature[];
+  packages: Package[];
 }
 
-export const PlansFeaturesTabs = ({ features }: PlansFeaturesTabsProps) => {
+export const PlansFeaturesTabs = ({
+  features,
+  packages,
+}: PlansFeaturesTabsProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const tabsData: TabData[] = [
@@ -29,7 +35,7 @@ export const PlansFeaturesTabs = ({ features }: PlansFeaturesTabsProps) => {
       ),
       content: (
         <React.Suspense>
-          <PlanTabs module="admin" />
+          <PlanTabs module="admin" packages={packages} />
         </React.Suspense>
       ),
     },
@@ -58,17 +64,6 @@ export const PlansFeaturesTabs = ({ features }: PlansFeaturesTabsProps) => {
               <Button intent="main2" size="mainDefault">
                 <Plus />
                 New Plan
-              </Button>
-            </ModalLink>
-          </div>
-        )}
-        {selectedIndex === 1 && (
-          <div className="flex items-start md:gap-5 gap-2 flex-wrap mb-2">
-            <SearchInput placeholder="Search for features..." />
-            <ModalLink name="CreateEditFeature">
-              <Button intent="main2" size="mainDefault">
-                <Plus />
-                New Features
               </Button>
             </ModalLink>
           </div>

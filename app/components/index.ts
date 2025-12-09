@@ -48,3 +48,4 @@ export {
   TableHeader,
   TableRow,
 } from "./EnhancedTable";
+export { Skeleton } from "./Skeleton";

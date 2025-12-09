@@ -3,8 +3,17 @@
 import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { PlanCard } from "./PlanCard";
+import { components } from "../../../api-schema";
 
-export const PlanTabs = ({ module }: { module: "admin" | "contributor" }) => {
+type Package = components["schemas"]["JuniorPro.Services.DTO.PackageModels.GetPackageListModel"];
+
+export const PlanTabs = ({ 
+  module, 
+  packages 
+}: { 
+  module: "admin" | "contributor";
+  packages: Package[];
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -20,7 +29,7 @@ export const PlanTabs = ({ module }: { module: "admin" | "contributor" }) => {
     <div>
       <div className="flex items-center justify-between gap-3 flex-wrap mb-3">
         <h3 className="text-lg font-medium">
-          Available Plans <span className="py-1 px-2 rounded-lg border border-dark-blue-main/20 ml-2 bg-blue-main/10 text-dark-blue-main font-bold text-sm">3</span>
+          Available Plans <span className="py-1 px-2 rounded-lg border border-dark-blue-main/20 ml-2 bg-blue-main/10 text-dark-blue-main font-bold text-sm">{packages.length}</span>
         </h3>
         <div className="flex items-center gap-2 px-5 py-1.5 border-2 rounded-3xl w-fit border-gray-100">
           <button
@@ -46,10 +55,14 @@ export const PlanTabs = ({ module }: { module: "admin" | "contributor" }) => {
         </div>
       </div>
       <div className="grid md:grid-cols-2 md:gap-5 gap-2">
-        <PlanCard module={module}/>
-        <PlanCard module={module}/>
-        <PlanCard module={module}/>
-        <PlanCard module={module}/>
+        {packages.map((packageItem) => (
+          <PlanCard key={packageItem.id} module={module} packageData={packageItem}/>
+        ))}
+        {packages.length === 0 && (
+          <div className="flex items-center text-gray-600">
+            No plans available.
+          </div>
+        )}
       </div>
     </div>
   );

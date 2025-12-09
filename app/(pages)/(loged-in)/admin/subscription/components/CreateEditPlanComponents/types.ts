@@ -13,10 +13,13 @@ export interface PlanFormData {
   planName: string;
   description: string;
   isActive: boolean;
+  juniorCapacity: number;
 
   // Step 2: Pricing
-  monthlyPrice: number;
-  yearlyPrice: number;
+  // monthlyPrice: number;
+  // yearlyPrice: number;
+  price: number;
+  durationType:number;
 
   // Step 3: Features
   features: PlanFeature[];

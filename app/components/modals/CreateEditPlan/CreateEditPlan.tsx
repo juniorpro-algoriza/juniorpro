@@ -5,7 +5,7 @@ import { Button, MainCard, Modal } from "@components";
 import { FormStepper } from "@components/client";
 import { ArrowRight } from "lucide-react";
 import { CloseButton } from "@headlessui/react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import {
   stepData,
   StepInfo,
@@ -13,28 +13,35 @@ import {
   StepFeatures,
   PlanFormData,
   Feature,
-  PlanPreview,
+  PlanPreview
 } from "../../../(pages)/(loged-in)/admin/subscription/components/CreateEditPlanComponents";
-import { getFeatures } from "../../../(pages)/(loged-in)/admin/server/getFeaturesData";
+
 import { toast } from "sonner";
+import { planFormSchema, step1Schema, step2Schema, step3Schema } from "../../../(pages)/(loged-in)/admin/subscription/schema";
+import { getFeatures, getPackageById, postPackages, putPackages } from "../../../(pages)/(loged-in)/admin/server";
 
 const getInitialFormData = (): PlanFormData => ({
   planName: "",
   description: "",
   isActive: true,
-  monthlyPrice: 0,
-  yearlyPrice: 0,
+  price: 0,
+  durationType: 1,
+  juniorCapacity: 0,
+  // monthlyPrice: 0,
+  // yearlyPrice: 0,
   features: [],
 });
 
 export const CreateEditPlan = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const planId = searchParams.get("planId");
   const isEditing = !!planId;
 
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState<PlanFormData>(getInitialFormData());
   const [features, setFeatures] = useState<Feature[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const loadFeatures = async () => {
@@ -52,37 +59,107 @@ export const CreateEditPlan = () => {
     loadFeatures();
   }, []);
 
+  useEffect(() => {
+    if (!isEditing || !planId) return;
+
+    const loadPlan = async () => {
+      try {
+        const id = Number(planId);
+        if (Number.isNaN(id)) return;
+
+        const data = await getPackageById({ id });
+
+        setFormData((prev) => ({
+          ...prev,
+          planName: data.packageData?.nameEn ?? "",
+          description: data.packageData?.description ?? "",
+          isActive: data.packageData?.isActivated ?? true,
+          price: data.packageData?.price ?? 0,
+          durationType: data.packageData?.durationType ?? 1,
+          juniorCapacity: data.packageData?.juniorCapacity ?? 0,
+          features: data.features?.map(feature => ({
+            featureId: feature.featureId!,
+            limitCount: feature.limitCount ?? null
+          })) || []
+        }));
+      } catch (error) {
+        console.error("Failed to load plan details:", error);
+        toast.error("Failed to load plan details");
+      }
+    };
+
+    loadPlan();
+  }, [isEditing, planId]);
+
   /** -------------------- Form Submission -------------------- **/
   const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log("Plan Submission Data:", formData);
-      toast.success("Plan created successfully!");
+      const result = planFormSchema.safeParse(formData);
+
+      if (!result.success) {
+        console.error("Plan validation failed:", result.error.issues);
+        toast.error("Please fix validation errors before submitting");
+        return;
+      }
+
+      try {
+        setIsSubmitting(true);
+        const payload = {
+          ...result.data,
+          ...(isEditing && planId
+            ? { id: Number(planId) }
+            : {}),
+        } as typeof result.data;
+
+        if (isEditing && planId) {
+          await putPackages({ data: payload });
+          toast.success("Plan updated successfully!");
+        } else {
+          await postPackages({ data: payload });
+          toast.success("Plan created successfully!");
+        }
+        router.refresh();
+        // Close modal by removing the modal query parameter
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete('modal');
+        window.history.pushState({}, '', currentUrl.toString());
+      } catch (error) {
+        console.error("Failed to create plan:", error);
+        toast.error("Failed to create plan. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     },
-    [formData]
+    [formData, router, isEditing, planId]
   );
 
   /** -------------------- Step Validation -------------------- **/
   const canProceedToNextStep = useCallback(() => {
+    let result
     switch (currentStep) {
-      case 1:
-        return (
-          formData.planName.trim() !== "" && formData.description.trim() !== ""
-        );
-      case 2:
-        return formData.monthlyPrice >= 0 && formData.yearlyPrice >= 0;
-      case 3:
-        return true; // Features step - no validation for now
-      default:
-        return true;
+      case 1:result = step1Schema.safeParse(formData);break;
+      case 2:result = step2Schema.safeParse(formData);break;
+      case 3:result = step3Schema.safeParse(formData);break;
+      default:return { success: true, message: null as string | null };
     }
+
+    if (result.success) {
+      return { success: true, message: null as string | null };
+    }
+
+    const message = result.error.issues[0]?.message ?? "Please complete required fields before continuing";
+
+    return { success: false, message };
   }, [currentStep, formData]);
 
   const handleContinue = useCallback(() => {
-    if (canProceedToNextStep()) {
+    const { success, message } = canProceedToNextStep();
+
+    if (success) {
       setCurrentStep((p) => p + 1);
     } else {
-      toast.warning("Please complete required fields before continuing");
+      toast.error(message ?? "Please complete required fields before continuing");
     }
   }, [canProceedToNextStep]);
 
@@ -156,8 +233,9 @@ export const CreateEditPlan = () => {
             size="mainDefault"
             type="submit"
             form="create-plan-form"
+            disabled={isSubmitting}
           >
-            Submit <ArrowRight className="size-5" />
+            {isSubmitting ? "Submitting..." : "Submit"} <ArrowRight className="size-5" />
           </Button>
         )}
       </div>

@@ -39,9 +39,6 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
               Description
             </TableHead>
             <TableHead className="h-14 font-semibold min-w-[100px]">Type</TableHead>
-            <TableHead className="h-14 font-semibold min-w-[100px]">
-              Actions
-            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -55,9 +52,6 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
               </TableCell>
               <TableCell className="h-20 whitespace-normal break-words">
                 {feature.type}
-              </TableCell>
-              <TableCell className="h-20 whitespace-normal break-words">
-                {/* Add action buttons here as needed */}
               </TableCell>
             </TableRow>
           ))}

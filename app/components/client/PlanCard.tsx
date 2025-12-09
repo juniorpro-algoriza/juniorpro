@@ -1,36 +1,138 @@
 import { CircleCheck, EllipsisVertical, Infinity, Users } from "lucide-react";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Button } from "../Button";
+import { components } from "../../../api-schema";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { useRouter } from "next/navigation";
+import { deletePackage } from "../../(pages)/(loged-in)/admin/server";
+import { toast } from "sonner";
+import { ModalLink } from "@components";
 
-export const PlanCard = ({ module }: { module: "admin" | "contributor" }) => {
+type Package =
+  components["schemas"]["JuniorPro.Services.DTO.PackageModels.GetPackageListModel"];
+
+export const PlanCard = ({
+  module,
+  packageData,
+}: {
+  module: "admin" | "contributor";
+  packageData: Package;
+}) => {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = useCallback(async () => {
+    if (!packageData.id) return;
+
+    try {
+      setIsDeleting(true);
+      await deletePackage({ id: packageData.id });
+      toast.success("Plan deleted successfully");
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to delete plan:", error);
+      toast.error("Failed to delete plan");
+    } finally {
+      setIsDeleting(false);
+    }
+  }, [packageData.id, router]);
+
   return (
     <div className="border-2 border-dotted border-gray-200 p-5 rounded-2xl space-y-3">
       <div className="flex justify-between items-center gap-3">
         <div className="flex items-center gap-2">
-          <p className="text-xs px-2 py-1 rounded-full border border-green-300 bg-green-100 text-green-600 font-bold">
-            Active
+          <p
+            className={`text-xs px-2 py-1 rounded-full border font-bold ${
+              packageData.isActivated
+                ? "border-green-300 bg-green-100 text-green-600"
+                : "border-gray-300 bg-gray-100 text-gray-600"
+            }`}
+          >
+            {packageData.isActivated ? "Active" : "In active"}
           </p>
-          <p className="text-xs text-gray-600">Monthly</p>
+          <p className="text-xs text-gray-600">
+            {packageData.durationType === 3
+              ? "Monthly"
+              : packageData.durationType === 4
+                ? "Annual"
+                : packageData.durationType === 1
+                  ? "Daily"
+                  : packageData.durationType === 2
+                    ? "Weekly"
+                    : "Custom"}
+          </p>
         </div>
-        <EllipsisVertical className="text-gray-600 size-4" />
+        {module === "admin" && (
+          <Menu>
+            <MenuButton className="cursor-pointer focus-visible:outline-0">
+              <EllipsisVertical className="text-gray-600 size-4" />
+            </MenuButton>
+            <MenuItems
+              anchor="bottom end"
+              className="w-40 bg-white border border-gray-200 rounded-2xl focus-visible:outline-0"
+            >
+              <MenuItem>
+                <div className="w-full text-left block data-focus:bg-blue-100 py-2 px-4 cursor-pointer text-sm">
+                  <ModalLink
+                    name="CreateEditPlan"
+                    query={
+                      packageData.id != null
+                        ? { planId: packageData.id }
+                        : undefined
+                    }
+                  >
+                    Edit
+                  </ModalLink>
+                </div>
+              </MenuItem>
+              <MenuItem disabled={isDeleting}>
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  className="w-full text-sm text-left block text-red-600 data-focus:bg-red-100 py-2 px-4 disabled:opacity-60 cursor-pointer"
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? "Deleting..." : "Delete"}
+                </button>
+              </MenuItem>
+            </MenuItems>
+          </Menu>
+        )}
       </div>
-      <h3 className="text-lg font-bold">Impact Plan</h3>
+      <h3 className="text-lg font-bold">
+        {packageData.nameEn || packageData.nameAr || "Unnamed Plan"}
+      </h3>
       <p className="text-gray-600 text-sm">
-        Organizations, schools, or youth centers
+        {packageData.description || "No description available"}
       </p>
-      {module==="contributor"&&(
+      {module === "contributor" && (
         <Button intent="main" size="mainDefault" disabled className="w-full">
-        Current Plan
-      </Button>
+          Current Plan
+        </Button>
       )}
       <hr className="border-gray-200" />
       <p className="text-2xl font-black">
-        1400 <span className="text-gray-600 text-base font-semibold">SAR</span>
+        {packageData.price || 0}{" "}
+        <span className="text-gray-600 text-base font-semibold">SAR</span>
       </p>
-      <p className="text-gray-600 text-sm">per month</p>
+      <p className="text-gray-600 text-sm">
+        per{" "}
+        {packageData.durationType === 3
+          ? "month"
+          : packageData.durationType === 4
+            ? "year"
+            : packageData.durationType === 1
+              ? "day"
+              : packageData.durationType === 2
+                ? "week"
+                : "period"}
+      </p>
       <div className="flex items-center gap-2 px-6 py-3 border border-dark-blue-main/20 rounded-3xl text-dark-blue-main bg-blue-main/10 font-medium max-lg:text-sm">
         <Users className="size-5" />
-        <span className="font-bold">10</span> Juniors
+        <span className="font-bold">
+          {packageData.juniorCapacity || 0}
+        </span>{" "}
+        Juniors
       </div>
       <div className="space-y-3">
         <p className="font-bold text-sm">Key Features</p>
@@ -49,7 +151,9 @@ export const PlanCard = ({ module }: { module: "admin" | "contributor" }) => {
               </div>
             </li>
           ))}
-          <li className="ms-7 lg:text-sm text-xs font-medium text-gray-400">+ {features.slice(5).length} more features</li>
+          <li className="ms-7 lg:text-sm text-xs font-medium text-gray-400">
+            + {features.slice(5).length} more features
+          </li>
         </ul>
       </div>
     </div>

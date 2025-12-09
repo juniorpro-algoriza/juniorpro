@@ -11,17 +11,15 @@ interface StepInfoProps {
 export const StepInfo = ({ formData, setFormData }: StepInfoProps) => {
   const handleChange = <T extends keyof PlanFormData>(
     field: T,
-    value: PlanFormData[T]
+    value: PlanFormData[T],
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
-    <div className="md:space-y-6 space-y-2 py-2">
+    <div className="space-y-2 py-2">
       <div className="space-y-1">
-        <h3 className="text-lg font-semibold">
-          Basic Information
-        </h3>
+        <h3 className="text-lg font-semibold">Basic Information</h3>
         <p className="text-sm text-gray-600">
           Essential details about this subscription plan
         </p>
@@ -41,7 +39,14 @@ export const StepInfo = ({ formData, setFormData }: StepInfoProps) => {
         onChange={(e) => handleChange("description", e.target.value)}
         rows={4}
       />
-
+      <Input
+        label="Junior Capacity *"
+        placeholder="0"
+        type="number"
+        min={0}
+        value={formData.juniorCapacity ?? ""}
+        onChange={(e) => handleChange("juniorCapacity", Number(e.target.value))}
+      />
       <div className="flex items-center justify-between flex-wrap gap-3 p-4 border border-gray-200 rounded-xl">
         <div className="space-y-1">
           <h4 className="font-medium text-midnight">Plan Status</h4>
