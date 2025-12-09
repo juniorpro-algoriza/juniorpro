@@ -76,11 +76,6 @@ const Modals: Record<ModalName, LazyExoticComponent<ComponentType<any>>> = {
       default: m.CreateEditPlan,
     }))
   ),
-  CreateEditFeature: lazy(() =>
-    import("./modals/CreateEditFeature").then((m) => ({
-      default: m.CreateEditFeature,
-    }))
-  ),
 };
 
 export const ModalRenderer = () => {

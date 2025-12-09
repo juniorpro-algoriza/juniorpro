@@ -2,7 +2,7 @@
 
 import { getFetchHeaders } from "@server";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 
 interface Props<T = unknown> {
   url: string;
@@ -52,8 +52,14 @@ export const getData = async <T>({
       if (res.status === 401) {
         const headersList = await headers();
         const currentPath = headersList.get("x-pathname") || "/";
-        // Redirect to logout route which will handle cookie deletion
-        redirect(`/auth/logout?redirect=${encodeURIComponent(currentPath)}`);
+
+        // Clear cookies to prevent middleware redirect loop
+        const cookieStore = await cookies();
+        cookieStore.delete("auth_token");
+        cookieStore.delete("user_type");
+
+        // Redirect to login
+        redirect(`/auth/login?redirect=${encodeURIComponent(currentPath)}`);
       }
 
       // Handle other errors

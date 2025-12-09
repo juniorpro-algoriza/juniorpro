@@ -32,7 +32,7 @@ export type StrictRequestBody<
 export type StrictQueryParams<
   P extends Path,
   M extends HttpMethod,
-> = paths[P][M] extends { parameters: { query: infer Q } } ? Q : never;
+> = paths[P][M] extends { parameters: { query?: infer Q } } ? Q : never;
 
 // Response type
 export type SuccessResponse<

@@ -119,11 +119,18 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
     // Handle 401 Unauthorized
     if (!response.ok && response.status === 401) {
       if (serverSide) {
+        const cookieStore = await cookies();
+        cookieStore.delete("auth_token");
+        cookieStore.delete("user_type");
+
         // Server-side redirect
         const headersList = await headers();
         const currentPath = headersList.get("x-pathname") || "/";
         redirect(`/auth/login?redirect=${encodeURIComponent(currentPath)}`);
       } else {
+        document.cookie = "auth_token=; Max-Age=0; path=/";
+        document.cookie = "user_type=; Max-Age=0; path=/";
+
         // Client-side redirect
         const currentPath = window.location.pathname;
         window.location.href = `/auth/login?redirect=${encodeURIComponent(currentPath)}`;

@@ -1,7 +1,6 @@
 "use client";
 
 import { useSidebar } from "@atoms";
-import { LogoutIcon } from "@icons";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -14,7 +13,9 @@ import CollaborationImage from "@public/images/hand-shake-icon.png";
 import ChallengesImage from "@public/images/trophy-icon.png";
 import AchievementsImage from "@public/images/medal-icon.png";
 import PointsShopImage from "@public/images/shopping-bag-icon.png";
-import { CircleDollarSign } from "lucide-react";
+import SubscriptionImage from "@public/images/subscription-icon-3d.png";
+import LogoutImage from "@public/images/logout-icon-3d.png";
+import { Skeleton } from "../../Skeleton";
 
 interface MenuItem {
   href: string;
@@ -52,7 +53,7 @@ const adminMenuItems: MenuItem[] = [
   },
   {
     href: "/admin/subscription",
-    icon: CircleDollarSign,
+    image: SubscriptionImage.src,
     label: "Subscription",
   },
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
@@ -82,7 +83,7 @@ const contributorMenuItems: MenuItem[] = [
   },
   {
     href: "/contributor/subscription",
-    icon: CircleDollarSign,
+    image: SubscriptionImage.src,
     label: "Subscription",
   },
 
@@ -131,7 +132,6 @@ export const SidebarNav = () => {
     });
   };
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   const pathname = usePathname();
   const { isMobile, toggleSidebar } = useSidebar();
   const [userRole, setUserRole] = useState<string>("guest");
@@ -217,6 +217,11 @@ export const SidebarNav = () => {
             </li>
           );
         })}
+        {menuItems.length === 0 && [...Array(7)].map((_,index) => (
+          <li key={index}>
+            <Skeleton className="h-12 rounded-xl" />
+          </li>
+        ))}
       </ul>
       {/* {userRole === "junior" && (
         <Tip
@@ -225,13 +230,19 @@ export const SidebarNav = () => {
           image={StarSingleImage.src}
         />
       )} */}
-      <div className="py-4 border-t border-border-secondary">
+      <div className="py-2 border-t border-border-secondary">
         <button
           onClick={handleLogout}
           disabled={isPending}
           className="flex items-center space-x-3 px-2 py-3 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 w-full cursor-pointer"
         >
-          <LogoutIcon />
+          <Image
+            src={LogoutImage.src}
+            alt="Logout"
+            width={28}
+            height={28}
+            className="w-6 h-auto"
+          />
           <span className="truncate">
             {isPending ? "Logging out..." : "Logout"}
           </span>

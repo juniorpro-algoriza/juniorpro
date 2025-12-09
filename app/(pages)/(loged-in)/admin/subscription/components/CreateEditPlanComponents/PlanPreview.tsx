@@ -1,6 +1,5 @@
 "use client";
 
-import { Tabs } from "@components/client";
 import { CircleCheck, Eye, InfinityIcon } from "lucide-react";
 import { Feature, PlanFormData } from "./types";
 import { useMemo } from "react";
@@ -24,30 +23,30 @@ export const PlanPreview = ({ formData, features }: PlanPreviewProps) => {
       .filter((f) => f.name !== "Unknown Feature");
   }, [formData.features, features]);
 
-  const tabs = [
-    {
-      name: "Monthly",
-      content: (
-        <div className="flex flex-col items-center mt-3">
-          <div className="text-4xl font-bold text-midnight">
-            ${formData.monthlyPrice || 0}
-          </div>
-          <div className="text-gray-600 text-sm mt-1">per month</div>
-        </div>
-      ),
-    },
-    {
-      name: "Yearly",
-      content: (
-        <div className="flex flex-col items-center mt-3">
-          <div className="text-4xl font-bold text-midnight">
-            ${formData.yearlyPrice || 0}
-          </div>
-          <div className="text-gray-600 text-sm mt-1">per year</div>
-        </div>
-      ),
-    },
-  ];
+  // const tabs = [
+  //   {
+  //     name: "Monthly",
+  //     content: (
+  //       <div className="flex flex-col items-center mt-3">
+  //         <div className="text-4xl font-bold text-midnight">
+  //           ${formData.monthlyPrice || 0}
+  //         </div>
+  //         <div className="text-gray-600 text-sm mt-1">per month</div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     name: "Yearly",
+  //     content: (
+  //       <div className="flex flex-col items-center mt-3">
+  //         <div className="text-4xl font-bold text-midnight">
+  //           ${formData.yearlyPrice || 0}
+  //         </div>
+  //         <div className="text-gray-600 text-sm mt-1">per year</div>
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
   return (
     <div className="w-[340px] rounded-3xl overflow-hidden shadow-xl border border-gray-200 bg-white max-lg:hidden">
@@ -65,7 +64,22 @@ export const PlanPreview = ({ formData, features }: PlanPreviewProps) => {
         </p>
 
         <div className="mx-auto mb-6">
-          <Tabs tabs={tabs} tabListClassName="" />
+          {/* <Tabs tabs={tabs} tabListClassName="" /> */}
+          <div className="flex flex-col items-center mt-3">
+            <div className="text-4xl font-bold text-midnight">
+              ${formData.price || 0}
+            </div>
+            <div className="text-gray-600 text-sm mt-1">
+              per{" "}
+              {formData.durationType === 1
+                ? "day"
+                : formData.durationType === 2
+                  ? "week"
+                  : formData.durationType === 3
+                    ? "month"
+                    : "year"}
+            </div>
+          </div>
         </div>
 
         <div className="w-full space-y-4">
