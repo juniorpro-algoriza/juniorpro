@@ -240,7 +240,7 @@ Users can sign up as either a **Contributor** or **Junior**.
 
 1. **User fills form** with firstName, lastName, email, password, role selection
 2. **Validation** using Zod schemas (BaseSchema or JuniorSchema)
-3. **API call** to `/contributor/sign-up` or `/junior/sign-up`
+3. **API call** to `/Enabler/sign-up` or `/junior/sign-up`
 4. **Store email in cookie** (`signup_email`) for OTP verification
 5. **Redirect** to OTP verification page
 

@@ -1,7 +1,7 @@
 import { components } from "../../../../../../../api-schema";
 
 export type Feature =
-  components["schemas"]["JuniorPro.Services.DTO.FeatureModels.FeatureModel"];
+  components["schemas"]["Sawiha.Services.DTO.FeatureModels.FeatureModel"];
 
 export interface PlanFeature {
   featureId: number;

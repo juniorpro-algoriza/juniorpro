@@ -6,6 +6,7 @@ import { DollarSign } from "lucide-react";
 interface StepPricingProps {
   formData: PlanFormData;
   setFormData: Dispatch<SetStateAction<PlanFormData>>;
+  fieldErrors?: Record<string, string>;
 }
 
 // const PricingInput = ({
@@ -31,7 +32,7 @@ interface StepPricingProps {
 //   />
 // );
 
-export const StepPricing = ({ formData, setFormData }: StepPricingProps) => {
+export const StepPricing = ({ formData, setFormData, fieldErrors = {} }: StepPricingProps) => {
   const handleChange = <T extends keyof PlanFormData>(
     field: T,
     value: PlanFormData[T],
@@ -99,6 +100,9 @@ export const StepPricing = ({ formData, setFormData }: StepPricingProps) => {
             onChange={(value) => handleChange("durationType", Number(value))}
             placeholder="Select duration type"
           />
+          {fieldErrors.durationType && (
+            <p className="text-red-500 text-sm mt-1">{fieldErrors.durationType}</p>
+          )}
         </div>
         
         <Input
@@ -112,6 +116,7 @@ export const StepPricing = ({ formData, setFormData }: StepPricingProps) => {
           helperText={`Amount charged per ${formData.durationType === 1 ? "day" : formData.durationType === 2 ? "week" : formData.durationType === 3 ? "month" : "year"}`}
           containerClassName="max-w-md"
           className="placeholder:text-3xl h-16 text-3xl font-semibold placeholder:max-md:text-3xl"
+          error={fieldErrors.price}
         />
       </div>
     </div>

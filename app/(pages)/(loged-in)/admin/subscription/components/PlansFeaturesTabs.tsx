@@ -10,9 +10,9 @@ import { FeaturesTable } from "./FeaturesTab";
 import { components } from "../../../../../../api-schema";
 
 type Feature =
-  components["schemas"]["JuniorPro.Services.DTO.FeatureModels.FeatureModel"];
+  components["schemas"]["Sawiha.Services.DTO.FeatureModels.FeatureModel"];
 type Package =
-  components["schemas"]["JuniorPro.Services.DTO.PackageModels.GetPackageListModel"];
+  components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"];
 
 interface PlansFeaturesTabsProps {
   features: Feature[];

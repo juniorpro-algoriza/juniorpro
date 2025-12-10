@@ -10,7 +10,7 @@ import {
 import { components } from "../../../../../../api-schema";
 
 type Feature =
-  components["schemas"]["JuniorPro.Services.DTO.FeatureModels.FeatureModel"];
+  components["schemas"]["Sawiha.Services.DTO.FeatureModels.FeatureModel"];
 
 interface FeaturesTableProps {
   features: Feature[];

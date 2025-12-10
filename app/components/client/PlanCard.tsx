@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { ModalLink } from "@components";
 
 type Package =
-  components["schemas"]["JuniorPro.Services.DTO.PackageModels.GetPackageListModel"];
+  components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"];
 
 export const PlanCard = ({
   module,
@@ -48,7 +48,7 @@ export const PlanCard = ({
                 : "border-gray-300 bg-gray-100 text-gray-600"
             }`}
           >
-            {packageData.isActivated ? "Active" : "In active"}
+            {packageData.isActivated ? "Active" : "In Active"}
           </p>
           <p className="text-xs text-gray-600">
             {packageData.durationType === 3
@@ -72,7 +72,7 @@ export const PlanCard = ({
               className="w-40 bg-white border border-gray-200 rounded-2xl focus-visible:outline-0"
             >
               <MenuItem>
-                <div className="w-full text-left block data-focus:bg-blue-100 py-2 px-4 cursor-pointer text-sm">
+                <div className="data-focus:bg-blue-100">
                   <ModalLink
                     name="CreateEditPlan"
                     query={
@@ -81,7 +81,9 @@ export const PlanCard = ({
                         : undefined
                     }
                   >
-                    Edit
+                    <div className="w-full text-left block py-2 px-4 cursor-pointer text-sm">
+                      Edit
+                    </div>
                   </ModalLink>
                 </div>
               </MenuItem>
