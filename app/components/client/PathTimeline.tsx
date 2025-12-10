@@ -13,7 +13,13 @@ import { cx } from "@lib";
 import { ArrowRight, CircleCheck, Clock, Lock } from "lucide-react";
 import Link from "next/link";
 import { XpAndPoints } from "@components/client";
-export const PathTimeline = ({ pathId }: { pathId: string }) => {
+export const PathTimeline = ({
+  pathId,
+  module,
+}: {
+  pathId: string;
+  module: "admin" | "junior";
+}) => {
   return (
     <Timeline>
       {items.map((item) => (
@@ -28,7 +34,9 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
             <TimelineIndicator
               className={cx(
                 "group-data-[orientation=vertical]/timeline:-left-7 flex size-10 items-center justify-center border-none group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground shadow-main p-1",
-                item.status === "locked" ? "bg-gray-100 opacity-50" : "bg-white"
+                item.status === "locked"
+                  ? "bg-gray-100 opacity-50"
+                  : "bg-white",
               )}
             >
               {item.status === "completed" && (
@@ -37,7 +45,7 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
                 </div>
               )}
 
-              {item.status === "current" && (
+              {(item.status === "current" ||!item.status) && (
                 <div className="w-full h-full rounded-full bg-[#4F39F6] flex items-center justify-center text-white">
                   {item.id}
                 </div>
@@ -82,19 +90,23 @@ export const PathTimeline = ({ pathId }: { pathId: string }) => {
                   </div>
                 )}
               </div>
-              {item.status === "completed" ? (
-                <Link href={`/junior/paths/${pathId}/${item.id}`}>
-                  <Button intent="main" size="mainDefault">
-                    Review Mission <ArrowRight className="size-4" />
-                  </Button>
-                </Link>
-              ) : item.status === "current" ? (
-                <Link href={`/junior/paths/${pathId}/${item.id}`}>
-                  <Button intent="main2" size="mainDefault">
-                    CONTINUE <ArrowRight className="size-4" />
-                  </Button>
-                </Link>
-              ) : null}
+              {module === "junior" && (
+                <>
+                  {item.status === "completed" ? (
+                    <Link href={`/${module}/paths/${pathId}/${item.id}`}>
+                      <Button intent="main" size="mainDefault">
+                        Review Mission <ArrowRight className="size-4" />
+                      </Button>
+                    </Link>
+                  ) : item.status === "current" ? (
+                    <Link href={`/${module}/paths/${pathId}/${item.id}`}>
+                      <Button intent="main2" size="mainDefault">
+                        CONTINUE <ArrowRight className="size-4" />
+                      </Button>
+                    </Link>
+                  ) : null}
+                </>
+              )}
             </MainCard>
           </TimelineContent>
         </TimelineItem>

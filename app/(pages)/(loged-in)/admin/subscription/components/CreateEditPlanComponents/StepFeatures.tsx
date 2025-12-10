@@ -137,7 +137,7 @@ export const StepFeatures = ({
                       }}
                       containerClassName="max-w-[200px]"
                       className="h-10 text-sm"
-                      helperText="Enter 0 for unlimited"
+                      // helperText="Enter 0 for unlimited"
                     />
                   </div>
                 )}

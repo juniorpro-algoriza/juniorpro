@@ -1709,6 +1709,7 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
+                    DurationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
                     PageNumber?: number;
                     PageSize?: number;
                     SearchText?: string;
@@ -1865,6 +1866,45 @@ export interface paths {
             };
         };
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/feature/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
         options?: never;
         head?: never;
         patch?: never;
@@ -3138,6 +3178,7 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
+                    DurationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
                     PageNumber?: number;
                     PageSize?: number;
                     SearchText?: string;
@@ -5296,6 +5337,11 @@ export interface components {
          * Format: int32
          * @enum {integer}
          */
+        "Sawiha.CrossCutting.Model.Entities.FeatureKey": 1 | 2;
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
         "Sawiha.CrossCutting.Model.Entities.JoinProjectStatus": 1 | 2 | 3 | 4;
         "Sawiha.CrossCutting.Model.Entities.Junior": {
             /** Format: int64 */
@@ -5958,6 +6004,9 @@ export interface components {
             nameEn?: string | null;
             description?: string | null;
             type?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.FeatureType"];
+            key?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.FeatureKey"];
+            /** Format: int32 */
+            usedInPlan?: number;
         };
         "Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel": {
             /** Format: int64 */
@@ -6266,8 +6315,7 @@ export interface components {
             /** Format: int32 */
             duration?: number;
             durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
-            /** Format: int32 */
-            features?: number;
+            features?: components["schemas"]["Sawiha.Services.DTO.PackageModels.PackageFeaturesDetailsModel"][] | null;
         };
         "Sawiha.Services.DTO.PackageModels.PackageDetails": {
             packageData?: components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"];
@@ -6283,6 +6331,7 @@ export interface components {
             nameEn?: string | null;
             description?: string | null;
             type?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.FeatureType"];
+            key?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.FeatureKey"];
         };
         "Sawiha.Services.DTO.PathModels.AddLearningPathModel": {
             /** Format: int64 */
@@ -6305,6 +6354,8 @@ export interface components {
             totalXP?: number;
             /** Format: int32 */
             totalPoints?: number;
+            /** Format: int32 */
+            juniors?: number;
         };
         "Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel": {
             /** Format: int64 */
@@ -6319,6 +6370,8 @@ export interface components {
             totalXP?: number;
             /** Format: int32 */
             totalPoints?: number;
+            /** Format: int32 */
+            juniors?: number;
             /** Format: double */
             progressPercentage?: number;
         };

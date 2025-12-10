@@ -1,6 +1,7 @@
 import { Breadcrumb } from "@components";
-import { PathHeader, PathTimeline } from "../components";
+import { PathHeader } from "../components";
 import Code3d from "@public/images/code-3d.png";
+import { PathTimeline } from "@components/client";
 
 export default async function PathPage({
   params,
@@ -33,7 +34,7 @@ export default async function PathPage({
           description="Learn HTML, CSS, and build your first websites"
           progress={80}
         />
-        <PathTimeline pathId={id} />
+        <PathTimeline pathId={id} module="junior"/>
       </div>
     </>
   );

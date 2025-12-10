@@ -3,11 +3,11 @@
 import { customFetch } from "@server/lib";
 
 export async function getLearningPathById({ id }: { id: number }) {
-  const packages = customFetch("/learning-path-management/{id}", {
+  const learningPath = customFetch("/learning-path-management/{id}", {
     method: "get",
     path: {
       id,
     },
   });
-  return packages;
+  return learningPath;
 }
