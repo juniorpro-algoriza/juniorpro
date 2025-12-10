@@ -16,6 +16,7 @@ const SubscriptionPage = async ({ searchParams }: { searchParams: Promise<{ quer
   // get packages
   const packagesResponse = await getPackages({
     SearchText: searchText,
+    
   });
   const packages = packagesResponse.data || [];
   // consoles

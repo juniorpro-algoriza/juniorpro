@@ -1,11 +1,5 @@
 "use client";
-import {
-  Button,
-  Input,
-  MainCard,
-  PATH_ICON,
-  Textarea,
-} from "@components";
+import { Button, Input, MainCard, PATH_ICON, Textarea } from "@components";
 import Image from "next/image";
 import React, { useState, useCallback, FormEvent } from "react";
 import { ArrowRight } from "lucide-react";
@@ -164,11 +158,7 @@ export const PathCreateEdit = ({
           </div>
         </MainCard>
       </form>
-      {isEditing && (
-        <LearningJourneyCard
-        //  pathId={pathId}
-          />
-      )}
+      {isEditing && <LearningJourneyCard pathId={pathId} />}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <Button
           intent="main"

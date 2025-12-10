@@ -51,7 +51,7 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
                 {feature.description}
               </TableCell>
               <TableCell className="h-20 whitespace-normal break-words">
-                {feature.type}
+                {feature.key==1 ?"Count":"Boolean"}
               </TableCell>
             </TableRow>
           ))}

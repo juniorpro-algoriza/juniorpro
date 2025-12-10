@@ -138,43 +138,56 @@ export const PlanCard = ({
       </div>
       <div className="space-y-3">
         <p className="font-bold text-sm">Key Features</p>
-        <ul className="space-y-2">
-          {features.slice(0, 5).map((feature) => (
-            <li key={feature} className="flex items-center justify-between">
-              <div className="flex items-center gap-2 max-lg:text-sm">
-                <CircleCheck className="lg:size-5 size-4 text-dark-blue-main" />
-                {feature}
-              </div>
-              <div className="p-1 border rounded-lg border-dark-blue-main/20 bg-blue-main/10">
-                <Infinity
-                  className="lg:size-5 size-4 text-dark-blue-main"
-                  strokeWidth={3}
-                />
-              </div>
-            </li>
-          ))}
-          <li className="ms-7 lg:text-sm text-xs font-medium text-gray-400">
-            + {features.slice(5).length} more features
-          </li>
-        </ul>
+        <div className="space-y-1">
+            {packageData.features && packageData.features.length > 0 ? (
+              packageData?.features?.slice(0, 4).map((feature, idx) => (
+                <div key={idx} className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <CircleCheck className="size-5 text-blue-600 fill-blue-600/10" />
+                    <span className="text-midnight font-medium text-sm">
+                      {feature.nameEn}
+                    </span>
+                  </div>
+                  <div className="bg-blue-50 px-2 py-1 rounded text-blue-600">
+                    {feature.limitCount === 0 || feature.limitCount === null ? (
+                      <Infinity className="size-4" />
+                    ) : (
+                      <span className="text-xs font-bold">
+                        {feature.limitCount}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-gray-400 italic">
+                No features selected
+              </p>
+            )}
+            {packageData.features && packageData.features.length > 4 && (
+              <p className="text-sm text-gray-400 italic">
+                +{packageData.features.length - 4} more features
+              </p>
+            )}
+          </div>
       </div>
     </div>
   );
 };
-const features = [
-  "Free Missions Access",
-  "Unlimited Mission Attempts",
-  "Advanced Progress Tracking",
-  "Personalized Learning Paths",
-  "Analytics Dashboard for Juniors",
-  "Weekly Performance Reports",
-  "Access to Premium Challenges",
-  "Custom Assignments Creation",
-  "Team Management Tools",
-  "Mentor Collaboration Support",
-  "Priority Email Support",
-  "Certificates of Completion",
-  "Activity Heatmap Overview",
-  "Role-Based Permissions",
-  "Integrations with Google Classroom & Microsoft Teams",
-];
+// const features = [
+//   "Free Missions Access",
+//   "Unlimited Mission Attempts",
+//   "Advanced Progress Tracking",
+//   "Personalized Learning Paths",
+//   "Analytics Dashboard for Juniors",
+//   "Weekly Performance Reports",
+//   "Access to Premium Challenges",
+//   "Custom Assignments Creation",
+//   "Team Management Tools",
+//   "Mentor Collaboration Support",
+//   "Priority Email Support",
+//   "Certificates of Completion",
+//   "Activity Heatmap Overview",
+//   "Role-Based Permissions",
+//   "Integrations with Google Classroom & Microsoft Teams",
+// ];

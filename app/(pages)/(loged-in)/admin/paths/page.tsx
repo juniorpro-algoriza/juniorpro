@@ -62,6 +62,9 @@ const PathsPage = async ({ searchParams }: { searchParams: Promise<{ query?: str
           {paths?.map((path) => (
             <PathCard key={path.id} path={path} userType="admin" />
           ))}
+          {paths?.length === 0 && (
+            <p className="text-gray-600">No paths found.</p>
+          )}
         </div>
       </div>
     </>
