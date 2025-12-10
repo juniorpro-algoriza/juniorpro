@@ -21,7 +21,7 @@ export const testimonials = [
     id: 2,
     title: "From Complete Novice to Full-Stack Developer",
     content:
-      "Emma had never written a line of code before joining JuniorPro. Within 18 months, she built her first web application and landed her dream internship at a tech startup. The structured learning path and amazing community support made all the difference in her journey.",
+      "Emma had never written a line of code before joining Sawiha. Within 18 months, she built her first web application and landed her dream internship at a tech startup. The structured learning path and amazing community support made all the difference in her journey.",
     name: "Emma Rodriguez",
     age: "16 Years",
     avatar: avatarImage,

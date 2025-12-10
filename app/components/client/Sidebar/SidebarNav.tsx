@@ -1,29 +1,21 @@
 "use client";
 
 import { useSidebar } from "@atoms";
-import {
-  // ChatIcon,
-  DiamondIcon,
-  DocumentIcon,
-  FolderDetailsIcon,
-  HomeIcon,
-  LogoutIcon,
-  UserIcon,
-  UserManagerIcon,
-  UsersIcon,
-} from "@icons";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "../../../(pages)/auth/server";
-import { useTransition, ComponentType } from "react";
-import HomeImage from "@public/images/home-icon.png"
-import MissionsImage from "@public/images/rocket-icon.png"
-import CollaborationImage from "@public/images/collaboration-icon.png"
-import ChallengesImage from "@public/images/trophy-icon.png"
-import AchievementsImage from "@public/images/medal-icon.png"
-import PointsShopImage from "@public/images/shopping-bag-icon.png"
-import StarSingleImage from "@public/images/star-single.png"
+import { useTransition, ComponentType, useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import HomeImage from "@public/images/home-icon.png";
+import MyJourneyImage from "@public/images/map-icon.png";
+import CollaborationImage from "@public/images/hand-shake-icon.png";
+import ChallengesImage from "@public/images/trophy-icon.png";
+import AchievementsImage from "@public/images/medal-icon.png";
+import PointsShopImage from "@public/images/shopping-bag-icon.png";
+import SubscriptionImage from "@public/images/subscription-icon-3d.png";
+import LogoutImage from "@public/images/logout-icon-3d.png";
+import { Skeleton } from "../../Skeleton";
 
 interface MenuItem {
   href: string;
@@ -33,43 +25,98 @@ interface MenuItem {
 }
 
 const adminMenuItems: MenuItem[] = [
-  { href: "/admin/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/admin/junior", icon: UserIcon, label: "Juniors" },
+  { href: "/admin/dashboard", image: HomeImage.src, label: "Dashboard" },
   {
-    href: "/admin/contributor",
-    icon: UsersIcon,
-    label: "Contributors",
+    href: "/admin/paths",
+    image: MyJourneyImage.src,
+    label: "Learning Paths",
   },
   {
-    href: "/admin/project-manager",
-    icon: UserManagerIcon,
-    label: "Project Managers",
+    href: "/admin/collaboration",
+    image: CollaborationImage.src,
+    label: "Collaboration",
   },
-  { href: "/admin/projects", icon: FolderDetailsIcon, label: "Projects" },
-  // { href: "/admin/schedule", icon: CalendarIcon, label: "Schedule" },
+  {
+    href: "/admin/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
+    href: "/admin/achievements",
+    image: AchievementsImage.src,
+    label: "Achievements",
+  },
+  {
+    href: "/admin/points-shop",
+    image: PointsShopImage.src,
+    label: "Points Shop",
+  },
+  {
+    href: "/admin/subscription",
+    image: SubscriptionImage.src,
+    label: "Subscription",
+  },
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
 const contributorMenuItems: MenuItem[] = [
-  { href: "/contributor/dashboard", icon: HomeIcon, label: "Dashboard" },
-  { href: "/contributor/juniors", icon: UserIcon, label: "Juniors" },
+  { href: "/contributor/dashboard", image: HomeImage.src, label: "Dashboard" },
   {
-    href: "/contributor/projects",
-    icon: DocumentIcon,
-
-    label: "Projects",
+    href: "/contributor/paths",
+    image: MyJourneyImage.src,
+    label: "Learning Paths",
   },
-  { href: "/contributor/points", icon: DiamondIcon, label: "Points" },
+  {
+    href: "/contributor/collaboration",
+    image: CollaborationImage.src,
+    label: "Collaboration",
+  },
+  {
+    href: "/contributor/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
+    href: "/contributor/points-shop",
+    image: PointsShopImage.src,
+    label: "Points Shop",
+  },
+  {
+    href: "/contributor/subscription",
+    image: SubscriptionImage.src,
+    label: "Subscription",
+  },
+
   // { href: "/contributor/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
 const juniorMenuItems: MenuItem[] = [
   { href: "/junior/dashboard", image: HomeImage.src, label: "Dashboard" },
-  { href: "/junior/missions", image: MissionsImage.src, label: "Missions" },
-  { href: "/junior/collaboration", image: CollaborationImage.src, label: "Collaboration" },
-  { href: "/junior/challenges", image: ChallengesImage.src, label: "Challenges" },
-  { href: "/junior/achievements", image: AchievementsImage.src, label: "Achievements" },
-  { href: "/junior/points-shop", image: PointsShopImage.src, label: "Points Shop" },
+  {
+    href: "/junior/paths",
+    image: MyJourneyImage.src,
+    label: "Learning Paths",
+  },
+  {
+    href: "/junior/collaboration",
+    image: CollaborationImage.src,
+    label: "Collaboration",
+  },
+  {
+    href: "/junior/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
+    href: "/junior/achievements",
+    image: AchievementsImage.src,
+    label: "Achievements",
+  },
+  {
+    href: "/junior/points-shop",
+    image: PointsShopImage.src,
+    label: "Points Shop",
+  },
   // { href: "/junior/projects", icon: DocumentIcon, label: "Projects" },
   // { href: "/junior/chat", icon: ChatIcon, label: "Chat" },
   // { href: "/junior/schedule", icon: CalendarIcon, label: "Schedule" },
@@ -87,25 +134,42 @@ export const SidebarNav = () => {
 
   const pathname = usePathname();
   const { isMobile, toggleSidebar } = useSidebar();
+  const [userRole, setUserRole] = useState<string>("guest");
 
-  let userRole: string;
+  useEffect(() => {
+    // Priority 1: Check cookie for authenticated user type
+    const userType = Cookies.get("user_type");
 
-  switch (true) {
-    case pathname.startsWith("/admin"):
-      userRole = "admin";
-      break;
-    case pathname.startsWith("/contributor"):
-      userRole = "contributor";
-      break;
-    case pathname.startsWith("/junior"):
-      userRole = "junior";
-      break;
-    case pathname.startsWith("/project-manager"):
-      userRole = "projectManager";
-      break;
-    default:
-      userRole = "guest";
-  }
+    if (userType) {
+      switch (userType) {
+        case "1":
+          setUserRole("admin");
+          return;
+        case "2":
+          setUserRole("junior");
+          return;
+        case "3":
+          setUserRole("contributor");
+          return;
+        case "4":
+          setUserRole("projectManager");
+          return;
+      }
+    }
+
+    // Priority 2: Fallback to pathname sniffing (useful for development/testing or if cookie is missing)
+    if (pathname.startsWith("/admin")) {
+      setUserRole("admin");
+    } else if (pathname.startsWith("/contributor")) {
+      setUserRole("contributor");
+    } else if (pathname.startsWith("/junior")) {
+      setUserRole("junior");
+    } else if (pathname.startsWith("/project/manager")) {
+      setUserRole("projectManager");
+    } else {
+      setUserRole("guest");
+    }
+  }, [pathname]);
 
   const menuItems =
     userRole === "admin"
@@ -138,29 +202,47 @@ export const SidebarNav = () => {
                   ${active ? "bg-violet-light text-violet-normal" : "text-yankees-blue hover:bg-gray-100"}
                 `}
               >
-                {item.image && <Image src={item.image} alt={item.label} width={28} height={28} className="w-6 h-auto" />}
+                {item.image && (
+                  <Image
+                    src={item.image}
+                    alt={item.label}
+                    width={28}
+                    height={28}
+                    className="w-6 h-auto"
+                  />
+                )}
                 {Icon && <Icon />}
                 <p className="truncate">{item.label}</p>
               </Link>
             </li>
           );
         })}
+        {menuItems.length === 0 && [...Array(7)].map((_,index) => (
+          <li key={index}>
+            <Skeleton className="h-12 rounded-xl" />
+          </li>
+        ))}
       </ul>
-
-      <div className="border border-[#C6D2FF] bg-[#EEF2FF] rounded-3xl p-3  my-7  flex items-center justify-center gap-3">
-        <Image src={StarSingleImage.src} alt="star" width={40} height={40} />
-        <div className="space-y-1">
-          <p className="font-bold text-sm">Daily Tip</p>
-          <p className="font-medium text-sm text-gray-600">Practice daily, even if just for 10 minutes. Consistency wins!</p>
-        </div>
-      </div>
-      <div className="py-4 border-t border-border-secondary">
+      {/* {userRole === "junior" && (
+        <Tip
+          title="Daily Tip"
+          description="Practice daily, even if just for 10 minutes. Consistency wins!"
+          image={StarSingleImage.src}
+        />
+      )} */}
+      <div className="py-2 border-t border-border-secondary">
         <button
           onClick={handleLogout}
           disabled={isPending}
           className="flex items-center space-x-3 px-2 py-3 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 w-full cursor-pointer"
         >
-          <LogoutIcon />
+          <Image
+            src={LogoutImage.src}
+            alt="Logout"
+            width={28}
+            height={28}
+            className="w-6 h-auto"
+          />
           <span className="truncate">
             {isPending ? "Logging out..." : "Logout"}
           </span>

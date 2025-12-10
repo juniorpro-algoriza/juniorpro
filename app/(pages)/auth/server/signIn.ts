@@ -67,8 +67,29 @@ export const signIn = async (
 
   // Handle redirect if present, i used for join project flow
   if (redirectUrl) {
-    if (join) redirect(`${redirectUrl}?join=${join}`);
-    redirect(redirectUrl);
+    // Role map for validation
+    const roleMap: Record<string, number> = {
+      "/admin": 1,
+      "/junior": 2,
+      "/contributor": 3,
+      "/project/manager": 4,
+    };
+    
+    // Check if user is authorized for the redirect destination
+    let isAuthorized = true;
+    for (const [prefix, requiredType] of Object.entries(roleMap)) {
+      if (redirectUrl.startsWith(prefix) && userType !== requiredType) {
+        isAuthorized = false;
+        break;
+      }
+    }
+    
+    // Only redirect if authorized
+    if (isAuthorized) {
+      if (join) redirect(`${redirectUrl}?join=${join}`);
+      redirect(redirectUrl);
+    }
+    // If not authorized, fall through to default dashboard redirect
   }
 
   // Default redirects

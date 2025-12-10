@@ -1,19 +1,9 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
+"use client";
 
-export type ModalName =
-  | "AddJuniors"
-  | "EditProfile"
-  | "AddProjectManager"
-  | "EditJuniors"
-  | "EditProjectManagerProfile"
-  | "AddJuniorForContributor"
-  | "AddContributor"
-  | "AssignContributor"
-  | "EditContributorProfile"
-  | "AssignPointsForContributors"
-  | "AssignPointsForJuniors"
-  | "EditJuniorsProfile";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import type { ReactNode } from "react";
+import type { ModalName } from "./types/ModalName";
 
 interface ModalLinkProps {
   children: ReactNode;
@@ -28,18 +18,28 @@ export const ModalLink = ({
   className,
   query,
 }: ModalLinkProps) => {
-  const searchParams = query
-    ? "?" +
-      new URLSearchParams(
-        Object.entries(query).map(([key, value]) => [key, value.toString()])
-      ).toString()
-    : "";
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Create new params based on current ones
+  const newParams = new URLSearchParams(searchParams.toString());
+
+  // Set the modal name
+  newParams.set("modal", name);
+
+  // Set any additional query parameters
+  if (query) {
+    Object.entries(query).forEach(([key, value]) => {
+      newParams.set(key, value.toString());
+    });
+  }
 
   return (
     <Link
       className={className}
-      href={`/modal/${name}${searchParams}`}
+      href={`${pathname}?${newParams.toString()}`}
       scroll={false}
+      replace={false}
     >
       {children}
     </Link>

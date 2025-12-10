@@ -1,5 +1,15 @@
+-401 error handling
+-renaming components folder _ in start
 -remove un used pages like projects page
 -Icons files to be all the same
+--apply prittier and husky
+--remove icons that can be replaces by lucide
 - remove 
 --<DashboardProjects />
 --<DashboardTasks />
+--unused images
+--un wanted pages in junior portal
+--export const dynamic = "force-dynamic";
+--un used icons after changing it to images
+--buttons un wanted variants
+-- /* eslint-disable @typescript-eslint/no-explicit-any */
