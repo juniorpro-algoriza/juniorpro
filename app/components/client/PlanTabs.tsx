@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { PlanCard } from "./PlanCard";
 import { components } from "../../../api-schema";
 
-type Package = components["schemas"]["JuniorPro.Services.DTO.PackageModels.GetPackageListModel"];
+type Package = components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"];
 
 export const PlanTabs = ({ 
   module, 

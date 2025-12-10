@@ -55,7 +55,7 @@ export const signUp = async (
   }
 
   const url =
-    signInAs === "contributor" ? "contributor/sign-up" : "junior/sign-up";
+    signInAs === "contributor" ? "Enabler/sign-up" : "junior/sign-up";
 
   try {
     const payload: payloadType = {

@@ -2,12 +2,8 @@
 
 import { customFetch } from "@server/lib";
 
-export async function getPackages({
-  SearchText,
-}: {
-  SearchText: string;
-}) {
-  const packages = customFetch("/Enabler-package", {
+export async function getLearningPaths({SearchText}:{SearchText?:string}) {
+  const features = customFetch("/learning-path-management", {
     method: "get",
     params: {
       PageNumber: 1,
@@ -15,5 +11,5 @@ export async function getPackages({
       SearchText,
     },
   });
-  return packages;
+  return features;
 }

@@ -10,12 +10,14 @@ interface StepFeaturesProps {
   formData: PlanFormData;
   setFormData: Dispatch<SetStateAction<PlanFormData>>;
   features: Feature[];
+  fieldErrors?: Record<string, string>;
 }
 
 export const StepFeatures = ({
   formData,
   setFormData,
   features,
+  fieldErrors = {},
 }: StepFeaturesProps) => {
   const isFeatureSelected = (featureId: number) => {
     return formData.features.some((f) => f.featureId === featureId);
@@ -63,6 +65,12 @@ export const StepFeatures = ({
           Select features to include in this plan and set their limits
         </p>
       </div>
+
+      {fieldErrors.features && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+          <p className="text-red-600 text-sm">{fieldErrors.features}</p>
+        </div>
+      )}
 
       <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
         {features.map((feature) => {

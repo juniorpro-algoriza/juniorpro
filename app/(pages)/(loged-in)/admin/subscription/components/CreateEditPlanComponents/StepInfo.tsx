@@ -6,9 +6,10 @@ import { Dispatch, SetStateAction } from "react";
 interface StepInfoProps {
   formData: PlanFormData;
   setFormData: Dispatch<SetStateAction<PlanFormData>>;
+  fieldErrors?: Record<string, string>;
 }
 
-export const StepInfo = ({ formData, setFormData }: StepInfoProps) => {
+export const StepInfo = ({ formData, setFormData, fieldErrors = {} }: StepInfoProps) => {
   const handleChange = <T extends keyof PlanFormData>(
     field: T,
     value: PlanFormData[T],
@@ -30,6 +31,7 @@ export const StepInfo = ({ formData, setFormData }: StepInfoProps) => {
         placeholder="Pro Plan"
         value={formData.planName}
         onChange={(e) => handleChange("planName", e.target.value)}
+        error={fieldErrors.planName}
       />
 
       <Textarea
@@ -38,6 +40,7 @@ export const StepInfo = ({ formData, setFormData }: StepInfoProps) => {
         value={formData.description}
         onChange={(e) => handleChange("description", e.target.value)}
         rows={4}
+        error={fieldErrors.description}
       />
       <Input
         label="Junior Capacity *"
@@ -46,6 +49,7 @@ export const StepInfo = ({ formData, setFormData }: StepInfoProps) => {
         min={0}
         value={formData.juniorCapacity ?? ""}
         onChange={(e) => handleChange("juniorCapacity", Number(e.target.value))}
+        error={fieldErrors.juniorCapacity}
       />
       <div className="flex items-center justify-between flex-wrap gap-3 p-4 border border-gray-200 rounded-xl">
         <div className="space-y-1">

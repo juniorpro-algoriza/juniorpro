@@ -1,12 +1,29 @@
 import React, { Suspense } from "react";
 import { Header, PathCard } from "@components/client";
-import { Breadcrumb, Button } from "@components";
+import { Breadcrumb, Button, PATH_ICON } from "@components";
 import { Plus } from "lucide-react";
 import { PathsFilters } from "./components";
-import Code3DImage from "@public/images/code-3d.png";
+import { getLearningPaths } from "../server/paths/getLearningPaths";
 import Link from "next/link";
+import { components } from "../../../../../api-schema";
 
-const PathsPage = () => {
+const PathsPage = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
+  // Get search text from query parameters
+  const resolvedSearchParams = await searchParams;
+  const searchText = resolvedSearchParams.query || "";
+  const getLearningPathsResponse = await getLearningPaths({SearchText:searchText});
+
+  const paths =
+    getLearningPathsResponse.data?.map((path: components["schemas"]["Sawiha.Services.DTO.PathModels.GetLearningPathListModel"]) => ({
+      id: path.id || 0,
+      image: PATH_ICON[String(path.icon) as keyof typeof PATH_ICON],
+      title: path.nameEn || path.nameAr || "Untitled Path",
+      description: path.description || "No description available",
+      missions: path.missionsCount || 0,
+      xp: path.totalXP || 0,
+      points: path.totalPoints || 0,
+    })) || [];
+
   return (
     <>
       <Breadcrumb
@@ -42,7 +59,7 @@ const PathsPage = () => {
           <PathsFilters />
         </Suspense>
         <div className="grid md:grid-cols-2 gap-5">
-          {paths.map((path) => (
+          {paths?.map((path) => (
             <PathCard key={path.id} path={path} userType="admin" />
           ))}
         </div>
@@ -52,24 +69,3 @@ const PathsPage = () => {
 };
 
 export default PathsPage;
-
-const paths = [
-  {
-    id: 2,
-    image: Code3DImage.src,
-    title: "Python Programming",
-    description: "Connect your apps to real-world data and services",
-    missions: 2,
-    xp: 25,
-    points: 12,
-  },
-  {
-    id: 3,
-    image: Code3DImage.src,
-    title: "API Integration",
-    description: "Connect your apps to real-world data and services",
-    missions: 2,
-    xp: 25,
-    points: 12,
-  },
-];

@@ -42,6 +42,7 @@ export const CreateEditPlan = () => {
   const [formData, setFormData] = useState<PlanFormData>(getInitialFormData());
   const [features, setFeatures] = useState<Feature[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const loadFeatures = async () => {
@@ -98,10 +99,18 @@ export const CreateEditPlan = () => {
       const result = planFormSchema.safeParse(formData);
 
       if (!result.success) {
+        const errors: Record<string, string> = {};
+        result.error.issues.forEach((issue) => {
+          const fieldName = String(issue.path[0]);
+          errors[fieldName] = issue.message;
+        });
+        setFieldErrors(errors);
         console.error("Plan validation failed:", result.error.issues);
         toast.error("Please fix validation errors before submitting");
         return;
       }
+
+      setFieldErrors({});
 
       try {
         setIsSubmitting(true);
@@ -148,6 +157,13 @@ export const CreateEditPlan = () => {
       return { success: true, message: null as string | null };
     }
 
+    const errors: Record<string, string> = {};
+    result.error.issues.forEach((issue) => {
+      const fieldName = String(issue.path[0]);
+      errors[fieldName] = issue.message;
+    });
+    setFieldErrors(errors);
+
     const message = result.error.issues[0]?.message ?? "Please complete required fields before continuing";
 
     return { success: false, message };
@@ -157,6 +173,7 @@ export const CreateEditPlan = () => {
     const { success, message } = canProceedToNextStep();
 
     if (success) {
+      setFieldErrors({});
       setCurrentStep((p) => p + 1);
     } else {
       toast.error(message ?? "Please complete required fields before continuing");
@@ -189,16 +206,17 @@ export const CreateEditPlan = () => {
       >
         <MainCard isAnimated classname="space-y-2 flex-1">
           {currentStep === 1 && (
-            <StepInfo formData={formData} setFormData={setFormData} />
+            <StepInfo formData={formData} setFormData={setFormData} fieldErrors={fieldErrors} />
           )}
           {currentStep === 2 && (
-            <StepPricing formData={formData} setFormData={setFormData} />
+            <StepPricing formData={formData} setFormData={setFormData} fieldErrors={fieldErrors} />
           )}
           {currentStep === 3 && (
             <StepFeatures
               formData={formData}
               setFormData={setFormData}
               features={features}
+              fieldErrors={fieldErrors}
             />
           )}
         </MainCard>
