@@ -11,7 +11,6 @@ import { Tip } from "@components/client";
 import React, { useState } from "react";
 import LambImage from "@public/images/lamb.png";
 import { ExternalLink, Link2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import RocketImage from "@public/images/rocket-icon.png";
 
@@ -20,7 +19,6 @@ export const SubmitYourWork = ({
 }: {
   isSubmitted?: boolean;
 }) => {
-  const router = useRouter();
   const [showSolution, setShowSolution] = useState(false);
 
   return !isSubmitted ? (
