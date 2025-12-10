@@ -1,5 +1,12 @@
 "use client";
-import { Animate, Button, Input, MainCard, Textarea } from "@components";
+import {
+  Animate,
+  Button,
+  Input,
+  MainCard,
+  ModalLink,
+  Textarea,
+} from "@components";
 import { Tip } from "@components/client";
 import React, { useState } from "react";
 import LambImage from "@public/images/lamb.png";
@@ -50,15 +57,11 @@ export const SubmitYourWork = ({
           isOneLiner
           className="mt-0 mb-5"
         />
-        <Button
-          type="button"
-          intent="main2"
-          size="mainLg"
-          className="w-full"
-          onClick={() => router.push("/modal/MissionCompleted")}
-        >
-          Submit Mission
-        </Button>
+        <ModalLink name="MissionCompleted">
+          <Button type="button" intent="main2" size="mainLg" className="w-full">
+            Submit Mission
+          </Button>
+        </ModalLink>
       </form>
     </MainCard>
   ) : (
