@@ -3,14 +3,20 @@ import { Header, PlanTabs } from "@components/client";
 import React from "react";
 import { getPackages } from "../server";
 
-const SubscriptionPage = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
+const SubscriptionPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ query?: string; period?: "month" | "year" }>;
+}) => {
   // Get search text from query parameters
   const resolvedSearchParams = await searchParams;
   const searchText = resolvedSearchParams.query || "";
+  const period = resolvedSearchParams.period || "month";
 
   // get packages
   const packagesResponse = await getPackages({
     SearchText: searchText,
+    DurationType: period,
   });
   const packages = packagesResponse.data || [];
   return (

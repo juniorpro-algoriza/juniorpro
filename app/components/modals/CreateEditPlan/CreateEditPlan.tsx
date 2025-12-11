@@ -25,7 +25,7 @@ const getInitialFormData = (): PlanFormData => ({
   description: "",
   isActive: true,
   price: 0,
-  durationType: 1,
+  durationType: 3,
   juniorCapacity: 0,
   // monthlyPrice: 0,
   // yearlyPrice: 0,
@@ -120,6 +120,7 @@ export const CreateEditPlan = () => {
             ? { id: Number(planId) }
             : {}),
         } as typeof result.data;
+        console.log("payload" , payload)
 
         if (isEditing && planId) {
           await putPackages({ data: payload });

@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@components";
 import { components } from "../../../../../../api-schema";
+import { FEATURE_TYPE } from "../../../../../components/lib/constants";
 
 type Feature =
   components["schemas"]["Sawiha.Services.DTO.FeatureModels.FeatureModel"];
@@ -51,7 +52,7 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
                 {feature.description}
               </TableCell>
               <TableCell className="h-20 whitespace-normal break-words">
-                {feature.key==1 ?"Count":"Boolean"}
+                {FEATURE_TYPE[feature.key as keyof typeof FEATURE_TYPE]}
               </TableCell>
             </TableRow>
           ))}

@@ -92,8 +92,8 @@ export const StepPricing = ({ formData, setFormData, fieldErrors = {} }: StepPri
           <Select
             value={formData.durationType.toString()}
             options={[
-              { value: "1", label: "Daily" },
-              { value: "2", label: "Weekly" },
+              // { value: "1", label: "Daily" },
+              // { value: "2", label: "Weekly" },
               { value: "3", label: "Monthly" },
               { value: "4", label: "Annual" },
             ]}
