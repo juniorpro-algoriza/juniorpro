@@ -31,7 +31,7 @@ export const AddContributor = ({ onAdded, onClose }: AddContributorProps) => {
   // Fetch project managers for the dropdown
   useEffect(() => {
     const fetchPMs = async () => {
-      const data = await getLookup("project-manager/look-ups");
+      const data = await getLookup("/project-manager/look-ups");
       setProjectManagers(data);
     };
     fetchPMs();

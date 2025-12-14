@@ -37,7 +37,7 @@ export {
   StepperTrigger,
 } from "./Stepper";
 export { CodeBlockInput } from "./CodeBlockInput";
-export { TAG_COLORS, PATH_ICON } from "./lib/constants";
+export { TAG_COLORS, PATH_ICON, REASOUCES_TYPE, FEATURE_TYPE } from "./lib/constants";
 export {
   Table as EnhancedTable,
   TableBody,

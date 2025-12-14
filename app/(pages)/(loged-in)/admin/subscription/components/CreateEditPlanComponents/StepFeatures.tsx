@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
-import { Checkbox, Field, Label } from "@headlessui/react";
+import { Checkbox, Field, Label, Switch } from "@headlessui/react";
 import { Input } from "@components";
 import { PlanFormData, Feature } from "./types";
 import { cx } from "@lib";
@@ -29,15 +29,22 @@ export const StepFeatures = ({
     );
   };
 
-  const handleToggleFeature = (featureId: number, checked: boolean) => {
+  const isFeatureUnlimited = (featureId: number) => {
+    const feature = formData.features.find((f) => f.featureId === featureId);
+    return feature?.limitCount === null;
+  };
+
+  const handleToggleFeature = (featureId: number, checked: boolean, featureKey?: number) => {
     if (checked) {
       setFormData((prev) => {
         if (prev.features.some((f) => f.featureId === featureId)) {
           return prev;
         }
+        // Set limitCount to null (unlimited) for features where key is not 1
+        const limitCount = featureKey !== 1 ? null : 0;
         return {
           ...prev,
-          features: [...prev.features, { featureId, limitCount: 0 }],
+          features: [...prev.features, { featureId, limitCount }],
         };
       });
     } else {
@@ -55,6 +62,14 @@ export const StepFeatures = ({
         f.featureId === featureId ? { ...f, limitCount: limit } : f
       ),
     }));
+  };
+
+  const handleUnlimitedToggle = (featureId: number, isUnlimited: boolean) => {
+    if (isUnlimited) {
+      handleLimitChange(featureId, null);
+    } else {
+      handleLimitChange(featureId, 0);
+    }
   };
 
   return (
@@ -90,7 +105,7 @@ export const StepFeatures = ({
               <Checkbox
                 checked={isSelected}
                 onChange={(checked) =>
-                  handleToggleFeature(feature.id!, checked)
+                  handleToggleFeature(feature.id!, checked, feature.key)
                 }
                 className="group block size-5 rounded border bg-white data-[checked]:bg-blue-main data-[checked]:border-blue-main duration-200 mt-1"
               >
@@ -121,24 +136,46 @@ export const StepFeatures = ({
                 </div>
 
                 {isSelected && (
-                  <div className="pt-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <Input
-                      label="Limit Count"
-                      type="number"
-                      min={0}
-                      placeholder="e.g. 5"
-                      value={getFeatureLimit(feature.id) ?? ""}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        handleLimitChange(
-                          feature.id!,
-                          val === "" ? null : Number(val)
-                        );
-                      }}
-                      containerClassName="max-w-[200px]"
-                      className="h-10 text-sm"
-                      // helperText="Enter 0 for unlimited"
-                    />
+                  <div className="pt-2 animate-in fade-in slide-in-from-top-2 duration-200 space-y-3">
+                    {feature.key === 1 && (
+                      <div className="flex items-center gap-3">
+                        <Switch
+                          checked={isFeatureUnlimited(feature.id)}
+                          onChange={(checked) => handleUnlimitedToggle(feature.id!, checked)}
+                          className={`${
+                            isFeatureUnlimited(feature.id) ? "bg-blue-main" : "bg-gray-200"
+                          } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none`}
+                        >
+                          <span
+                            className={`${
+                              isFeatureUnlimited(feature.id) ? "translate-x-6" : "translate-x-1"
+                            } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+                          />
+                        </Switch>
+                        <Label className="text-sm font-medium text-gray-700">
+                          Unlimited
+                        </Label>
+                      </div>
+                    )}
+
+                    {feature.key === 1 && !isFeatureUnlimited(feature.id) && (
+                      <Input
+                        label="Limit Count"
+                        type="number"
+                        min={0}
+                        placeholder="e.g. 5"
+                        value={getFeatureLimit(feature.id) ?? ""}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          handleLimitChange(
+                            feature.id!,
+                            val === "" ? null : Number(val)
+                          );
+                        }}
+                        containerClassName="max-w-[200px]"
+                        className="h-10 text-sm"
+                      />
+                    )}
                   </div>
                 )}
               </div>

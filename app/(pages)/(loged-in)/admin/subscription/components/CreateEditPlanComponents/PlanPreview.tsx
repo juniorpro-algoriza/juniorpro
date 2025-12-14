@@ -18,6 +18,7 @@ export const PlanPreview = ({ formData, features }: PlanPreviewProps) => {
           ...f,
           name: featureDetails?.nameEn || "Unknown Feature",
           description: featureDetails?.description,
+          key: featureDetails?.key,
         };
       })
       .filter((f) => f.name !== "Unknown Feature");
@@ -96,15 +97,17 @@ export const PlanPreview = ({ formData, features }: PlanPreviewProps) => {
                       {feature.name}
                     </span>
                   </div>
-                  <div className="bg-blue-50 px-2 py-1 rounded text-blue-600">
-                    {feature.limitCount === 0 || feature.limitCount === null ? (
-                      <InfinityIcon className="size-4" />
-                    ) : (
-                      <span className="text-xs font-bold">
-                        {feature.limitCount}
-                      </span>
-                    )}
-                  </div>
+                  {feature.key === 1 && (
+                    <div className="bg-blue-50 px-2 py-1 rounded text-blue-600">
+                      {feature.limitCount === null ? (
+                        <InfinityIcon className="size-4" />
+                      ) : (
+                        <span className="text-xs font-bold">
+                          {feature.limitCount}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))
             ) : (

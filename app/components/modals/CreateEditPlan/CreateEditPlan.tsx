@@ -25,7 +25,7 @@ const getInitialFormData = (): PlanFormData => ({
   description: "",
   isActive: true,
   price: 0,
-  durationType: 1,
+  durationType: 3,
   juniorCapacity: 0,
   // monthlyPrice: 0,
   // yearlyPrice: 0,
@@ -120,6 +120,7 @@ export const CreateEditPlan = () => {
             ? { id: Number(planId) }
             : {}),
         } as typeof result.data;
+        console.log("payload" , payload)
 
         if (isEditing && planId) {
           await putPackages({ data: payload });
@@ -180,6 +181,10 @@ export const CreateEditPlan = () => {
     }
   }, [canProceedToNextStep]);
 
+  const handleBack = useCallback(() => {
+    setCurrentStep((prev) => Math.max(1, prev - 1));
+  }, []);
+
   return (
     <Modal panelClassName="w-full max-w-5xl p-6 bg-white rounded-2xl shadow-xl max-h-[95dvh]">
       <div className="border-b border-gray-100 pb-2 space-y-5 ">
@@ -234,28 +239,42 @@ export const CreateEditPlan = () => {
           </Button>
         </CloseButton>
 
-        {currentStep !== 3 ? (
-          <Button
-            key="continue-btn"
-            intent="main2"
-            size="mainDefault"
-            onClick={handleContinue}
-            type="button"
-          >
-            CONTINUE <ArrowRight className="size-5" />
-          </Button>
-        ) : (
-          <Button
-            key="submit-btn"
-            intent="main2"
-            size="mainDefault"
-            type="submit"
-            form="create-plan-form"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Submit"} <ArrowRight className="size-5" />
-          </Button>
-        )}
+        <div className="flex gap-2">
+          {currentStep > 1 && (
+            <Button
+              intent="main"
+              size="mainDefault"
+              onClick={handleBack}
+              type="button"
+              key="back-button"
+            >
+              Back
+            </Button>
+          )}
+          
+          {currentStep !== 3 ? (
+            <Button
+              key="continue-btn"
+              intent="main2"
+              size="mainDefault"
+              onClick={handleContinue}
+              type="button"
+            >
+              CONTINUE <ArrowRight className="size-5" />
+            </Button>
+          ) : (
+            <Button
+              key="submit-btn"
+              intent="main2"
+              size="mainDefault"
+              type="submit"
+              form="create-plan-form"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"} <ArrowRight className="size-5" />
+            </Button>
+          )}
+        </div>
       </div>
     </Modal>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Header } from "@components/client";
-import { PathCreateEdit } from "../components";
+import { PathCreateEdit } from "../_components";
 import { Breadcrumb } from "@components";
 import { getLearningPathById } from "../../server/paths/getLearningPathById";
 

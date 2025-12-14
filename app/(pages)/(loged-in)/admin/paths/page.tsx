@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Header, PathCard } from "@components/client";
 import { Breadcrumb, Button, PATH_ICON } from "@components";
 import { Plus } from "lucide-react";
-import { PathsFilters } from "./components";
+import { PathsFilters } from "./_components";
 import { getLearningPaths } from "../server/paths/getLearningPaths";
 import Link from "next/link";
 import { components } from "../../../../../api-schema";

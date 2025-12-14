@@ -27,3 +27,13 @@ export const TAG_COLORS = {
   Challenge: "bg-[#CC39BC]/5 text-[#CC39BC] border-[#CC39BC]/20",
   Collaboration: "bg-[#D08700]/5 text-[#D08700] border-[#D08700]/20",
 };
+export const FEATURE_TYPE={
+  1:"Count",
+  2:"Boolean"
+}
+export const REASOUCES_TYPE={
+  1:"Document",
+  2:"Videa",
+  3:"Article",
+  4:"Exercise"
+}

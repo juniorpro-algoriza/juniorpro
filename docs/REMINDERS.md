@@ -1,4 +1,6 @@
--401 error handling
+react query and hooks for forms (1st)
+remove modal closing and reloading (1st)
+-401 error handling (done)
 -renaming components folder _ in start
 -remove un used pages like projects page
 -Icons files to be all the same

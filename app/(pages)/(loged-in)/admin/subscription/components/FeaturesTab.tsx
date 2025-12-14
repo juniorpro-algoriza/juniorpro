@@ -1,5 +1,6 @@
 import {
   EnhancedTable,
+  FEATURE_TYPE,
   MainCard,
   TableBody,
   TableCell,
@@ -51,7 +52,7 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
                 {feature.description}
               </TableCell>
               <TableCell className="h-20 whitespace-normal break-words">
-                {feature.key==1 ?"Count":"Boolean"}
+                {FEATURE_TYPE[feature.key as keyof typeof FEATURE_TYPE]}
               </TableCell>
             </TableRow>
           ))}
