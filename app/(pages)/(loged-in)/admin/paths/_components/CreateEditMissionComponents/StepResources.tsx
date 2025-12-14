@@ -1,7 +1,15 @@
-import { Button, Input, MainCard, Select } from "@components";
+import { Button, Input, MainCard, REASOUCES_TYPE, Select } from "@components";
 import { Plus, XIcon } from "lucide-react";
 import { Resource } from "./types";
-import { durationOptions } from "./data";
+import { Lookup } from "@types";
+
+const convertToNumber = (value: string | null | number, allowNull = false): number | null => {
+  if (value === null || value === undefined || value === "") {
+    return allowNull ? null : 0;
+  }
+  const num = Number(value);
+  return isNaN(num) ? (allowNull ? null : 0) : num;
+};
 
 interface StepResourcesProps {
   resources: Resource[];
@@ -12,6 +20,8 @@ interface StepResourcesProps {
     value: Resource[K]
   ) => void;
   removeResource: (id: string) => void;
+  durationOptions: Lookup[];
+  fieldErrors?: Record<string, string>;
 }
 
 export const StepResources = ({
@@ -19,6 +29,8 @@ export const StepResources = ({
   addResource,
   updateResource,
   removeResource,
+  durationOptions,
+  fieldErrors = {}
 }: StepResourcesProps) => (
   <div className="space-y-2 max-h-[550px] overflow-y-auto">
     <div className="flex items-center justify-between flex-wrap gap-3">
@@ -47,31 +59,37 @@ export const StepResources = ({
           <div className="p-5 space-y-2 grid sm:grid-cols-2 sm:gap-3">
             <Input
               label="Resource Title"
-              name={`resources[${index}][title]`}
-              value={resource.title}
+              name={`learningResources[${index}][titleEn]`}
+              value={resource.titleEn}
               onChange={(e) =>
-                updateResource(resource.id, "title", e.target.value)
+                updateResource(resource.id, "titleEn", e.target.value)
               }
               placeholder="e.g. Create the file"
+              error={fieldErrors[`learningResources.${index}.titleEn`]}
             />
-            <Input
+            <Select
               label="Resource Type"
-              name={`resources[${index}][type]`}
+              options={Object.entries(REASOUCES_TYPE).map(([key, value]) => ({
+                label: value,
+                value: Number(key)
+              }))}
               value={resource.type}
-              onChange={(e) =>
-                updateResource(resource.id, "type", e.target.value)
+              onChange={(value: string | number) =>
+                updateResource(resource.id, "type", Number(value) as 1 | 2 | 3 | 4)
               }
-              placeholder="eg: Video "
+              placeholder="Select type"
+              error={fieldErrors[`learningResources.${index}.type`]}
             />
 
             <Input
               label="URL"
-              name={`resources[${index}][url]`}
+              name={`learningResources[${index}][url]`}
               value={resource.url}
               onChange={(e) =>
                 updateResource(resource.id, "url", e.target.value)
               }
               placeholder="e.g. https://www.youtube.com/watch?v=..."
+              error={fieldErrors[`learningResources.${index}.url`]}
             />
             <Select
               label={
@@ -82,11 +100,11 @@ export const StepResources = ({
               }
               options={durationOptions}
               value={resource.duration}
-              onChange={(value: string | number) =>
+              onChange={(value) =>
                 updateResource(
                   resource.id,
                   "duration",
-                  value ? String(value) : null
+                  convertToNumber(value, true)
                 )
               }
               placeholder="Select duration"

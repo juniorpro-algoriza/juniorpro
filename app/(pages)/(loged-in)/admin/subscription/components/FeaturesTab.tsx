@@ -1,5 +1,6 @@
 import {
   EnhancedTable,
+  FEATURE_TYPE,
   MainCard,
   TableBody,
   TableCell,
@@ -8,7 +9,6 @@ import {
   TableRow,
 } from "@components";
 import { components } from "../../../../../../api-schema";
-import { FEATURE_TYPE } from "../../../../../components/lib/constants";
 
 type Feature =
   components["schemas"]["Sawiha.Services.DTO.FeatureModels.FeatureModel"];

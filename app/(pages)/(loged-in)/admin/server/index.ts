@@ -15,3 +15,8 @@ export { postLearningPath } from "./paths/postLearningPath";
 export { putLearningPath } from "./paths/putLearningPath";
 export { getLearningPathById } from "./paths/getLearningPathById";
 export { deleteLearningPath } from "./paths/deleteLearningPath";
+export { getMissionsById } from "./missions/getMissionsById";
+export { postMission } from "./missions/postMissions";
+export { putMission } from "./missions/putMissions";
+export { getMissions } from "./missions/getMissions";
+export { deleteMission } from "./missions/deleteMissions";

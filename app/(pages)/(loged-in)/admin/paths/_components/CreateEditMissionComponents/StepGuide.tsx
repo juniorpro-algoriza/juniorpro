@@ -7,6 +7,7 @@ interface StepGuideProps {
   addGuideStep: () => void;
   removeGuideStep: (id: string) => void;
   updateGuideStep: (id: string, key: keyof GuideStep, value: string) => void;
+  fieldErrors?: Record<string, string>;
 }
 
 export const StepGuide = ({
@@ -14,6 +15,7 @@ export const StepGuide = ({
   addGuideStep,
   removeGuideStep,
   updateGuideStep,
+  fieldErrors = {},
 }: StepGuideProps) => (
   <div className="space-y-2 max-h-[550px] overflow-y-auto">
     <div className="flex items-center justify-between flex-wrap gap-3">
@@ -42,12 +44,13 @@ export const StepGuide = ({
           <div className="p-5 space-y-2">
             <Input
               label="Step Name"
-              name={`steps[${index}][title]`}
-              value={step.title}
+              name={`steps[${index}][titleEn]`}
+              value={step.titleEn}
               onChange={(e) =>
-                updateGuideStep(step.id, "title", e.target.value)
+                updateGuideStep(step.id, "titleEn", e.target.value)
               }
               placeholder="e.g., Setup Environment"
+              error={fieldErrors[`steps.${index}.titleEn`]}
             />
             <Input
               label="Description"
@@ -57,6 +60,7 @@ export const StepGuide = ({
                 updateGuideStep(step.id, "description", e.target.value)
               }
               placeholder="Describe the step..."
+              error={fieldErrors[`steps.${index}.description`]}
             />
             <CodeBlockInput
               label="Code Reference"

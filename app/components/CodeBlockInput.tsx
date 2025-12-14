@@ -7,6 +7,7 @@ interface CodeBlockInputProps {
   placeholder?: string;
   name?: string;
   className?: string;
+  error?:string  
 }
 
 export const CodeBlockInput = ({
@@ -16,6 +17,7 @@ export const CodeBlockInput = ({
   placeholder,
   name,
   className,
+  error
 }: CodeBlockInputProps) => {
   return (
     <div>
@@ -38,6 +40,11 @@ export const CodeBlockInput = ({
           className={`w-full bg-transparent text-sm px-4 py-3 border-0 focus:ring-0 whitespace-pre-wrap text-gray-600 ${className}`}
         />
       </div>
+      {error && (
+        <p className="text-sm text-red-600 mt-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

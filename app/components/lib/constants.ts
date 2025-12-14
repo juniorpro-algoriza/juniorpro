@@ -31,3 +31,9 @@ export const FEATURE_TYPE={
   1:"Count",
   2:"Boolean"
 }
+export const REASOUCES_TYPE={
+  1:"Document",
+  2:"Videa",
+  3:"Article",
+  4:"Exercise"
+}

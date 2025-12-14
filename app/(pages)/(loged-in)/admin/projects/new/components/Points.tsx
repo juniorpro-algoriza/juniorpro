@@ -17,7 +17,7 @@ export const Points = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const data: Lookup[] = await getLookup("Lookup/Skill");
+        const data: Lookup[] = await getLookup("/Lookup/Skill");
         setSkillOptions(data || []);
       } catch (err) {
         console.error("Failed to load skills:", err);

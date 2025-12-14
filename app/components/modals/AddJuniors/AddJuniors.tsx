@@ -34,7 +34,7 @@ export const AddJuniors = ({ onAdded, onClose }: AddJuniorProps) => {
   // Fetch contributors list (unless contributorId was passed)
   useEffect(() => {
     const fetchContributors = async () => {
-      const data = await getLookup("Contributor/look-ups");
+      const data = await getLookup("/Enabler/look-ups");
       setContributors(data);
     };
     fetchContributors();
