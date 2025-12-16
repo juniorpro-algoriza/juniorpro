@@ -60,7 +60,7 @@ const PathsPage = async ({ searchParams }: { searchParams: Promise<{ query?: str
         </Suspense>
         <div className="grid md:grid-cols-2 gap-5">
           {paths?.map((path) => (
-            <PathCard key={path.id} path={path} userType="admin" />
+            <PathCard key={path.id} path={path} userType="admin" cardLink={`/admin/paths/${path.id}`} />
           ))}
           {paths?.length === 0 && (
             <p className="text-gray-600">No paths found.</p>

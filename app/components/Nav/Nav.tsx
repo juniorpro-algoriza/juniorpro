@@ -28,7 +28,7 @@ export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between bg-white px-6 py-4 shadow-sm ">
+    <nav className="sticky top-0 z-40 flex items-center justify-between bg-white px-6 py-4 shadow-sm ">
       {/* Logo on the left */}
       <div className="flex items-center gap-8">
         <Link href="/">

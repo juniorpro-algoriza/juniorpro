@@ -22,8 +22,13 @@ export const RecommendedForYou = ({
       </h2>
       <div className="grid xl:grid-cols-3 sm:grid-cols-2 gap-5">
         {paths.map((path) => (
-          <PathCard key={path.id} path={path} userType="junior" />
+          <PathCard key={path.id} path={path} userType="junior" hasJoinButton cardLink={`/junior/paths/${path.id}`} />
         ))}
+        {paths.length === 0 && (
+          <p className="ms-4 text-gray-600">
+            No recommended paths found.
+          </p>
+        )}
       </div>
     </div>
   );

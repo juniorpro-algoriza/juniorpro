@@ -22,8 +22,13 @@ export const MyCurrentPath = ({
       </h2>
       <div className="grid xl:grid-cols-3 sm:grid-cols-2 gap-5">
         {paths.map((path) => (
-          <PathCard key={path.id} path={path} userType="junior" cardClassName="border-dark-blue-main" />
+          <PathCard key={path.id} path={path} userType="junior" cardClassName="border-dark-blue-main" cardLink={`/junior/paths/${path.id}/current`} />
         ))}
+        {paths.length === 0 && (
+          <p className="ms-4 text-gray-600">
+            No current paths found.
+          </p>
+        )}
       </div>
     </div>
   );

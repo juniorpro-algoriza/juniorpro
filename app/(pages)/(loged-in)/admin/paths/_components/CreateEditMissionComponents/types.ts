@@ -22,6 +22,7 @@ export interface Criteria {
 
 export interface MissionFormData {
   nameEn: string;
+  nameAr: string;
   description: string;
   durationId: number;
   levelId: number;

@@ -1,10 +1,19 @@
 import { Header, Tip } from "@components/client";
 import React from "react";
 import StarGroup from "@public/images/3d-star-group.png";
-import Code3d from "@public/images/code-3d.png";
 import { MyCurrentPath, RecommendedForYou } from "./components";
-import { Breadcrumb } from "@components";
-const MyJourneyPage = () => {
+import { Breadcrumb, PATH_ICON } from "@components";
+import {
+  getJuniorsLearningPaths,
+  getJuniorsLearningPathCurrent,
+} from "../server";
+const MyJourneyPage = async () => {
+  // Fetch current learning path
+  const currentPathData = await getJuniorsLearningPathCurrent({});
+
+  // Fetch all available learning paths (already filtered by backend)
+  const allPathsData = await getJuniorsLearningPaths({});
+  const recommendedPaths = allPathsData?.data || [];
   return (
     <>
       <Breadcrumb
@@ -32,41 +41,35 @@ const MyJourneyPage = () => {
           imageClassname="w-16"
         />
       </div>
+
       <MyCurrentPath
-        paths={[
-          {
-            id: 1,
-            image: Code3d.src,
-            title: "Web Development Basics",
-            description: "Learn HTML, CSS, and build your first websites",
-            progress: 80,
-            missions: 2,
-            xp: 25,
-            points: 12,
-          },
-        ]}
+        paths={
+          currentPathData?.data
+            ?.map((path) => ({
+              id: path.id || 0,
+              image: PATH_ICON[String(path.id) as keyof typeof PATH_ICON],
+              title: path.nameEn || path.nameAr || "Learning Path",
+              description: path.description || "Learn new skills",
+              progress: path.progressPercentage || 0,
+              missions: path.missionsCount || 0,
+              xp: path.totalXP || 0,
+              points: path.totalPoints || 0,
+            }))
+            .filter((path) => path.id !== 0) || []
+        }
       />
       <RecommendedForYou
-        paths={[
-          {
-            id: 2,
-            image: Code3d.src,
-            title: "Python Programming",
-            description: "Connect your apps to real-world data and services",
-            missions: 2,
-            xp: 25,
-            points: 12,
-          },
-          {
-            id: 3,
-            image: Code3d.src,
-            title: "API Integration",
-            description: "Connect your apps to real-world data and services",
-            missions: 2,
-            xp: 25,
-            points: 12,
-          },
-        ]}
+        paths={recommendedPaths
+          .map((path) => ({
+            id: path.id || 0,
+            image: PATH_ICON[String(path.id) as keyof typeof PATH_ICON],
+            title: path.nameEn || path.nameAr || "Learning Path",
+            description: path.description || "Learn new skills",
+            missions: path.missionsCount || 0,
+            xp: path.totalXP || 0,
+            points: path.totalPoints || 0,
+          }))
+          .filter((path) => path.id !== 0)}
       />
     </>
   );

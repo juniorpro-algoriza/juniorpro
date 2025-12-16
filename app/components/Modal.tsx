@@ -36,7 +36,11 @@ export const Modal = ({
     setContainerStyle("opacity-0");
     setPanelStyle("translate-y-full");
     await sleep(0.5);
-    router.back();
+    
+    // Remove all query parameters when closing modal
+    const currentUrl = new URL(window.location.href);
+    currentUrl.search = '';
+    router.push(currentUrl.pathname + currentUrl.hash);
   };
 
   useEffect(() => {
