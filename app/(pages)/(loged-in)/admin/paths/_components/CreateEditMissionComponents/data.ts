@@ -31,6 +31,7 @@ export const defaultCriteria = (): Criteria => ({
 
 export const INITIAL_FORM_DATA: MissionFormData = {
   nameEn: "",
+  nameAr: "",
   description: "",
   durationId: 0,
   levelId: 0,

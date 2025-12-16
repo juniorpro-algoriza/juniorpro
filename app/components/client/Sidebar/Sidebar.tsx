@@ -36,14 +36,14 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
       {isMobile && isOpen && (
         <div
-          className="fixed inset-0 bg-black/60 bg-opacity-50 z-20 lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 bg-opacity-50 z-40 lg:hidden transition-opacity duration-300"
           onClick={closeSidebar}
         />
       )}
 
       <aside
         className={`
-          w-85 bg-white border-r border-bright-gray fixed z-20 h-screen transition-all duration-300 ease-in-out
+          w-85 bg-white border-r border-bright-gray fixed z-40 h-screen transition-all duration-300 ease-in-out
           ${isMobile
             ? isOpen
               ? "translate-x-0"

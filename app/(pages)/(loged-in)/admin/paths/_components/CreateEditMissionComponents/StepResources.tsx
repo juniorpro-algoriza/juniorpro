@@ -70,7 +70,7 @@ export const StepResources = ({
             <Select
               label="Resource Type"
               options={Object.entries(REASOUCES_TYPE).map(([key, value]) => ({
-                label: value,
+                label: value.title,
                 value: Number(key)
               }))}
               value={resource.type}

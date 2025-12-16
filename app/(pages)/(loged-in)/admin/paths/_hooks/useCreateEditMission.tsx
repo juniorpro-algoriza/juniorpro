@@ -67,6 +67,7 @@ export const useCreateEditMission = (
           if (missionData) {
             const transformedData: MissionFormData = {
               nameEn: missionData.missionDetails?.nameEn || "",
+              nameAr: missionData.missionDetails?.nameAr || "",
               description: missionData.missionDetails?.description || "",
               durationId: missionData.missionDetails?.durationId || 0,
               levelId: missionData.missionDetails?.levelId || 0,
@@ -104,11 +105,17 @@ export const useCreateEditMission = (
     fetchMissionData();
   }, [isEditing, missionId]);
 
-  const createStepData = (formData: MissionFormData) => ({
-    missionDetails: {
-      ...(missionId ? { id: parseInt(missionId, 10) } : {}),
-      ...(pathId ? { pathId: parseInt(pathId, 10) } : {}),
-      nameEn: formData.nameEn,
+  const createStepData = (formData: MissionFormData) => {
+    if (!pathId) {
+      throw new Error("Path ID is required for mission creation/editing");
+    }
+    
+    return {
+      missionDetails: {
+        ...(missionId ? { id: parseInt(missionId, 10) } : {}),
+        pathId: parseInt(pathId, 10),
+        nameEn: formData.nameEn,
+        nameAr: formData.nameEn,
       description: formData.description,
       durationId: formData.durationId,
       levelId: formData.levelId,
@@ -130,7 +137,8 @@ export const useCreateEditMission = (
     successCriterias: formData.criteria.map(({ id: _id, ...criteria }) => ({
       description: criteria.label,
     })),
-  });
+  };
+};
 
   const mapValidationErrors = (
     issues: ValidationIssue[],

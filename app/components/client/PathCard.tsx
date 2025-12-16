@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useCallback, useState } from "react";
 import { MainCard } from "../MainCard";
 import Image from "next/image";
-import { EllipsisVertical, Target } from "lucide-react";
+import { ArrowRight, EllipsisVertical, Target } from "lucide-react";
 import LightningImage from "@public/images/lightning-icon-2.png";
 import DiamondImage from "@public/images/diamond-icon-2.png";
 import { Progress } from "../Progress";
@@ -11,11 +11,15 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { deleteLearningPath } from "../../(pages)/(loged-in)/admin/server";
+import { postJuniorsLearningPathJoin } from "../../(pages)/(loged-in)/junior/server";
+import { Button } from "../Button";
 
 export const PathCard = ({
   path,
   userType,
   cardClassName,
+  hasJoinButton,
+  cardLink,
 }: {
   path: {
     id: number;
@@ -29,61 +33,105 @@ export const PathCard = ({
   };
   userType: "junior" | "admin" | "project/manager" | "contributor";
   cardClassName?: string;
+  hasJoinButton?: boolean;
+  cardLink?: string;
 }) => {
-    const router = useRouter();
-    const [isDeleting, setIsDeleting] = useState(false);
-  
-    const handleDelete = useCallback(async () => {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isJoining, setIsJoining] = useState(false);
+
+  const handleJoin = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault(); // Prevent navigation
+      e.stopPropagation();
+
       if (!path.id) return;
-  
+
       try {
-        setIsDeleting(true);
-        await deleteLearningPath({ id: path.id });
-        toast.success("Path deleted successfully");
+        setIsJoining(true);
+        await postJuniorsLearningPathJoin({ id: path.id });
+        toast.success("Successfully joined the learning path!");
         router.refresh();
       } catch (error) {
-        console.error("Failed to delete path:", error);
-        toast.error("Failed to delete path");
+        console.error("Failed to join path:", error);
+        toast.error("Failed to join learning path");
       } finally {
-        setIsDeleting(false);
+        setIsJoining(false);
       }
-    }, [path.id, router]);
+    },
+    [path.id, router],
+  );
+
+  const handleDelete = useCallback(async () => {
+    if (!path.id) return;
+
+    try {
+      setIsDeleting(true);
+      await deleteLearningPath({ id: path.id });
+      toast.success("Path deleted successfully");
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to delete path:", error);
+      toast.error("Failed to delete path");
+    } finally {
+      setIsDeleting(false);
+    }
+  }, [path.id, router]);
   return (
     <div key={path.id} className="relative">
+      {hasJoinButton && path.missions > 0 && (
+        <Button
+          intent="main2"
+          size="mainDefault"
+          onClick={handleJoin}
+          disabled={isJoining}
+          className="cursor-pointer absolute top-5 right-5 z-20"
+        >
+          {isJoining ? "Joining..." : "Join Path"}{" "}
+          <ArrowRight className="size-4" />
+        </Button>
+      )}
       {userType === "admin" && (
-          <Menu>
-            <MenuButton className="cursor-pointer focus-visible:outline-0 absolute top-5 right-5 z-20">
-              <EllipsisVertical className="text-gray-600 size-4" />
-            </MenuButton>
-            <MenuItems
-              anchor="bottom end"
-              className="w-40 bg-white border border-gray-200 rounded-xl focus-visible:outline-0"
-            >
-              <MenuItem disabled={isDeleting}>
-                <button
-                  type="button"
-                  onClick={handleDelete}
-                  className="w-full text-sm text-left block text-red-600 data-focus:bg-red-100 py-2 px-4 disabled:opacity-60 cursor-pointer"
-                  disabled={isDeleting}
-                >
-                  {isDeleting ? "Deleting..." : "Delete"}
-                </button>
-              </MenuItem>
-            </MenuItems>
-          </Menu>
-        )}
-      <Link href={`/${userType}/paths/${path.id}`}>
-        <MainCard classname={cx("relative space-y-2 overflow-hidden", cardClassName)}>
+        <Menu>
+          <MenuButton className="cursor-pointer focus-visible:outline-0 absolute top-5 right-5 z-20">
+            <EllipsisVertical className="text-gray-600 size-4" />
+          </MenuButton>
+          <MenuItems
+            anchor="bottom end"
+            className="w-40 bg-white border border-gray-200 rounded-xl focus-visible:outline-0"
+          >
+            <MenuItem disabled={isDeleting}>
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="w-full text-sm text-left block text-red-600 data-focus:bg-red-100 py-2 px-4 disabled:opacity-60 cursor-pointer"
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
+              </button>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
+      )}
+      <Link href={cardLink || "#"}>
+        <MainCard
+          classname={cx(
+            "relative space-y-2 overflow-hidden cursor-pointer",
+            cardClassName,
+          )}
+        >
           <div className="absolute -top-6 -right-6 aspect-square h-[90%] bg-blue-main opacity-4 rounded-full"></div>
-          <Image
-            src={path.image}
-            alt="Current path Image"
-            width={60}
-            height={60}
-          />
-          <h3 className=" font-bold">{path.title}</h3>
+          <div className="flex items-center justify-between gap-2">
+            <Image
+              src={path.image}
+              alt="Current path Image"
+              width={60}
+              height={60}
+            />
+          </div>
+          <h3 className="font-bold">{path.title}</h3>
           <p className="text-gray-600 text-sm">{path.description}</p>
-          {path.progress && (
+          {path.progress !== undefined && (
             <div className="space-y-2">
               <div className="flex justify-between items-center gap-3">
                 <p className="text-13 font-medium text-gray-600">Progress</p>
@@ -113,10 +161,7 @@ export const PathCard = ({
     </div>
   );
 };
-export const XpAndPoints = ({xp,points}:{
-  xp:number,
-  points:number,
-}) => {
+export const XpAndPoints = ({ xp, points }: { xp: number; points: number }) => {
   return (
     <>
       <div className="px-3 py-1 bg-[#E17100]/8 border border-[#E17100]/20 rounded-full flex items-center gap-2 text-[#E17100]">

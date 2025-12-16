@@ -33,7 +33,7 @@ export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
         ?.map((item) => {
           return {
             id: item.id,
-            status: "current",
+            status: "InProgress",
             title: item.nameEn,
             level: item.levelNameEn,
             description: item.description,
@@ -85,7 +85,7 @@ export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
         </Suspense>
       </div>
       {missionCount > 0 ? (
-        <PathTimeline pathId={pathId} module="admin" missions={missions} onMissionDeleted={fetchMissions} />
+        <PathTimeline module="admin" missions={missions} onMissionDeleted={fetchMissions} />
       ) : (
         <>
           {isLoading ? (

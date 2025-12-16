@@ -135,15 +135,39 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
 
     // Handle other errors
     if (!response.ok) {
-      let errorMessage = `Request failed: ${response.status}`;
+      const errorParts = [
+        `Request failed: ${response.status} ${response.statusText}`
+      ];
+
+      // Add API error details
       try {
         const errJson = await response.json();
-        if (errJson?.errorMessage) errorMessage = errJson.errorMessage;
-        else if (errJson?.message) errorMessage = errJson.message;
+        const apiError = errJson?.errorMessage || errJson?.message || errJson?.error || errJson?.detail;
+        if (apiError) errorParts.push(`API Error: ${apiError}`);
+        
+        if (errJson?.code) errorParts.push(`Error Code: ${errJson.code}`);
       } catch {
         // ignore if no valid JSON
       }
-      throw new Error(errorMessage);
+
+      // Add request context
+      const baseUrl = process.env.API_ROOT_URL || '';
+      errorParts.push(`Endpoint: ${baseUrl}${finalUrl}`);
+      errorParts.push(`Method: ${options.method}`);
+
+      // Add payload if available
+      if (options.data) {
+        try {
+          const payloadString = JSON.stringify(options.data);
+          const truncatedPayload = payloadString.length > 1000 ? 
+            payloadString.substring(0, 1000) + '...' : payloadString;
+          errorParts.push(`Payload: ${truncatedPayload}`);
+        } catch {
+          errorParts.push('Payload: [Unable to serialize]');
+        }
+      }
+
+      throw new Error(errorParts.join(' | '));
     }
 
     const data = await response.json();

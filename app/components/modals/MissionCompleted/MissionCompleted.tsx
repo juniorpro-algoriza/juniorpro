@@ -6,16 +6,41 @@ import CelebrateImage from "@public/images/celebrate.png";
 import Diamond2Image from "@public/images/diamond-icon-2.png";
 import LightningImage from "@public/images/lightning-icon.png";
 import confetti from "canvas-confetti";
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { CloseButton } from "@headlessui/react";
+import { useSearchParams } from "next/navigation";
 
 export const MissionCompleted = () => {
+  const searchParams = useSearchParams();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const missionName = searchParams.get("mission") || "Mission";
+  const points = searchParams.get("points") || "0";
+  const xp = searchParams.get("xp") || "0";
+  const [isModalReady, setIsModalReady] = useState(false);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    // Wait for modal to be fully rendered and ready
+    const readyTimer = setTimeout(() => {
+      setIsModalReady(true);
+    }, 100); // Give modal time to complete entrance animation
 
-    const myConfetti = confetti.create(canvasRef.current, {
+    return () => clearTimeout(readyTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!isModalReady || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    
+    // Ensure canvas has proper dimensions
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    
+    resizeCanvas();
+    
+    const myConfetti = confetti.create(canvas, {
       resize: true,
       useWorker: true,
     });
@@ -28,7 +53,7 @@ export const MissionCompleted = () => {
       ticks: 300,
       zIndex: 0,
       shapes: ["square"] as confetti.Shape[],
-      scalar: 1.8, // Make them big
+      scalar: 1.8,
       colors: ["#6903F9", "#FF15E5", "#9810FA"],
     };
 
@@ -56,7 +81,7 @@ export const MissionCompleted = () => {
       clearInterval(interval);
       myConfetti.reset();
     };
-  }, []);
+  }, [isModalReady]);
 
   return (
     <Modal panelClassName="w-full max-w-xl p-8 text-center bg-white rounded-2xl shadow-xl place-items-center sm:space-y-6 relative overflow-hidden">
@@ -78,7 +103,7 @@ export const MissionCompleted = () => {
         You Completed the Mission!
       </h2>
       <p className="text-gray-600 sm:text-2xl text-lg relative z-10">
-        HTML Basics
+        {missionName}
       </p>
       <div className="flex justify-center w-full sm:gap-5 gap-3 relative z-10">
         <MainCard classname="space-y-2 place-items-center w-[150px] shadow-none border-[#F3F4F6] bg-[#F9FAFB]">
@@ -90,7 +115,7 @@ export const MissionCompleted = () => {
             height={60}
           />
 
-          <p className="font-semibold text-3xl">+40</p>
+          <p className="font-semibold text-3xl">+{xp}</p>
           <p className="text-gray-300 text-13 font-bold">XP Earned</p>
         </MainCard>
         <MainCard classname="space-y-2 place-items-center max-w-[150px] shadow-none border-[#F3F4F6] bg-[#F9FAFB]">
@@ -101,7 +126,7 @@ export const MissionCompleted = () => {
             width={60}
             height={60}
           />
-          <p className="font-semibold text-3xl">+1</p>
+          <p className="font-semibold text-3xl">+{points}</p>
           <p className="text-gray-300 text-13 font-bold">Points Earned</p>
         </MainCard>
       </div>
