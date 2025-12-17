@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import {Button, ModalLink} from '@components';
+import {Button} from '@components';
 import {userConfigs, type UserType} from '../../../config/userConfig';
 import {Users, Briefcase, BookOpen, Mail, User as UserIcon} from 'lucide-react';
 
@@ -75,13 +75,13 @@ export const UserProfile = ({
           </div>
 
           {/* Action Button */}
-          <ModalLink name={config.modals.edit as any} query={{id: user.id}}>
+          {/* <ModalLink name={config.modals.edit as any} query={{id: user.id}}> */}
             <Button
               intent="primary"
               className="rounded-xl px-6 py-3 text-sm font-semibold">
               Edit Profile
             </Button>
-          </ModalLink>
+          {/* </ModalLink> */}
         </div>
 
         {/* Stats Section */}

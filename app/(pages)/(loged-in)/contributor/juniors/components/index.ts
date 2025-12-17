@@ -1,2 +1,1 @@
-export { JuniorsHeader } from "./JuniorsHeader";
-export { JuniorsTable } from "./JuniorsTable";
+export { JuniorsCards } from "./JuniorsCards";

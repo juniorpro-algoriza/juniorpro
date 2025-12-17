@@ -89,11 +89,6 @@ export const userConfigs = {
       { header: "Active Projects", key: "activeProjects" },
       { header: "Completed Projects", key: "completedProjects" },
     ],
-    modals: {
-      add: "AddJuniorForContributor",
-      edit: "EditJuniorContributor",
-      assignPoints: "AssignPointsForJuniors",
-    },
     tabs: ["Juniors"],
   },
 } as const;

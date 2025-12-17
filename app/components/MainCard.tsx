@@ -16,7 +16,7 @@ export const MainCard = ({
       {children}
     </Animate>
   ) : (
-    <div className={cx("p-5 shadow-main rounded-2xl bg-white border border-gray-100", classname)}>
+    <div className={cx("p-5 shadow-main rounded-2xl bg-white border border-gray-100 ", classname)}>
       {children}
     </div>
   );

@@ -63,7 +63,7 @@ export const Projects = () => {
           <div className="flex flex-wrap gap-2 px-1 xl:gap-6 md:px-2 xl:px-6 pb-6 overflow-auto max-h-[400px]">
             {projects.length === 0 ? (
               <div className="w-full text-center py-12 text-gray-500">
-                <EmptyData description="No projects found" projectsNum={0} />
+                <EmptyData title="No projects found" />
               </div>
             ) : (
               projects.map((p) => (

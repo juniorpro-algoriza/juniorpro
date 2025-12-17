@@ -12,6 +12,20 @@ import {
 import { CheckIcon, ChevronDown } from "lucide-react";
 import { cx } from "@lib";
 
+// Helper to sync Headless UI state with local state safely
+const OpenStateSync = ({
+  open,
+  setIsOpen,
+}: {
+  open: boolean;
+  setIsOpen: (v: boolean) => void;
+}) => {
+  React.useEffect(() => {
+    setIsOpen(open);
+  }, [open, setIsOpen]);
+  return null;
+};
+
 export interface SelectOption {
   label: string;
   value: string | number;
@@ -58,9 +72,7 @@ export const Select = ({
     if (!isOpen || !buttonRef.current) return;
 
     const update = () => {
-      setButtonBounds(
-        buttonRef.current!.getBoundingClientRect()
-      );
+      setButtonBounds(buttonRef.current!.getBoundingClientRect());
     };
 
     update();
@@ -93,23 +105,20 @@ export const Select = ({
               val as (string | number)[]
             );
           } else {
-            (onChange as (v: string | number) => void)(
-              val as string | number
-            );
+            (onChange as (v: string | number) => void)(val as string | number);
           }
         }}
         multiple={multiple}
         disabled={disabled}
       >
         {({ open }) => {
-          setIsOpen(open);
-
           return (
             <div
               className={`relative mb-2 ${
                 disabled ? "opacity-40" : "opacity-100"
               }`}
             >
+              <OpenStateSync open={open} setIsOpen={setIsOpen} />
               <ListboxButton
                 ref={buttonRef}
                 className={cx(
@@ -136,7 +145,7 @@ export const Select = ({
               </ListboxButton>
 
               <Transition
-                as="div"            // ✅ FIX
+                as="div" // ✅ FIX
                 show={open}
                 leave="transition ease-in duration-100"
                 leaveFrom="opacity-100"
@@ -190,9 +199,7 @@ export const Select = ({
       </Listbox>
 
       {error && (
-        <Description className="text-sm text-red-600">
-          {error}
-        </Description>
+        <Description className="text-sm text-red-600">{error}</Description>
       )}
     </div>
   );

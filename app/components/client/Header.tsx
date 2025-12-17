@@ -9,7 +9,7 @@ export const Header = ({
   startIndent=false,
 }: {
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   end?: React.ReactNode;
   startIndent?: boolean;
 }) => {

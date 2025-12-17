@@ -82,6 +82,11 @@ const contributorMenuItems: MenuItem[] = [
     label: "Points Shop",
   },
   {
+    href: "/contributor/juniors",
+    image: PointsShopImage.src,
+    label: "Juniors",
+  },
+  {
     href: "/contributor/subscription",
     image: SubscriptionImage.src,
     label: "Subscription",

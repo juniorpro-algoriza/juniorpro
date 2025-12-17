@@ -6,14 +6,20 @@ import { cva, cx } from "@lib";
 import type { VariantProps } from "cva";
 import type { ReactNode, Ref } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "tertiary" | "destructive" | "main" | "main2";
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "destructive"
+  | "main"
+  | "main2";
 type ButtonSize = "small" | "medium" | "large" | "mainDefault" | "mainLg";
 type IconPosition = "left" | "right";
 
 export interface ButtonProps
   extends HeadlessButtonProps,
     VariantProps<typeof button> {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -67,32 +73,31 @@ const button = cva({
     "disabled:opacity-70",
     "disabled:cursor-not-allowed",
     "min-w-max",
-    "gap-3"
+    "gap-3",
   ],
   variants: {
     intent: {
       unset: null,
       primary:
         "bg-violet-normal text-white hover:bg-violet-hover focus:ring-primary-200 disabled:bg-primary-400 disabled:text-white",
-        secondary:
+      secondary:
         "bg-primary-100 text-tertiary hover:bg-primary-200 focus:ring-primary-200 disabled:bg-tertiary disabled:text-white",
-        tertiary:
+      tertiary:
         "bg-transparent text-violet-normal border border-violet-normal hover:bg-violet-50 focus:ring-violet-200 disabled:text-violet-400 disabled:border-violet-400",
-        destructive:
+      destructive:
         "bg-transparent text-danger-350 border border-danger-350 hover:bg-danger-50 hover:border-danger-300 hover:text-danger-300 focus:ring-rejected-200 disabled:text-danger-500 disabled:border-danger-500",
-        // new 
-        main:
-          "bg-white text-dark-blue-main hover:bg-dark-blue-main/5 focus:ring-dark-blue-main/10  border-b-5 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
-        main2:
-          "bg-dark-blue-main text-white hover:bg-dark-blue-main/85 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main border-b-5 border-[#372AAC] [box-shadow:0px_1px_3px_0px_#0000001A] ",
-      },
+      // new
+      main: "bg-white text-dark-blue-main hover:bg-dark-blue-main/5 focus:ring-dark-blue-main/10  border-b-5 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
+      main2:
+        "bg-dark-blue-main text-white hover:bg-dark-blue-main/85 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main border-b-5 border-[#372AAC] [box-shadow:0px_1px_3px_0px_#0000001A] ",
+    },
     size: {
       small: "px-3 py-1.5 text-sm",
       medium: "px-4 py-2 text-base",
       large: "px-6 py-3 text-lg",
       //new
-      mainDefault:"px-6 py-3 font-bold rounded-2xl text-sm",
-      mainLg:"px-6 py-4 font-bold rounded-3xl text-sm"
+      mainDefault: "px-6 py-3 font-bold rounded-2xl text-sm",
+      mainLg: "px-6 py-4 font-bold rounded-3xl text-sm",
     },
   },
   defaultVariants: {

@@ -1,1 +1,0 @@
-export {AssignPointsForJuniors} from './AssignPointsForJuniors';

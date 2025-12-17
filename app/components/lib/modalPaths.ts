@@ -1,8 +1,4 @@
 export const modalPaths = {
-  AddJuniorForContributor: {
-    title: "AddJuniorForContributor",
-    href: "/modal/AddJuniorForContributor",
-  },
   EditProfile: { title: "EditProfile", href: "/modal/EditProfile" },
   AddProjectManager: {
     title: "AddProjectManager",

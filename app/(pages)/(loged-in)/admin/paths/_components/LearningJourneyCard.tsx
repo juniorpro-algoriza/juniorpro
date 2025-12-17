@@ -1,7 +1,7 @@
 "use client";
 import { Button, MainCard, ModalLink, Skeleton } from "@components";
-import { PathTimeline } from "@components/client";
-import { PanelsTopLeft, Plus } from "lucide-react";
+import { EmptyData, PathTimeline } from "@components/client";
+import { Plus } from "lucide-react";
 import React, { Suspense, useEffect, useState } from "react";
 import { getMissions } from "../../server";
 import { useSearchParams } from "next/navigation";
@@ -91,17 +91,7 @@ export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
           {isLoading ? (
             <Skeleton className="w-full h-[156px]" />
           ) : (
-            <MainCard classname=" bg-[#F9FAFB80] place-items-center space-y-2">
-              <div className="flex items-center justify-center border border-gray-200 text-gray-600 p-3 rounded-full w-fit">
-                <PanelsTopLeft />
-              </div>
-              <p className="font-bold text-lg text-gray-600">
-                Your path is empty
-              </p>
-              <p className="text-sm text-gray-600">
-                Add your first mission to get started
-              </p>
-            </MainCard>
+            <EmptyData title="Your path is empty" description="Add your first mission to get started" />
           )}
         </>
       )}
