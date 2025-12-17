@@ -89,7 +89,7 @@ export const Table = <T extends Record<string, unknown>>({
           </tbody>
         </table>
       ) : (
-        <EmptyData projectsNum={0} description={emptyMessage} />
+        <EmptyData title={emptyMessage} />
       )}
     </div>
   );

@@ -4,7 +4,6 @@ import LightningIcon from "@public/images/lightning-icon.png";
 import TrophyIcon from "@public/images/trophy-icon.png";
 import HandshakeIcon from "@public/images/hand-shake-icon.png";
 import {
-  CurrentPlan,
   TrackYourJuniors,
   UpcomingSessions,
   YourJuniors,
@@ -15,7 +14,6 @@ const DashboardPage = async () => {
   return (
     <>
       <DashboardHeader description="Here's what's happening with your juniors today." />
-      <CurrentPlan />
       <DashboardCards cardsData={dashboardCardsData} />
       <div className="grid xl:grid-cols-3 md:grid-cols-2 xl:gap-5 gap-4">
         <YourJuniors />
@@ -25,12 +23,6 @@ const DashboardPage = async () => {
         </div>
       </div>
 
-      {/* <DashboardHeader />
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <DashboardPoints pointsData={pointsData} />
-        <DashboardProjects />
-      </div>
-      <JuniorsTable /> */}
     </>
   );
 };

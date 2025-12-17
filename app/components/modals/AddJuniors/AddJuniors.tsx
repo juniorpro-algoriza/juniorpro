@@ -1,157 +1,182 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
-import { Button, Input, Modal, Select } from "@components";
-import { XIcon } from "lucide-react";
-import { CloseButton } from "@headlessui/react";
-import { getData, getLookup } from "@server";
+import { useState } from "react";
+import { Button, DatePicker, Input, Modal } from "@components";
 import { toast } from "sonner";
-import { Lookup } from "@types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { postAddJuniorToContributer } from "../../../(pages)/(loged-in)/contributor/server";
+import { z } from "zod";
 
-export interface AddJuniorProps {
-  onAdded?: (newJunior: any) => void;
-  onClose?: () => void;
-}
+// Define Zod schema for form validation
+const addJuniorSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  // gender: z.string().min(1, "Gender is required"), // Not in API schema
+  birthDate: z.string().min(1, "Birth Date is required"),
+});
 
-export const AddJuniors = ({ onAdded, onClose }: AddJuniorProps) => {
-  const initialFormData = {
-    firstName: "",
-    lastName: "",
+export const AddJuniors = () => {
+  const [formData, setFormData] = useState({
+    username: "",
     email: "",
     password: "",
-    contributorId: 0,
-  };
-  const [formData, setFormData] = useState(initialFormData);
-  const [contributors, setContributors] = useState<Lookup[]>([]);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
-  const contributorId = Number(searchParams.get("contributorId"));
-  const router = useRouter();
+    // gender: "", // Unused
+    birthDate: "",
+  });
 
-  // Fetch contributors list (unless contributorId was passed)
-  useEffect(() => {
-    const fetchContributors = async () => {
-      const data = await getLookup("/Enabler/look-ups");
-      setContributors(data);
-    };
-    fetchContributors();
-  }, []);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [saving, setSaving] = useState(false);
+  const [globalError, setGlobalError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   const handleChange = (
     field: keyof typeof formData,
     value: string | number
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear error for field when changed
+    if (errors[field]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
   };
 
   const handleSave = async () => {
     setSaving(true);
-    setError(null);
+    setErrors({});
+    setGlobalError(null);
     try {
-      const body: any = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-        birthDate: new Date().toISOString(),
-      };
-      // include contributorId if available
-      if (formData.contributorId || contributorId)
-        body.contributorId = Number(formData.contributorId || contributorId);
+      // Validate form data
+      const validatedData = addJuniorSchema.parse(formData);
 
-      const newJunior = await getData({
-        url: "junior/add",
-        method: "POST",
-        body,
-      });
+      const names = validatedData.username.trim().split(" ");
+      const firstName = names[0] || "";
+      const lastName = names.slice(1).join(" ") || firstName;
+
+      const body = {
+        firstName: firstName,
+        lastName: lastName,
+        email: validatedData.email,
+        password: validatedData.password,
+        birthDate: validatedData.birthDate
+          ? new Date(validatedData.birthDate).toISOString()
+          : new Date().toISOString(),
+      };
+
+      await postAddJuniorToContributer(body);
+
       toast.success("Junior added successfully!");
       router.refresh();
-      onAdded?.(newJunior);
-      onClose?.();
-      setFormData(initialFormData);
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message || "Failed to add junior");
-      toast.error(err.message || "Failed to add junior");
+
+      // Close modal by removing query param
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.delete("modal");
+      window.history.pushState({}, "", currentUrl.toString());
+
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        birthDate: "",
+      });
+    } catch (err: unknown) {
+      if (err instanceof z.ZodError) {
+        const fieldErrors: Record<string, string> = {};
+        err.issues.forEach((issue) => {
+          if (issue.path[0]) {
+            fieldErrors[issue.path[0].toString()] = issue.message;
+          }
+        });
+        setErrors(fieldErrors);
+      } else {
+        const message =
+          err instanceof Error ? err.message : "Failed to add junior";
+        setGlobalError(message);
+        toast.error(message);
+      }
     } finally {
       setSaving(false);
     }
   };
-  console.log(contributorId);
+
+  /*
+  const genderOptions = [
+    { label: "Male", value: "1" },
+    { label: "Female", value: "2" },
+  ];
+  */
+
   return (
-    <Modal panelClassName="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
-      <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-2">
-        <h3 className="text-lg font-semibold text-midnight">Add Junior</h3>
-        <CloseButton as={Fragment}>
-          <Button
-            intent="unset"
-            className="p-1.5 rounded-lg border"
-            onClick={onClose}
-          >
-            <XIcon size={18} />
-          </Button>
-        </CloseButton>
+    <Modal panelClassName="w-full max-w-lg p-6 bg-white rounded-2xl shadow-xl">
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-bold my-2">Add New Junior</h2>
+        <p className="text-gray-500 text-sm">
+          create a profile for junior to continue see progress
+        </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2">
         <Input
-          label="First Name"
-          value={formData.firstName}
-          onChange={(e) => handleChange("firstName", e.target.value)}
-        />
-        <Input
-          label="Last Name"
-          value={formData.lastName}
-          onChange={(e) => handleChange("lastName", e.target.value)}
+          label="Username"
+          value={formData.username}
+          onChange={(e) => handleChange("username", e.target.value)}
+          placeholder="e.g. Ali Ahmed"
+          error={errors.username}
         />
         <Input
           label="Email"
           type="email"
           value={formData.email}
           onChange={(e) => handleChange("email", e.target.value)}
+          placeholder="e.g. ali.ahmed@example.com"
+          error={errors.email}
         />
         <Input
           label="Password"
           type="password"
           value={formData.password}
           onChange={(e) => handleChange("password", e.target.value)}
+          placeholder="Enter password"
+          error={errors.password}
         />
-
-        {/* Only show contributor select if contributorId is not preselected */}
+        {/* 
         <Select
-          label="Select Contributor (optional)"
-          value={contributorId ? contributorId : formData.contributorId}
-          options={contributors}
-          onChange={(val) =>
-            setFormData({ ...formData, contributorId: Number(val) })
-          }
-          disabled={contributorId ? true : false}
-        />
+          label="Gender"
+          options={genderOptions}
+          value={formData.gender}
+          onChange={(val) => handleChange("gender", val)}
+          placeholder="Gender"
+        /> 
+        */}
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        <DatePicker
+          label="Birth Date"
+          value={formData.birthDate ? new Date(formData.birthDate) : undefined}
+          onChange={(date) =>
+            handleChange("birthDate", date ? date.toISOString() : "")
+          }
+          error={errors.birthDate}
+        />
+        {globalError && (
+          <p className="text-red-500 text-sm text-center">{globalError}</p>
+        )}
       </div>
 
-      <div className="flex gap-3 mt-6">
+      <div className="mt-8">
         <Button
-          intent="primary"
-          className="flex-1"
+          intent="main2"
+          size="mainDefault"
           onClick={handleSave}
           disabled={saving}
+          className="w-full"
         >
-          {saving ? "Adding..." : "Add Junior"}
+          {saving ? "Creating..." : "Create Junior Profile"}
         </Button>
-        <CloseButton as={Fragment}>
-          <Button
-            intent="secondary"
-            className="flex-1 text-dark-electric-blue"
-            onClick={onClose}
-          >
-            Cancel
-          </Button>
-        </CloseButton>
       </div>
     </Modal>
   );

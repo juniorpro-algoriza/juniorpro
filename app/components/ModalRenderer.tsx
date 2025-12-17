@@ -30,11 +30,6 @@ const Modals: Record<ModalName, LazyExoticComponent<ComponentType<any>>> = {
       default: m.EditProjectManagerProfile,
     }))
   ),
-  AddJuniorForContributor: lazy(() =>
-    import("./modals/AddJuniorForContributor").then((m) => ({
-      default: m.AddJuniorForContributor,
-    }))
-  ),
   AddContributor: lazy(() =>
     import("./modals/AddContributor").then((m) => ({
       default: m.AddContributor,
@@ -49,11 +44,6 @@ const Modals: Record<ModalName, LazyExoticComponent<ComponentType<any>>> = {
   AssignPointsForContributors: lazy(() =>
     import("./modals/AssignPointsForContributors").then((m) => ({
       default: m.AssignPointsForContributors,
-    }))
-  ),
-  AssignPointsForJuniors: lazy(() =>
-    import("./modals/AssignPointsForJuniors").then((m) => ({
-      default: m.AssignPointsForJuniors,
     }))
   ),
   EditJuniorsProfile: lazy(() =>
