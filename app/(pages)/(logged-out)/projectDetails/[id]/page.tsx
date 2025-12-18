@@ -1,5 +1,5 @@
 import { ProjectDetails } from "@components";
-import { getProjectDetails } from "../../home/server";
+import { getProjectDetails } from "../../homeOld/server";
 
 export default async function ProjectDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;

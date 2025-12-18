@@ -1,109 +1,73 @@
-"use client";
-
+import { Menu, Rocket } from "lucide-react";
 import Link from "next/link";
-import { Logo } from "./Logo";
-import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
-import { BurgerIcon } from "@icons";
+import { Button } from "../Button";
 
-export const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
-  const [openMenu, setOpenMenu] = useState(false);
-
-  const mediaQuery = useMediaQuery("(max-width: 860px)");
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const isMobile = isClient && mediaQuery;
-
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "How it works", href: "/#how-it-works" },
-    { label: "Projects", href: "/#projects" },
-    { label: "Why choose us", href: "/#trusted-orgs" },
-    { label: "Pricing", href: "/pricing" },
-  ];
-
+export function Nav({ isAuthenticated }: { isAuthenticated: boolean }) {
   return (
-    <nav className="sticky top-0 z-40 flex items-center justify-between bg-white px-6 py-4 shadow-sm ">
-      {/* Logo on the left */}
-      <div className="flex items-center gap-8">
-        <Link href="/">
-          <Logo />
-        </Link>
-        {isMobile && (
-          <div className="relative">
-            <div
-              onClick={() => setOpenMenu(!openMenu)}
-              className="cursor-pointer"
-            >
-              <BurgerIcon width="35" height="35" />
+    <nav className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+      <div className="bg-white/95 backdrop-blur-xl rounded-full px-6 py-3 border-2 border-black shadow-thick-6 w-full max-w-5xl flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <div className="text-xl tracking-tight flex items-center gap-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-pink-main to-[#FF8CF1] rounded-full border-2 border-black flex items-center justify-center">
+              <Rocket
+                size={16}
+                className="text-white transform -rotate-45"
+                fill="white"
+              />
             </div>
-            <ul
-              className={`absolute top-12 -left-full bg-white z-20 rounded-lg overflow-hidden flex flex-col w-48 transition-all duration-300 ease-in-out ${openMenu ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"}`}
-            >
-              {navItems.map((item) => (
-                <Link
-                  href={item.href}
-                  className="transition text-lg whitespace-nowrap"
-                  key={item.href}
-                  onClick={() => setOpenMenu(false)}
-                >
-                  <li className="hover:bg-gray-100 text-[#656C86] hover:text-violet-normal p-3 w-48 cursor-pointer">
-                    {item.label}
-                  </li>
-                </Link>
-              ))}
-            </ul>
+            <span className="font-black max-sm:hidden">SAWIHA</span>
           </div>
-        )}
-      </div>
+        </Link>
 
-      {/* Center Nav Items */}
-      {!isMobile && (
-        <ul className="flex gap-6">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className="text-[#656C86] hover:text-violet-normal transition text-lg whitespace-nowrap"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Right Side */}
-      <div className="flex items-center gap-4">
-        {isAuthenticated ? (
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-6 text-sm">
           <Link
-            href="/auth/login"
-            className="flex items-center gap-2 bg-violet-normal text-white px-5 py-2 rounded-md hover:bg-violet-hover focus:ring-2 focus:ring-primary-200 transition"
+            href="/paths"
+            className="hover:text-pink-main transition-colors text-sm"
           >
-            My Dashboard
+            Paths
           </Link>
+          <Link
+            href="/challenges"
+            className="hover:text-pink-main transition-colors text-sm"
+          >
+            Challenges
+          </Link>
+          <Link
+            href="/collaboration"
+            className="hover:text-pink-main transition-colors text-sm"
+          >
+            Collaboration
+          </Link>
+          <Link
+            href="/pricing"
+            className="hover:text-pink-main transition-colors text-sm"
+          >
+            Pricing
+          </Link>
+        </div>
+
+        {/* CTA Buttons */}
+        {isAuthenticated ? (
+          <Button intent="mainPink" size="custom" className="text-sm px-6 py-2">
+            Dashboard
+          </Button>
         ) : (
-          <>
+          <div className="flex items-center gap-3">
             <Link
-              href="/auth/login"
-              className="text-[#656C86] hover:text-violet-normal transition text-lg"
+              href="/signin"
+              className="hidden md:flex hover:bg-transparent hover:text-pink-main px-2 font-medium text-sm"
             >
-              Login
+              Sign In
             </Link>
-            <Link
-              href="/auth/sign-up"
-              className="flex items-center gap-2 bg-violet-normal text-white px-5 py-2 rounded-md hover:bg-violet-hover focus:ring-2 focus:ring-primary-200 transition"
-            >
-              Register <ArrowRight size={16} />
-            </Link>
-          </>
+            <Button intent="mainPink" size="custom" className="text-sm px-6 py-2">
+              Book Demo
+            </Button>
+            <Menu size={24} className="md:hidden" />
+          </div>
         )}
       </div>
     </nav>
   );
-};
+}

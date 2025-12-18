@@ -25,6 +25,7 @@
     "jotai": "^2.13.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.525.0",
+    "motion": "^12.23.26",
     "next": "15.3.5",
     "nextjs-toploader": "^3.8.16",
     "openapi-typescript": "^7.10.1",
