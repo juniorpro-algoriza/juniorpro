@@ -1,6 +1,8 @@
-export { TrustedOrganizationsSection } from "./TrustedOrganizationsSection";
-export { TestimonialsSection } from "./TestimonialsSection";
-export { PremiumTasksSection } from "./PremiumTasksSection";
-export { HowItWorkSection } from "./HowItWorksSection";
+export { FuelMeter } from "./FuelMeter";
 export { HeroSection } from "./HeroSection";
-export { CTASection } from "./CTASection";
+export { LearningPathSection } from "./LearningPathSection";
+export { MissionsSection } from "./MissionsSection";
+export { ChallengesSection } from "./ChallengesSection";
+export { CollaborationSection } from "./CollaborationSection";
+export { FinalLaunchSection } from "./FinalLaunchSection";
+

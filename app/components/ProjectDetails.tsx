@@ -8,7 +8,7 @@ import {
 } from "@icons";
 import Image from "next/image";
 import { Button } from "./Button";
-import { ProjectDetailsResponse } from "../(pages)/(logged-out)/home/server/getProjectDetails";
+import { ProjectDetailsResponse } from "../(pages)/(logged-out)/homeOld/server/getProjectDetails";
 import { joinProject } from "@server";
 import { toast } from "sonner";
 import Cookies from "js-cookie";

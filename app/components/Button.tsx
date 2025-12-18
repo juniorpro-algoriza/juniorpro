@@ -12,8 +12,10 @@ type ButtonVariant =
   | "tertiary"
   | "destructive"
   | "main"
-  | "main2";
-type ButtonSize = "small" | "medium" | "large" | "mainDefault" | "mainLg";
+  | "main2"
+  | "mainPink"
+  | "mainWhite"
+type ButtonSize = "small" | "medium" | "large" | "mainDefault" | "mainLg" |"custom";
 type IconPosition = "left" | "right";
 
 export interface ButtonProps
@@ -90,6 +92,9 @@ const button = cva({
       main: "bg-white text-dark-blue-main hover:bg-dark-blue-main/5 focus:ring-dark-blue-main/10  border-b-5 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
       main2:
         "bg-dark-blue-main text-white hover:bg-dark-blue-main/85 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main border-b-5 border-[#372AAC] [box-shadow:0px_1px_3px_0px_#0000001A] ",
+        // marketing screens
+      mainPink:"bg-pink-main hover:bg-pink-main/95 text-white rounded-full px-8 py-4 border-2 border-black shadow-thick-4 transition-all hover:shadow-thick-6 hover:-translate-y-1",
+      mainWhite:"bg-white hover:bg-white/95 rounded-full px-8 py-4 border-2 border-black shadow-thick-4 transition-all hover:shadow-thick-6 hover:-translate-y-1"
     },
     size: {
       small: "px-3 py-1.5 text-sm",
@@ -98,6 +103,7 @@ const button = cva({
       //new
       mainDefault: "px-6 py-3 font-bold rounded-2xl text-sm",
       mainLg: "px-6 py-4 font-bold rounded-3xl text-sm",
+      custom:""
     },
   },
   defaultVariants: {

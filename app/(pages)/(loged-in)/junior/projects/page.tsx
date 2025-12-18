@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 import { ProjectCard } from "@components";
 import { ProjectsHeader } from "../../admin/projects/components";
 import { NormalizedProject } from "../../../../types/Projects";
-import { getLandingProjects } from "../../../(logged-out)/home/server";
+import { getLandingProjects } from "../../../(logged-out)/homeOld/server";
 
 const ProjectsPage = async () => {
   // Fetch all projects
