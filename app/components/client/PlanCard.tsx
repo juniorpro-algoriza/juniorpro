@@ -7,19 +7,33 @@ import { useRouter } from "next/navigation";
 import { deletePackage } from "../../(pages)/(loged-in)/admin/server";
 import { toast } from "sonner";
 import { ModalLink } from "@components";
+import {
+  postSubscribe,
+  postUpgradePlan,
+} from "../../(pages)/(loged-in)/contributor/server";
 
 type Package =
-  components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"];
+  | components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"]
+  | components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"];
+
+type CurrentSubscription =
+  components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel"];
 
 export const PlanCard = ({
   module,
   packageData,
+  currentSubscription,
+  isLoadingSubscription,
 }: {
   module: "admin" | "contributor";
   packageData: Package;
+  currentSubscription?: CurrentSubscription | null;
+  isLoadingSubscription?: boolean;
 }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [isUpgrading, setIsUpgrading] = useState(false);
 
   const handleDelete = useCallback(async () => {
     if (!packageData.id) return;
@@ -37,30 +51,68 @@ export const PlanCard = ({
     }
   }, [packageData.id, router]);
 
+  const handleSubscribe = useCallback(async () => {
+    if (!packageData.id) return;
+
+    try {
+      setIsSubscribing(true);
+      await postSubscribe(packageData.id);
+      toast.success("Subscribed successfully!");
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to subscribe:", error);
+      toast.error("Failed to subscribe");
+    } finally {
+      setIsSubscribing(false);
+    }
+  }, [packageData.id, router]);
+
+  const handleUpgrade = useCallback(async () => {
+    if (!packageData.id) return;
+
+    try {
+      setIsUpgrading(true);
+      await postUpgradePlan(packageData.id);
+      toast.success("Plan upgraded successfully!");
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to upgrade:", error);
+      toast.error("Failed to upgrade plan");
+    } finally {
+      setIsUpgrading(false);
+    }
+  }, [packageData.id, router]);
+
   return (
     <div className="border-2 border-dotted border-gray-200 p-5 rounded-2xl space-y-3">
       <div className="flex justify-between items-center gap-3">
         <div className="flex items-center gap-2">
-          <p
-            className={`text-xs px-2 py-1 rounded-full border font-bold ${
-              packageData.isActivated
-                ? "border-green-300 bg-green-100 text-green-600"
-                : "border-gray-300 bg-gray-100 text-gray-600"
-            }`}
-          >
-            {packageData.isActivated ? "Active" : "In Active"}
-          </p>
-          <p className="text-xs text-gray-600">
-            {packageData.durationType === 3
-              ? "Monthly"
-              : packageData.durationType === 4
-                ? "Annual"
-                : packageData.durationType === 1
-                  ? "Daily"
-                  : packageData.durationType === 2
-                    ? "Weekly"
-                    : "Custom"}
-          </p>
+          {module == "admin" ? (
+            <>
+              <p
+                className={`text-xs px-2 py-1 rounded-full border font-bold ${
+                  "isActivated" in packageData && packageData.isActivated
+                    ? "border-green-300 bg-green-100 text-green-600"
+                    : "border-gray-300 bg-gray-100 text-gray-600"
+                }`}
+              >
+                {"isActivated" in packageData && packageData.isActivated
+                  ? "Active"
+                  : "In Active"}
+              </p>
+              <p className="text-xs text-gray-600">
+                {packageData.durationType === 3
+                  ? "Monthly"
+                  : packageData.durationType === 4
+                    ? "Annual"
+                    : packageData.durationType === 1
+                      ? "Daily"
+                      : packageData.durationType === 2
+                        ? "Weekly"
+                        : "Custom"}
+              </p>
+            </>
+          ) : null}
         </div>
         {module === "admin" && (
           <Menu>
@@ -108,9 +160,48 @@ export const PlanCard = ({
         {packageData.description || "No description available"}
       </p>
       {module === "contributor" && (
-        <Button intent="main" size="mainDefault" disabled className="w-full">
-          Current Plan
-        </Button>
+        <>
+          {isLoadingSubscription ? (
+            <Button
+              intent="main"
+              size="mainDefault"
+              disabled
+              className="w-full"
+            >
+              Loading...
+            </Button>
+          ) : "isCurrentSubscription" in packageData &&
+            packageData.isCurrentSubscription ? (
+            <Button
+              intent="main"
+              size="mainDefault"
+              disabled
+              className="w-full"
+            >
+              Current Plan
+            </Button>
+          ) : currentSubscription ? (
+            <Button
+              intent="main2"
+              size="mainDefault"
+              className="w-full"
+              onClick={handleUpgrade}
+              disabled={isUpgrading}
+            >
+              {isUpgrading ? "Upgrading..." : "Upgrade Plan"}
+            </Button>
+          ) : (
+            <Button
+              intent="main2"
+              size="mainDefault"
+              className="w-full"
+              onClick={handleSubscribe}
+              disabled={isSubscribing}
+            >
+              {isSubscribing ? "Subscribing..." : "Subscribe"}
+            </Button>
+          )}
+        </>
       )}
       <hr className="border-gray-200" />
       <p className="text-2xl font-black">
@@ -139,37 +230,39 @@ export const PlanCard = ({
       <div className="space-y-3">
         <p className="font-bold text-sm">Key Features</p>
         <div className="space-y-1">
-            {packageData.features && packageData.features.length > 0 ? (
-              packageData?.features?.slice(0, 4).map((feature, idx) => (
-                <div key={idx} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <CircleCheck className="size-5 text-blue-600 fill-blue-600/10" />
-                    <span className="text-midnight font-medium text-sm">
-                      {feature.nameEn}
-                    </span>
-                  </div>
-                  <div className="bg-blue-50 px-2 py-1 rounded text-blue-600">
-                    {feature.limitCount === 0 || feature.limitCount === null ? (
-                      <Infinity className="size-4" />
-                    ) : (
-                      <span className="text-xs font-bold">
-                        {feature.limitCount}
-                      </span>
-                    )}
-                  </div>
+          {packageData.features && packageData.features.length > 0 ? (
+            packageData?.features?.slice(0, 4).map((feature, idx) => (
+              <div key={idx} className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <CircleCheck className="size-5 text-blue-600 fill-blue-600/10" />
+                  <span className="text-midnight font-medium text-sm">
+                    {feature.nameEn}
+                  </span>
                 </div>
-              ))
-            ) : (
-              <p className="text-sm text-gray-400 italic">
-                No features selected
-              </p>
-            )}
-            {packageData.features && packageData.features.length > 4 && (
-              <p className="text-sm text-gray-400 italic">
-                +{packageData.features.length - 4} more features
-              </p>
-            )}
-          </div>
+                <div className="bg-blue-50 px-2 py-1 rounded text-blue-600">
+                  {feature.key == 1 ? (
+                    <>
+                      {feature.limitCount === null ? (
+                        <Infinity className="size-4" />
+                      ) : (
+                        <span className="text-xs font-bold">
+                          {feature.limitCount}
+                        </span>
+                      )}
+                    </>
+                  ) : null}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-sm text-gray-400 italic">No features selected</p>
+          )}
+          {packageData.features && packageData.features.length > 4 && (
+            <p className="text-sm text-gray-400 italic">
+              +{packageData.features.length - 4} more features
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
