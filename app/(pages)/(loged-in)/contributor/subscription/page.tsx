@@ -19,6 +19,7 @@ const SubscriptionPage = async ({
     DurationType: period,
   });
   const packages = packagesResponse.data || [];
+  console.log(packages)
   return (
     <>
       <Breadcrumb

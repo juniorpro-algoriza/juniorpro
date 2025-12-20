@@ -55,7 +55,7 @@ export function FinalLaunchSection() {
 
       <div className="container mx-auto relative z-10 max-w-5xl">
         {/* Solar System - Blended Behind/Below the Title */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] w-full max-w-6xl -z-10 flex justify-center pointer-events-none opacity-80 mix-blend-screen">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] w-full max-w-6xl -z-10 flex justify-center pointer-events-none opacity-80 mix-blend-screen overflow-hidden">
           <motion.div
             className="w-full"
             initial={{ opacity: 0, scale: 0.9 }}

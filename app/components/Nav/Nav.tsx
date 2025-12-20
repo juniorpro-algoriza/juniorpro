@@ -50,18 +50,28 @@ export function Nav({ isAuthenticated }: { isAuthenticated: boolean }) {
 
         {/* CTA Buttons */}
         {isAuthenticated ? (
-          <Button intent="mainPink" size="custom" className="text-sm px-6 py-2">
-            Dashboard
-          </Button>
+          <Link href="/auth/login">
+            <Button
+              intent="mainPink"
+              size="custom"
+              className="text-sm px-6 py-2"
+            >
+              Dashboard
+            </Button>
+          </Link>
         ) : (
           <div className="flex items-center gap-3">
             <Link
-              href="/signin"
+              href="/auth/login"
               className="hidden md:flex hover:bg-transparent hover:text-pink-main px-2 font-medium text-sm"
             >
               Sign In
             </Link>
-            <Button intent="mainPink" size="custom" className="text-sm px-6 py-2">
+            <Button
+              intent="mainPink"
+              size="custom"
+              className="text-sm px-6 py-2"
+            >
               Book Demo
             </Button>
             <Menu size={24} className="md:hidden" />

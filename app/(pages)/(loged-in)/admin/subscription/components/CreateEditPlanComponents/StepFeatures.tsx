@@ -25,7 +25,7 @@ export const StepFeatures = ({
 
   const getFeatureLimit = (featureId: number) => {
     return (
-      formData.features.find((f) => f.featureId === featureId)?.limitCount ?? 0
+      formData.features.find((f) => f.featureId === featureId)?.limitCount
     );
   };
 

@@ -142,6 +142,7 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
       // Add API error details
       try {
         const errJson = await response.json();
+        console.error(errJson);
         const apiError = errJson?.errorMessage || errJson?.message || errJson?.error || errJson?.detail;
         if (apiError) errorParts.push(`API Error: ${apiError}`);
         

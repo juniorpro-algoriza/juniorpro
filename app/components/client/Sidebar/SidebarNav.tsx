@@ -9,9 +9,9 @@ import { useTransition, ComponentType, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import HomeImage from "@public/images/home-icon.png";
 import MyJourneyImage from "@public/images/map-icon.png";
-import CollaborationImage from "@public/images/hand-shake-icon.png";
-import ChallengesImage from "@public/images/trophy-icon.png";
-import AchievementsImage from "@public/images/medal-icon.png";
+// import CollaborationImage from "@public/images/hand-shake-icon.png";
+// import ChallengesImage from "@public/images/trophy-icon.png";
+// import AchievementsImage from "@public/images/medal-icon.png";
 import PointsShopImage from "@public/images/shopping-bag-icon.png";
 import SubscriptionImage from "@public/images/subscription-icon-3d.png";
 import LogoutImage from "@public/images/logout-icon-3d.png";
@@ -25,32 +25,32 @@ interface MenuItem {
 }
 
 const adminMenuItems: MenuItem[] = [
-  { href: "/admin/dashboard", image: HomeImage.src, label: "Dashboard" },
+  // { href: "/admin/dashboard", image: HomeImage.src, label: "Dashboard" },
   {
     href: "/admin/paths",
     image: MyJourneyImage.src,
     label: "Learning Paths",
   },
-  {
-    href: "/admin/collaboration",
-    image: CollaborationImage.src,
-    label: "Collaboration",
-  },
-  {
-    href: "/admin/challenges",
-    image: ChallengesImage.src,
-    label: "Challenges",
-  },
-  {
-    href: "/admin/achievements",
-    image: AchievementsImage.src,
-    label: "Achievements",
-  },
-  {
-    href: "/admin/points-shop",
-    image: PointsShopImage.src,
-    label: "Points Shop",
-  },
+  // {
+  //   href: "/admin/collaboration",
+  //   image: CollaborationImage.src,
+  //   label: "Collaboration",
+  // },
+  // {
+  //   href: "/admin/challenges",
+  //   image: ChallengesImage.src,
+  //   label: "Challenges",
+  // },
+  // {
+  //   href: "/admin/achievements",
+  //   image: AchievementsImage.src,
+  //   label: "Achievements",
+  // },
+  // {
+  //   href: "/admin/points-shop",
+  //   image: PointsShopImage.src,
+  //   label: "Points Shop",
+  // },
   {
     href: "/admin/subscription",
     image: SubscriptionImage.src,
@@ -61,26 +61,26 @@ const adminMenuItems: MenuItem[] = [
 
 const contributorMenuItems: MenuItem[] = [
   { href: "/contributor/dashboard", image: HomeImage.src, label: "Dashboard" },
-  {
-    href: "/contributor/paths",
-    image: MyJourneyImage.src,
-    label: "Learning Paths",
-  },
-  {
-    href: "/contributor/collaboration",
-    image: CollaborationImage.src,
-    label: "Collaboration",
-  },
-  {
-    href: "/contributor/challenges",
-    image: ChallengesImage.src,
-    label: "Challenges",
-  },
-  {
-    href: "/contributor/points-shop",
-    image: PointsShopImage.src,
-    label: "Points Shop",
-  },
+  // {
+  //   href: "/contributor/paths",
+  //   image: MyJourneyImage.src,
+  //   label: "Learning Paths",
+  // },
+  // {
+  //   href: "/contributor/collaboration",
+  //   image: CollaborationImage.src,
+  //   label: "Collaboration",
+  // },
+  // {
+  //   href: "/contributor/challenges",
+  //   image: ChallengesImage.src,
+  //   label: "Challenges",
+  // },
+  // {
+  //   href: "/contributor/points-shop",
+  //   image: PointsShopImage.src,
+  //   label: "Points Shop",
+  // },
   {
     href: "/contributor/juniors",
     image: PointsShopImage.src,
@@ -102,26 +102,26 @@ const juniorMenuItems: MenuItem[] = [
     image: MyJourneyImage.src,
     label: "Learning Paths",
   },
-  {
-    href: "/junior/collaboration",
-    image: CollaborationImage.src,
-    label: "Collaboration",
-  },
-  {
-    href: "/junior/challenges",
-    image: ChallengesImage.src,
-    label: "Challenges",
-  },
-  {
-    href: "/junior/achievements",
-    image: AchievementsImage.src,
-    label: "Achievements",
-  },
-  {
-    href: "/junior/points-shop",
-    image: PointsShopImage.src,
-    label: "Points Shop",
-  },
+  // {
+  //   href: "/junior/collaboration",
+  //   image: CollaborationImage.src,
+  //   label: "Collaboration",
+  // },
+  // {
+  //   href: "/junior/challenges",
+  //   image: ChallengesImage.src,
+  //   label: "Challenges",
+  // },
+  // {
+  //   href: "/junior/achievements",
+  //   image: AchievementsImage.src,
+  //   label: "Achievements",
+  // },
+  // {
+  //   href: "/junior/points-shop",
+  //   image: PointsShopImage.src,
+  //   label: "Points Shop",
+  // },
   // { href: "/junior/projects", icon: DocumentIcon, label: "Projects" },
   // { href: "/junior/chat", icon: ChatIcon, label: "Chat" },
   // { href: "/junior/schedule", icon: CalendarIcon, label: "Schedule" },
