@@ -1,6 +1,5 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { ProjectsHeader } from './ProjectsHeader';
 import { tabClassName, tabListClassName } from '@styles';
 import { ProjectsCarousel } from './ProjectCarousel';
 import { twMerge } from 'tailwind-merge';
@@ -47,7 +46,6 @@ export const ProjectsSection = async () => {
 
   return (
     <>
-      <ProjectsHeader />
       <TabGroup className="pt-8">
         <div className="flex justify-center px-4">
           <TabList className={tabListClassName}>

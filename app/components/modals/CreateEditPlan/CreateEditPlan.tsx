@@ -14,10 +14,10 @@ import {
   PlanFormData,
   Feature,
   PlanPreview
-} from "../../../(pages)/(loged-in)/admin/subscription/components/CreateEditPlanComponents";
+} from "../../../(pages)/(loged-in)/admin/subscription/_components/CreateEditPlanComponents";
 
 import { toast } from "sonner";
-import { planFormSchema, step1Schema, step2Schema, step3Schema } from "../../../(pages)/(loged-in)/admin/subscription/schema";
+import { planFormSchema, step1Schema, step2Schema, step3Schema } from "../../../(pages)/(loged-in)/admin/subscription/_schema";
 import { getFeatures, getPackageById, postPackages, putPackages } from "../../../(pages)/(loged-in)/admin/server";
 
 const getInitialFormData = (): PlanFormData => ({

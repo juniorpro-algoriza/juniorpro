@@ -11,7 +11,6 @@ export { Nav } from "./Nav";
 export { ProjectCard } from "./ProjectCard";
 export { Table } from "./Table";
 export { Textarea } from "./Textarea";
-export { PurchaseCard } from "./PurchaseCard";
 export { PointsCard } from "./PointsCard";
 export { Select } from "./Select";
 export { ProjectDetails } from "./ProjectDetails";

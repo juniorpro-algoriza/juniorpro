@@ -1,2 +1,0 @@
-export { ProjectsHeader } from './ProjectsHeader';
-
