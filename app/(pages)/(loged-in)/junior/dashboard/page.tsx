@@ -9,7 +9,7 @@ import {
   UpcomingSession,
   LeaderBoard,
   DashboardBanner,
-} from "./components";
+} from "./_components";
 
 const DashboardPage = async () => {
   return (

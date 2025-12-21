@@ -1,5 +1,5 @@
 import { Breadcrumb, PATH_ICON } from "@components";
-import { PathHeader } from "../components";
+import { PathHeader } from "../_components";
 import { PathTimeline } from "@components/client";
 import { getJuniorsLearningPathById, getJuniorsLearningPathMission } from "../../server";
 

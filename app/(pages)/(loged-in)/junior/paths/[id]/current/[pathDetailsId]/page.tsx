@@ -3,7 +3,7 @@ import {
   PathDetailsHeader,
   PathDetailsTabs,
   StuckOnAProblem,
-} from "../../../components";
+} from "../../../_components";
 import {
   getJuniorsLearningPathCurrentMissionById,
   getJuniorsLearningPathCurrentById,

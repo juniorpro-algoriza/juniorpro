@@ -1,5 +1,4 @@
 export const modalPaths = {
-  EditProfile: { title: "EditProfile", href: "/modal/EditProfile" },
   AddProjectManager: {
     title: "AddProjectManager",
     href: "/modal/AddProjectManager",

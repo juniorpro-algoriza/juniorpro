@@ -17,9 +17,6 @@ const Modals: Record<ModalName, LazyExoticComponent<ComponentType<any>>> = {
   AddJuniors: lazy(() =>
     import("./modals/AddJuniors").then((m) => ({ default: m.AddJuniors }))
   ),
-  EditProfile: lazy(() =>
-    import("./modals/EditProfile").then((m) => ({ default: m.EditProfile }))
-  ),
   AddProjectManager: lazy(() =>
     import("./modals/AddProjectManager").then((m) => ({
       default: m.AddProjectManager,

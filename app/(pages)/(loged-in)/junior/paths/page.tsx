@@ -1,7 +1,7 @@
 import { Header, Tip } from "@components/client";
 import React from "react";
 import StarGroup from "@public/images/3d-star-group.png";
-import { MyCurrentPath, RecommendedForYou } from "./components";
+import { MyCurrentPath, RecommendedForYou } from "./_components";
 import { Breadcrumb, PATH_ICON } from "@components";
 import {
   getJuniorsLearningPaths,

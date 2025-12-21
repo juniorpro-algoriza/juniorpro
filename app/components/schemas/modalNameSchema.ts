@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const modalNameSchema = z.enum([
-  "EditProfile",
   "AddProjectManager",
   "EditProjectManagerProfile",
   "AddJuniors",

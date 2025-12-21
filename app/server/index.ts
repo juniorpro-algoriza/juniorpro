@@ -1,13 +1,8 @@
-export { getCareerTypes } from "./getCareerTypes";
-export { getFreeTasks } from "./getFreeTasks";
 export { getJuniorsAge } from "./getJuniorsAge";
 export { getJuniorsGrades } from "./getJuniorsGrades";
-export { getPremiumTasks } from "./getPremiumTasks";
 export { getProjects } from "./getProjects";
-export { getTeamProjects } from "./getTeamProjects";
 export { getData } from "./getData";
 export { getJuniorStatistic } from "./getJuniorStatistic";
-export { getMyProfileData } from "./getMyProfileData";
 export { getFetchHeaders } from "./getFetchHeaders";
 export { getLookup } from "./getLookUps";
 export { inviteExistingJunior } from "./inviteExistingJunior";
