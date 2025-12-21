@@ -7,7 +7,7 @@ import {
   TrackYourJuniors,
   UpcomingSessions,
   YourJuniors,
-} from "./components";
+} from "./_components";
 const DashboardPage = async () => {
   // const pointsData = await getPointsData();
 

@@ -1,4 +1,5 @@
 react query and hooks for forms (1st)
+<img src="" alt="" />
 remove modal closing and reloading (1st)
 -401 error handling (done)
 -renaming components folder _ in start

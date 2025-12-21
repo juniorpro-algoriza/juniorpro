@@ -1,6 +1,6 @@
 import { Breadcrumb } from "@components";
 import { Header } from "@components/client";
-import { JuniorsCards } from "./components";
+import { JuniorsCards } from "./_components";
 
 const JuniorsPage = async () => {
   return (

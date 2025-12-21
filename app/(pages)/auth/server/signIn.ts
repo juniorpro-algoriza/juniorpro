@@ -4,6 +4,7 @@ import type { ActionState } from "@server/types";
 import z from "zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getUserProfile } from "@server";
 
 const Schema = z.object({
   email: z.string().email(),
@@ -49,14 +50,7 @@ export const signIn = async (
     path: "/",
   });
 
-  const profileRes = await fetch(`${baseUrl}/User/profile`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  if (!profileRes.ok)
-    return { success: false, error: "Failed to fetch user profile" };
-
-  const profile = await profileRes.json();
+  const profile = await getUserProfile();
   const userType = profile.userType;
   cookieStore.set("user_type", String(userType), {
     httpOnly: false,

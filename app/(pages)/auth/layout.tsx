@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { HeroImage } from "./components";
+import { HeroImage } from "./_components";
 
 interface AuthLayoutProps {
   // * Add children to the return statement if you want to render the page.tsx file for this route.

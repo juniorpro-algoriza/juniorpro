@@ -1,6 +1,6 @@
 import { Header } from "@components/client";
 import React from "react";
-import { PlansFeaturesTabs } from "./components";
+import { PlansFeaturesTabs } from "./_components";
 import { Breadcrumb } from "@components";
 import { getFeatures, getPackages } from "../server";
 

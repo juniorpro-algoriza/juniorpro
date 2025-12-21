@@ -1,5 +1,5 @@
 "use client";
-import { Button, Input, MainCard, PATH_ICON, Textarea } from "@components";
+import { Button, Input, MainCard, Textarea } from "@components";
 import Image from "next/image";
 import React, { useState, useCallback, FormEvent } from "react";
 import { ArrowRight } from "lucide-react";
@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { components } from "../../../../../../api-schema";
 import { postLearningPath, putLearningPath } from "../../server";
 import { LearningJourneyCard } from "./LearningJourneyCard";
+import { PATH_ICON } from "../../../../../configs";
 
 const getInitialFormData = (): PathFormValues => ({
   nameEn: "",

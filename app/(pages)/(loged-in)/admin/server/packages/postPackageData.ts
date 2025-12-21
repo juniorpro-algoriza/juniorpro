@@ -1,7 +1,7 @@
 "use server";
 
 import { customFetch } from "@server/lib";
-import { PlanFormValues } from "../../subscription/schema";
+import { PlanFormValues } from "../../subscription/_schema";
 
 export async function postPackages({ data }: { data: PlanFormValues }) {
   const packages = customFetch("/admin/package", {

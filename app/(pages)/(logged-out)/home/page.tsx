@@ -7,7 +7,7 @@ import {
   HeroSection,
   LearningPathSection,
   MissionsSection,
-} from "./components";
+} from "./_components";
 
 const page = () => {
   return (
@@ -19,7 +19,7 @@ const page = () => {
         <MissionsSection />
         <ChallengesSection />
         <CollaborationSection />
-          <FinalLaunchSection />
+        <FinalLaunchSection />
       </main>
     </>
   );

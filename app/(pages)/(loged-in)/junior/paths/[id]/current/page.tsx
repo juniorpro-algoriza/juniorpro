@@ -1,8 +1,8 @@
-import { Breadcrumb, PATH_ICON } from "@components";
-import { PathHeader } from "../../components";
+import { Breadcrumb } from "@components";
+import { PathHeader } from "../../_components";
 import { PathTimeline } from "@components/client";
 import { getJuniorsLearningPathCurrentById, getJuniorsLearningPathCurrentMission } from "../../../server";
-import { MISSION_STATUS } from "../../../../../../components/lib/constants";
+import { MISSION_STATUS, PATH_ICON } from "../../../../../../configs/constants";
 
 export default async function PathPage({
   params,
