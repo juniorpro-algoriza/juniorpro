@@ -7,8 +7,8 @@ import { twMerge } from "tailwind-merge";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Junior Pro",
-  description: "Junior Pro - Your Path to Junior Developer Success",
+  title: "Sawiha",
+  description: "Sawiha - Your Path to Junior Developer Success",
 };
 
 const bodyStyle = twMerge("antialiased", inter.className);

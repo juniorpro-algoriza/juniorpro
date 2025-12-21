@@ -22,7 +22,6 @@ const missionCards = [
     difficulty: "Easy",
     icon: Code,
     color: "#FF9ECE",
-    illustrations: ["💻", "🔧", "🐛"],
   },
   {
     id: 2,
@@ -35,7 +34,6 @@ const missionCards = [
     difficulty: "Medium",
     icon: Target,
     color: "#A7FADC",
-    illustrations: ["🎨", "✨", "🖌️"],
   },
   {
     id: 3,
@@ -48,7 +46,6 @@ const missionCards = [
     difficulty: "Easy",
     icon: Brain,
     color: "#FFE285",
-    illustrations: ["🧩", "🧠", "💡"],
   },
   {
     id: 4,
@@ -61,7 +58,6 @@ const missionCards = [
     difficulty: "Hard",
     icon: Rocket,
     color: "#C7B3FF",
-    illustrations: ["🚀", "⚡", "🎯"],
   },
 ];
 
@@ -164,17 +160,6 @@ export function MissionsSection() {
                     background: `linear-gradient(135deg, white 0%, ${card.color} 100%)`,
                   }}
                 >
-                  {/* Floating Decorative Icons - Smaller */}
-                  <div className="absolute top-4 right-4 flex gap-2 opacity-30">
-                    {card.illustrations.slice(0, 2).map((emoji, i) => (
-                      <span
-                        key={i}
-                        className="text-2xl group-hover:scale-110 transition-transform"
-                      >
-                        {emoji}
-                      </span>
-                    ))}
-                  </div>
 
                   {/* Card Header - Category & Icon */}
                   <div className="flex items-center justify-between gap-2 mb-4">

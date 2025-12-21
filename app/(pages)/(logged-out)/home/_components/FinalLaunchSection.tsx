@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
-import solarSystemImg from "@public/landing-pages/4b15a01f584178d6adc725af416b117d500271cf.png";
+import solarSystemImg from "@public/landing-pages/solar-system.png";
 import { Button } from "@components";
 
 export function FinalLaunchSection() {
@@ -76,7 +76,7 @@ export function FinalLaunchSection() {
               width={1200}
               height={800}
               className="w-full h-auto object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
-              priority
+              quality={10}
             />
           </motion.div>
         </div>

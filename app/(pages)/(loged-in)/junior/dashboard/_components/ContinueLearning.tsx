@@ -1,8 +1,9 @@
-import { MainCard, Progress, TAG_COLORS } from "@components";
+import { MainCard, Progress } from "@components";
 import Image from "next/image";
 import React from "react";
 import Rocket from "@public/images/rocket-icon.png";
 import { cx } from "@lib";
+import { TAG_COLORS } from "../../../../../configs";
 export const ContinueLearning = () => {
   const missions = [
     {

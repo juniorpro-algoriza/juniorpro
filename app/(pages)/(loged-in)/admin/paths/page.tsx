@@ -1,11 +1,12 @@
 import React, { Suspense } from "react";
 import { Header, PathCard } from "@components/client";
-import { Breadcrumb, Button, PATH_ICON } from "@components";
+import { Breadcrumb, Button } from "@components";
 import { Plus } from "lucide-react";
 import { PathsFilters } from "./_components";
 import { getLearningPaths } from "../server/paths/getLearningPaths";
 import Link from "next/link";
 import { components } from "../../../../../api-schema";
+import { PATH_ICON } from "../../../../configs";
 
 const PathsPage = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
   // Get search text from query parameters

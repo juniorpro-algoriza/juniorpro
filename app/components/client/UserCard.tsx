@@ -6,8 +6,8 @@ import SuperAdminAvatar from "@public/images/super-admin-avatar.png";
 import Fire from "@public/images/fire-icon.png";
 import Diamond2 from "@public/images/diamond-icon-2.png";
 import badge from "@public/images/badge-icon.png";
-import { ArrowIncreaseIcon } from "@icons";
 import { Progress } from "@components";
+import { TrendingUp } from "lucide-react";
 export const UserCard = ({
   image,
   firstName,
@@ -73,7 +73,7 @@ export const UserCard = ({
             </div>
             <Progress width={userDetails.levelProgress} />
             <div className="flex items-center space-x-2">
-              <ArrowIncreaseIcon className="size-3 text-blue-main" />
+              <TrendingUp className="size-3 text-blue-main" />
               <p className="text-13 font-medium text-gray-600">
                 250 XP to Level 6
               </p>

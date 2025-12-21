@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 "use server";
-import { getData } from "@server";
+import { customFetch } from "@server/lib";
 
 interface VerifyResetPayload {
   email: string;
@@ -17,14 +15,14 @@ export async function verifyResetPassword({
   token,
 }: VerifyResetPayload) {
   try {
-    const response = await getData({
-      url: "account/verify-reset-password",
-      method: "POST",
-      body: { email, password, confirmPassword, token },
+    const response = await customFetch("/account/verify-reset-password", {
+      method: "post",
+      data: { email, password, confirmPassword, token },
     });
 
     return { success: true, data: response };
-  } catch (err: any) {
-    return { success: false, message: err.message };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return { success: false, message: errorMessage };
   }
 }

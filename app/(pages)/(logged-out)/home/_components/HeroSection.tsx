@@ -3,11 +3,11 @@ import React, { useMemo } from "react";
 import { motion } from "motion/react";
 import { Play, Rocket, Trophy, Users, Code, Brain, Lock } from "lucide-react";
 import Image from "next/image";
-import cloudImg from "@public/landing-pages/fb0c1e1ba61fcc8575ed48e5d00840437b857bf3.png";
-import avatarTeam1 from "@public/landing-pages/b8f31e5997357c57ed20f187c1f968083bc18e10.png";
-import avatarTeam2 from "@public/landing-pages/2340566c2088f6332dc04d6662692f76836bcbcd.png";
-import rocketGirlImg from "@public/landing-pages/rocketGirlImg.png";
-import sarahAvatar from "@public/landing-pages/50fe8436ae153d4e5a25855afb5f72d24eaadcc7.png";
+import cloudImg from "@public/landing-pages/clouds.png";
+import avatarTeam1 from "@public/landing-pages/avatar-team-1.png";
+import avatarTeam2 from "@public/landing-pages/avatar-team-2.png";
+import rocketGirlImg from "@public/landing-pages/rocket-girl.png";
+import sarahAvatar from "@public/landing-pages/sarah-avatar.png";
 import { Button } from "@components";
 
 export function HeroSection() {
@@ -33,7 +33,7 @@ export function HeroSection() {
               height={256}
               className="w-full h-auto object-contain"
               priority
-              quality={75}
+              quality={40}
             />
           </motion.div>
           <motion.div 
@@ -53,7 +53,7 @@ export function HeroSection() {
               height={400}
               className="w-full h-auto object-contain"
               priority
-              quality={75}
+              quality={40}
             />
           </motion.div>
           <motion.div 
@@ -73,7 +73,7 @@ export function HeroSection() {
               height={192}
               className="w-full h-auto object-contain"
               priority
-              quality={75}
+              quality={40}
             />
           </motion.div>
         </>
@@ -156,7 +156,7 @@ export function HeroSection() {
                   height={64}
                   className="rounded-full object-cover"
                   priority
-                  quality={85}
+                  quality={50}
                 />
               </div>
               <div className="text-left">
@@ -190,9 +190,7 @@ export function HeroSection() {
                 />
 
                 {/* Clouds behind rocket */}
-                <motion.img
-                  src={cloudImg.src}
-                  alt="Cloud"
+                <motion.div
                   className="absolute top-10 -left-10 w-24 opacity-60 z-0"
                   animate={{ x: [0, 10, 0] }}
                   transition={{
@@ -200,10 +198,17 @@ export function HeroSection() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                />
-                <motion.img
-                  src={cloudImg.src}
-                  alt="Cloud"
+                >
+                  <Image
+                    src={cloudImg}
+                    alt="Cloud"
+                    width={96}
+                    height={48}
+                    className="w-full h-auto"
+                    quality={40}
+                  />
+                </motion.div>
+                <motion.div
                   className="absolute bottom-10 -right-8 w-20 opacity-60 z-0"
                   animate={{ x: [0, -10, 0] }}
                   transition={{
@@ -212,7 +217,16 @@ export function HeroSection() {
                     ease: "easeInOut",
                     delay: 1,
                   }}
-                />
+                >
+                  <Image
+                    src={cloudImg}
+                    alt="Cloud"
+                    width={80}
+                    height={40}
+                    className="w-full h-auto"
+                    quality={40}
+                  />
+                </motion.div>
 
                 <Image
                   src={rocketGirlImg}
@@ -221,7 +235,7 @@ export function HeroSection() {
                   height={224}
                   className="relative z-10 w-full h-full object-contain drop-shadow-xl"
                   priority
-                  quality={90}
+                  quality={50}
                 />
               </div>
               <p className="mt-8 text-[#1F3D8B] font-medium text-center text-lg italic">
@@ -376,20 +390,24 @@ export function HeroSection() {
                         className="w-8 h-8 rounded-full border-2 border-white bg-gray-100 overflow-hidden"
                         title="Team Member: Pat"
                       >
-                        <img
-                          src={avatarTeam1.src}
+                        <Image
+                          src={avatarTeam1}
                           alt="Pat"
                           className="w-full h-full object-cover"
+                          width={32}
+                          height={32}
                         />
                       </div>
                       <div
                         className="w-8 h-8 rounded-full border-2 border-white bg-gray-100 overflow-hidden"
                         title="Team Member: Alex"
                       >
-                        <img
-                          src={avatarTeam2.src}
+                        <Image
+                          src={avatarTeam2}
                           alt="Alex"
                           className="w-full h-full object-cover"
+                          width={32}
+                          height={32}
                         />
                       </div>
                       <div className="w-8 h-8 rounded-full border-2 border-white bg-yellow-main flex items-center justify-center text-[10px] font-bold text-black">

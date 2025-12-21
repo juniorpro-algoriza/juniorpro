@@ -2,11 +2,10 @@
 
 import { Button, Input } from "@components";
 import { initialState } from "@server/lib";
-import { Loader } from "lucide-react";
+import { Eye, EyeClosed, Loader } from "lucide-react";
 import { useActionState, useEffect, useState, Suspense } from "react";
 import { toast } from "sonner";
 import { signIn } from "../server";
-import { EyeCloseIcon, EyeIcon } from "@icons";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -45,7 +44,7 @@ const LoginFormContent = () => {
             className="absolute right-5 top-1/2 cursor-pointer"
             onClick={() => setType(type === "password" ? "text" : "password")}
           >
-            {type === "password" ? <EyeIcon /> : <EyeCloseIcon />}
+            {type === "password" ? <Eye className="text-violet-normal size-5" /> : <EyeClosed className="text-violet-normal size-5" />}
           </div>
         </div>
         <div className="text-right pt-2">

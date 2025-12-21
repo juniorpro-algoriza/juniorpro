@@ -1,4 +1,4 @@
-import { MainCard, TAG_COLORS } from "@components";
+import { MainCard } from "@components";
 import Image from "next/image";
 import React from "react";
 import CalenderImage from "@public/images/calendar.png";
@@ -6,6 +6,7 @@ import { Clock } from "lucide-react";
 import { cx } from "@lib";
 import MaleImage from "@public/images/male-avatar.png";
 import FemaleImage from "@public/images/female-avatar.png";
+import { TAG_COLORS } from "../../../../../configs";
 export const UpcomingSessions = () => {
   return (
     <MainCard classname="space-y-5">

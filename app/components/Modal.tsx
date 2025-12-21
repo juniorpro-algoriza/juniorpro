@@ -7,7 +7,6 @@ import {
   DialogTitle,
   Description,
 } from "@headlessui/react";
-import { sleep } from "@utils";
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
@@ -31,6 +30,13 @@ export const Modal = ({
   const router = useRouter();
   const [containerStyle, setContainerStyle] = useState("");
   const [panelStyle, setPanelStyle] = useState("");
+const sleep = (seconds: number) => {
+  return new Promise((resovle) => {
+    setTimeout(() => {
+      resovle(true);
+    }, seconds * 1000);
+  });
+};
 
   const onClose = async () => {
     setContainerStyle("opacity-0");

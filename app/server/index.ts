@@ -1,11 +1,2 @@
-export { getJuniorsAge } from "./getJuniorsAge";
-export { getJuniorsGrades } from "./getJuniorsGrades";
-export { getData } from "./getData";
-export { getJuniorStatistic } from "./getJuniorStatistic";
-export { getFetchHeaders } from "./getFetchHeaders";
 export { getLookup } from "./getLookUps";
-export { inviteExistingJunior } from "./inviteExistingJunior";
-export { joinProject } from "./joinProject";
-export { getJoinedProjects } from "./getJoinedProjectsJunior";
-export { getLandingProjectDetails } from "./getLandingProjectDetails";
 export { getUserProfile } from "./getUserProfile";

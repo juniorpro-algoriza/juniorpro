@@ -2,11 +2,12 @@ import { Header, Tip } from "@components/client";
 import React from "react";
 import StarGroup from "@public/images/3d-star-group.png";
 import { MyCurrentPath, RecommendedForYou } from "./_components";
-import { Breadcrumb, PATH_ICON } from "@components";
+import { Breadcrumb } from "@components";
 import {
   getJuniorsLearningPaths,
   getJuniorsLearningPathCurrent,
 } from "../server";
+import { PATH_ICON } from "../../../../configs";
 const MyJourneyPage = async () => {
   // Fetch current learning path
   const currentPathData = await getJuniorsLearningPathCurrent({});

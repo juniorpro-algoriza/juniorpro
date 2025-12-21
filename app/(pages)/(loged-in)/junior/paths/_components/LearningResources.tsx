@@ -1,8 +1,9 @@
-import { MainCard, REASOUCES_TYPE } from "@components";
+import { MainCard } from "@components";
 import { ExternalLink } from "lucide-react";
 import React from "react";
 import { components } from "../../../../../../api-schema/schema";
 import Link from "next/link";
+import { REASOUCES_TYPE } from "../../../../../configs";
 
 export const LearningResources = ({
   learningResources,

@@ -1,9 +1,10 @@
-import { MainCard, TAG_COLORS } from "@components";
+import { MainCard } from "@components";
 import React from "react";
 import { Clock } from "lucide-react";
 import CalenderImage from "@public/images/calendar.png";
 import Image from "next/image";
 import { cx } from "@lib";
+import { TAG_COLORS } from "../../../../../configs";
 export const UpcomingSession = () => {
   const session = [
     {

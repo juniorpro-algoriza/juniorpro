@@ -8,7 +8,7 @@ export const Logo = () => (
       unoptimized
       className='block'
       src={logoImage}
-      alt='Junior Pro Logo'
+      alt='Sawiha Logo'
     // width={150}
     // height={45}
     />

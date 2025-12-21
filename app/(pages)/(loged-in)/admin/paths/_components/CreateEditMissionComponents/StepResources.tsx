@@ -1,7 +1,8 @@
-import { Button, Input, MainCard, REASOUCES_TYPE, Select } from "@components";
+import { Button, Input, MainCard, Select } from "@components";
 import { Plus, XIcon } from "lucide-react";
 import { Resource } from "./types";
 import { Lookup } from "@types";
+import { REASOUCES_TYPE } from "../../../../../../configs";
 
 const convertToNumber = (value: string | null | number, allowNull = false): number | null => {
   if (value === null || value === undefined || value === "") {

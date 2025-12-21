@@ -1,1 +1,0 @@
-export { userConfigs } from "./userConfig";

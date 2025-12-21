@@ -1,1 +1,0 @@
-export { AssignPointsForContributors } from './AssignPointsForContributors';

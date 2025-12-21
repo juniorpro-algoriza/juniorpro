@@ -1,6 +1,6 @@
 import { Menu, Rocket } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../Button";
+import { Button } from "./Button";
 
 export function Nav({ isAuthenticated }: { isAuthenticated: boolean }) {
   return (
