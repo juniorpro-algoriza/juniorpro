@@ -16,4 +16,3 @@ export { inviteExistingJunior } from "./inviteExistingJunior";
 export { joinProject } from "./joinProject";
 export { getJoinedProjects } from "./getJoinedProjectsJunior";
 export { getLandingProjectDetails } from "./getLandingProjectDetails";
-export { getJuniorData } from "./getJuniorData";

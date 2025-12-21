@@ -2,7 +2,6 @@ export const dynamic = "force-dynamic";
 
 // app/contributor/projects/index.tsx
 import { ProjectCard } from "@components";
-import { ProjectsHeader } from "../../admin/projects/components";
 import { NormalizedProject } from "../../../../types/Projects";
 import { getLandingProjects } from "../../../(logged-out)/homeOld/server";
 
@@ -16,7 +15,6 @@ const ProjectsPage = async () => {
 
   return (
     <main className="min-h-screen px-6 py-3 bg-stone-50">
-      <ProjectsHeader />
       <div className="bg-white rounded-[20px] drop-shadow-xl border border-border-primary">
         {/* Header */}
         <div className="flex justify-between gap-2 flex-wrap items-center px-1 py-2 xl:py-8 md:py-4 xl:px-6 md:px-2">

@@ -1,8 +1,10 @@
 "use server";
 
 import { getData } from "@server";
-import type { Stats } from "../types";
-
+type Stats = {
+  label: string;
+  value: number;
+};
 export const getDashboardStats = async (): Promise<Stats[]> => {
   const data = await getData<{
     juniors: number;

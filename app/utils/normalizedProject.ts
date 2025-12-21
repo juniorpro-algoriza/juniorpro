@@ -1,13 +1,28 @@
-import {
-  ageRanges,
-  projectStatus,
-  projectTypes,
-} from "../(pages)/(loged-in)/admin/projects/new/components/helpers";
+
+import { Lookup } from "@types";
 import type {
   NormalizedProject,
   ProjectStatus,
   ProjectType,
 } from "../types/Projects";
+
+export const ageRanges: Lookup[] = [
+  { label: "08-12", value: 1 },
+  { label: "13-16", value: 2 },
+  { label: "17-20", value: 3 },
+];
+
+export const projectTypes: Lookup[] = [
+  { label: "Team", value: 1 },
+  { label: "Premium Solo", value: 2 },
+  { label: "Free Solo", value: 3 },
+];
+
+export const projectStatus: Lookup[] = [
+  { label: "Draft", value: 1 },
+  { label: "Published", value: 2 },
+  { label: "Review", value: 3 },
+];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function normalizeProject(apiProject: any): NormalizedProject {

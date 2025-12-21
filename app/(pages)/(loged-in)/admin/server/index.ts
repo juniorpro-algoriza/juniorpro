@@ -1,9 +1,5 @@
 export { getDashboardStats } from "./getDashboardStats";
-export { getContributorData } from "./getContributorData";
-export { getJuniorStats } from "./getJuniorStats";
-export { getContributorStats } from "./getContributorStats";
 // export { getProjectManagerData } from "./getProjectManagerData";
-export { getProjectManagerStats } from "./getProjectManagerStats";
 export { getFeatures } from "./features/getFeaturesData";
 export { getPackages } from "./packages/getPackagesData";
 export { deletePackage } from "./packages/deletePackage";
