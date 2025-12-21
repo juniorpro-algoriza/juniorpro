@@ -1,6 +1,5 @@
 export { getJuniorsAge } from "./getJuniorsAge";
 export { getJuniorsGrades } from "./getJuniorsGrades";
-export { getProjects } from "./getProjects";
 export { getData } from "./getData";
 export { getJuniorStatistic } from "./getJuniorStatistic";
 export { getFetchHeaders } from "./getFetchHeaders";
@@ -9,3 +8,4 @@ export { inviteExistingJunior } from "./inviteExistingJunior";
 export { joinProject } from "./joinProject";
 export { getJoinedProjects } from "./getJoinedProjectsJunior";
 export { getLandingProjectDetails } from "./getLandingProjectDetails";
+export { getUserProfile } from "./getUserProfile";

@@ -1,7 +1,8 @@
 "use client";
 
+import { SearchInput } from "@components/client";
+
 // import { Select } from "@components";
-import { SearchInput } from "../../../components/client";
 // import { usePathname, useRouter, useSearchParams } from "next/navigation";
 // import { useCallback } from "react";
 

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { VerifyResetPassword } from "../../components";
+import { VerifyResetPassword } from "../../_components";
 
 const VerifyResetPasswordPage = () => {
   return (

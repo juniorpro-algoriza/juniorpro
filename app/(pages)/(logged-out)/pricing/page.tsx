@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityAndPricing } from './components';
+import { ActivityAndPricing } from './_components';
 
  function PricingPage() {
   return (

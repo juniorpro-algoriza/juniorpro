@@ -15,5 +15,6 @@ export { DashboardHeader } from "./DashboardHeader";
 export { DashboardCards } from "./DashboardCards";
 export { UserCard } from "./UserCard";
 export { PathTimeline } from "./PathTimeline";
+export { SearchInput } from "./SearchInput";
 
 

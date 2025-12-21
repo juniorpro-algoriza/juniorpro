@@ -1,4 +1,3 @@
-export { getDashboardStats } from "./getDashboardStats";
 // export { getProjectManagerData } from "./getProjectManagerData";
 export { getFeatures } from "./features/getFeaturesData";
 export { getPackages } from "./packages/getPackagesData";

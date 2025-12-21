@@ -1,11 +1,10 @@
 "use client";
 
-import { PlanTabs, Tabs } from "@components/client";
+import { PlanTabs, SearchInput, Tabs } from "@components/client";
 import { TabData } from "@types";
 import { FileText, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { Button, ModalLink } from "@components";
-import { SearchInput } from "../../../components/client";
 import { FeaturesTable } from "./FeaturesTab";
 import { components } from "../../../../../../api-schema";
 

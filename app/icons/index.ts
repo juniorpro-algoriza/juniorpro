@@ -1,4 +1,3 @@
-export { AmazonIcon } from "./AmazonIcon";
 export { AppleIcon } from "./AppleIcon";
 export { CalendarIcon } from "./CalendarIcon";
 export { ChatIcon } from "./ChatIcon";
@@ -10,8 +9,6 @@ export { GoogleIcon } from "./GoogleIcon";
 export { HomeIcon } from "./HomeIcon";
 export { HourGlassIcon } from "./HourGlassIcon";
 export { LogoutIcon } from "./LogoutIcon";
-export { MetaIcon } from "./MetaIcon";
-export { MicrosoftIcon } from "./MicrosoftIcon";
 export { MoneyIcon } from "./MoneyIcon";
 export { SettingsIcon } from "./SettingsIcon";
 export { StarIcon } from "./StarIcon";

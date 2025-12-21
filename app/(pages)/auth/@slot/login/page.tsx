@@ -4,7 +4,7 @@ import {
   SignUpLink,
   SocialLoginButtons,
   WelcomeMessage,
-} from "../../components";
+} from "../../_components";
 
 const LoginSlot = () => {
   return (

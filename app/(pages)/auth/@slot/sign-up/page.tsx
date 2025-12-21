@@ -1,4 +1,4 @@
-import { LoginLink, Logo, SignUpForm, WelcomeMessage } from "../../components";
+import { LoginLink, Logo, SignUpForm, WelcomeMessage } from "../../_components";
 
 const SignUpSlot = async ({
   searchParams,
