@@ -7,7 +7,7 @@ export async function getJuniorsLearningPaths({
 }: {
   SearchText?: string;
 }) {
-  const learningPaths = customFetch("/junior-learning-path", {
+  const learningPaths = customFetch("/api/junior-learning-path", {
     method: "get",
     params: {
       PageNumber: 1,

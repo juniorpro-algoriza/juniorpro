@@ -4,7 +4,7 @@ import { customFetch } from "@server/lib";
 import { PlanFormValues } from "../../subscription/_schema";
 
 export async function postPackages({ data }: { data: PlanFormValues }) {
-  const packages = customFetch("/admin/package", {
+  const packages = customFetch("/api/admin/package", {
     method: "post",
     data: {
       nameEn: data.planName,

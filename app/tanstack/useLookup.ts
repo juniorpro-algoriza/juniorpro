@@ -6,13 +6,13 @@ import { QUERY_KEYS } from "../configs/queryKeys";
 
 export const useLookup = (
   url:
-    | "/Enabler/look-ups"
-    | "/Lookup/Tool"
-    | "/Lookup/Category"
-    | "/project-manager/look-ups"
-    | "/Lookup/Level"
-    | "/Lookup/Skill"
-    | "/Lookup/Duration",
+    | "/api/Enabler/look-ups"
+    | "/api/Lookup/Tool"
+    | "/api/Lookup/Category"
+    | "/api/project-manager/look-ups"
+    | "/api/Lookup/Level"
+    | "/api/Lookup/Skill"
+    | "/api/Lookup/Duration",
   enabled: boolean = true
 ) => {
   return useQuery({

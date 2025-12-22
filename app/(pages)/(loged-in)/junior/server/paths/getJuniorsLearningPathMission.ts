@@ -13,7 +13,7 @@ export async function getJuniorsLearningPathMission({
   PageSize?: number;
   SearchText?: string;
 }) {
-  const missions = await customFetch("/learning-path-management/mission", {
+  const missions = await customFetch("/api/learning-path-management/mission", {
     method: "get",
     params: {
       Id,

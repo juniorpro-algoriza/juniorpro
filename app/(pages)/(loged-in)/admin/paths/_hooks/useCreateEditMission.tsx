@@ -37,9 +37,9 @@ export const useCreateEditMission = (
     levels: [],
   });
 
-  const { data: durationData } = useLookup("/Lookup/Duration");
-  const { data: skillsData } = useLookup("/Lookup/Skill");
-  const { data: levelsData } = useLookup("/Lookup/Level");
+  const { data: durationData } = useLookup("/api/Lookup/Duration");
+  const { data: skillsData } = useLookup("/api/Lookup/Skill");
+  const { data: levelsData } = useLookup("/api/Lookup/Level");
 
   const { data: missionData } = useMissionById(
     missionId ? parseInt(missionId) : 0,

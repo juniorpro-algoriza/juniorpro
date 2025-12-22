@@ -4,13 +4,13 @@ import { Lookup } from "@types";
 
 export async function getLookup(
   url:
-    | "/Enabler/look-ups"
-    | "/Lookup/Tool"
-    | "/Lookup/Category"
-    | "/project-manager/look-ups"
-    | "/Lookup/Level"
-    | "/Lookup/Skill"
-    | "/Lookup/Duration"
+    | "/api/Enabler/look-ups"
+    | "/api/Lookup/Tool"
+    | "/api/Lookup/Category"
+    | "/api/project-manager/look-ups"
+    | "/api/Lookup/Level"
+    | "/api/Lookup/Skill"
+    | "/api/Lookup/Duration"
 ): Promise<Lookup[]> {
   const lookup = await customFetch(url, {
     method: "get",

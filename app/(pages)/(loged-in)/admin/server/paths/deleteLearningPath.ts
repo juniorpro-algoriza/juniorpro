@@ -3,7 +3,7 @@
 import { customFetch } from "@server/lib";
 
 export async function deleteLearningPath({ id }: { id: number }) {
-  const path = customFetch("/learning-path-management/{id}", {
+  const path = customFetch("/api/learning-path-management/{id}", {
     method: "delete",
     path: {
       id,

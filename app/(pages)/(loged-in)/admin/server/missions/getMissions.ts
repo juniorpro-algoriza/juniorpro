@@ -9,7 +9,7 @@ export async function getMissions({
   SearchText?: string;
   Id?: number;
 }) {
-  const missions = customFetch("/learning-path-management/mission", {
+  const missions = customFetch("/api/learning-path-management/mission", {
     method: "get",
     params: {
       PageNumber: 1,
