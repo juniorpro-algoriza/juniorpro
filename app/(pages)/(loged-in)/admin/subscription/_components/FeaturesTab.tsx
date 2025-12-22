@@ -1,6 +1,7 @@
 import {
   EnhancedTable,
   MainCard,
+  Skeleton,
   TableBody,
   TableCell,
   TableHead,
@@ -15,9 +16,10 @@ type Feature =
 
 interface FeaturesTableProps {
   features: Feature[];
+  isLoading?: boolean;
 }
 
-export function FeaturesTable({ features }: FeaturesTableProps) {
+export function FeaturesTable({ features , isLoading }: FeaturesTableProps) {
   const featuresList = features || [];
 
   return (
@@ -43,7 +45,13 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {featuresList.map((feature) => (
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={3}>
+                <Skeleton className="h-20" />
+              </TableCell>
+            </TableRow>
+          ) : featuresList.map((feature) => (
             <TableRow key={feature.id} className="border-gray-100">
               <TableCell className="h-20 whitespace-normal break-words">
                 {feature.nameEn}

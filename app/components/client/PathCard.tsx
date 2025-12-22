@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { MainCard } from "../MainCard";
 import Image from "next/image";
 import { ArrowRight, EllipsisVertical, Target } from "lucide-react";
@@ -9,9 +9,8 @@ import { Progress } from "../Progress";
 import { cx } from "@lib";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { deleteLearningPath } from "../../(pages)/(loged-in)/admin/server";
-import { postJuniorsLearningPathJoin } from "../../(pages)/(loged-in)/junior/server";
+import { useDeleteLearningPath } from "../../(pages)/(loged-in)/admin/tanstack";
+import { useJoinLearningPath } from "../../(pages)/(loged-in)/junior/tanstack/paths/useJuniorsPaths";
 import { Button } from "../Button";
 
 export const PathCard = ({
@@ -36,9 +35,11 @@ export const PathCard = ({
   hasJoinButton?: boolean;
   cardLink?: string;
 }) => {
-  const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isJoining, setIsJoining] = useState(false);
+  const deleteMutation = useDeleteLearningPath();
+  const joinMutation = useJoinLearningPath();
+
+  const isDeleting = deleteMutation.isPending;
+  const isJoining = joinMutation.isPending;
 
   const handleJoin = useCallback(
     async (e: React.MouseEvent) => {
@@ -48,35 +49,27 @@ export const PathCard = ({
       if (!path.id) return;
 
       try {
-        setIsJoining(true);
-        await postJuniorsLearningPathJoin({ id: path.id });
+        await joinMutation.mutateAsync({ id: path.id });
         toast.success("Successfully joined the learning path!");
-        router.refresh();
       } catch (error) {
         console.error("Failed to join path:", error);
         toast.error("Failed to join learning path");
-      } finally {
-        setIsJoining(false);
       }
     },
-    [path.id, router],
+    [path.id, joinMutation]
   );
 
   const handleDelete = useCallback(async () => {
     if (!path.id) return;
 
     try {
-      setIsDeleting(true);
-      await deleteLearningPath({ id: path.id });
+      await deleteMutation.mutateAsync({ id: path.id });
       toast.success("Path deleted successfully");
-      router.refresh();
     } catch (error) {
       console.error("Failed to delete path:", error);
       toast.error("Failed to delete path");
-    } finally {
-      setIsDeleting(false);
     }
-  }, [path.id, router]);
+  }, [path.id, deleteMutation]);
   return (
     <div key={path.id} className="relative">
       {hasJoinButton && path.missions > 0 && (
@@ -117,7 +110,7 @@ export const PathCard = ({
         <MainCard
           classname={cx(
             "relative space-y-2 overflow-hidden cursor-pointer",
-            cardClassName,
+            cardClassName
           )}
         >
           <div className="absolute -top-6 -right-6 aspect-square h-[90%] bg-blue-main opacity-4 rounded-full"></div>

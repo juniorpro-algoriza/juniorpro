@@ -1,19 +1,38 @@
+"use client";
 import React from "react";
 import { components } from "../../../../../../api-schema";
-import { getJuniorsData } from "../../server";
-import { Button, MainCard, ModalLink } from "@components";
+import { Button, MainCard, ModalLink, Skeleton } from "@components";
 import { UserCard } from "@components/client";
 import { UserPlus } from "lucide-react";
+import { useJuniorsData } from "../../tanstack";
+
 type JuniorOfEnablerModel =
   components["schemas"]["Sawiha.Services.DTO.JuniorModels.JuniorOfEnablerModel"];
-export const JuniorsCards = async () => {
-  const juniorsData = (await getJuniorsData()).data;
+
+export const JuniorsCards = () => {
+  const { data: juniorResponse, isLoading } = useJuniorsData();
+  const juniorsData = juniorResponse?.data;
+
+  if (isLoading) {
+    return (
+      <div className="xl:w-4/5">
+        <div className="grid xl:grid-cols-3 xl:gap-5 gap-2 ">
+          {[...Array(3)].map((_, i) => (
+            <Skeleton key={i} className="h-[400px] w-full rounded-2xl" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="xl:w-4/5">
       <div className="grid xl:grid-cols-3 xl:gap-5 gap-2 ">
         {juniorsData?.map((junior: JuniorOfEnablerModel, index: number) => (
-          <MainCard key={index} classname="space-y-5 hover:scale-102 transition-all">
+          <MainCard
+            key={index}
+            classname="space-y-5 hover:scale-102 transition-all"
+          >
             <UserCard
               firstName={junior.name?.split(" ")[0] || "John"}
               lastName={junior.name?.split(" ").slice(1).join(" ") || "Doe"}

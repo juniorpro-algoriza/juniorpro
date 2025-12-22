@@ -1,4 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../configs/queryKeys";
 import {
   Button,
   MainCard,
@@ -21,13 +23,11 @@ import {
 import Link from "next/link";
 import { XpAndPoints } from "@components/client";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { deleteMission } from "../../(pages)/(loged-in)/admin/server";
+import { useDeleteMission } from "../../(pages)/(loged-in)/admin/tanstack/missions/useMissions";
 export const PathTimeline = ({
   module,
   missions,
-  onMissionDeleted,
 }: {
   module: "admin" | "junior";
   missions?: {
@@ -42,28 +42,27 @@ export const PathTimeline = ({
     requires?: string | null;
     href?: string;
   }[];
-  onMissionDeleted?: () => void;
 }) => {
-  const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const queryClient = useQueryClient();
+  const { mutateAsync: deleteMissionAction, isPending: isDeleting } =
+    useDeleteMission();
 
   const handleDelete = useCallback(
     async (item: { id: number | undefined }) => {
       if (!item.id) return;
 
       try {
-        setIsDeleting(true);
-        await deleteMission({ id: item.id });
+        await deleteMissionAction({ id: item.id });
         toast.success("Mission deleted successfully");
-        onMissionDeleted?.();
+        queryClient.invalidateQueries({
+          queryKey: QUERY_KEYS.admin.missions.list,
+        });
       } catch (error) {
         console.error("Failed to delete mission:", error);
         toast.error("Failed to delete mission");
-      } finally {
-        setIsDeleting(false);
       }
     },
-    [router, onMissionDeleted],
+    [deleteMissionAction, queryClient]
   );
   return (
     <Timeline>
@@ -81,7 +80,7 @@ export const PathTimeline = ({
                 "group-data-[orientation=vertical]/timeline:-left-7 flex size-10 items-center justify-center border-none group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground shadow-main p-1",
                 item.status === "Pending"
                   ? "bg-gray-100 opacity-50"
-                  : "bg-white",
+                  : "bg-white"
               )}
             >
               {item.status === "Completed" && (
@@ -172,7 +171,9 @@ export const PathTimeline = ({
                   <div className="text-gray-600 flex-wrap bg-gray-100 flex gap-2 items-center text-13 px-4 py-1.5 rounded-2xl">
                     <Lock className="size-4" />
                     Requires:
-                    <span className="font-medium capitalize">{item.requires}</span>
+                    <span className="font-medium capitalize">
+                      {item.requires}
+                    </span>
                   </div>
                 )}
               </div>

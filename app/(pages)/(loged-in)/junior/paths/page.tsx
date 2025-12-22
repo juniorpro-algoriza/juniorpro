@@ -1,20 +1,31 @@
+"use client";
 import { Header, Tip } from "@components/client";
 import React from "react";
 import StarGroup from "@public/images/3d-star-group.png";
 import { MyCurrentPath, RecommendedForYou } from "./_components";
-import { Breadcrumb } from "@components";
+import { Breadcrumb, Skeleton } from "@components";
 import {
-  getJuniorsLearningPaths,
-  getJuniorsLearningPathCurrent,
-} from "../server";
+  useJuniorsLearningPathCurrent,
+  useJuniorsLearningPaths,
+} from "../tanstack/paths/useJuniorsPaths";
 import { PATH_ICON } from "../../../../configs";
-const MyJourneyPage = async () => {
-  // Fetch current learning path
-  const currentPathData = await getJuniorsLearningPathCurrent({});
+const MyJourneyPage = () => {
+  const { data: currentPathData, isLoading: isLoadingCurrent } =
+    useJuniorsLearningPathCurrent();
+  const { data: allPathsData, isLoading: isLoadingAll } =
+    useJuniorsLearningPaths({});
 
-  // Fetch all available learning paths (already filtered by backend)
-  const allPathsData = await getJuniorsLearningPaths({});
   const recommendedPaths = allPathsData?.data || [];
+
+  if (isLoadingCurrent || isLoadingAll) {
+    return (
+      <div className="space-y-10">
+        <Skeleton className="h-48 w-full rounded-2xl" />
+        <Skeleton className="h-64 w-full rounded-2xl" />
+        <Skeleton className="h-64 w-full rounded-2xl" />
+      </div>
+    );
+  }
   return (
     <>
       <Breadcrumb

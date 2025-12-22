@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { toast } from "sonner";
-import { getLookup } from "@server";
 import {
   GuideStep,
   Resource,
@@ -16,11 +15,16 @@ import {
   INITIAL_FORM_DATA,
   STEP_SCHEMAS,
 } from "../_components/CreateEditMissionComponents";
-import { getMissionsById, postMission, putMission } from "../../server";
+import { useLookup } from "../../../../../tanstack/useLookup";
+import {
+  useMissionById,
+  useAddMission,
+  useUpdateMission,
+} from "../../tanstack/missions/useMissions";
 
 export const useCreateEditMission = (
   missionId: string | null,
-  pathId: string | null,
+  pathId: string | null
 ) => {
   const isEditing = !!missionId;
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,115 +37,110 @@ export const useCreateEditMission = (
     levels: [],
   });
 
-  useEffect(() => {
-    const fetchLookupData = async () => {
-      try {
-        const [durationData, skillsData, levelsData] = await Promise.all([
-          getLookup("/Lookup/Duration"),
-          getLookup("/Lookup/Skill"),
-          getLookup("/Lookup/Level"),
-        ]);
+  const { data: durationData } = useLookup("/Lookup/Duration");
+  const { data: skillsData } = useLookup("/Lookup/Skill");
+  const { data: levelsData } = useLookup("/Lookup/Level");
 
-        setLookupData({
-          duration: durationData.map(({ label, value }) => ({ label, value })),
-          skills: skillsData.map(({ label, value }) => ({ label, value })),
-          levels: levelsData.map(({ label, value }) => ({ label, value })),
-        });
-      } catch (error) {
-        console.error("Failed to fetch lookup data:", error);
-      }
-    };
+  const { data: missionData } = useMissionById(
+    missionId ? parseInt(missionId) : 0,
+    isEditing
+  );
 
-    fetchLookupData();
-  }, []);
+  const addMissionMutation = useAddMission();
+  const updateMissionMutation = useUpdateMission();
 
   useEffect(() => {
-    const fetchMissionData = async () => {
-      if (isEditing && missionId) {
-        try {
-          const missionData = await getMissionsById({
-            id: parseInt(missionId),
-          });
-          console.log("Mission data fetched:", missionData);
-          // Transform the mission data to form format
-          if (missionData) {
-            const transformedData: MissionFormData = {
-              nameEn: missionData.missionDetails?.nameEn || "",
-              nameAr: missionData.missionDetails?.nameAr || "",
-              description: missionData.missionDetails?.description || "",
-              durationId: missionData.missionDetails?.durationId || 0,
-              levelId: missionData.missionDetails?.levelId || 0,
-              skillId: missionData.missionDetails?.skillId || 0,
-              xp: missionData.missionDetails?.xp || 0,
-              points: missionData.missionDetails?.points || 0,
-              guideSteps: missionData.steps?.map((step) => ({
-                id: step.id?.toString() || crypto.randomUUID(),
-                titleEn: step.titleEn || "",
-                description: step.description || "",
-                codeReference: step.codeReference || "",
-              })) || [defaultGuideStep()],
-              resources: missionData.learningResources?.map((resource) => ({
-                id: resource.id?.toString() || crypto.randomUUID(),
-                titleEn: resource.titleEn || "",
-                type: resource.type || 1,
-                url: resource.url || "",
-                duration: resource.duration || null,
-              })) || [defaultResource()],
-              criteria: missionData.successCriterias?.map((criteria) => ({
-                id: criteria.id?.toString() || crypto.randomUUID(),
-                label: criteria.description || "",
-              })) || [defaultCriteria()],
-              solutionCode: missionData.missionDetails?.referenceAnswer || "",
-            };
-            setFormData(transformedData);
-          }
-        } catch (error) {
-          console.error("Failed to fetch mission data:", error);
-          toast.error("Failed to load mission data");
-        }
-      }
-    };
+    if (durationData && skillsData && levelsData) {
+      setLookupData({
+        duration: durationData.map(({ label, value }) => ({
+          label: label || "",
+          value: typeof value === "string" ? parseInt(value, 10) : value,
+        })),
+        skills: skillsData.map(({ label, value }) => ({
+          label: label || "",
+          value: typeof value === "string" ? parseInt(value, 10) : value,
+        })),
+        levels: levelsData.map(({ label, value }) => ({
+          label: label || "",
+          value: typeof value === "string" ? parseInt(value, 10) : value,
+        })),
+      });
+    }
+  }, [durationData, skillsData, levelsData]);
 
-    fetchMissionData();
-  }, [isEditing, missionId]);
+  useEffect(() => {
+    if (isEditing && missionData) {
+      console.log("Mission data fetched:", missionData);
+      // Transform the mission data to form format
+      const transformedData: MissionFormData = {
+        nameEn: missionData.missionDetails?.nameEn || "",
+        nameAr: missionData.missionDetails?.nameAr || "",
+        description: missionData.missionDetails?.description || "",
+        durationId: missionData.missionDetails?.durationId || 0,
+        levelId: missionData.missionDetails?.levelId || 0,
+        skillId: missionData.missionDetails?.skillId || 0,
+        xp: missionData.missionDetails?.xp || 0,
+        points: missionData.missionDetails?.points || 0,
+        guideSteps: missionData.steps?.map((step) => ({
+          id: step.id?.toString() || crypto.randomUUID(),
+          titleEn: step.titleEn || "",
+          description: step.description || "",
+          codeReference: step.codeReference || "",
+        })) || [defaultGuideStep()],
+        resources: missionData.learningResources?.map((resource) => ({
+          id: resource.id?.toString() || crypto.randomUUID(),
+          titleEn: resource.titleEn || "",
+          type: resource.type || 1,
+          url: resource.url || "",
+          duration: resource.duration || null,
+        })) || [defaultResource()],
+        criteria: missionData.successCriterias?.map((criteria) => ({
+          id: criteria.id?.toString() || crypto.randomUUID(),
+          label: criteria.description || "",
+        })) || [defaultCriteria()],
+        solutionCode: missionData.missionDetails?.referenceAnswer || "",
+      };
+      setFormData(transformedData);
+    }
+  }, [isEditing, missionData]);
 
   const createStepData = (formData: MissionFormData) => {
     if (!pathId) {
       throw new Error("Path ID is required for mission creation/editing");
     }
-    
+
     return {
       missionDetails: {
         ...(missionId ? { id: parseInt(missionId, 10) } : {}),
         pathId: parseInt(pathId, 10),
         nameEn: formData.nameEn,
         nameAr: formData.nameEn,
-      description: formData.description,
-      durationId: formData.durationId,
-      levelId: formData.levelId,
-      skillId: formData.skillId,
-      xp: formData.xp,
-      points: formData.points,
-      referenceAnswer: formData.solutionCode,
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    steps: formData.guideSteps.map(({ id: _id, ...step }) => step),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    learningResources: formData.resources.map(({ id: _id, ...resource }) => ({
-      titleEn: resource.titleEn,
-      type: resource.type,
-      url: resource.url,
-      duration: resource.duration ?? undefined,
-    })),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    successCriterias: formData.criteria.map(({ id: _id, ...criteria }) => ({
-      description: criteria.label,
-    })),
+        description: formData.description,
+        durationId: formData.durationId,
+        levelId: formData.levelId,
+        skillId: formData.skillId,
+        xp: formData.xp,
+        points: formData.points,
+        referenceAnswer: formData.solutionCode,
+      },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      steps: formData.guideSteps.map(({ id: _id, ...step }) => step),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      learningResources: formData.resources.map(({ id: _id, ...resource }) => ({
+        titleEn: resource.titleEn,
+        type: resource.type,
+        url: resource.url,
+        duration: resource.duration ?? undefined,
+      })),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      successCriterias: formData.criteria.map(({ id: _id, ...criteria }) => ({
+        description: criteria.label,
+      })),
+    };
   };
-};
 
   const mapValidationErrors = (
-    issues: ValidationIssue[],
+    issues: ValidationIssue[]
   ): Record<string, string> => {
     const errors: Record<string, string> = {};
 
@@ -162,11 +161,11 @@ export const useCreateEditMission = (
   const updateBasicInfo = useCallback(
     (
       field: keyof Omit<MissionFormData, "guideSteps" | "resources">,
-      value: string | null | number,
+      value: string | null | number
     ) => {
       setFormData((prev) => ({ ...prev, [field]: value }));
     },
-    [],
+    []
   );
 
   const updateGuideStep = useCallback(
@@ -174,11 +173,11 @@ export const useCreateEditMission = (
       setFormData((prev) => ({
         ...prev,
         guideSteps: prev.guideSteps.map((step) =>
-          step.id === id ? { ...step, [key]: value } : step,
+          step.id === id ? { ...step, [key]: value } : step
         ),
       }));
     },
-    [],
+    []
   );
 
   const updateResource = useCallback(
@@ -186,18 +185,18 @@ export const useCreateEditMission = (
       setFormData((prev) => ({
         ...prev,
         resources: prev.resources.map((resource) =>
-          resource.id === id ? { ...resource, [key]: value } : resource,
+          resource.id === id ? { ...resource, [key]: value } : resource
         ),
       }));
     },
-    [],
+    []
   );
 
   const updateCriteria = useCallback((id: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
       criteria: prev.criteria.map((criteria) =>
-        criteria.id === id ? { ...criteria, label: value } : criteria,
+        criteria.id === id ? { ...criteria, label: value } : criteria
       ),
     }));
   }, []);
@@ -314,12 +313,11 @@ export const useCreateEditMission = (
 
         if (isEditing && missionId) {
           // Update existing mission
-          await putMission(submissionData);
+          await updateMissionMutation.mutateAsync(submissionData);
           toast.success("Mission updated successfully");
         } else {
           // Create new mission
-          console.log(submissionData);
-          await postMission(submissionData);
+          await addMissionMutation.mutateAsync(submissionData);
           toast.success("Mission created successfully");
         }
         // Close modal by removing the modal query parameter
@@ -335,7 +333,7 @@ export const useCreateEditMission = (
         setIsSubmitting(false);
       }
     },
-    [validateStep, formData, isEditing, missionId],
+    [validateStep, formData, isEditing, missionId]
   );
 
   const resetForm = useCallback(() => {
