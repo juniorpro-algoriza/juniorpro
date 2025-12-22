@@ -2,11 +2,10 @@
 import { Button, MainCard, Progress } from "@components";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { postJuniorsLearningPathJoin } from "../../server";
-import React from "react";
+import { useJoinLearningPath } from "../../tanstack/paths/useJuniorsPaths";
 
 export const PathHeader = ({
   image,
@@ -22,24 +21,22 @@ export const PathHeader = ({
   pathId?: number;
 }) => {
   const router = useRouter();
-  const [isJoining, setIsJoining] = useState(false);
+  const joinMutation = useJoinLearningPath();
+  const isJoining = joinMutation.isPending;
 
   const handleJoin = useCallback(async () => {
     if (!pathId) return;
-    
-    setIsJoining(true);
+
     try {
-      const res=await postJuniorsLearningPathJoin({ id: pathId });
-      console.log("res",res)
+      const res = await joinMutation.mutateAsync({ id: pathId });
+      console.log("res", res);
       toast.success("Successfully joined learning path!");
       router.push(`/junior/paths/${res}/current/`);
     } catch (error) {
       console.error("Failed to join path:", error);
       toast.error("Failed to join learning path");
-    } finally {
-      setIsJoining(false);
     }
-  }, [pathId, router]);
+  }, [pathId, router, joinMutation]);
 
   return (
     <MainCard classname="relative">
@@ -67,7 +64,7 @@ export const PathHeader = ({
           </div>
         )}
       </div>
-      
+
       {pathId && (
         <Button
           intent="main2"

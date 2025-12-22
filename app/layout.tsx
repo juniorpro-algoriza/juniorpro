@@ -1,4 +1,4 @@
-import { inter } from "@lib";
+import { inter, QueryProvider } from "@lib";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 import type { ReactNode } from "react";
@@ -23,7 +23,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
       <body className={bodyStyle}>
         <Toaster richColors position="top-center" />
         <NextTopLoader />
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

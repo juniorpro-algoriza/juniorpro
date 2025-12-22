@@ -2,40 +2,16 @@ import { Header } from "@components/client";
 import React from "react";
 import { PlansFeaturesTabs } from "./_components";
 import { Breadcrumb } from "@components";
-import { getFeatures, getPackages } from "../server";
 
 export const dynamic = "force-dynamic";
 
-const SubscriptionPage = async ({ searchParams }: { searchParams: Promise<{ query?: string ,period?:"month" |"year"}> }) => {
-  // Get search text from query parameters
-  const resolvedSearchParams = await searchParams;
-  const searchText = resolvedSearchParams.query || "";
-  const period= resolvedSearchParams.period || "month"
-
-  // get features
-  const features = await getFeatures();
-  // get packages
-  const packagesResponse = await getPackages({
-    SearchText: searchText,
-    DurationType:period
-  });
-  const packages = packagesResponse.data || [];
-  // consoles
-  console.log("Features data:", features);
-  console.log("Packages data:", packages);
-
+const SubscriptionPage = async () => {
   return (
     <>
       <Breadcrumb
         breadcrumbs={[
-          {
-            title: "Home",
-            href: "/admin/dashboard",
-          },
-          {
-            title: "Subscription",
-            href: "/admin/subscription",
-          },
+          { title: "Home", href: "/admin/dashboard" },
+          { title: "Subscription", href: "/admin/subscription" },
         ]}
       />
       <Header
@@ -43,7 +19,7 @@ const SubscriptionPage = async ({ searchParams }: { searchParams: Promise<{ quer
         description="Manage plans, features, and pricing strategies"
       />
       <div className="flex items-start justify-between gap-3 w-full">
-        <PlansFeaturesTabs features={features} packages={packages} />
+        <PlansFeaturesTabs />
       </div>
     </>
   );

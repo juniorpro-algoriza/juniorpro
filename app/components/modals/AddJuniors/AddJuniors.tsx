@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Button, DatePicker, Input, Modal } from "@components";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { postAddJuniorToContributer } from "../../../(pages)/(loged-in)/contributor/server";
+import { useAddJunior } from "../../../(pages)/(loged-in)/contributor/tanstack/useAddJunior";
 import { z } from "zod";
 
 // Define Zod schema for form validation
@@ -26,10 +25,9 @@ export const AddJuniors = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [saving, setSaving] = useState(false);
+  const addJuniorMutation = useAddJunior();
+  const saving = addJuniorMutation.isPending;
   const [globalError, setGlobalError] = useState<string | null>(null);
-
-  const router = useRouter();
 
   const handleChange = (
     field: keyof typeof formData,
@@ -47,7 +45,6 @@ export const AddJuniors = () => {
   };
 
   const handleSave = async () => {
-    setSaving(true);
     setErrors({});
     setGlobalError(null);
     try {
@@ -68,10 +65,9 @@ export const AddJuniors = () => {
           : new Date().toISOString(),
       };
 
-      await postAddJuniorToContributer(body);
+      await addJuniorMutation.mutateAsync(body);
 
       toast.success("Junior added successfully!");
-      router.refresh();
 
       // Close modal by removing query param
       const currentUrl = new URL(window.location.href);
@@ -99,8 +95,6 @@ export const AddJuniors = () => {
         setGlobalError(message);
         toast.error(message);
       }
-    } finally {
-      setSaving(false);
     }
   };
 

@@ -2,68 +2,31 @@
 import { Button, MainCard, ModalLink, Skeleton } from "@components";
 import { EmptyData, PathTimeline } from "@components/client";
 import { Plus } from "lucide-react";
-import React, { Suspense, useEffect, useState } from "react";
-import { getMissions } from "../../server";
-import { useSearchParams } from "next/navigation";
-type MissionsType = {
-  id: number | undefined;
-  status: string;
-  title: string | null | undefined;
-  level: string | null | undefined;
-  description: string | null | undefined;
-  duration: string | null | undefined;
-  xp: number | undefined;
-  diamonds: number | undefined;
-  requires?: string | null;
-};
+import React, { Suspense } from "react";
+import { useMissions } from "../../tanstack/missions/useMissions";
 export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
-  const searchParams = useSearchParams();
-  const [missionCount, setMissionCount] = useState(0);
-  const [missions, setMissions] = useState<MissionsType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchMissions = async () => {
-    try {
-      setIsLoading(true);
-      const missions = await getMissions({
-        SearchText: "",
-        Id: parseInt(pathId),
-      });
-      const pathTimeLineData = missions?.data
-        ?.map((item) => {
-          return {
-            id: item.id,
-            status: "InProgress",
-            title: item.nameEn,
-            level: item.levelNameEn,
-            description: item.description,
-            duration: item.durationNameEn,
-            xp: item.xp,
-            diamonds: item.points,
-          };
-        })
-        .sort((a, b) => (a.id || 0) - (b.id || 0));
-      setMissions(pathTimeLineData || []);
-      setMissionCount(missions?.data?.length || 0);
-    } catch (error) {
-      console.error("Failed to fetch missions:", error);
-      setMissionCount(0);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { data: missionsResponse, isLoading } = useMissions({
+    SearchText: "",
+    Id: parseInt(pathId),
+  });
 
-  useEffect(() => {
-    fetchMissions();
-  }, []);
+  const missions = React.useMemo(() => {
+    return (missionsResponse?.data || [])
+      .map((item) => ({
+        id: item.id,
+        status: "InProgress",
+        title: item.nameEn,
+        level: item.levelNameEn,
+        description: item.description,
+        duration: item.durationNameEn,
+        xp: item.xp,
+        diamonds: item.points,
+      }))
+      .sort((a, b) => (a.id || 0) - (b.id || 0));
+  }, [missionsResponse]);
 
-  // Refetch missions when modal closes (modal param is removed from URL)
-  useEffect(() => {
-    const modal = searchParams.get("modal");
-    if (!modal) {
-      fetchMissions();
-    }
-  }, [searchParams]);
+  const missionCount = missionsResponse?.data?.length || 0;
   return (
     <MainCard classname=" space-y-5">
       <div className="flex justify-between items-center gap-3 flex-wrap">
@@ -85,13 +48,16 @@ export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
         </Suspense>
       </div>
       {missionCount > 0 ? (
-        <PathTimeline module="admin" missions={missions} onMissionDeleted={fetchMissions} />
+        <PathTimeline module="admin" missions={missions} />
       ) : (
         <>
           {isLoading ? (
             <Skeleton className="w-full h-[156px]" />
           ) : (
-            <EmptyData title="Your path is empty" description="Add your first mission to get started" />
+            <EmptyData
+              title="Your path is empty"
+              description="Add your first mission to get started"
+            />
           )}
         </>
       )}

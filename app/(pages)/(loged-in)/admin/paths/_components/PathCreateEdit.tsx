@@ -1,13 +1,18 @@
 "use client";
 import { Button, Input, MainCard, Textarea } from "@components";
 import Image from "next/image";
-import React, { useState, useCallback, FormEvent } from "react";
+import React, { useState, useCallback, FormEvent, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { pathFormSchema, PathFormValues } from "../_schema/path.schema";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { components } from "../../../../../../api-schema";
-import { postLearningPath, putLearningPath } from "../../server";
+import {
+  useLearningPathById,
+  useAddLearningPath,
+  useUpdateLearningPath,
+} from "../../tanstack/paths/useLearningPaths";
+
 import { LearningJourneyCard } from "./LearningJourneyCard";
 import { PATH_ICON } from "../../../../../configs";
 
@@ -25,23 +30,42 @@ export const PathCreateEdit = ({
   initialData?: components["schemas"]["Sawiha.Services.DTO.PathModels.GetLearningPathListModel"];
 }) => {
   const router = useRouter();
+  const isEditing = !!pathId;
+  const { data: pathData } = useLearningPathById(
+    pathId ? Number(pathId) : 0,
+    isEditing
+  );
+
+  const addPathMutation = useAddLearningPath();
+  const updatePathMutation = useUpdateLearningPath();
+
   const [formData, setFormData] = useState<PathFormValues>(() => {
-    if (initialData) {
+    const data = pathData || initialData;
+    if (data) {
       return {
-        nameEn: initialData.nameEn ?? "",
-        description: initialData.description ?? "",
-        icon: initialData.icon ?? 1,
+        nameEn: data.nameEn ?? "",
+        description: data.description ?? "",
+        icon: data.icon ?? 1,
       };
     }
     return getInitialFormData();
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (pathData) {
+      setFormData({
+        nameEn: pathData.nameEn ?? "",
+        description: pathData.description ?? "",
+        icon: pathData.icon ?? 1,
+      });
+    }
+  }, [pathData]);
+
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const isEditing = !!pathId;
 
   const handleChange = <T extends keyof PathFormValues>(
     field: T,
-    value: PathFormValues[T],
+    value: PathFormValues[T]
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setFieldErrors((prev) => ({ ...prev, [field]: "" }));
@@ -69,32 +93,32 @@ export const PathCreateEdit = ({
       setFieldErrors({});
 
       try {
-        setIsSubmitting(true);
         const payload = {
           ...result.data,
           ...(isEditing && pathId ? { id: Number(pathId) } : {}),
-        } as typeof result.data;
+        };
 
         if (isEditing && pathId) {
-          await putLearningPath(payload);
+          await updatePathMutation.mutateAsync(payload);
           toast.success("Path updated successfully!");
           router.push("/admin/paths");
         } else {
-          const response = await postLearningPath(result.data);
+          const response = await addPathMutation.mutateAsync(result.data);
           router.push(`/admin/paths/${response}`);
           toast.success("Path created successfully!");
         }
       } catch (error) {
         console.error("Failed to save path:", error);
         toast.error(
-          `Failed to ${isEditing ? "update" : "create"} path. Please try again.`,
+          `Failed to ${isEditing ? "update" : "create"} path. Please try again.`
         );
-      } finally {
-        setIsSubmitting(false);
       }
     },
-    [formData, router, isEditing, pathId],
+    [formData, router, isEditing, pathId, addPathMutation, updatePathMutation]
   );
+
+  const isSubmitting =
+    addPathMutation.isPending || updatePathMutation.isPending;
 
   return (
     <div className="xl:max-w-4/5 space-y-5">
@@ -139,7 +163,7 @@ export const PathCreateEdit = ({
                     onChange={(e) =>
                       handleChange(
                         "icon",
-                        Number(e.target.value) as PathFormValues["icon"],
+                        Number(e.target.value) as PathFormValues["icon"]
                       )
                     }
                     className="peer sr-only"

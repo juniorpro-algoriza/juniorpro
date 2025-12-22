@@ -10,7 +10,7 @@ import RocketImage from "@public/images/rocket-icon.png";
 import Link from "next/link";
 import { z } from "zod";
 import { toast } from "sonner";
-import { postJuniorsLearningPathSubmitMission } from "../../server";
+import { useSubmitMission } from "../../tanstack/paths/useJuniorsPaths";
 
 const submissionSchema = z.object({
   id: z.number(),
@@ -37,8 +37,9 @@ export const SubmitYourWork = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const submitMutation = useSubmitMission();
+  const isSubmitting = submitMutation.isPending;
   const [showSolution, setShowSolution] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<SubmissionFormData>({
     id: missionId || 0,
     submissionLink: "",
@@ -56,7 +57,7 @@ export const SubmitYourWork = ({
         const newErrors: Record<string, string> = {};
         error.issues.forEach((err) => {
           const pathKey = err.path[0];
-          if (typeof pathKey === 'string') {
+          if (typeof pathKey === "string") {
             newErrors[pathKey] = err.message;
           }
         });
@@ -68,46 +69,44 @@ export const SubmitYourWork = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
 
-    setIsSubmitting(true);
-    
     try {
-      await postJuniorsLearningPathSubmitMission({
+      await submitMutation.mutateAsync({
         id: formData.id,
         submissionLink: formData.submissionLink,
         submissionNotes: formData.submissionNotes,
       });
-      
+
       // Create new params based on current ones
       const newParams = new URLSearchParams(searchParams.toString());
-      
+
       // Set the modal name
       newParams.set("modal", "MissionCompleted");
       newParams.set("mission", nameEn || "Mission");
       newParams.set("points", points?.toString() || "0");
       newParams.set("xp", xp?.toString() || "0");
-      
+
       const finalUrl = `?${newParams.toString()}`;
-      
+
       router.push(finalUrl);
-      
     } catch (error) {
       toast.error("Failed to submit mission. Please try again.");
       console.error("Submission error:", error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  const handleInputChange = (field: keyof SubmissionFormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const handleInputChange = (
+    field: keyof SubmissionFormData,
+    value: string
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error for this field when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
@@ -131,7 +130,9 @@ export const SubmitYourWork = ({
             type="url"
             placeholder="https://github.com/username/project"
             value={formData.submissionLink}
-            onChange={(e) => handleInputChange("submissionLink", e.target.value)}
+            onChange={(e) =>
+              handleInputChange("submissionLink", e.target.value)
+            }
             error={errors.submissionLink}
           />
           <Textarea
@@ -139,7 +140,9 @@ export const SubmitYourWork = ({
             name="notes"
             placeholder="Describe your solution, challenges you faced, or anything else you'd like to share..."
             value={formData.submissionNotes}
-            onChange={(e) => handleInputChange("submissionNotes", e.target.value)}
+            onChange={(e) =>
+              handleInputChange("submissionNotes", e.target.value)
+            }
             // className="w-full border-[#DFE1E8]"
           />
         </div>
@@ -190,9 +193,7 @@ export const SubmitYourWork = ({
                 <ExternalLink className="size-5" />
               </div>
               <div>
-                <p className="font-medium break-all">
-                  {submissionLink || "#"}
-                </p>
+                <p className="font-medium break-all">{submissionLink || "#"}</p>
                 <p className="text-13 text-gray-600">Click to view</p>
               </div>
             </MainCard>

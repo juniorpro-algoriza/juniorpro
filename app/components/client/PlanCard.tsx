@@ -1,16 +1,15 @@
 import { CircleCheck, EllipsisVertical, Infinity, Users } from "lucide-react";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { Button } from "../Button";
 import { components } from "../../../api-schema";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { useRouter } from "next/navigation";
-import { deletePackage } from "../../(pages)/(loged-in)/admin/server";
+import { useDeletePackage } from "../../(pages)/(loged-in)/admin/tanstack";
+import {
+  useSubscribe,
+  useUpgradePlan,
+} from "../../(pages)/(loged-in)/contributor/tanstack";
 import { toast } from "sonner";
 import { ModalLink } from "@components";
-import {
-  postSubscribe,
-  postUpgradePlan,
-} from "../../(pages)/(loged-in)/contributor/server";
 
 type Package =
   | components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"]
@@ -30,58 +29,49 @@ export const PlanCard = ({
   currentSubscription?: CurrentSubscription | null;
   isLoadingSubscription?: boolean;
 }) => {
-  const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isSubscribing, setIsSubscribing] = useState(false);
-  const [isUpgrading, setIsUpgrading] = useState(false);
+  const deleteMutation = useDeletePackage();
+  const subscribeMutation = useSubscribe();
+  const upgradeMutation = useUpgradePlan();
+
+  const isDeleting = deleteMutation.isPending;
+  const isSubscribing = subscribeMutation.isPending;
+  const isUpgrading = upgradeMutation.isPending;
 
   const handleDelete = useCallback(async () => {
     if (!packageData.id) return;
 
     try {
-      setIsDeleting(true);
-      await deletePackage({ id: packageData.id });
+      await deleteMutation.mutateAsync({ id: packageData.id });
       toast.success("Plan deleted successfully");
-      router.refresh();
     } catch (error) {
       console.error("Failed to delete plan:", error);
       toast.error("Failed to delete plan");
-    } finally {
-      setIsDeleting(false);
     }
-  }, [packageData.id, router]);
+  }, [packageData.id, deleteMutation]);
 
   const handleSubscribe = useCallback(async () => {
     if (!packageData.id) return;
 
     try {
-      setIsSubscribing(true);
-      await postSubscribe(packageData.id);
+      await subscribeMutation.mutateAsync(packageData.id);
       toast.success("Subscribed successfully!");
-      router.refresh();
     } catch (error) {
       console.error("Failed to subscribe:", error);
       toast.error("Failed to subscribe");
-    } finally {
-      setIsSubscribing(false);
     }
-  }, [packageData.id, router]);
+  }, [packageData.id, subscribeMutation]);
 
   const handleUpgrade = useCallback(async () => {
     if (!packageData.id) return;
 
     try {
-      setIsUpgrading(true);
-      await postUpgradePlan(packageData.id);
+      await upgradeMutation.mutateAsync(packageData.id);
       toast.success("Plan upgraded successfully!");
-      router.refresh();
     } catch (error) {
       console.error("Failed to upgrade:", error);
       toast.error("Failed to upgrade plan");
-    } finally {
-      setIsUpgrading(false);
     }
-  }, [packageData.id, router]);
+  }, [packageData.id, upgradeMutation]);
 
   return (
     <div className="border-2 border-dotted border-gray-200 p-5 rounded-2xl space-y-3">

@@ -1,49 +1,31 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { PlanCard } from "./PlanCard";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
 import { components } from "../../../api-schema";
-import { getCurrentSubscription } from "../../(pages)/(loged-in)/contributor/server";
+import { useCurrentSubscription } from "../../(pages)/(loged-in)/contributor/tanstack";
+import { PlanCard } from "./PlanCard";
+import { Skeleton } from "../Skeleton";
 
 type Package =
   | components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"]
   | components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"];
 
-type CurrentSubscription = components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel"];
-
 export const PlanTabs = ({
   module,
   packages,
+  loadingPackages,
 }: {
   module: "admin" | "contributor";
   packages: Package[];
+  loadingPackages?: boolean;
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [currentSubscription, setCurrentSubscription] = useState<CurrentSubscription | null>(null);
-  const [isLoadingSubscription, setIsLoadingSubscription] = useState(false);
 
-  // Fetch current subscription when module is contributor
-  useEffect(() => {
-    if (module === "contributor") {
-      const fetchCurrentSubscription = async () => {
-        try {
-          setIsLoadingSubscription(true);
-          const subscription = await getCurrentSubscription();
-          setCurrentSubscription(subscription);
-        } catch (e) {
-          // 404 or any error means no current subscription
-          console.log(e)
-          setCurrentSubscription(null);
-        } finally {
-          setIsLoadingSubscription(false);
-        }
-      };
-
-      fetchCurrentSubscription();
-    }
-  }, [module]);
+  // Use TanStack Query for subscription data
+  const { data: currentSubscription, isLoading: isLoadingSubscription } =
+    useCurrentSubscription(module === "contributor");
 
   const period = searchParams.get("period") || "month";
 
@@ -86,6 +68,12 @@ export const PlanTabs = ({
         </div>
       </div>
       <div className="grid md:grid-cols-2 md:gap-5 gap-2">
+        {loadingPackages && (
+          <>
+            <Skeleton className="w-full h-[300px] rounded-2xl border border-gray-200 border-dashed" />
+            <Skeleton className="w-full h-[300px] rounded-2xl border border-gray-200 border-dashed" />
+          </>
+        )}
         {packages.map((packageItem) => (
           <PlanCard
             key={packageItem.id}
@@ -95,7 +83,7 @@ export const PlanTabs = ({
             isLoadingSubscription={isLoadingSubscription}
           />
         ))}
-        {packages.length === 0 && (
+        {packages.length === 0 && !loadingPackages && (
           <div className="flex items-center text-gray-600">
             No plans available.
           </div>

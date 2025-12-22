@@ -1,28 +1,36 @@
-import { Breadcrumb } from "@components";
+"use client";
+import React, { use } from "react";
+import { Breadcrumb, Skeleton } from "@components";
 import {
   PathDetailsHeader,
   PathDetailsTabs,
   StuckOnAProblem,
 } from "../../../_components";
 import {
-  getJuniorsLearningPathCurrentMissionById,
-  getJuniorsLearningPathCurrentById,
-} from "../../../../server";
+  useJuniorsLearningPathCurrentById,
+  useJuniorsLearningPathCurrentMissionById,
+} from "../../../../tanstack/paths/useJuniorsPaths";
 
-export default async function PathDetailPage({
+export default function PathDetailPage({
   params,
 }: {
   params: Promise<{ pathDetailsId: string; id: string }>;
 }) {
-  const { pathDetailsId, id } = await params;
-  // Fetch current path and mission data
-  const [currentPath, currentMission] = await Promise.all([
-    getJuniorsLearningPathCurrentById({ id: parseInt(id) }),
-    getJuniorsLearningPathCurrentMissionById({
-      id: parseInt(pathDetailsId),
-    }),
-  ]);
-  console.log(currentMission);
+  const { pathDetailsId, id } = use(params);
+
+  const { data: currentPath, isLoading: isLoadingPath } =
+    useJuniorsLearningPathCurrentById(parseInt(id));
+  const { data: currentMission, isLoading: isLoadingMission } =
+    useJuniorsLearningPathCurrentMissionById(parseInt(pathDetailsId));
+
+  if (isLoadingPath || isLoadingMission) {
+    return (
+      <div className="space-y-10">
+        <Skeleton className="h-48 w-full rounded-2xl" />
+        <Skeleton className="h-96 w-full rounded-2xl" />
+      </div>
+    );
+  }
   return (
     <>
       <Breadcrumb
@@ -58,14 +66,14 @@ export default async function PathDetailPage({
         durationNameEn={currentMission?.missionDetails?.durationNameEn}
       />
       <PathDetailsTabs
-        steps={currentMission.steps}
-        successCriterias={currentMission.successCriterias}
-        learningResources={currentMission.learningResources}
-        submissionLink={currentMission.missionDetails?.submissionLink}
-        referenceAnswer={currentMission.missionDetails?.referenceAnswer}
+        steps={currentMission?.steps}
+        successCriterias={currentMission?.successCriterias}
+        learningResources={currentMission?.learningResources}
+        submissionLink={currentMission?.missionDetails?.submissionLink}
+        referenceAnswer={currentMission?.missionDetails?.referenceAnswer}
         missionId={parseInt(pathDetailsId)}
-        points={currentMission.missionDetails?.points}
-        xp={currentMission.missionDetails?.xp}
+        points={currentMission?.missionDetails?.points}
+        xp={currentMission?.missionDetails?.xp}
         nameEn={currentMission?.missionDetails?.nameEn}
       />
       <StuckOnAProblem />

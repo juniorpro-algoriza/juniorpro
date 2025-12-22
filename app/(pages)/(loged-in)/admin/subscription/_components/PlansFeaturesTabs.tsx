@@ -8,21 +8,38 @@ import { Button, ModalLink } from "@components";
 import { FeaturesTable } from "./FeaturesTab";
 import { components } from "../../../../../../api-schema";
 
+import { useFeatures } from "../../tanstack/features/useFeatures";
+import { usePackages } from "../../tanstack/packages/usePackages";
+import { useSearchParams } from "next/navigation";
+
 type Feature =
   components["schemas"]["Sawiha.Services.DTO.FeatureModels.FeatureModel"];
 type Package =
-  components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"];
+  | components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"]
+  | components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"];
 
-interface PlansFeaturesTabsProps {
-  features: Feature[];
-  packages: Package[];
-}
 
-export const PlansFeaturesTabs = ({
-  features,
-  packages,
-}: PlansFeaturesTabsProps) => {
+export const PlansFeaturesTabs = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const searchParams = useSearchParams();
+  const searchText = searchParams.get("query") || "";
+  const period = (searchParams.get("period") as "month" | "year") || "month";
+
+  const {
+    data: features,
+    isLoading: isLoadingFeatures,
+  } = useFeatures();
+
+  const {
+    data: packagesResponse,
+    isLoading: isLoadingPackages,
+  } = usePackages({
+    SearchText: searchText,
+    DurationType: period,
+  });
+
+  const packages = (packagesResponse?.data as Package[]) || [];
+  const featuresList = (features as Feature[]) || [];
 
   const tabsData: TabData[] = [
     {
@@ -34,7 +51,7 @@ export const PlansFeaturesTabs = ({
       ),
       content: (
         <React.Suspense>
-          <PlanTabs module="admin" packages={packages} />
+          <PlanTabs module="admin" packages={packages} loadingPackages={isLoadingPackages} />
         </React.Suspense>
       ),
     },
@@ -45,7 +62,7 @@ export const PlansFeaturesTabs = ({
           <span>Features</span>
         </div>
       ),
-      content: <FeaturesTable features={features} />,
+      content: <FeaturesTable features={featuresList} isLoading={isLoadingFeatures} />
     },
   ];
 
