@@ -2,11 +2,11 @@
 
 import { customFetch } from "@server/lib";
 
-export async function postJuniorsLearningPathSubmitMission({ 
-  id, 
+export async function postJuniorsLearningPathSubmitMission({
+  id,
   submissionLink,
-  submissionNotes
-}: { 
+  submissionNotes,
+}: {
   id: number;
   submissionLink: string;
   submissionNotes?: string | null;

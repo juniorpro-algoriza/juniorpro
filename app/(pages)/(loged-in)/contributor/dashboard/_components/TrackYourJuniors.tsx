@@ -21,10 +21,7 @@ export const TrackYourJuniors = () => {
       </div>
       <div className="space-y-3">
         {activities.map((item, index) => (
-          <MainCard
-            key={index}
-            classname="flex items-center gap-4 p-4"
-          >
+          <MainCard key={index} classname="flex items-center gap-4 p-4">
             <div className="relative">
               <Image
                 src={item.gender === "male" ? MaleImage.src : FemaleImage.src}
@@ -49,10 +46,10 @@ export const TrackYourJuniors = () => {
 
             <div className="space-y-0.5">
               <p className="text-sm">
-                <span className="text-dark-blue-main font-bold">{item.user}</span>{" "}
-                <span className="font-bold">
-                  {item.action}
-                </span>
+                <span className="text-dark-blue-main font-bold">
+                  {item.user}
+                </span>{" "}
+                <span className="font-bold">{item.action}</span>
               </p>
               <p className="text-sm font-medium text-gray-400">
                 {item.time} <span className="mx-1">•</span> {item.xp} XP

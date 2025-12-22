@@ -1,3 +1,5 @@
---apply prittier and husky
-- remove 
---buttons un wanted variants
+--apply better branches and commits
+--apply testing
+
+- remove
+  --buttons un wanted variants

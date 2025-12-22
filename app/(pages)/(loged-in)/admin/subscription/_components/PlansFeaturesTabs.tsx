@@ -18,22 +18,15 @@ type Package =
   | components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"]
   | components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"];
 
-
 export const PlansFeaturesTabs = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const searchParams = useSearchParams();
   const searchText = searchParams.get("query") || "";
   const period = (searchParams.get("period") as "month" | "year") || "month";
 
-  const {
-    data: features,
-    isLoading: isLoadingFeatures,
-  } = useFeatures();
+  const { data: features, isLoading: isLoadingFeatures } = useFeatures();
 
-  const {
-    data: packagesResponse,
-    isLoading: isLoadingPackages,
-  } = usePackages({
+  const { data: packagesResponse, isLoading: isLoadingPackages } = usePackages({
     SearchText: searchText,
     DurationType: period,
   });
@@ -51,7 +44,11 @@ export const PlansFeaturesTabs = () => {
       ),
       content: (
         <React.Suspense>
-          <PlanTabs module="admin" packages={packages} loadingPackages={isLoadingPackages} />
+          <PlanTabs
+            module="admin"
+            packages={packages}
+            loadingPackages={isLoadingPackages}
+          />
         </React.Suspense>
       ),
     },
@@ -62,7 +59,9 @@ export const PlansFeaturesTabs = () => {
           <span>Features</span>
         </div>
       ),
-      content: <FeaturesTable features={featuresList} isLoading={isLoadingFeatures} />
+      content: (
+        <FeaturesTable features={featuresList} isLoading={isLoadingFeatures} />
+      ),
     },
   ];
 

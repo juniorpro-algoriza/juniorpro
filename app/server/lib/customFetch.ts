@@ -122,7 +122,9 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
         // Server-side redirect to logout route
         const headersList = await headers();
         const currentPath = headersList.get("x-pathname") || "/";
-        redirect(`/api/auth/logout?redirect=${encodeURIComponent(`/auth/login?redirect=${encodeURIComponent(currentPath)}`)}`);
+        redirect(
+          `/api/auth/logout?redirect=${encodeURIComponent(`/auth/login?redirect=${encodeURIComponent(currentPath)}`)}`
+        );
       } else {
         document.cookie = "auth_token=; Max-Age=0; path=/";
         document.cookie = "user_type=; Max-Age=0; path=/";
@@ -136,23 +138,27 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
     // Handle other errors
     if (!response.ok) {
       const errorParts = [
-        `Request failed: ${response.status} ${response.statusText}`
+        `Request failed: ${response.status} ${response.statusText}`,
       ];
 
       // Add API error details
       try {
         const errJson = await response.json();
         console.error(errJson);
-        const apiError = errJson?.errorMessage || errJson?.message || errJson?.error || errJson?.detail;
+        const apiError =
+          errJson?.errorMessage ||
+          errJson?.message ||
+          errJson?.error ||
+          errJson?.detail;
         if (apiError) errorParts.push(`API Error: ${apiError}`);
-        
+
         if (errJson?.code) errorParts.push(`Error Code: ${errJson.code}`);
       } catch {
         // ignore if no valid JSON
       }
 
       // Add request context
-      const baseUrl = process.env.API_ROOT_URL || '';
+      const baseUrl = process.env.API_ROOT_URL || "";
       errorParts.push(`Endpoint: ${baseUrl}${finalUrl}`);
       errorParts.push(`Method: ${options.method}`);
 
@@ -160,15 +166,17 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
       if (options.data) {
         try {
           const payloadString = JSON.stringify(options.data);
-          const truncatedPayload = payloadString.length > 1000 ? 
-            payloadString.substring(0, 1000) + '...' : payloadString;
+          const truncatedPayload =
+            payloadString.length > 1000
+              ? payloadString.substring(0, 1000) + "..."
+              : payloadString;
           errorParts.push(`Payload: ${truncatedPayload}`);
         } catch {
-          errorParts.push('Payload: [Unable to serialize]');
+          errorParts.push("Payload: [Unable to serialize]");
         }
       }
 
-      throw new Error(errorParts.join(' | '));
+      throw new Error(errorParts.join(" | "));
     }
 
     const data = await response.json();

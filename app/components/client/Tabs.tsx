@@ -34,7 +34,11 @@ export const Tabs: React.FC<TabsProps> = ({
   defaultIndex,
 }) => {
   return (
-    <TabGroup selectedIndex={selectedIndex} onChange={onTabChange} defaultIndex={defaultIndex}>
+    <TabGroup
+      selectedIndex={selectedIndex}
+      onChange={onTabChange}
+      defaultIndex={defaultIndex}
+    >
       <div className="flex items-center justify-between flex-wrap">
         <TabList className={cx(defaultTabListClass, tabListClassName)}>
           {tabs.map((tab, index) => (

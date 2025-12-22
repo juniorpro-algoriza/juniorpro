@@ -11,7 +11,7 @@ type TimelineContextValue = {
 
 // Context
 const TimelineContext = React.createContext<TimelineContextValue | undefined>(
-  undefined,
+  undefined
 );
 
 const useTimeline = () => {
@@ -47,7 +47,7 @@ function Timeline({
       }
       onValueChange?.(step);
     },
-    [value, onValueChange],
+    [value, onValueChange]
   );
 
   const currentStep = value ?? activeStep;
@@ -59,7 +59,7 @@ function Timeline({
       <div
         className={cx(
           "group/timeline flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col",
-          className,
+          className
         )}
         data-orientation={orientation}
         data-slot="timeline"
@@ -103,7 +103,7 @@ function TimelineIndicator({
       aria-hidden="true"
       className={cx(
         "group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:-translate-x-1/2 absolute size-4 rounded-full border-2 border-primary/20 group-data-[orientation=vertical]/timeline:top-0 group-data-[orientation=horizontal]/timeline:left-0 group-data-completed/timeline-item:border-primary",
-        className,
+        className
       )}
       data-slot="timeline-indicator"
       {...props}
@@ -125,7 +125,7 @@ function TimelineItem({ step, className, ...props }: TimelineItemProps) {
     <div
       className={cx(
         "group/timeline-item relative flex flex-1 flex-col gap-0.5 group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:not-last:pb-12 has-[+[data-completed]]:[&_[data-slot=timeline-separator]]:bg-primary",
-        className,
+        className
       )}
       data-completed={step <= activeStep || undefined}
       data-slot="timeline-item"
@@ -144,7 +144,7 @@ function TimelineSeparator({
       aria-hidden="true"
       className={cx(
         "group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:-translate-x-1/2 absolute self-start bg-primary/10 group-last/timeline-item:hidden group-data-[orientation=horizontal]/timeline:h-0.5 group-data-[orientation=vertical]/timeline:h-[calc(100%-1rem-0.25rem)] group-data-[orientation=horizontal]/timeline:w-[calc(100%-1rem-0.25rem)] group-data-[orientation=vertical]/timeline:w-0.5 group-data-[orientation=horizontal]/timeline:translate-x-4.5 group-data-[orientation=vertical]/timeline:translate-y-4.5",
-        className,
+        className
       )}
       data-slot="timeline-separator"
       {...props}

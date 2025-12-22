@@ -8,8 +8,8 @@ import { Header } from "@components/client";
 
 export const DashboardHeader = ({ description }: { description: string }) => {
   const [user] = useAtom(userAtom);
-  const firstName = user?.firstName || '';
-  const lastName = user?.lastName || '';
+  const firstName = user?.firstName || "";
+  const lastName = user?.lastName || "";
   return (
     <Header
       title={`Welcome Back , ${firstName} ${lastName}!`}

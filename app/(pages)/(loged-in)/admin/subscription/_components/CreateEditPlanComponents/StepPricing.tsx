@@ -32,10 +32,14 @@ interface StepPricingProps {
 //   />
 // );
 
-export const StepPricing = ({ formData, setFormData, fieldErrors = {} }: StepPricingProps) => {
+export const StepPricing = ({
+  formData,
+  setFormData,
+  fieldErrors = {},
+}: StepPricingProps) => {
   const handleChange = <T extends keyof PlanFormData>(
     field: T,
-    value: PlanFormData[T],
+    value: PlanFormData[T]
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -101,10 +105,12 @@ export const StepPricing = ({ formData, setFormData, fieldErrors = {} }: StepPri
             placeholder="Select duration type"
           />
           {fieldErrors.durationType && (
-            <p className="text-red-500 text-sm mt-1">{fieldErrors.durationType}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {fieldErrors.durationType}
+            </p>
           )}
         </div>
-        
+
         <Input
           label="Price *"
           placeholder="0"
@@ -112,7 +118,9 @@ export const StepPricing = ({ formData, setFormData, fieldErrors = {} }: StepPri
           min={0}
           value={formData.price ?? ""}
           onChange={(e) => handleChange("price", Number(e.target.value))}
-          leftIcon={<DollarSign className="size-4 text-gray-400" strokeWidth={3} />}
+          leftIcon={
+            <DollarSign className="size-4 text-gray-400" strokeWidth={3} />
+          }
           helperText={`Amount charged per ${formData.durationType === 1 ? "day" : formData.durationType === 2 ? "week" : formData.durationType === 3 ? "month" : "year"}`}
           containerClassName="max-w-md"
           className="placeholder:text-3xl h-16 text-3xl font-semibold placeholder:max-md:text-3xl"

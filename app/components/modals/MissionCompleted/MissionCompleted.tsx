@@ -31,15 +31,15 @@ export const MissionCompleted = () => {
     if (!isModalReady || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    
+
     // Ensure canvas has proper dimensions
     const resizeCanvas = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
-    
+
     resizeCanvas();
-    
+
     const myConfetti = confetti.create(canvas, {
       resize: true,
       useWorker: true,

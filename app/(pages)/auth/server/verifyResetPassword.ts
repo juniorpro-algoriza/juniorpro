@@ -22,7 +22,8 @@ export async function verifyResetPassword({
 
     return { success: true, data: response };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
     return { success: false, message: errorMessage };
   }
 }

@@ -30,22 +30,22 @@ export const Modal = ({
   const router = useRouter();
   const [containerStyle, setContainerStyle] = useState("");
   const [panelStyle, setPanelStyle] = useState("");
-const sleep = (seconds: number) => {
-  return new Promise((resovle) => {
-    setTimeout(() => {
-      resovle(true);
-    }, seconds * 1000);
-  });
-};
+  const sleep = (seconds: number) => {
+    return new Promise((resovle) => {
+      setTimeout(() => {
+        resovle(true);
+      }, seconds * 1000);
+    });
+  };
 
   const onClose = async () => {
     setContainerStyle("opacity-0");
     setPanelStyle("translate-y-full");
     await sleep(0.5);
-    
+
     // Remove all query parameters when closing modal
     const currentUrl = new URL(window.location.href);
-    currentUrl.search = '';
+    currentUrl.search = "";
     router.push(currentUrl.pathname + currentUrl.hash);
   };
 

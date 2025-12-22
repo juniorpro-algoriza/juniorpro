@@ -1,4 +1,3 @@
-
 import type { Project } from "@types";
 export type ProjectType = "Team" | "Free Solo" | "Premium Solo";
 

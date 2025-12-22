@@ -1,2 +1,2 @@
-export {PlansFeaturesTabs} from "./PlansFeaturesTabs"
-export {FeaturesTable} from "./FeaturesTab"
+export { PlansFeaturesTabs } from "./PlansFeaturesTabs";
+export { FeaturesTable } from "./FeaturesTab";

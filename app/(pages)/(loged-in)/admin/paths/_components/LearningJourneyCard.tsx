@@ -5,7 +5,6 @@ import { Plus } from "lucide-react";
 import React, { Suspense } from "react";
 import { useMissions } from "../../tanstack/missions/useMissions";
 export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
-
   const { data: missionsResponse, isLoading } = useMissions({
     SearchText: "",
     Id: parseInt(pathId),

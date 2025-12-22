@@ -7,9 +7,9 @@ import { useEffect } from "react";
 import { useDebounceValue } from "usehooks-ts";
 interface SearchInputProps {
   className?: string;
-  placeholder?:string
+  placeholder?: string;
 }
-export const SearchInput = ({ className ,placeholder}: SearchInputProps) => {
+export const SearchInput = ({ className, placeholder }: SearchInputProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();

@@ -2,11 +2,7 @@
 
 import { customFetch } from "@server/lib";
 
-export async function deleteLearningPath({
-  id,
-}: {
-  id: number;
-}) {
+export async function deleteLearningPath({ id }: { id: number }) {
   const path = customFetch("/learning-path-management/{id}", {
     method: "delete",
     path: {

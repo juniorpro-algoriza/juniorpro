@@ -11,9 +11,7 @@ export const planFormSchema = z.object({
   description: z.string().min(1, "Description is required"),
   juniorCapacity: z.number().int().nonnegative(),
   isActive: z.boolean(),
-  price: z
-    .number()
-    .min(0, "Price must be greater than or equal to 0"),
+  price: z.number().min(0, "Price must be greater than or equal to 0"),
   durationType: z
     .number()
     .int()

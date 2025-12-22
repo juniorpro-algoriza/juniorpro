@@ -14,70 +14,73 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden text-center">
       {/* Animated Floating Clouds - Parallax */}
-      {useMemo(() => (
-        <>
-          <motion.div 
-            className="absolute top-[15%] left-[-5%] w-64 md:w-96 opacity-80 z-0 will-change-transform"
-            animate={{ x: [0, 100, 0] }}
-            transition={{ 
-              duration: 30, 
-              repeat: Infinity, 
-              ease: "linear",
-              type: "tween"
-            }}
-          >
-            <Image
-              src={cloudImg}
-              alt="Cloud"
-              width={512}
-              height={256}
-              className="w-full h-auto object-contain"
-              priority
-              quality={40}
-            />
-          </motion.div>
-          <motion.div 
-            className="absolute top-[40%] right-[-10%] w-80 md:w-[500px] opacity-70 z-0 will-change-transform"
-            animate={{ x: [0, -80, 0] }}
-            transition={{ 
-              duration: 35, 
-              repeat: Infinity, 
-              ease: "linear",
-              type: "tween"
-            }}
-          >
-            <Image
-              src={cloudImg}
-              alt="Cloud"
-              width={800}
-              height={400}
-              className="w-full h-auto object-contain"
-              priority
-              quality={40}
-            />
-          </motion.div>
-          <motion.div 
-            className="absolute bottom-[20%] left-[5%] w-48 opacity-60 z-0 will-change-transform"
-            animate={{ x: [0, 60, 0] }}
-            transition={{ 
-              duration: 25, 
-              repeat: Infinity, 
-              ease: "linear",
-              type: "tween"
-            }}
-          >
-            <Image
-              src={cloudImg}
-              alt="Cloud"
-              width={384}
-              height={192}
-              className="w-full h-auto object-contain"
-              priority
-              quality={40}
-            />
-          </motion.div>
-        </>
-      ), [])}
+      {useMemo(
+        () => (
+          <>
+            <motion.div
+              className="absolute top-[15%] left-[-5%] w-64 md:w-96 opacity-80 z-0 will-change-transform"
+              animate={{ x: [0, 100, 0] }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: "linear",
+                type: "tween",
+              }}
+            >
+              <Image
+                src={cloudImg}
+                alt="Cloud"
+                width={512}
+                height={256}
+                className="w-full h-auto object-contain"
+                priority
+                quality={40}
+              />
+            </motion.div>
+            <motion.div
+              className="absolute top-[40%] right-[-10%] w-80 md:w-[500px] opacity-70 z-0 will-change-transform"
+              animate={{ x: [0, -80, 0] }}
+              transition={{
+                duration: 35,
+                repeat: Infinity,
+                ease: "linear",
+                type: "tween",
+              }}
+            >
+              <Image
+                src={cloudImg}
+                alt="Cloud"
+                width={800}
+                height={400}
+                className="w-full h-auto object-contain"
+                priority
+                quality={40}
+              />
+            </motion.div>
+            <motion.div
+              className="absolute bottom-[20%] left-[5%] w-48 opacity-60 z-0 will-change-transform"
+              animate={{ x: [0, 60, 0] }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear",
+                type: "tween",
+              }}
+            >
+              <Image
+                src={cloudImg}
+                alt="Cloud"
+                width={384}
+                height={192}
+                className="w-full h-auto object-contain"
+                priority
+                quality={40}
+              />
+            </motion.div>
+          </>
+        ),
+        []
+      )}
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         {/* Friendly Welcome Tag */}
@@ -160,7 +163,9 @@ export function HeroSection() {
                 />
               </div>
               <div className="text-left">
-                <div className="text-black md:text-xl text-lg font-bold">Sarah</div>
+                <div className="text-black md:text-xl text-lg font-bold">
+                  Sarah
+                </div>
                 <div className="text-blue-saturated text-sm font-medium">
                   Level 4 • Future System Architect
                 </div>
@@ -169,7 +174,9 @@ export function HeroSection() {
             <div className="flex gap-3">
               <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-main to-[#FFD54F] md:px-4 px-2 py-2 rounded-full border-2 border-black shadow-sm">
                 <span className="text-lg">⚡</span>
-                <span className="text-black text-xs md:text-base">1,240 XP</span>
+                <span className="text-black text-xs md:text-base">
+                  1,240 XP
+                </span>
               </div>
               <div className="flex items-center gap-2 bg-gradient-to-r from-[#FF9ECE] to-[#FF8CF1] px-4 py-2 rounded-full border-2 border-black shadow-sm">
                 <span className="text-lg">🔥</span>
@@ -299,7 +306,8 @@ export function HeroSection() {
 
                     <div className="flex justify-between items-start mb-2">
                       <span className="text-[10px] font-black text-blue-saturated uppercase tracking-widest flex items-center gap-1.5">
-                        <Brain className="size-3.5 shrink-0" /> System Logic Track
+                        <Brain className="size-3.5 shrink-0" /> System Logic
+                        Track
                       </span>
                       <span className="text-[10px] bg-blue-saturated px-2 py-0.5 rounded text-white font-bold">
                         MISSION 1.2

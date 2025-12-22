@@ -44,7 +44,10 @@ function Calendar({
         ...formatters,
       }}
       classNames={{
-        root: cx("w-fit border-gray-200 bg-white rounded-2xl", defaultClassNames.root),
+        root: cx(
+          "w-fit border-gray-200 bg-white rounded-2xl",
+          defaultClassNames.root
+        ),
         months: cx(
           "flex gap-4 flex-col md:flex-row relative",
           defaultClassNames.months
@@ -119,7 +122,7 @@ function Calendar({
         ),
         outside: cx(
           "text-muted-foreground opacity-50 ",
-          defaultClassNames.outside,
+          defaultClassNames.outside
         ),
         disabled: cx(
           "text-muted-foreground opacity-50",
@@ -142,7 +145,10 @@ function Calendar({
         Chevron: ({ className, orientation, ...props }) => {
           if (orientation === "left") {
             return (
-              <ChevronLeftIcon className={cx("size-4 cursor-pointer", className)} {...props} />
+              <ChevronLeftIcon
+                className={cx("size-4 cursor-pointer", className)}
+                {...props}
+              />
             );
           }
 
@@ -156,7 +162,10 @@ function Calendar({
           }
 
           return (
-            <ChevronDownIcon className={cx("size-4 cursor-pointer", className)} {...props} />
+            <ChevronDownIcon
+              className={cx("size-4 cursor-pointer", className)}
+              {...props}
+            />
           );
         },
         DayButton: CalendarDayButton,

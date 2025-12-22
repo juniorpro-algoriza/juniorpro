@@ -9,7 +9,7 @@ interface StepSolutionProps {
 export const StepSolution = ({
   solutionCode,
   updateSolution,
-  fieldErrors = {}
+  fieldErrors = {},
 }: StepSolutionProps) => {
   return (
     <div className="space-y-4">

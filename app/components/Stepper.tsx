@@ -5,7 +5,6 @@ import { CheckIcon, LoaderCircleIcon } from "lucide-react";
 import * as React from "react";
 import { createContext, useContext } from "react";
 
-
 // Types
 type StepperContextValue = {
   activeStep: number;
@@ -24,10 +23,10 @@ type StepState = "active" | "completed" | "inactive" | "loading";
 
 // Contexts
 const StepperContext = createContext<StepperContextValue | undefined>(
-  undefined,
+  undefined
 );
 const StepItemContext = createContext<StepItemContextValue | undefined>(
-  undefined,
+  undefined
 );
 
 const useStepper = () => {
@@ -71,7 +70,7 @@ function Stepper({
       }
       onValueChange?.(step);
     },
-    [value, onValueChange],
+    [value, onValueChange]
   );
 
   const currentStep = value ?? activeStep;
@@ -87,7 +86,7 @@ function Stepper({
       <div
         className={cx(
           "group/stepper inline-flex flex-1 data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col",
-          className,
+          className
         )}
         data-orientation={orientation}
         data-slot="stepper"
@@ -132,7 +131,7 @@ function StepperItem({
       <div
         className={cx(
           "group/step flex items-center group-data-[orientation=horizontal]/stepper:flex-row group-data-[orientation=vertical]/stepper:flex-col",
-          className,
+          className
         )}
         data-slot="stepper-item"
         data-state={state}
@@ -173,7 +172,7 @@ function StepperTrigger({
     <button
       className={cx(
         "inline-flex items-center gap-3 rounded-full outline-none focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50",
-        className,
+        className
       )}
       data-slot="stepper-trigger"
       disabled={isDisabled}
@@ -203,7 +202,7 @@ function StepperIndicator({
     <span
       className={cx(
         "relative flex size-8 shrink-0 items-center justify-center rounded-full bg-white border-gray-200 font-bold text-gray-300 text-xs data-[state=active]:bg-dark-blue-main data-[state=completed]:bg-dark-blue-main data-[state=active]:text-white data-[state=completed]:text-white data-[state=inactive]:border data-[state=inactive]:shadow-none [box-shadow:_0px_10px_15px_-3px_#C6D2FF]",
-        className,
+        className
       )}
       data-slot="stepper-indicator"
       data-state={state}
@@ -244,7 +243,10 @@ function StepperTitle({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cx("font-medium sm:text-sm text-xs group-data-[state=completed]/step:text-dark-blue-main group-data-[state=active]/step:text-dark-blue-main text-gray-300", className)}
+      className={cx(
+        "font-medium sm:text-sm text-xs group-data-[state=completed]/step:text-dark-blue-main group-data-[state=active]/step:text-dark-blue-main text-gray-300",
+        className
+      )}
       data-slot="stepper-title"
       {...props}
     />
@@ -274,7 +276,7 @@ function StepperSeparator({
     <div
       className={cx(
         "m-0.5 bg-gray-100 group-data-[orientation=horizontal]/stepper:h-0.5 group-data-[orientation=vertical]/stepper:h-12 group-data-[orientation=horizontal]/stepper:w-full group-data-[orientation=vertical]/stepper:w-0.5 group-data-[orientation=horizontal]/stepper:flex-1 group-data-[state=completed]/step:bg-dark-blue-main",
-        className,
+        className
       )}
       data-slot="stepper-separator"
       {...props}
