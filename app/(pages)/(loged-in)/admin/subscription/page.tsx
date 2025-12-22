@@ -3,7 +3,6 @@ import React from "react";
 import { PlansFeaturesTabs } from "./_components";
 import { Breadcrumb } from "@components";
 
-
 const SubscriptionPage = async () => {
   return (
     <>
@@ -18,7 +17,9 @@ const SubscriptionPage = async () => {
         description="Manage plans, features, and pricing strategies"
       />
       <div className="flex items-start justify-between gap-3 w-full">
-        <PlansFeaturesTabs />
+        <React.Suspense fallback={null}>
+          <PlansFeaturesTabs />
+        </React.Suspense>
       </div>
     </>
   );
