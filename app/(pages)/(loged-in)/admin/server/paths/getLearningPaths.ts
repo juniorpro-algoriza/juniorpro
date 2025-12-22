@@ -7,7 +7,7 @@ export async function getLearningPaths({
 }: {
   SearchText?: string;
 }) {
-  const learningPaths = customFetch("/learning-path-management", {
+  const learningPaths = customFetch("/api/learning-path-management", {
     method: "get",
     params: {
       PageNumber: 1,

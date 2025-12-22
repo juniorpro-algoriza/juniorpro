@@ -6,7 +6,7 @@ import { components } from "../../../../../api-schema";
 export async function postAddJuniorToContributer(
   data: components["schemas"]["Sawiha.Services.DTO.Enablers.AddJuniorRequest"]
 ) {
-  const junior = await customFetch("/Enabler/add-junior", {
+  const junior = await customFetch("/api/Enabler/add-junior", {
     method: "post",
     data,
   });

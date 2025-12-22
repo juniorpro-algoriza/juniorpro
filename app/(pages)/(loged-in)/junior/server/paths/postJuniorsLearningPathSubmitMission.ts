@@ -11,7 +11,7 @@ export async function postJuniorsLearningPathSubmitMission({
   submissionLink: string;
   submissionNotes?: string | null;
 }) {
-  const result = await customFetch("/junior-learning-path/submit-mission", {
+  const result = await customFetch("/api/junior-learning-path/submit-mission", {
     method: "post",
     data: {
       id,

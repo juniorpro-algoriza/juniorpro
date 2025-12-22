@@ -8,7 +8,7 @@ export async function getJuniorsLearningPathCurrentMissionById({
   id: number;
 }) {
   const mission = await customFetch(
-    "/junior-learning-path/current/mission/{id}",
+    "/api/junior-learning-path/current/mission/{id}",
     {
       method: "get",
       path: {

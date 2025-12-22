@@ -3,8 +3,11 @@
 import { customFetch } from "@server/lib";
 
 export async function getCurrentSubscription() {
-  const subscription = customFetch("/Enabler-package/current-subscription", {
-    method: "get",
-  });
+  const subscription = customFetch(
+    "/api/Enabler-package/current-subscription",
+    {
+      method: "get",
+    }
+  );
   return subscription;
 }

@@ -15,7 +15,7 @@ export async function verifyResetPassword({
   token,
 }: VerifyResetPayload) {
   try {
-    const response = await customFetch("/account/verify-reset-password", {
+    const response = await customFetch("/api/account/verify-reset-password", {
       method: "post",
       data: { email, password, confirmPassword, token },
     });

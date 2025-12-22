@@ -7,9 +7,12 @@ export async function getJuniorsLearningPathCurrentById({
 }: {
   id: number;
 }) {
-  const currentPath = await customFetch("/junior-learning-path/current/{id}", {
-    path: { id },
-    method: "get",
-  });
+  const currentPath = await customFetch(
+    "/api/junior-learning-path/current/{id}",
+    {
+      path: { id },
+      method: "get",
+    }
+  );
   return currentPath;
 }

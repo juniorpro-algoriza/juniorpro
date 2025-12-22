@@ -14,7 +14,7 @@ export async function resetPassword(
   }
 
   try {
-    await customFetch("/account/reset-password", {
+    await customFetch("/api/account/reset-password", {
       method: "post",
       data: { email },
     });

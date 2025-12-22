@@ -3,7 +3,7 @@
 import { customFetch } from "@server/lib";
 
 export async function getFeatures() {
-  const features = customFetch("/feature", {
+  const features = customFetch("/api/feature", {
     method: "get",
   });
   return features;

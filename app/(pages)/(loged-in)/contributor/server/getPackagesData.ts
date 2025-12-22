@@ -9,7 +9,7 @@ export async function getPackages({
   SearchText: string;
   DurationType: "month" | "year";
 }) {
-  const packages = customFetch("/Enabler-package", {
+  const packages = customFetch("/api/Enabler-package", {
     method: "get",
     params: {
       PageNumber: 1,

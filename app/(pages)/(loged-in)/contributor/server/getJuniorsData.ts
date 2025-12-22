@@ -3,7 +3,7 @@
 import { customFetch } from "@server/lib";
 
 export async function getJuniorsData() {
-  const juniors = customFetch("/Enabler/juniors", {
+  const juniors = customFetch("/api/Enabler/juniors", {
     method: "get",
     params: {
       PageNumber: 1,

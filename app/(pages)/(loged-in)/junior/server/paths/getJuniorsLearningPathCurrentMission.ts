@@ -14,7 +14,7 @@ export async function getJuniorsLearningPathCurrentMission({
   Id?: number;
 }) {
   const currentMission = await customFetch(
-    "/junior-learning-path/current/mission",
+    "/api/junior-learning-path/current/mission",
     {
       method: "get",
       params: {

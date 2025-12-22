@@ -11,7 +11,7 @@ export async function getJuniorsLearningPathCurrent({
   PageNumber?: number;
   PageSize?: number;
 }) {
-  const currentPath = await customFetch("/junior-learning-path/current", {
+  const currentPath = await customFetch("/api/junior-learning-path/current", {
     method: "get",
     params: {
       PageNumber,
