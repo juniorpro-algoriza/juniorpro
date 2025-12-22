@@ -1,4 +1,10 @@
-import { step1Schema, step2Schema, step3Schema, step4Schema, step5Schema } from "../../_schema/mission.schema";
+import {
+  step1Schema,
+  step2Schema,
+  step3Schema,
+  step4Schema,
+  step5Schema,
+} from "../../_schema/mission.schema";
 import { GuideStep, Resource, Criteria, MissionFormData } from "./types";
 
 export const stepData = [

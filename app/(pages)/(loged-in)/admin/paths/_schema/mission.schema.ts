@@ -5,11 +5,21 @@ export const missionDetailsSchema = z.object({
   pathId: z.number().int().positive().optional(),
   nameEn: z.string().min(1, "Mission name is required"),
   description: z.string().min(1, "Description is required"),
-  durationId: z.number({ message: "Duration is required" }).positive("Duration is required"),
-  levelId: z.number({ message: "Level is required" }).positive("Level is required"),
-  skillId: z.number({ message: "Skill is required" }).positive("Skill is required"),
-  xp: z.coerce.number({ message: "XP must be a non-negative integer" }).nonnegative("XP must be a non-negative integer"),
-  points: z.coerce.number({ message: "Points must be a non-negative integer" }).nonnegative("Points must be a non-negative integer"),
+  durationId: z
+    .number({ message: "Duration is required" })
+    .positive("Duration is required"),
+  levelId: z
+    .number({ message: "Level is required" })
+    .positive("Level is required"),
+  skillId: z
+    .number({ message: "Skill is required" })
+    .positive("Skill is required"),
+  xp: z.coerce
+    .number({ message: "XP must be a non-negative integer" })
+    .nonnegative("XP must be a non-negative integer"),
+  points: z.coerce
+    .number({ message: "Points must be a non-negative integer" })
+    .nonnegative("Points must be a non-negative integer"),
   referenceAnswer: z.string().min(1, "Reference answer is required"),
 });
 
@@ -41,8 +51,8 @@ export const missionFormSchema = z.object({
 export type MissionFormValues = z.infer<typeof missionFormSchema>;
 
 // Mission details schema without referenceAnswer for step 1
-export const missionDetailsWithoutReferenceSchema = missionDetailsSchema.omit({ 
-  referenceAnswer: true 
+export const missionDetailsWithoutReferenceSchema = missionDetailsSchema.omit({
+  referenceAnswer: true,
 });
 
 export const step1Schema = z.object({

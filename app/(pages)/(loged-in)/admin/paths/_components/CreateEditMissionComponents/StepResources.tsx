@@ -4,7 +4,10 @@ import { Resource } from "./types";
 import { Lookup } from "@types";
 import { REASOUCES_TYPE } from "../../../../../../configs";
 
-const convertToNumber = (value: string | null | number, allowNull = false): number | null => {
+const convertToNumber = (
+  value: string | null | number,
+  allowNull = false
+): number | null => {
   if (value === null || value === undefined || value === "") {
     return allowNull ? null : 0;
   }
@@ -31,7 +34,7 @@ export const StepResources = ({
   updateResource,
   removeResource,
   durationOptions,
-  fieldErrors = {}
+  fieldErrors = {},
 }: StepResourcesProps) => (
   <div className="space-y-2 max-h-[550px] overflow-y-auto">
     <div className="flex items-center justify-between flex-wrap gap-3">
@@ -72,11 +75,15 @@ export const StepResources = ({
               label="Resource Type"
               options={Object.entries(REASOUCES_TYPE).map(([key, value]) => ({
                 label: value.title,
-                value: Number(key)
+                value: Number(key),
               }))}
               value={resource.type}
               onChange={(value: string | number) =>
-                updateResource(resource.id, "type", Number(value) as 1 | 2 | 3 | 4)
+                updateResource(
+                  resource.id,
+                  "type",
+                  Number(value) as 1 | 2 | 3 | 4
+                )
               }
               placeholder="Select type"
               error={fieldErrors[`learningResources.${index}.type`]}

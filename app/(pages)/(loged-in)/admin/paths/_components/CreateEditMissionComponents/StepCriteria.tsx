@@ -15,7 +15,7 @@ export const StepCriteria = ({
   addCriteria,
   updateCriteria,
   removeCriteria,
-  fieldErrors = {}
+  fieldErrors = {},
 }: StepCriteriaProps) => (
   <div className="space-y-2 max-h-[550px] overflow-y-auto">
     <div className="p-5 rounded-2xl text-center border-[#E0E7FF] border bg-[#EEF2FF] mb-5 sm:space-y-3">
@@ -45,11 +45,11 @@ export const StepCriteria = ({
           </div>
           <div className="flex-1">
             <Input
-                  name={`successCriterias[${index}][description]`}
+              name={`successCriterias[${index}][description]`}
               value={item.label}
               onChange={(e) => updateCriteria(item.id, e.target.value)}
               placeholder="e.g. Code runs without errors"
-                  error={fieldErrors[`successCriterias.${index}.description`]}
+              error={fieldErrors[`successCriterias.${index}.description`]}
             />
           </div>
           <XIcon

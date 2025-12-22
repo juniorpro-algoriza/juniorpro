@@ -5,4 +5,3 @@ export { MissionsSection } from "./MissionsSection";
 export { ChallengesSection } from "./ChallengesSection";
 export { CollaborationSection } from "./CollaborationSection";
 export { FinalLaunchSection } from "./FinalLaunchSection";
-

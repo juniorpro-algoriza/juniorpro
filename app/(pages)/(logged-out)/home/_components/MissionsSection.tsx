@@ -1,13 +1,7 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import {
-  Zap,
-  Code,
-  Rocket,
-  Target,
-  Brain,
-} from "lucide-react";
+import { Zap, Code, Rocket, Target, Brain } from "lucide-react";
 import { Button } from "@components";
 
 const missionCards = [
@@ -62,7 +56,15 @@ const missionCards = [
 ];
 
 export function MissionsSection() {
-  const [particles, setParticles] = useState<Array<{id: number, left: number, top: number, duration: number, delay: number}>>([]);
+  const [particles, setParticles] = useState<
+    Array<{
+      id: number;
+      left: number;
+      top: number;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
 
   useEffect(() => {
     const newParticles = [...Array(100)].map((_, i) => ({
@@ -77,7 +79,6 @@ export function MissionsSection() {
 
   return (
     <section className="md:pt-24 pt-12 px-6 relative z-10">
-
       {/* Ambient Particles */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         {particles.map((particle) => (
@@ -160,7 +161,6 @@ export function MissionsSection() {
                     background: `linear-gradient(135deg, white 0%, ${card.color} 100%)`,
                   }}
                 >
-
                   {/* Card Header - Category & Icon */}
                   <div className="flex items-center justify-between gap-2 mb-4">
                     <div className="px-3 py-1.5 bg-white/90 rounded-full border-2 border-black shadow-thick-2">
@@ -189,10 +189,7 @@ export function MissionsSection() {
                   {/* Card Stats - All on same line */}
                   <div className="flex items-center gap-2 flex-wrap mb-4">
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-white/90 rounded-full border-2 border-black shadow-thick-2">
-                      <Zap
-                        className="text-yellow-main size-4"
-                        fill="#FFE285"
-                      />
+                      <Zap className="text-yellow-main size-4" fill="#FFE285" />
                       <span className="text-xs font-bold">+{card.xp} XP</span>
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-white/90 rounded-full border-2 border-black shadow-thick-2">

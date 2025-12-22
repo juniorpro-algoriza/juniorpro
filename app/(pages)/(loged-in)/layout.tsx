@@ -15,7 +15,7 @@ const LoggedInLayout = ({ children }: Readonly<LoggedInLayoutProps>) => {
 
   useEffect(() => {
     const data = async () => {
-      const userData = await getUserProfile()
+      const userData = await getUserProfile();
       setUser(userData);
     };
     data();

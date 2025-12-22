@@ -1,2 +1,2 @@
-export { initialState } from './intitalState'
-export { customFetch } from './customFetch'
+export { initialState } from "./intitalState";
+export { customFetch } from "./customFetch";

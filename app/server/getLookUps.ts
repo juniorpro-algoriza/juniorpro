@@ -10,7 +10,7 @@ export async function getLookup(
     | "/project-manager/look-ups"
     | "/Lookup/Level"
     | "/Lookup/Skill"
-    | "/Lookup/Duration",
+    | "/Lookup/Duration"
 ): Promise<Lookup[]> {
   const lookup = await customFetch(url, {
     method: "get",
@@ -24,6 +24,6 @@ export async function getLookup(
     }): Lookup => ({
       value: item.id || 0,
       label: item.nameEn || "",
-    }),
+    })
   );
 }

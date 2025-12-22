@@ -9,10 +9,14 @@ interface StepInfoProps {
   fieldErrors?: Record<string, string>;
 }
 
-export const StepInfo = ({ formData, setFormData, fieldErrors = {} }: StepInfoProps) => {
+export const StepInfo = ({
+  formData,
+  setFormData,
+  fieldErrors = {},
+}: StepInfoProps) => {
   const handleChange = <T extends keyof PlanFormData>(
     field: T,
-    value: PlanFormData[T],
+    value: PlanFormData[T]
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };

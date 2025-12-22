@@ -1,10 +1,19 @@
 import { Input, Select } from "@components";
 import { Lookup } from "@types";
 
-const convertToNumber = (value: string | null | number, allowNull = false): number | null => {
-  if (value === null || value === '') return allowNull ? null : 0;
+const convertToNumber = (
+  value: string | null | number,
+  allowNull = false
+): number | null => {
+  if (value === null || value === "") return allowNull ? null : 0;
   const num = Number(value);
-  return isNaN(num) ? (allowNull ? null : 0) : (allowNull ? num : Math.floor(num));
+  return isNaN(num)
+    ? allowNull
+      ? null
+      : 0
+    : allowNull
+      ? num
+      : Math.floor(num);
 };
 
 interface MissionFormData {
@@ -19,14 +28,24 @@ interface MissionFormData {
 
 interface StepInfoProps {
   formData: MissionFormData;
-  updateBasicInfo: (field: keyof MissionFormData, value: string | null | number) => void;
+  updateBasicInfo: (
+    field: keyof MissionFormData,
+    value: string | null | number
+  ) => void;
   fieldErrors?: Record<string, string>;
   durationOptions: Lookup[];
   skillsOptions: Lookup[];
   levelsOptions: Lookup[];
 }
 
-export const StepInfo = ({ formData, updateBasicInfo, fieldErrors = {}, durationOptions, skillsOptions, levelsOptions }: StepInfoProps) => (
+export const StepInfo = ({
+  formData,
+  updateBasicInfo,
+  fieldErrors = {},
+  durationOptions,
+  skillsOptions,
+  levelsOptions,
+}: StepInfoProps) => (
   <>
     <Input
       label="Mission Name"
@@ -47,7 +66,9 @@ export const StepInfo = ({ formData, updateBasicInfo, fieldErrors = {}, duration
       options={durationOptions}
       placeholder="Select duration"
       value={formData.durationId}
-      onChange={(value) => updateBasicInfo("durationId", convertToNumber(value))}
+      onChange={(value) =>
+        updateBasicInfo("durationId", convertToNumber(value))
+      }
       error={fieldErrors.durationId}
     />
     <Select
@@ -79,7 +100,9 @@ export const StepInfo = ({ formData, updateBasicInfo, fieldErrors = {}, duration
       type="number"
       placeholder="e.g., 50"
       value={formData.points}
-      onChange={(e) => updateBasicInfo("points", convertToNumber(e.target.value))}
+      onChange={(e) =>
+        updateBasicInfo("points", convertToNumber(e.target.value))
+      }
       error={fieldErrors.points}
     />
   </>

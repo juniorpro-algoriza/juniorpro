@@ -12,7 +12,10 @@ import { modalNameSchema } from "./schemas/modalNameSchema";
 import type { ModalName } from "./types/ModalName";
 
 // Map of lazy-loaded modal components
-const Modals: Record<ModalName, LazyExoticComponent<ComponentType<Record<string, string | null>>>> = {
+const Modals: Record<
+  ModalName,
+  LazyExoticComponent<ComponentType<Record<string, string | null>>>
+> = {
   AddJuniors: lazy(() =>
     import("./modals/AddJuniors").then((m) => ({ default: m.AddJuniors }))
   ),

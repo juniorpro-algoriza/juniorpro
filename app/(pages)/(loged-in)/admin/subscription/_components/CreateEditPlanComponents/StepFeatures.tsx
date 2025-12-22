@@ -24,9 +24,7 @@ export const StepFeatures = ({
   };
 
   const getFeatureLimit = (featureId: number) => {
-    return (
-      formData.features.find((f) => f.featureId === featureId)?.limitCount
-    );
+    return formData.features.find((f) => f.featureId === featureId)?.limitCount;
   };
 
   const isFeatureUnlimited = (featureId: number) => {
@@ -34,7 +32,11 @@ export const StepFeatures = ({
     return feature?.limitCount === null;
   };
 
-  const handleToggleFeature = (featureId: number, checked: boolean, featureKey?: number) => {
+  const handleToggleFeature = (
+    featureId: number,
+    checked: boolean,
+    featureKey?: number
+  ) => {
     if (checked) {
       setFormData((prev) => {
         if (prev.features.some((f) => f.featureId === featureId)) {
@@ -141,14 +143,20 @@ export const StepFeatures = ({
                       <div className="flex items-center gap-3">
                         <Switch
                           checked={isFeatureUnlimited(feature.id)}
-                          onChange={(checked) => handleUnlimitedToggle(feature.id!, checked)}
+                          onChange={(checked) =>
+                            handleUnlimitedToggle(feature.id!, checked)
+                          }
                           className={`${
-                            isFeatureUnlimited(feature.id) ? "bg-blue-main" : "bg-gray-200"
+                            isFeatureUnlimited(feature.id)
+                              ? "bg-blue-main"
+                              : "bg-gray-200"
                           } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none`}
                         >
                           <span
                             className={`${
-                              isFeatureUnlimited(feature.id) ? "translate-x-6" : "translate-x-1"
+                              isFeatureUnlimited(feature.id)
+                                ? "translate-x-6"
+                                : "translate-x-1"
                             } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
                           />
                         </Switch>

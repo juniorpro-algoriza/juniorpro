@@ -2,11 +2,7 @@
 
 import { customFetch } from "@server/lib";
 
-export async function deletePackage({
-  id,
-}: {
-  id: number;
-}) {
+export async function deletePackage({ id }: { id: number }) {
   const packages = customFetch("/admin/package/{id}", {
     method: "delete",
     path: {

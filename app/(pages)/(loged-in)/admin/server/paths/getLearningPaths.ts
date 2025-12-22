@@ -2,7 +2,11 @@
 
 import { customFetch } from "@server/lib";
 
-export async function getLearningPaths({SearchText}:{SearchText?:string}) {
+export async function getLearningPaths({
+  SearchText,
+}: {
+  SearchText?: string;
+}) {
   const learningPaths = customFetch("/learning-path-management", {
     method: "get",
     params: {

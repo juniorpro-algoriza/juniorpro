@@ -11,13 +11,13 @@ const LoggedOutLayout = async ({
 
   return (
     <div className="relative">
-    {/* 
+      {/* 
       Global Gradient (Sawiha Tokens) for Marketing pages
       Refined for a seamless "Whitish Baby Blue -> Deep Space" transition.
     */}
-    <div className="absolute inset-0 z-0 pointer-events-none">
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#FFFFFF_0%,#E0F2FF_5%,#C7E4FF_15%,#80C0FF_30%,#5CA9FF_45%,#3771F2_60%,#1F3D8B_80%,#0C1335_100%)]" />
-    </div>
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#FFFFFF_0%,#E0F2FF_5%,#C7E4FF_15%,#80C0FF_30%,#5CA9FF_45%,#3771F2_60%,#1F3D8B_80%,#0C1335_100%)]" />
+      </div>
       <Nav isAuthenticated={isAuthenticated} />
       {children}
       <Footer />

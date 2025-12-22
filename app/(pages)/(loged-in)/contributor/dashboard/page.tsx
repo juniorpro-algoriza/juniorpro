@@ -3,11 +3,7 @@ import TargetWithArrow from "@public/images/target_with_arrow.png";
 import LightningIcon from "@public/images/lightning-icon.png";
 import TrophyIcon from "@public/images/trophy-icon.png";
 import HandshakeIcon from "@public/images/hand-shake-icon.png";
-import {
-  TrackYourJuniors,
-  UpcomingSessions,
-  YourJuniors,
-} from "./_components";
+import { TrackYourJuniors, UpcomingSessions, YourJuniors } from "./_components";
 const DashboardPage = async () => {
   // const pointsData = await getPointsData();
 
@@ -22,7 +18,6 @@ const DashboardPage = async () => {
           <TrackYourJuniors />
         </div>
       </div>
-
     </>
   );
 };

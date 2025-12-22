@@ -1,4 +1,4 @@
-import { cx } from "@lib"
+import { cx } from "@lib";
 
 function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -7,7 +7,7 @@ function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
       className={cx("bg-gray-50 animate-pulse rounded-md", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Skeleton }
+export { Skeleton };

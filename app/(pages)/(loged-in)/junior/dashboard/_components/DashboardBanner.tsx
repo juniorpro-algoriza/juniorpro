@@ -6,7 +6,11 @@ import JuniorsDashboardImage from "@public/images/JuniorsDashboardImage.png";
 export const DashboardBanner = () => {
   return (
     <MainCard classname="relative space-y-3">
-      <Image src={JuniorsDashboardImage} alt="Juniors Dashboard Image" className="w-[200px] sm:w-[300px] sm:absolute sm:right-0 sm:-bottom-3 mx-auto"  />
+      <Image
+        src={JuniorsDashboardImage}
+        alt="Juniors Dashboard Image"
+        className="w-[200px] sm:w-[300px] sm:absolute sm:right-0 sm:-bottom-3 mx-auto"
+      />
       <div className="space-y-3 sm:w-3/5">
         <h2 className="lg:text-2xl text-xl font-semibold">
           Finish Mission, Unlock Challenges, Start Earning

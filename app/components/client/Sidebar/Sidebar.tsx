@@ -44,13 +44,14 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <aside
         className={`
           w-85 bg-white border-r border-bright-gray fixed z-40 h-screen transition-all duration-300 ease-in-out
-          ${isMobile
-            ? isOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
-            : isOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
+          ${
+            isMobile
+              ? isOpen
+                ? "translate-x-0"
+                : "-translate-x-full"
+              : isOpen
+                ? "translate-x-0"
+                : "-translate-x-full"
           }
           ${className}
         `}
@@ -65,7 +66,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
             />
           </div>
           <SidebarUserInfo />
-          <SidebarNav /> 
+          <SidebarNav />
         </div>
       </aside>
     </>

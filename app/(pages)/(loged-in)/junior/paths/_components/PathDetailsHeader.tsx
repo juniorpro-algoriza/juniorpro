@@ -15,16 +15,15 @@ interface PathDetailsHeaderProps {
   durationNameEn?: string | null;
 }
 
-export const PathDetailsHeader = ({ 
-  nameEn, 
-  description, 
-  levelNameEn, 
-  skillNameEn, 
-  xp, 
-  points, 
+export const PathDetailsHeader = ({
+  nameEn,
+  description,
+  levelNameEn,
+  skillNameEn,
+  xp,
+  points,
   durationNameEn,
 }: PathDetailsHeaderProps) => {
-  
   return (
     <MainCard classname="relative  xl:max-w-4/5">
       <div className="relative z-[2] lg:space-y-4 space-y-2">
@@ -35,14 +34,12 @@ export const PathDetailsHeader = ({
           <div className="w-px h-5 bg-gray-200"></div>
           <div className="flex items-center gap-1 text-sm text-gray-600">
             <Clock className="size-3" />
-            {durationNameEn || '30 min'}
+            {durationNameEn || "30 min"}
           </div>
         </div>
-        <h2 className="lg:text-2xl text-xl font-bold">
-          {nameEn || 'Mission'}
-        </h2>
+        <h2 className="lg:text-2xl text-xl font-bold">{nameEn || "Mission"}</h2>
         <p className="text-gray-600 max-lg:text-sm">
-          {description || 'Learn the fundamentals and build your skills'}
+          {description || "Learn the fundamentals and build your skills"}
         </p>
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-2 text-sm flex-wrap">

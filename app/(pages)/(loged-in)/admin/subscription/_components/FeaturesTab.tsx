@@ -19,7 +19,7 @@ interface FeaturesTableProps {
   isLoading?: boolean;
 }
 
-export function FeaturesTable({ features , isLoading }: FeaturesTableProps) {
+export function FeaturesTable({ features, isLoading }: FeaturesTableProps) {
   const featuresList = features || [];
 
   return (
@@ -41,7 +41,9 @@ export function FeaturesTable({ features , isLoading }: FeaturesTableProps) {
             <TableHead className="h-14 font-semibold min-w-[200px]">
               Description
             </TableHead>
-            <TableHead className="h-14 font-semibold min-w-[100px]">Type</TableHead>
+            <TableHead className="h-14 font-semibold min-w-[100px]">
+              Type
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -51,19 +53,21 @@ export function FeaturesTable({ features , isLoading }: FeaturesTableProps) {
                 <Skeleton className="h-20" />
               </TableCell>
             </TableRow>
-          ) : featuresList.map((feature) => (
-            <TableRow key={feature.id} className="border-gray-100">
-              <TableCell className="h-20 whitespace-normal break-words">
-                {feature.nameEn}
-              </TableCell>
-              <TableCell className="h-20 whitespace-normal break-words">
-                {feature.description}
-              </TableCell>
-              <TableCell className="h-20 whitespace-normal break-words">
-                {FEATURE_TYPE[feature.key as keyof typeof FEATURE_TYPE]}
-              </TableCell>
-            </TableRow>
-          ))}
+          ) : (
+            featuresList.map((feature) => (
+              <TableRow key={feature.id} className="border-gray-100">
+                <TableCell className="h-20 whitespace-normal break-words">
+                  {feature.nameEn}
+                </TableCell>
+                <TableCell className="h-20 whitespace-normal break-words">
+                  {feature.description}
+                </TableCell>
+                <TableCell className="h-20 whitespace-normal break-words">
+                  {FEATURE_TYPE[feature.key as keyof typeof FEATURE_TYPE]}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </EnhancedTable>
     </MainCard>

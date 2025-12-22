@@ -7,7 +7,7 @@ export const SocialLoginButtons = () => (
       <Button
         intent="tertiary"
         className="text-storm-500 rounded-xl px-14 border-border-secondary shadow"
-        iconPosition='left'
+        iconPosition="left"
         icon={<GoogleIcon />}
       >
         Login With Google
@@ -15,7 +15,7 @@ export const SocialLoginButtons = () => (
       <Button
         className="text-storm-500 px-14 rounded-xl border-border-secondary shadow"
         intent="tertiary"
-        iconPosition='left'
+        iconPosition="left"
         icon={<AppleIcon />}
       >
         Login With Apple

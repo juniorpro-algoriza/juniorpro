@@ -44,7 +44,11 @@ const LoginFormContent = () => {
             className="absolute right-5 top-1/2 cursor-pointer"
             onClick={() => setType(type === "password" ? "text" : "password")}
           >
-            {type === "password" ? <Eye className="text-violet-normal size-5" /> : <EyeClosed className="text-violet-normal size-5" />}
+            {type === "password" ? (
+              <Eye className="text-violet-normal size-5" />
+            ) : (
+              <EyeClosed className="text-violet-normal size-5" />
+            )}
           </div>
         </div>
         <div className="text-right pt-2">

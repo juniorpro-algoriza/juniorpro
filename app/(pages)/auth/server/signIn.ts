@@ -68,7 +68,7 @@ export const signIn = async (
       "/contributor": 3,
       "/project/manager": 4,
     };
-    
+
     // Check if user is authorized for the redirect destination
     let isAuthorized = true;
     for (const [prefix, requiredType] of Object.entries(roleMap)) {
@@ -77,7 +77,7 @@ export const signIn = async (
         break;
       }
     }
-    
+
     // Only redirect if authorized
     if (isAuthorized) {
       if (join) redirect(`${redirectUrl}?join=${join}`);

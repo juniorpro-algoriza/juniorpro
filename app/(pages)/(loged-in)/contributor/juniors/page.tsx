@@ -26,7 +26,7 @@ const JuniorsPage = async () => {
           </>
         }
       />
-      <JuniorsCards/>
+      <JuniorsCards />
     </>
   );
 };

@@ -20,8 +20,12 @@ export const CreateEditMission = () => {
   const searchParams = useSearchParams();
   const params = useParams();
   const missionId = searchParams.get("missionId");
-  const pathId = params.id ? (Array.isArray(params.id) ? params.id[0] : params.id) : null; // Convert ParamValue to string | null
-  
+  const pathId = params.id
+    ? Array.isArray(params.id)
+      ? params.id[0]
+      : params.id
+    : null; // Convert ParamValue to string | null
+
   const {
     currentStep,
     formData,
@@ -48,7 +52,11 @@ export const CreateEditMission = () => {
 
   return (
     <Modal panelClassName="w-full max-w-2xl p-6 bg-white rounded-2xl shadow-xl max-h-[95dvh] overflow-auto">
-      <form id="create-mission-form" onSubmit={handleSubmit} className="space-y-6">
+      <form
+        id="create-mission-form"
+        onSubmit={handleSubmit}
+        className="space-y-6"
+      >
         <div className="border-b border-gray-100 pb-2 space-y-5">
           <h2 className="text-xl font-semibold text-gray-900">
             {isEditing ? "Edit Mission" : "Create New Mission"}
@@ -133,7 +141,7 @@ export const CreateEditMission = () => {
               Back
             </Button>
           )}
-          
+
           {currentStep !== 5 ? (
             <Button
               intent="main2"
@@ -153,7 +161,8 @@ export const CreateEditMission = () => {
               disabled={isSubmitting}
               key="submit-button"
             >
-              {isSubmitting ? "Submitting..." : "Submit"} <ArrowRight className="size-5" />
+              {isSubmitting ? "Submitting..." : "Submit"}{" "}
+              <ArrowRight className="size-5" />
             </Button>
           )}
         </div>

@@ -2,14 +2,20 @@
 
 import { customFetch } from "@server/lib";
 
-export async function getMissions({ SearchText , Id }: { SearchText?: string , Id?: number }) {
+export async function getMissions({
+  SearchText,
+  Id,
+}: {
+  SearchText?: string;
+  Id?: number;
+}) {
   const missions = customFetch("/learning-path-management/mission", {
     method: "get",
     params: {
       PageNumber: 1,
       PageSize: 1000,
       SearchText,
-      Id
+      Id,
     },
   });
   return missions;

@@ -1,7 +1,7 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Rocket } from 'lucide-react';
+"use client";
+import React, { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { Rocket } from "lucide-react";
 
 export function FuelMeter() {
   const { scrollYProgress } = useScroll();
@@ -9,7 +9,7 @@ export function FuelMeter() {
   const [displayFuel, setDisplayFuel] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = fuelLevel.on('change', (latest) => {
+    const unsubscribe = fuelLevel.on("change", (latest) => {
       setDisplayFuel(Math.round(latest));
     });
     return unsubscribe;
@@ -29,7 +29,7 @@ export function FuelMeter() {
           <motion.div
             className="absolute bottom-2  left-2 right-2 bg-gradient-to-t from-[#C6FF3E] via-[#A7FADC] to-[#5CA9FF] rounded-full"
             style={{
-              height: `${displayFuel * 0.93 }%`,
+              height: `${displayFuel * 0.93}%`,
             }}
           >
             {/* Bubbles Animation */}

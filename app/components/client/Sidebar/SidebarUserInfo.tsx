@@ -6,8 +6,8 @@ import { useAtom } from "jotai";
 
 export const SidebarUserInfo = () => {
   const [user] = useAtom(userAtom);
-  const firstName = user?.firstName || '';
-  const lastName = user?.lastName || '';
+  const firstName = user?.firstName || "";
+  const lastName = user?.lastName || "";
   const image = user?.image || null;
   const userType = user?.userType || 0;
   return (

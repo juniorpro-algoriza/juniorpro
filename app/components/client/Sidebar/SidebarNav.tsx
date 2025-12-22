@@ -222,11 +222,12 @@ export const SidebarNav = () => {
             </li>
           );
         })}
-        {menuItems.length === 0 && [...Array(7)].map((_,index) => (
-          <li key={index}>
-            <Skeleton className="h-12 rounded-xl" />
-          </li>
-        ))}
+        {menuItems.length === 0 &&
+          [...Array(7)].map((_, index) => (
+            <li key={index}>
+              <Skeleton className="h-12 rounded-xl" />
+            </li>
+          ))}
       </ul>
       {/* {userRole === "junior" && (
         <Tip

@@ -8,9 +8,16 @@ import ExperimentImage from "@public/images/experiment.png";
 import HandRisingImage from "@public/images/hand-rising.png";
 import Image from "next/image";
 import { components } from "../../../../../../api-schema/schema";
-export const StepByStepGuide = ({ steps, successCriterias }: { 
-  steps?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionGuideModel"][] | null;
-  successCriterias?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionCriteriaModel"][] | null;
+export const StepByStepGuide = ({
+  steps,
+  successCriterias,
+}: {
+  steps?:
+    | components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionGuideModel"][]
+    | null;
+  successCriterias?:
+    | components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionCriteriaModel"][]
+    | null;
 }) => {
   const [open, setOpen] = React.useState(0);
 
@@ -30,8 +37,12 @@ export const StepByStepGuide = ({ steps, successCriterias }: {
                 {index + 1}
               </div>
               <div>
-                <h3 className="md:text-lg text-base font-bold">{item.titleEn || item.titleAr}</h3>
-                <p className="md:text-sm text-xs text-gray-500">{item.subTitle}</p>
+                <h3 className="md:text-lg text-base font-bold">
+                  {item.titleEn || item.titleAr}
+                </h3>
+                <p className="md:text-sm text-xs text-gray-500">
+                  {item.subTitle}
+                </p>
               </div>
             </div>
 
@@ -63,7 +74,10 @@ export const StepByStepGuide = ({ steps, successCriterias }: {
         <h2 className="text-lg font-bold">Success Criteria</h2>
         <div className="grid md:grid-cols-2 gap-3 mt-5">
           {successCriterias?.map((item) => (
-            <div key={item.id} className="text-gray-600 flex items-center gap-2">
+            <div
+              key={item.id}
+              className="text-gray-600 flex items-center gap-2"
+            >
               <CircleCheck
                 fill="#009966"
                 className=" shrink-0 size-6 text-white"

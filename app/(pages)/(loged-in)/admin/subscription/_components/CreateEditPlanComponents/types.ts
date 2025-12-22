@@ -19,7 +19,7 @@ export interface PlanFormData {
   // monthlyPrice: number;
   // yearlyPrice: number;
   price: number;
-  durationType:number;
+  durationType: number;
 
   // Step 3: Features
   features: PlanFeature[];

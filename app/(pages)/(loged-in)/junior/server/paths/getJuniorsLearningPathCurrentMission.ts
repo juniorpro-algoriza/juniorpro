@@ -13,14 +13,17 @@ export async function getJuniorsLearningPathCurrentMission({
   SearchText?: string;
   Id?: number;
 }) {
-  const currentMission = await customFetch("/junior-learning-path/current/mission", {
-    method: "get",
-    params: {
-      Id,
-      PageNumber,
-      PageSize,
-      SearchText,
-    },
-  });
+  const currentMission = await customFetch(
+    "/junior-learning-path/current/mission",
+    {
+      method: "get",
+      params: {
+        Id,
+        PageNumber,
+        PageSize,
+        SearchText,
+      },
+    }
+  );
   return currentMission;
 }

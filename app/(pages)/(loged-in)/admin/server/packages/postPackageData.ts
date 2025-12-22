@@ -17,7 +17,7 @@ export async function postPackages({ data }: { data: PlanFormValues }) {
         featureId: feature.featureId,
         isEnabled: true,
         ...(feature.limitCount === null
-          ? { }
+          ? {}
           : { limitCount: feature.limitCount }),
       })),
     },

@@ -69,7 +69,9 @@ export const UserCard = ({
               <p className="text-gray-600 text-13 font-medium">
                 Level Progress
               </p>
-              <p className="text-13 font-bold text-purple-main">{userDetails.levelProgress}%</p>
+              <p className="text-13 font-bold text-purple-main">
+                {userDetails.levelProgress}%
+              </p>
             </div>
             <Progress width={userDetails.levelProgress} />
             <div className="flex items-center space-x-2">

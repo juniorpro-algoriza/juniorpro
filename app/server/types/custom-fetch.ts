@@ -1,7 +1,7 @@
 import { paths } from "../../../api-schema";
 
 export type Path = keyof paths;
-export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
+export type HttpMethod = "get" | "post" | "put" | "delete" | "patch";
 
 // Extract available methods for a path
 export type AvailableMethods<P extends Path> = {
@@ -23,7 +23,7 @@ export type StrictRequestBody<
   P extends Path,
   M extends HttpMethod,
 > = paths[P][M] extends {
-  requestBody?: { content: { 'application/json': infer D } };
+  requestBody?: { content: { "application/json": infer D } };
 }
   ? D
   : never;
@@ -39,11 +39,11 @@ export type SuccessResponse<
   P extends Path,
   M extends HttpMethod,
 > = paths[P][M] extends {
-  responses: { 200: { content: { 'application/json': infer R } } };
+  responses: { 200: { content: { "application/json": infer R } } };
 }
   ? R
   : paths[P][M] extends {
-        responses: { 201: { content: { 'application/json': infer R } } };
+        responses: { 201: { content: { "application/json": infer R } } };
       }
     ? R
     : never;

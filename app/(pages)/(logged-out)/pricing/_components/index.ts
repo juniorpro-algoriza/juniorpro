@@ -1,1 +1,1 @@
-export {ActivityAndPricing} from "./ActivityAndPricing"
+export { ActivityAndPricing } from "./ActivityAndPricing";
