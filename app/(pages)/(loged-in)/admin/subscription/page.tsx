@@ -3,7 +3,6 @@ import React from "react";
 import { PlansFeaturesTabs } from "./_components";
 import { Breadcrumb } from "@components";
 
-export const dynamic = "force-dynamic";
 
 const SubscriptionPage = async () => {
   return (

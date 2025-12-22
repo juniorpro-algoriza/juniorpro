@@ -1,7 +1,6 @@
 "use client";
 
 export { EmptyData } from "./EmptyData";
-export { Select } from "./Select";
 export { Sidebar, SidebarLayout } from "./Sidebar";
 export { Tabs } from "./Tabs";
 export { Header } from "./Header";
