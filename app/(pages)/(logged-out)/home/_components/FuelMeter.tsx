@@ -80,7 +80,7 @@ export function FuelMeter() {
             repeat: Infinity,
           }}
         >
-          <Rocket size={24} className="text-pink-main" />
+          <Rocket className="w-6 h-6 text-pink-main" />
         </motion.div>
       </div>
 

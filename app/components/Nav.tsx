@@ -11,8 +11,7 @@ export function Nav({ isAuthenticated }: { isAuthenticated: boolean }) {
           <div className="text-xl tracking-tight flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-to-br from-pink-main to-[#FF8CF1] rounded-full border-2 border-black flex items-center justify-center">
               <Rocket
-                size={16}
-                className="text-white transform -rotate-45"
+                className="text-white transform -rotate-45 w-4 h-4"
                 fill="white"
               />
             </div>
@@ -74,7 +73,7 @@ export function Nav({ isAuthenticated }: { isAuthenticated: boolean }) {
             >
               Book Demo
             </Button>
-            <Menu size={24} className="md:hidden" />
+            <Menu className="w-6 h-6 md:hidden" />
           </div>
         )}
       </div>

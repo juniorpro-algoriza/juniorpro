@@ -217,16 +217,14 @@ function StepperIndicator({
           </span>
           <CheckIcon
             aria-hidden="true"
-            className="absolute scale-0 opacity-0 transition-all group-data-[state=completed]/step:scale-100 group-data-[state=completed]/step:opacity-100"
-            size={16}
+            className="absolute scale-0 opacity-0 transition-all group-data-[state=completed]/step:scale-100 group-data-[state=completed]/step:opacity-100 w-4 h-4"
             strokeWidth={3}
           />
           {isLoading && (
             <span className="absolute transition-all">
               <LoaderCircleIcon
                 aria-hidden="true"
-                className="animate-spin"
-                size={14}
+                className="animate-spin w-3.5 h-3.5"
               />
             </span>
           )}

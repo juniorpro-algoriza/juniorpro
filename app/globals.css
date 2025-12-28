@@ -153,6 +153,14 @@
   --shadow-thick-7: 7px 7px 0px 0px rgba(0, 0, 0, 1);
   --shadow-thick-8: 8px 8px 0px 0px rgba(0, 0, 0, 1);
   --shadow-thick-12: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-blue-2: 2px 2px 0px 0px #3771f2;
+  --shadow-thick-blue-3: 3px 3px 0px 0px #3771f2;
+  --shadow-thick-blue-4: 4px 4px 0px 0px #3771f2;
+  --shadow-thick-blue-5: 5px 5px 0px 0px #3771f2;
+  --shadow-thick-blue-6: 6px 6px 0px 0px #3771f2;
+  --shadow-thick-blue-7: 7px 7px 0px 0px #3771f2;
+  --shadow-thick-blue-8: 8px 8px 0px 0px #3771f2;
+  --shadow-thick-blue-12: 12px 12px 0px 0px #3771f2;
 
   /* Font sizes */
   --text-10: 10px;
