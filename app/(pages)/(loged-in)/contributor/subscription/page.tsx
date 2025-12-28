@@ -4,8 +4,9 @@ import { Breadcrumb } from "@components";
 import { Header, PlanTabs } from "@components/client";
 import { useSearchParams } from "next/navigation";
 import { usePackagesData } from "../tanstack/usePackagesData";
+import { Suspense } from "react";
 
-const SubscriptionPage = () => {
+const SubscriptionContent = () => {
   const searchParams = useSearchParams();
 
   const searchText = searchParams.get("query") || "";
@@ -42,6 +43,14 @@ const SubscriptionPage = () => {
         loadingPackages={isLoading}
       />
     </>
+  );
+};
+
+const SubscriptionPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SubscriptionContent />
+    </Suspense>
   );
 };
 
