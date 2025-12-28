@@ -27,7 +27,7 @@ export const signIn = async (
 
   const { email, password, redirect: redirectUrl, join } = parsed.data;
 
-  const res = await fetch(`${baseUrl}/User/Login`, {
+  const res = await fetch(`${baseUrl}/api/User/Login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -36,14 +36,14 @@ export function ActivityAndPricing() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-black drop-shadow-sm leading-[1.1]">
+          <h1 className="mb-6 tracking-tight text-black drop-shadow-sm text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05]">
             Predictable & Simple
             <br />
             Pricing.
           </h1>
 
           {/* Subheading */}
-          <p className="text-xl md:text-2xl text-[#1F3D8B] font-bold leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-[#1F3D8B] font-medium leading-relaxed max-w-3xl mb-12 mx-auto">
             Support their learning, boost their confidence, and guide them
             through Missions, Collaborations, and Challenges.
           </p>
@@ -127,7 +127,11 @@ export function ActivityAndPricing() {
 
                 {/* CTA Button */}
                 <div className="relative z-10 mt-auto">
-                  <Button className="w-full py-4 rounded-xl bg-black text-white border-[3px] border-black font-black text-lg shadow-[4px_4px_0px_0px_#3771F2] group-hover:shadow-[6px_6px_0px_0px_#3771F2] group-hover:-translate-y-1 transition-all active:translate-y-0 active:shadow-none hover:bg-black-90">
+                  <Button
+                    intent="mainBlue"
+                    size="mainDefault"
+                    className="rounded-xl md:text-lg text-base w-full"
+                  >
                     {plan.cta}
                   </Button>
                 </div>

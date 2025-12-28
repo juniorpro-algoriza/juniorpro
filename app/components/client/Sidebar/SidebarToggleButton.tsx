@@ -17,7 +17,7 @@ export const SidebarToggleButton = () => {
       `}
       aria-label="Toggle sidebar"
     >
-      {isOpen ? <ChevronsLeft size={20} /> : <Menu />}
+      {isOpen ? <ChevronsLeft className="w-5 h-5" /> : <Menu />}
     </Button>
   );
 };

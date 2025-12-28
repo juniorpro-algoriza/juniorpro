@@ -14,7 +14,8 @@ type ButtonVariant =
   | "main"
   | "main2"
   | "mainPink"
-  | "mainWhite";
+  | "mainWhite"
+  | "mainBlue";
 type ButtonSize =
   | "small"
   | "medium"
@@ -103,6 +104,8 @@ const button = cva({
         "bg-pink-main hover:bg-pink-main/95 text-white rounded-full px-8 py-4 border-2 border-black shadow-thick-4 transition-all hover:shadow-thick-6 hover:-translate-y-1",
       mainWhite:
         "bg-white hover:bg-white/95 rounded-full px-8 py-4 border-2 border-black shadow-thick-4 transition-all hover:shadow-thick-6 hover:-translate-y-1",
+      mainBlue:
+        "bg-black hover:bg-black/95 text-white rounded-xl px-8 py-4 border-2 border-black transition-all shadow-thick-blue-4 hover:shadow-thick-blue-6 hover:-translate-y-1",
     },
     size: {
       small: "px-3 py-1.5 text-sm",

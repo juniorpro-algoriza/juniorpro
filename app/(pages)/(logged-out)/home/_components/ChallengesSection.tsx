@@ -93,7 +93,7 @@ export function ChallengesSection() {
             whileHover={{ scale: 1.05, rotate: -2 }}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border-2 border-black bg-[#FF9ECE] text-black text-xs font-black uppercase tracking-wider mb-6 shadow-thick-4"
           >
-            <Trophy size={16} strokeWidth={2.5} />
+            <Trophy className="w-4 h-4" strokeWidth={2.5} />
             Step 3: Unlock Challenges
           </motion.div>
 
@@ -134,8 +134,7 @@ export function ChallengesSection() {
                 style={{ backgroundColor: challenge.accentColor }}
               >
                 <challenge.icon
-                  size={32}
-                  className="text-black"
+                  className="text-black w-8 h-8"
                   strokeWidth={2.5}
                 />
               </div>
@@ -152,7 +151,7 @@ export function ChallengesSection() {
 
               {/* Bottom Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full border-2 border-black shadow-sm relative z-10">
-                <challenge.icon size={16} className="text-black" />
+                <challenge.icon className="text-black w-4 h-4" />
                 <span className="text-xs font-bold text-black uppercase tracking-wide">
                   Arena Challenge
                 </span>
