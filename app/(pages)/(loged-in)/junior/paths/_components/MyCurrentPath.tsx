@@ -16,7 +16,7 @@ export const MyCurrentPath = ({
   }[];
 }) => {
   return (
-    <div className="space-y-5">
+    <div id="my-current-path" className="space-y-5">
       <h2 className=" uppercase text-gray-600 font-semibold">
         My Current Path
       </h2>

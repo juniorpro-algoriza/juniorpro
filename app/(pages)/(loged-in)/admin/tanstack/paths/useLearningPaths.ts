@@ -7,6 +7,7 @@ import {
   putLearningPath,
   getLearningPathById,
   deleteLearningPath,
+  completeLearningPath,
 } from "../../server";
 
 import { components } from "../../../../../../api-schema";
@@ -61,6 +62,16 @@ export const useDeleteLearningPath = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteLearningPath,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.admin.paths.list });
+    },
+  });
+};
+
+export const useCompleteLearningPath = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: completeLearningPath,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.admin.paths.list });
     },

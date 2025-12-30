@@ -3,6 +3,7 @@ import React, { use } from "react";
 import { Breadcrumb, Skeleton } from "@components";
 import { PathHeader } from "../../_components";
 import { PathTimeline } from "@components/client";
+import { OnboardingTourTrigger } from "../../../dashboard/_components";
 import {
   useJuniorsLearningPathCurrentById,
   useJuniorsLearningPathCurrentMission,
@@ -50,6 +51,7 @@ export default function PathPage({
 
   return (
     <>
+      <OnboardingTourTrigger />
       <Breadcrumb
         breadcrumbs={[
           {

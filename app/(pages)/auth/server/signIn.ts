@@ -89,7 +89,7 @@ export const signIn = async (
   // Default redirects
   switch (userType) {
     case 1:
-      redirect("/admin/dashboard");
+      redirect("/admin/paths");
     case 2:
       redirect("/junior/dashboard");
     case 3:

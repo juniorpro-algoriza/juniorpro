@@ -34,6 +34,11 @@ const Modals: Record<
       default: m.CreateEditPlan,
     }))
   ),
+  WelcomePopup: lazy(() =>
+    import("./modals/WelcomePopup").then((m) => ({
+      default: m.WelcomePopup,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {

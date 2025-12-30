@@ -10,6 +10,7 @@ export { postLearningPath } from "./paths/postLearningPath";
 export { putLearningPath } from "./paths/putLearningPath";
 export { getLearningPathById } from "./paths/getLearningPathById";
 export { deleteLearningPath } from "./paths/deleteLearningPath";
+export { completeLearningPath } from "./paths/completeLearningPath";
 export { getMissionsById } from "./missions/getMissionsById";
 export { postMission } from "./missions/postMissions";
 export { putMission } from "./missions/putMissions";

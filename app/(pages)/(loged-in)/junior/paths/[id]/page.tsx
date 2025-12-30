@@ -67,7 +67,7 @@ export default function PathPage({
       />
       <div className="space-y-7 xl:max-w-4/5">
         <PathHeader
-          image={PATH_ICON[String(pathId) as keyof typeof PATH_ICON]}
+          image={PATH_ICON[String(Path?.icon) as keyof typeof PATH_ICON]}
           title={Path?.nameEn || Path?.nameAr || "Web Development Basics"}
           description={
             Path?.description ||

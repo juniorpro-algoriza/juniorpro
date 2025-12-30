@@ -15,7 +15,7 @@ export const RecommendedForYou = ({
   }[];
 }) => {
   return (
-    <div className="space-y-5">
+    <div id="recommended-paths" className="space-y-5">
       <h2 className=" flex items-center gap-2 uppercase text-gray-600">
         <Sparkles className="text-blue-main size-4" />
         Recommended for You

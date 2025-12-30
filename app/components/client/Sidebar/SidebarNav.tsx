@@ -16,6 +16,8 @@ import PointsShopImage from "@public/images/shopping-bag-icon.png";
 import SubscriptionImage from "@public/images/subscription-icon-3d.png";
 import LogoutImage from "@public/images/logout-icon-3d.png";
 import { Skeleton } from "../../Skeleton";
+import { ModalLink } from "../../ModalLink";
+import { Info } from "lucide-react";
 
 interface MenuItem {
   href: string;
@@ -237,6 +239,15 @@ export const SidebarNav = () => {
         />
       )} */}
       <div className="py-2 border-t border-border-secondary">
+        {userRole === "junior" && (
+          <ModalLink name="WelcomePopup">
+            <div className="flex items-center space-x-3 px-2 py-3 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 w-full cursor-pointer">
+              <Info className="w-4 h-4 text-gray-600 hover:scale-110 transition-transform duration-400" />
+              <span className="truncate">Help !</span>
+            </div>
+          </ModalLink>
+        )}
+
         <button
           onClick={handleLogout}
           disabled={isPending}

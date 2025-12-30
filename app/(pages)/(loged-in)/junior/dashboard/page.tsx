@@ -9,11 +9,15 @@ import {
   UpcomingSession,
   LeaderBoard,
   DashboardBanner,
+  WelcomePopupTrigger,
+  OnboardingTourTrigger,
 } from "./_components";
 
 const DashboardPage = async () => {
   return (
     <>
+      <WelcomePopupTrigger />
+      <OnboardingTourTrigger />
       <DashboardHeader description="Ready to level up your coding skills today?" />
       <DashboardBanner />
       <DashboardCards cardsData={dashboardCardsData} />
@@ -40,6 +44,7 @@ const dashboardCardsData = [
     subtext: "+450 this week",
     subtextColor: "text-green-600",
     icon: LightningIcon.src,
+    id: "total-xp",
   },
   {
     label: "Missions Completed",
@@ -47,6 +52,7 @@ const dashboardCardsData = [
     subtext: "3 in progress",
     subtextColor: "text-orange-600",
     icon: TargetWithArrow.src,
+    id: "missions-completed",
   },
   {
     label: "Projects Completed",
@@ -54,6 +60,7 @@ const dashboardCardsData = [
     subtext: "2 active teams",
     subtextColor: "text-green-600",
     icon: TrophyIcon.src,
+    id: "projects-completed",
   },
   {
     label: "Challenges Won",
@@ -61,5 +68,6 @@ const dashboardCardsData = [
     subtext: "1 active entry",
     subtextColor: "text-green-600",
     icon: HandshakeIcon.src,
+    id: "challenges-won",
   },
 ];

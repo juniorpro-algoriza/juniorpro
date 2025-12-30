@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { useDeleteLearningPath } from "../../(pages)/(loged-in)/admin/tanstack";
 import { useJoinLearningPath } from "../../(pages)/(loged-in)/junior/tanstack/paths/useJuniorsPaths";
 import { Button } from "../Button";
+import { PATH_STATUS } from "../../configs";
 
 export const PathCard = ({
   path,
@@ -29,6 +30,7 @@ export const PathCard = ({
     xp: number;
     points: number;
     progress?: number;
+    status?: number;
   };
   userType: "junior" | "admin" | "project/manager" | "contributor";
   cardClassName?: string;
@@ -71,7 +73,10 @@ export const PathCard = ({
     }
   }, [path.id, deleteMutation]);
   return (
-    <div key={path.id} className="relative">
+    <div
+      key={path.id}
+      className={cx("relative", !hasJoinButton && "my-current-path")}
+    >
       {hasJoinButton && path.missions > 0 && (
         <Button
           intent="main2"
@@ -122,7 +127,20 @@ export const PathCard = ({
               height={60}
             />
           </div>
-          <h3 className="font-bold">{path.title}</h3>
+          <h3 className="font-bold">
+            {path.title}
+            <>
+              {path?.status == PATH_STATUS.Draft ? (
+                <span className="text-gray-600 text-xs ml-2 font-medium bg-gray-100 px-2 py-1 rounded-full">
+                  Draft
+                </span>
+              ) : (
+                <span className="text-green-600 text-xs ml-2 font-medium bg-green-100 px-2 py-1 rounded-full">
+                  Completed
+                </span>
+              )}
+            </>
+          </h3>
           <p className="text-gray-600 text-sm">{path.description}</p>
           {path.progress !== undefined && (
             <div className="space-y-2">

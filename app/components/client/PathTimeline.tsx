@@ -180,14 +180,22 @@ export const PathTimeline = ({
               {module === "junior" && (
                 <>
                   {item.status === "Completed" ? (
-                    <Link href={item.href || ""}>
-                      <Button intent="main" size="mainDefault">
+                    <Link href={item.href + "?tab=3" || ""}>
+                      <Button
+                        intent="main"
+                        size="mainDefault"
+                        id="review-mission"
+                      >
                         Review Mission <ArrowRight className="size-4" />
                       </Button>
                     </Link>
                   ) : item.status === "InProgress" ? (
                     <Link href={item.href || ""}>
-                      <Button intent="main2" size="mainDefault">
+                      <Button
+                        intent="main2"
+                        size="mainDefault"
+                        id="continue-mission"
+                      >
                         CONTINUE <ArrowRight className="size-4" />
                       </Button>
                     </Link>

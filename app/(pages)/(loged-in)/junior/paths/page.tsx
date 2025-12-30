@@ -9,6 +9,7 @@ import {
   useJuniorsLearningPaths,
 } from "../tanstack/paths/useJuniorsPaths";
 import { PATH_ICON } from "../../../../configs";
+import { OnboardingTourTrigger } from "../dashboard/_components";
 const MyJourneyPage = () => {
   const { data: currentPathData, isLoading: isLoadingCurrent } =
     useJuniorsLearningPathCurrent();
@@ -28,6 +29,7 @@ const MyJourneyPage = () => {
   }
   return (
     <>
+      <OnboardingTourTrigger />
       <Breadcrumb
         breadcrumbs={[
           {
@@ -74,7 +76,7 @@ const MyJourneyPage = () => {
         paths={recommendedPaths
           .map((path) => ({
             id: path.id || 0,
-            image: PATH_ICON[String(path.id) as keyof typeof PATH_ICON],
+            image: PATH_ICON[String(path.icon) as keyof typeof PATH_ICON],
             title: path.nameEn || path.nameAr || "Learning Path",
             description: path.description || "Learn new skills",
             missions: path.missionsCount || 0,

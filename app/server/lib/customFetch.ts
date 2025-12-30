@@ -140,11 +140,15 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
       const errorParts = [
         `Request failed: ${response.status} ${response.statusText}`,
       ];
+      let errJson;
 
       // Add API error details
       try {
-        const errJson = await response.json();
-        console.error(errJson);
+        errJson = {
+          status: response.status,
+          statusText: response.statusText,
+          ...(await response.json()),
+        };
         const apiError =
           errJson?.errorMessage ||
           errJson?.message ||
@@ -175,8 +179,7 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
           errorParts.push("Payload: [Unable to serialize]");
         }
       }
-
-      throw new Error(errorParts.join(" | "));
+      throw new Error(JSON.stringify(errJson));
     }
 
     const data = await response.json();

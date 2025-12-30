@@ -3,7 +3,7 @@
 import React from "react";
 import { PathCard } from "@components/client";
 import { useLearningPaths } from "../../tanstack/paths/useLearningPaths";
-import { PATH_ICON } from "../../../../../configs";
+import { PATH_ICON, PATH_STATUS } from "../../../../../configs";
 import { components } from "../../../../../../api-schema";
 import { Skeleton } from "@components";
 
@@ -24,6 +24,7 @@ export const PathsList = ({ searchText }: { searchText: string }) => {
         missions: path.missionsCount || 0,
         xp: path.totalXP || 0,
         points: path.totalPoints || 0,
+        status: path.status || PATH_STATUS.Draft,
       })
     ) || [];
 
