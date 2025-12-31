@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { useDeleteLearningPath } from "../../(pages)/(loged-in)/admin/tanstack";
 import { useJoinLearningPath } from "../../(pages)/(loged-in)/junior/tanstack/paths/useJuniorsPaths";
 import { Button } from "../Button";
+import { PATH_STATUS } from "../../configs";
 
 export const PathCard = ({
   path,
@@ -29,6 +30,7 @@ export const PathCard = ({
     xp: number;
     points: number;
     progress?: number;
+    status?: number;
   };
   userType: "junior" | "admin" | "project/manager" | "contributor";
   cardClassName?: string;
@@ -65,13 +67,31 @@ export const PathCard = ({
     try {
       await deleteMutation.mutateAsync({ id: path.id });
       toast.success("Path deleted successfully");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Failed to delete path:", error);
-      toast.error("Failed to delete path");
+
+      try {
+        // Parse the serialized error
+        const errorData = JSON.parse((error as Error).message);
+
+        if (errorData.errorMessage === "JuniorsJoinedLearningPath") {
+          toast.error(
+            "Cannot delete path: juniors are currently enrolled in this path"
+          );
+        } else {
+          toast.error(errorData.errorMessage || "Failed to delete path");
+        }
+      } catch {
+        // If parsing fails, show generic error
+        toast.error("Failed to delete path");
+      }
     }
   }, [path.id, deleteMutation]);
   return (
-    <div key={path.id} className="relative">
+    <div
+      key={path.id}
+      className={cx("relative", !hasJoinButton && "my-current-path")}
+    >
       {hasJoinButton && path.missions > 0 && (
         <Button
           intent="main2"
@@ -113,17 +133,34 @@ export const PathCard = ({
             cardClassName
           )}
         >
-          <div className="absolute -top-6 -right-6 aspect-square h-[90%] bg-blue-main opacity-4 rounded-full"></div>
           <div className="flex items-center justify-between gap-2">
-            <Image
-              src={path.image}
-              alt="Current path Image"
-              width={60}
-              height={60}
-            />
+            <div className="p-1.5 bg-[#EEF2FF80] rounded-xl">
+              <Image
+                src={path.image}
+                alt="Current path Image"
+                width={60}
+                height={60}
+              />
+            </div>
           </div>
-          <h3 className="font-bold">{path.title}</h3>
-          <p className="text-gray-600 text-sm">{path.description}</p>
+          <h3 className="font-bold text-lg">
+            {path.title}
+            {userType === "admin" && (
+              <>
+                {path?.status == PATH_STATUS.Draft ? (
+                  <span className="text-gray-600 text-xs ml-2 font-medium bg-gray-100 px-2 py-1 rounded-full">
+                    Draft
+                  </span>
+                ) : (
+                  <span className="text-green-600 text-xs ml-2 font-medium bg-green-100 px-2 py-1 rounded-full">
+                    Completed
+                  </span>
+                )}
+              </>
+            )}
+          </h3>
+          <p className="text-gray-600">{path.description}</p>
+          <hr className="border-gray-100" />
           {path.progress !== undefined && (
             <div className="space-y-2">
               <div className="flex justify-between items-center gap-3">

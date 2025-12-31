@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { getUserProfile } from "@server";
 
 const Schema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string(),
   redirect: z.string().optional(),
   join: z.string().optional(),
@@ -89,7 +89,7 @@ export const signIn = async (
   // Default redirects
   switch (userType) {
     case 1:
-      redirect("/admin/dashboard");
+      redirect("/admin/paths");
     case 2:
       redirect("/junior/dashboard");
     case 3:

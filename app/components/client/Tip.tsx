@@ -9,13 +9,15 @@ export const Tip = ({
   className,
   isOneLiner = false,
   imageClassname,
+  icon,
 }: {
   title: string;
   description: string;
-  image: string;
+  image?: string;
   className?: string;
   isOneLiner?: boolean;
   imageClassname?: string;
+  icon?: React.ReactElement;
 }) => {
   return !isOneLiner ? (
     <div
@@ -24,13 +26,17 @@ export const Tip = ({
         className
       )}
     >
-      <Image
-        src={image}
-        alt="Tip Icon"
-        width={100}
-        height={100}
-        className={cx("w-10 h-auto hidden sm:block", imageClassname)}
-      />
+      {icon ? (
+        icon
+      ) : image ? (
+        <Image
+          src={image}
+          alt="Tip Icon"
+          width={100}
+          height={100}
+          className={cx("w-10 h-auto hidden sm:block", imageClassname)}
+        />
+      ) : null}
       <div className="space-y-1">
         <p className="font-bold text-sm">{title}</p>
         <p className="font-medium text-sm text-gray-600">{description}</p>
@@ -43,13 +49,15 @@ export const Tip = ({
         className
       )}
     >
-      <Image
-        src={image}
-        alt="Tip Icon"
-        width={100}
-        height={100}
-        className={cx("w-6 h-auto", imageClassname)}
-      />
+      {image && (
+        <Image
+          src={image}
+          alt="Tip Icon"
+          width={100}
+          height={100}
+          className={cx("w-6 h-auto", imageClassname)}
+        />
+      )}
       <p className="font-bold text-sm">{title}</p>
       <p className="font-medium text-sm text-gray-600">{description}</p>
     </div>

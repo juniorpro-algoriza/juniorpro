@@ -8,6 +8,7 @@ import Diamond2 from "@public/images/diamond-icon-2.png";
 import badge from "@public/images/badge-icon.png";
 import { Progress } from "@components";
 import { TrendingUp } from "lucide-react";
+import { USER_TYPE } from "../../configs/constants";
 export const UserCard = ({
   image,
   firstName,
@@ -16,20 +17,30 @@ export const UserCard = ({
   xp,
   gender = "female",
   userType,
+  levelId,
+  dayStreakId,
+  pointsId,
+  badgesId,
+  xpTextId,
   userDetails,
 }: {
   image?: string | null;
-  firstName: string;
-  lastName: string;
+  firstName?: string | null;
+  lastName?: string | null;
   level: number;
   xp: number;
   gender?: "male" | "female";
   userType?: number;
+  levelId?: string;
+  dayStreakId?: string;
+  pointsId?: string;
+  badgesId?: string;
+  xpTextId?: string;
   userDetails?: {
     levelProgress: number;
     points: number;
-    badges: number;
     dayStreak: number;
+    badges: number;
   };
 }) => {
   return (
@@ -42,7 +53,7 @@ export const UserCard = ({
             src={
               image
                 ? image
-                : userType === 1 || userType === 3
+                : userType === USER_TYPE.Admin || userType === USER_TYPE.Enabler
                   ? SuperAdminAvatar
                   : gender === "male"
                     ? MaleAvatar.src
@@ -57,14 +68,19 @@ export const UserCard = ({
           <p className="font-medium text-maastricht-blue truncate">
             {firstName} {lastName}
           </p>
-          <p className="text-sm text-storm-400 truncate">
-            Level {level} - {xp}XP
-          </p>
+          {userType == USER_TYPE.Junior && (
+            <p className="text-sm text-storm-400 truncate">
+              Level {level} - {xp}XP
+            </p>
+          )}
         </div>
       </div>
       {userDetails && (
         <>
-          <div className="p-3 space-y-2.5 rounded-2xl [background:linear-gradient(135deg,#EEF2FF_0%,#FAF5FF_100%)]">
+          <div
+            id={levelId}
+            className="p-3 space-y-2.5 rounded-2xl bg-[#F9FAFB] "
+          >
             <div className="flex items-center justify-between">
               <p className="text-gray-600 text-13 font-medium">
                 Level Progress
@@ -74,29 +90,38 @@ export const UserCard = ({
               </p>
             </div>
             <Progress width={userDetails.levelProgress} />
-            <div className="flex items-center space-x-2">
+            <div id={xpTextId} className="flex items-center space-x-2 w-fit">
               <TrendingUp className="size-3 text-blue-main" />
               <p className="text-13 font-medium text-gray-600">
                 250 XP to Level 6
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-2 ">
-            <div className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1">
+          <div className="grid grid-cols-3 gap-2 user-stats-grid">
+            <div
+              id={dayStreakId}
+              className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1"
+            >
               <Image src={Fire} alt="fire" width={30} height={30} />
               <p className="font-bold">{userDetails.dayStreak}</p>
               <p className="text-10 text-gray-600 font-medium text-center">
                 Day Streak
               </p>
             </div>
-            <div className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1">
+            <div
+              id={pointsId}
+              className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1"
+            >
               <Image src={Diamond2} alt="diamond" width={30} height={30} />
               <p className="font-bold">{userDetails.points}</p>
               <p className="text-10 text-gray-600 font-medium text-center">
                 Points
               </p>
             </div>
-            <div className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1">
+            <div
+              id={badgesId}
+              className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1"
+            >
               <Image src={badge} alt="badge" width={30} height={30} />
               <p className="font-bold">{userDetails.badges}</p>
               <p className="text-10 text-gray-600 font-medium text-center">

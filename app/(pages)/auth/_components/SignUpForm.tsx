@@ -35,7 +35,7 @@ export const SignUpForm = ({
   }, [state, router]);
 
   return (
-    <form action={formAction} className="space-y-3">
+    <form action={formAction} className="space-y-5">
       {/* Radio */}
       <SignUpRadio
         value={signInAs}

@@ -42,6 +42,9 @@ export const useAddMission = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.admin.missions.list,
       });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.admin.paths.list,
+      });
     },
   });
 };
@@ -70,6 +73,9 @@ export const useDeleteMission = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.admin.missions.list,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.admin.paths.list,
       });
     },
   });

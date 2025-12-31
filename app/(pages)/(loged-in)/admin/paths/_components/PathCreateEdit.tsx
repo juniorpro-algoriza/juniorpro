@@ -11,10 +11,11 @@ import {
   useLearningPathById,
   useAddLearningPath,
   useUpdateLearningPath,
+  useCompleteLearningPath,
 } from "../../tanstack/paths/useLearningPaths";
 
 import { LearningJourneyCard } from "./LearningJourneyCard";
-import { PATH_ICON } from "../../../../../configs";
+import { PATH_ICON, PATH_STATUS } from "../../../../../configs";
 
 const getInitialFormData = (): PathFormValues => ({
   nameEn: "",
@@ -31,13 +32,15 @@ export const PathCreateEdit = ({
 }) => {
   const router = useRouter();
   const isEditing = !!pathId;
-  const { data: pathData } = useLearningPathById(
+  const { data: pathData, isLoading } = useLearningPathById(
     pathId ? Number(pathId) : 0,
     isEditing
   );
+  console.warn(pathData);
 
   const addPathMutation = useAddLearningPath();
   const updatePathMutation = useUpdateLearningPath();
+  const completePathMutation = useCompleteLearningPath();
 
   const [formData, setFormData] = useState<PathFormValues>(() => {
     const data = pathData || initialData;
@@ -119,6 +122,35 @@ export const PathCreateEdit = ({
 
   const isSubmitting =
     addPathMutation.isPending || updatePathMutation.isPending;
+  const isCompleting = completePathMutation.isPending;
+
+  const handleCompletePath = async () => {
+    if (!pathId) {
+      toast.error("Path ID is required to complete path");
+      return;
+    }
+
+    try {
+      await completePathMutation.mutateAsync(Number(pathId));
+      toast.success("Learning path completed successfully!");
+      router.push("/admin/paths");
+    } catch (error) {
+      let errorMessage = "Failed to complete path. Please try again.";
+
+      if (error instanceof Error) {
+        try {
+          const errorData = JSON.parse(error.message);
+          console.log(errorData);
+          if (errorData.errorMessage === "LearningPathHasNoMissions") {
+            errorMessage =
+              "Cannot complete path: No missions have been added to this learning path yet.";
+          }
+        } catch {}
+      }
+
+      toast.error(errorMessage);
+    }
+  };
 
   return (
     <div className="xl:max-w-4/5 space-y-5">
@@ -183,32 +215,53 @@ export const PathCreateEdit = ({
           </div>
         </MainCard>
       </form>
-      {isEditing && <LearningJourneyCard pathId={pathId} />}
-      <div className="flex items-center justify-between gap-3 flex-wrap">
+      {isEditing && (
+        <LearningJourneyCard pathId={pathId} status={pathData?.status} />
+      )}
+      <div className="flex items-center justify-between max-sm:flex-col gap-3 flex-wrap">
         <Button
           intent="main"
           size="mainDefault"
           type="button"
+          className="max-sm:w-full"
           onClick={() => router.push("/admin/paths")}
         >
           Cancel
         </Button>
-        <Button
-          intent="main2"
-          size="mainDefault"
-          type="submit"
-          disabled={isSubmitting}
-          form="create-path-form"
-        >
-          {isSubmitting
-            ? isEditing
-              ? "Updating..."
-              : "Creating..."
-            : isEditing
-              ? "Update Path"
-              : "Create Path"}
-          <ArrowRight className="size-4" />
-        </Button>
+        <div className="flex items-center gap-2 max-sm:w-full flex-wrap">
+          {isEditing &&
+            !isLoading &&
+            pathData?.status !== PATH_STATUS.Completed && (
+              <Button
+                intent="main"
+                size="mainDefault"
+                type="button"
+                className="max-sm:flex-1"
+                onClick={handleCompletePath}
+                disabled={isCompleting}
+              >
+                {isCompleting ? "Completing..." : "Complete Path"}
+              </Button>
+            )}
+
+          <Button
+            intent="main2"
+            size="mainDefault"
+            type="submit"
+            disabled={isSubmitting}
+            form="create-path-form"
+            className="max-sm:flex-1"
+          >
+            {isSubmitting
+              ? isEditing
+                ? "Updating..."
+                : "Creating..."
+              : isEditing
+                ? "Update Path"
+                : "Create Path"}
+            <ArrowRight className="size-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );

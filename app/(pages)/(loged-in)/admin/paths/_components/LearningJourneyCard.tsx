@@ -4,7 +4,14 @@ import { EmptyData, PathTimeline } from "@components/client";
 import { Plus } from "lucide-react";
 import React, { Suspense } from "react";
 import { useMissions } from "../../tanstack/missions/useMissions";
-export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
+import { PATH_STATUS } from "../../../../../configs";
+export const LearningJourneyCard = ({
+  pathId,
+  status = PATH_STATUS.Completed,
+}: {
+  pathId: string;
+  status?: number;
+}) => {
   const { data: missionsResponse, isLoading } = useMissions({
     SearchText: "",
     Id: parseInt(pathId),
@@ -37,14 +44,16 @@ export const LearningJourneyCard = ({ pathId }: { pathId: string }) => {
               : `${missionCount} ${missionCount === 1 ? "Mission" : "Missions"}`}
           </span>
         </p>
-        <Suspense fallback={null}>
-          <ModalLink name="CreateEditMission">
-            <Button intent="main" size="mainDefault">
-              <Plus className="size-4" />
-              Add Mission
-            </Button>
-          </ModalLink>
-        </Suspense>
+        {status !== PATH_STATUS.Completed && (
+          <Suspense fallback={null}>
+            <ModalLink name="CreateEditMission">
+              <Button intent="main" size="mainDefault">
+                <Plus className="size-4" />
+                Add Mission
+              </Button>
+            </ModalLink>
+          </Suspense>
+        )}
       </div>
       {missionCount > 0 ? (
         <PathTimeline module="admin" missions={missions} />

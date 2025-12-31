@@ -31,14 +31,14 @@ export const ContinueLearning = () => {
 
   return (
     <div className="space-y-4">
-      <p className="lg:text-2xl text-xl font-bold">Continue Your Learning</p>
-      <MainCard classname="border border-[#F3E8FF] [background:_linear-gradient(135deg,_#FAF5FF_0%,_#EEF2FF_100%)] shadow-none flex items-center gap-1 p-4">
+      <p className="lg:text-lg text-base font-bold">Continue Your Learning</p>
+      <MainCard classname="border border-[#F3E8FF] [background:_linear-gradient(135deg,_#FAF5FF_0%,_#EEF2FF_100%)] shadow-none flex items-center gap-1 p-0 px-4 py-2">
         <Image
           src={Rocket}
           alt="rocket"
-          width={64}
-          height={64}
-          className="w-16"
+          width={80}
+          height={80}
+          className="w-20"
         />
         <div className="space-y-1">
           <p className="font-medium">You're Building Momentum!</p>

@@ -2430,6 +2430,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/junior/confirm-guidance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/junior-dashboard/stats": {
         parameters: {
             query?: never;
@@ -5814,6 +5851,7 @@ export interface components {
             points?: number;
             /** Format: int32 */
             usedPoints?: number;
+            isGuided?: boolean;
             juniorLearningPaths?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"][] | null;
             isDeleted?: boolean;
             /** Format: date-time */
@@ -6964,6 +7002,7 @@ export interface components {
             userType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.UserType"];
             /** Format: int64 */
             personaId?: number | null;
+            isGuided?: boolean | null;
         };
         "Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel": {
             /** Format: int64 */

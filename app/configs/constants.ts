@@ -43,3 +43,13 @@ export const MISSION_STATUS = {
   2: "InProgress",
   3: "Completed",
 };
+export const PATH_STATUS = {
+  Draft: 1,
+  Completed: 2,
+};
+export const USER_TYPE = {
+  Admin: 1,
+  Junior: 2,
+  Enabler: 3,
+  ProjectManager: 4,
+};

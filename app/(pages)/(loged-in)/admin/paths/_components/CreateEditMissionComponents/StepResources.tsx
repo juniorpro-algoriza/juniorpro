@@ -1,19 +1,7 @@
 import { Button, Input, MainCard, Select } from "@components";
 import { Plus, XIcon } from "lucide-react";
 import { Resource } from "./types";
-import { Lookup } from "@types";
 import { REASOUCES_TYPE } from "../../../../../../configs";
-
-const convertToNumber = (
-  value: string | null | number,
-  allowNull = false
-): number | null => {
-  if (value === null || value === undefined || value === "") {
-    return allowNull ? null : 0;
-  }
-  const num = Number(value);
-  return isNaN(num) ? (allowNull ? null : 0) : num;
-};
 
 interface StepResourcesProps {
   resources: Resource[];
@@ -24,7 +12,6 @@ interface StepResourcesProps {
     value: Resource[K]
   ) => void;
   removeResource: (id: string) => void;
-  durationOptions: Lookup[];
   fieldErrors?: Record<string, string>;
 }
 
@@ -33,7 +20,6 @@ export const StepResources = ({
   addResource,
   updateResource,
   removeResource,
-  durationOptions,
   fieldErrors = {},
 }: StepResourcesProps) => (
   <div className="space-y-2 max-h-[550px] overflow-y-auto">
@@ -99,23 +85,29 @@ export const StepResources = ({
               placeholder="e.g. https://www.youtube.com/watch?v=..."
               error={fieldErrors[`learningResources.${index}.url`]}
             />
-            <Select
+            <Input
               label={
                 <p>
                   Duration{" "}
                   <span className="text-gray-400 text-xs">Optional</span>
                 </p>
               }
-              options={durationOptions}
-              value={resource.duration}
-              onChange={(value) =>
+              name={`learningResources[${index}][duration]`}
+              type="number"
+              value={resource.duration || ""}
+              onChange={(e) =>
                 updateResource(
                   resource.id,
                   "duration",
-                  convertToNumber(value, true)
+                  e.target.value ? Number(e.target.value) : null
                 )
               }
-              placeholder="Select duration"
+              placeholder={
+                resource.type === 4
+                  ? "Enter number of exercises"
+                  : "Enter duration in minutes"
+              }
+              min="0"
             />
           </div>
         </MainCard>

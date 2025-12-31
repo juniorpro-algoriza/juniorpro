@@ -201,7 +201,7 @@ export function CollaborationDetails({ team }: { team: CollaborationTeam }) {
                   ))}
                 </div>
                 <Button
-                  intent="mainBlue"
+                  intent="mainBlack"
                   size="mainDefault"
                   className="rounded-xl md:text-lg text-base w-full"
                 >

@@ -111,59 +111,63 @@ export const SubmitYourWork = ({
   };
 
   return !submissionLink ? (
-    <MainCard>
-      <form onSubmit={handleSubmit}>
-        <h2 className="font-semibold md:text-lg text-base">Submit Your Work</h2>
-        <p className="text-gray-600 mt-2 md:text-base text-sm">
-          Share a link to your code repository (GitHub, CodePen, etc.) , you can
-          update your submission until the challenge deadline
-        </p>
-        <div className="mt-5 space-y-3">
-          <Input
-            name="submission_link"
-            label={
-              <div className="flex items-center gap-2 ">
-                <Link2 className="text-blue-main size-5" />
-                Submission Link
-              </div>
-            }
-            type="url"
-            placeholder="https://github.com/username/project"
-            value={formData.submissionLink}
-            onChange={(e) =>
-              handleInputChange("submissionLink", e.target.value)
-            }
-            error={errors.submissionLink}
+    <div>
+      <MainCard>
+        <form onSubmit={handleSubmit}>
+          <h2 className="font-semibold md:text-lg text-base">
+            Submit Your Work
+          </h2>
+          <p className="text-gray-600 mt-2 md:text-base text-sm">
+            Share a link to your code repository (GitHub, CodePen, etc.) , you
+            can update your submission until the challenge deadline
+          </p>
+          <div className="mt-5 space-y-3">
+            <Input
+              name="submission_link"
+              label={
+                <div className="flex items-center gap-2 ">
+                  <Link2 className="text-blue-main size-5" />
+                  Submission Link
+                </div>
+              }
+              type="url"
+              placeholder="https://github.com/username/project"
+              value={formData.submissionLink}
+              onChange={(e) =>
+                handleInputChange("submissionLink", e.target.value)
+              }
+              error={errors.submissionLink}
+            />
+            <Textarea
+              label="Additional Notes (Optional)"
+              name="notes"
+              placeholder="Describe your solution, challenges you faced, or anything else you'd like to share..."
+              value={formData.submissionNotes}
+              onChange={(e) =>
+                handleInputChange("submissionNotes", e.target.value)
+              }
+              // className="w-full border-[#DFE1E8]"
+            />
+          </div>
+          <Tip
+            title="Tip: "
+            description="Include information about challenges you overcame, unique features you implemented, and the impact of your solution."
+            image={LambImage.src}
+            isOneLiner
+            className="mt-0 mb-5"
           />
-          <Textarea
-            label="Additional Notes (Optional)"
-            name="notes"
-            placeholder="Describe your solution, challenges you faced, or anything else you'd like to share..."
-            value={formData.submissionNotes}
-            onChange={(e) =>
-              handleInputChange("submissionNotes", e.target.value)
-            }
-            // className="w-full border-[#DFE1E8]"
-          />
-        </div>
-        <Tip
-          title="Tip: "
-          description="Include information about challenges you overcame, unique features you implemented, and the impact of your solution."
-          image={LambImage.src}
-          isOneLiner
-          className="mt-0 mb-5"
-        />
-        <Button
-          type="submit"
-          intent="main2"
-          size="mainLg"
-          className="w-full"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Submitting..." : "Submit Mission"}
-        </Button>
-      </form>
-    </MainCard>
+          <Button
+            type="submit"
+            intent="main2"
+            size="mainLg"
+            className="w-full"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Mission"}
+          </Button>
+        </form>
+      </MainCard>
+    </div>
   ) : (
     <div className="space-y-3">
       <MainCard classname=" space-y-5">

@@ -22,7 +22,7 @@ const JuniorsPage = async () => {
         description={
           <>
             Manage your team! You have{" "}
-            <span className="text-blue-main">3 empty seats</span> remaining
+            <span className="text-blue-main">empty seats</span> remaining
           </>
         }
       />

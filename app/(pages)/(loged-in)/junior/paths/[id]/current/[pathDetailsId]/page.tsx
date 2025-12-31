@@ -10,6 +10,7 @@ import {
   useJuniorsLearningPathCurrentById,
   useJuniorsLearningPathCurrentMissionById,
 } from "../../../../tanstack/paths/useJuniorsPaths";
+import { OnboardingTourTrigger } from "../../../../dashboard/_components";
 
 export default function PathDetailPage({
   params,
@@ -33,6 +34,7 @@ export default function PathDetailPage({
   }
   return (
     <>
+      <OnboardingTourTrigger />
       <Breadcrumb
         breadcrumbs={[
           {

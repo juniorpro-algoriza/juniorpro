@@ -10,7 +10,16 @@ export const useSubscribe = () => {
     mutationFn: postSubscribe,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.contributor.subscription,
+        queryKey: QUERY_KEYS.contributor.packages({
+          SearchText: "",
+          DurationType: "month",
+        }),
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.contributor.packages({
+          SearchText: "",
+          DurationType: "year",
+        }),
       });
     },
   });

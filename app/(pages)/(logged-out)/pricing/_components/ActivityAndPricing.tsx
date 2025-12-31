@@ -128,7 +128,7 @@ export function ActivityAndPricing() {
                 {/* CTA Button */}
                 <div className="relative z-10 mt-auto">
                   <Button
-                    intent="mainBlue"
+                    intent="mainBlack"
                     size="mainDefault"
                     className="rounded-xl md:text-lg text-base w-full"
                   >
