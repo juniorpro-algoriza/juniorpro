@@ -125,7 +125,7 @@ export const PathDetailsTabs = ({
     },
   ];
   return (
-    <div className="xl:max-w-4/5">
+    <div className="xl:max-w-4/5" id="path-details-tabs">
       <Tabs
         tabs={tabsData}
         selectedIndex={selectedIndex}

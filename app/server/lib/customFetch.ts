@@ -8,6 +8,7 @@ import {
   Path,
   SuccessResponse,
 } from "@server/types";
+import { ApiError } from "./errors";
 
 // Server-side fetch wrapper
 export const createServerFetch = async () => {
@@ -66,7 +67,7 @@ const getCookie = (name: string): string | undefined => {
   return undefined;
 };
 
-// Strictly typed fetch function with error handling
+// Strictly typed fetch function - THROWS ApiError on failure
 export const customFetch = async <P extends Path, M extends HttpMethod>(
   url: P,
   options: M extends AvailableMethods<P> ? FetchOptions<P, M> : never,
@@ -137,55 +138,67 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
 
     // Handle other errors
     if (!response.ok) {
-      const errorParts = [
-        `Request failed: ${response.status} ${response.statusText}`,
-      ];
-      let errJson;
+      let errJson: Record<string, unknown> = {};
 
-      // Add API error details
+      // Try to parse error response
       try {
-        errJson = {
-          status: response.status,
-          statusText: response.statusText,
-          ...(await response.json()),
-        };
-        const apiError =
-          errJson?.errorMessage ||
-          errJson?.message ||
-          errJson?.error ||
-          errJson?.detail;
-        if (apiError) errorParts.push(`API Error: ${apiError}`);
-
-        if (errJson?.code) errorParts.push(`Error Code: ${errJson.code}`);
+        errJson = await response.json();
       } catch {
         // ignore if no valid JSON
       }
 
-      // Add request context
-      const baseUrl = process.env.API_ROOT_URL || "";
-      errorParts.push(`Endpoint: ${baseUrl}${finalUrl}`);
-      errorParts.push(`Method: ${options.method}`);
+      const apiError = new ApiError(
+        response.status,
+        response.statusText,
+        (errJson?.errorMessage ||
+          errJson?.message ||
+          errJson?.error ||
+          errJson?.detail) as string | undefined,
+        errJson?.code as string | undefined,
+        errJson
+      );
 
-      // Add payload if available
-      if (options.data) {
-        try {
-          const payloadString = JSON.stringify(options.data);
-          const truncatedPayload =
-            payloadString.length > 1000
-              ? payloadString.substring(0, 1000) + "..."
-              : payloadString;
-          errorParts.push(`Payload: ${truncatedPayload}`);
-        } catch {
-          errorParts.push("Payload: [Unable to serialize]");
-        }
-      }
-      throw new Error(JSON.stringify(errJson));
+      // Log detailed error info for debugging
+      const baseUrl = process.env.API_ROOT_URL || "";
+      console.error("API Error:", {
+        status: response.status,
+        statusText: response.statusText,
+        endpoint: `${baseUrl}${finalUrl}`,
+        method: options.method,
+        errorMessage: apiError.errorMessage,
+        code: apiError.code,
+        details: errJson,
+      });
+
+      throw apiError;
     }
 
     const data = await response.json();
     return data;
   } catch (err) {
+    // If it's already an ApiError, serialize it as a plain Error with JSON message
+    if (err instanceof ApiError) {
+      // Serialize the error so it can cross server/client boundary
+      throw new Error(
+        JSON.stringify({
+          status: err.status,
+          statusText: err.statusText,
+          errorMessage: err.errorMessage,
+          code: err.code,
+          details: err.details,
+        })
+      );
+    }
+
     console.error("Error fetching data:", err);
-    throw err;
+
+    // Wrap unexpected errors
+    throw new Error(
+      JSON.stringify({
+        status: 500,
+        statusText: "Network or unexpected error",
+        errorMessage: err instanceof Error ? err.message : "Unknown error",
+      })
+    );
   }
 };

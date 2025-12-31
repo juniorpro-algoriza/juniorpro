@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { getUserProfile } from "@server";
 
 const Schema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string(),
   redirect: z.string().optional(),
   join: z.string().optional(),

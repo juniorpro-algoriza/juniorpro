@@ -12,5 +12,7 @@ export const usePackagesData = (
     queryKey: QUERY_KEYS.contributor.packages(params),
     queryFn: () => getPackages(params),
     enabled,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 };

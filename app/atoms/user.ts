@@ -7,8 +7,9 @@ export type User = {
   firstName?: string | null;
   lastName?: string | null;
   image?: string | null;
-  userType?: number;
+  userType?: 2 | 1 | 3 | 4;
   personaId?: number | null;
+  isGuided?: boolean | null;
 };
 
 export const userAtom = atom<User>({
@@ -18,6 +19,6 @@ export const userAtom = atom<User>({
   firstName: null,
   lastName: null,
   image: null,
-  userType: 0,
+  userType: 1,
   personaId: null,
 });

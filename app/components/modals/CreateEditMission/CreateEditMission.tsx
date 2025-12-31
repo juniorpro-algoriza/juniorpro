@@ -94,7 +94,6 @@ export const CreateEditMission = () => {
               addResource={addResource}
               updateResource={updateResource}
               removeResource={removeResource}
-              durationOptions={lookupData.duration}
               fieldErrors={fieldErrors}
             />
           )}

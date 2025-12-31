@@ -68,7 +68,7 @@ export const UserCard = ({
           <p className="font-medium text-maastricht-blue truncate">
             {firstName} {lastName}
           </p>
-          {userType === USER_TYPE.Junior && (
+          {userType == USER_TYPE.Junior && (
             <p className="text-sm text-storm-400 truncate">
               Level {level} - {xp}XP
             </p>
@@ -79,7 +79,7 @@ export const UserCard = ({
         <>
           <div
             id={levelId}
-            className="p-3 space-y-2.5 rounded-2xl [background:linear-gradient(135deg,#EEF2FF_0%,#FAF5FF_100%)] "
+            className="p-3 space-y-2.5 rounded-2xl bg-[#F9FAFB] "
           >
             <div className="flex items-center justify-between">
               <p className="text-gray-600 text-13 font-medium">

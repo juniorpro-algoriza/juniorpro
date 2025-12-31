@@ -193,7 +193,7 @@ export default function ChallengePage({
                   </div>
                 </div>
                 <Button
-                  intent="mainBlue"
+                  intent="mainBlack"
                   size="mainDefault"
                   className="rounded-xl text-base w-full md:text-2xl sm:text-lg text-md py-4"
                 >

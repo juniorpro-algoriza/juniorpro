@@ -1,8 +1,6 @@
 import { MainCard } from "@components";
 import React from "react";
 import { Clock } from "lucide-react";
-import CalenderImage from "@public/images/calendar.png";
-import Image from "next/image";
 import { cx } from "@lib";
 import { TAG_COLORS } from "../../../../../configs";
 export const UpcomingSession = () => {
@@ -28,18 +26,12 @@ export const UpcomingSession = () => {
     <div id="live-sessions">
       <MainCard classname="space-y-4">
         <div className="flex items-center gap-3">
-          <Image
-            src={CalenderImage.src}
-            alt="Calender Icon"
-            width={38}
-            height={38}
-          />
-          <p className="lg:text-2xl text-xl font-bold">
+          <p className="lg:text-lg text-base font-bold">
             Your Upcoming Sessions
           </p>
         </div>
         {session.map((item, index) => (
-          <MainCard classname="group items-center space-y-1.5" key={index}>
+          <MainCard classname="group items-center space-y-2.5" key={index}>
             <div className="flex items-center gap-3">
               <div
                 className={cx(
@@ -49,7 +41,7 @@ export const UpcomingSession = () => {
               >
                 {item.tag}
               </div>
-              <div className="text-13 text-gray-600 flex items-center">
+              <div className="text-sm text-gray-600 flex items-center">
                 <Clock className="mr-1 size-4" />
                 {item.description}
               </div>

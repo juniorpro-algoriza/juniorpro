@@ -111,7 +111,7 @@ export const SubmitYourWork = ({
   };
 
   return !submissionLink ? (
-    <div id="submit-your-work">
+    <div>
       <MainCard>
         <form onSubmit={handleSubmit}>
           <h2 className="font-semibold md:text-lg text-base">
@@ -169,7 +169,7 @@ export const SubmitYourWork = ({
       </MainCard>
     </div>
   ) : (
-    <div id="review-your-work" className="space-y-3">
+    <div className="space-y-3">
       <MainCard classname=" space-y-5">
         <div className="flex md:flex-row flex-col md:items-center">
           <Image

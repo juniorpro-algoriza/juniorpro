@@ -1,23 +1,32 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useAtom } from "jotai";
+import { userAtom } from "@atoms";
 
 export const WelcomePopupTrigger = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [user] = useAtom(userAtom);
+  const hasTriggered = useRef(false);
 
   useEffect(() => {
-    // Check if welcome popup has already been shown in this session
+    // Prevent multiple triggers
+    if (hasTriggered.current) return;
+
     const hasSeenWelcome = sessionStorage.getItem("hasSeenWelcomePopup");
 
-    if (!hasSeenWelcome && !searchParams.get("modal")) {
-      // Show the welcome popup
-      router.push("?modal=WelcomePopup");
-      // Mark that the user has seen the popup this session
+    if (!hasSeenWelcome && !searchParams.get("modal") && !user.isGuided) {
+      hasTriggered.current = true;
       sessionStorage.setItem("hasSeenWelcomePopup", "true");
+
+      // Try using setTimeout to ensure the state updates are processed
+      setTimeout(() => {
+        router.push("?modal=WelcomePopup");
+      }, 0);
     }
-  }, [router, searchParams]);
+  }, [router, searchParams, user.isGuided]);
 
   return null;
 };

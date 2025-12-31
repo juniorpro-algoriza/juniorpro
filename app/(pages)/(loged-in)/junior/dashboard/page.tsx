@@ -8,18 +8,23 @@ import {
   ContinueLearning,
   UpcomingSession,
   LeaderBoard,
-  DashboardBanner,
+  // DashboardBanner,
   WelcomePopupTrigger,
   OnboardingTourTrigger,
 } from "./_components";
+import { Suspense } from "react";
 
 const DashboardPage = async () => {
   return (
     <>
-      <WelcomePopupTrigger />
-      <OnboardingTourTrigger />
+      <Suspense fallback={null}>
+        <WelcomePopupTrigger />
+      </Suspense>
+      <Suspense fallback={null}>
+        <OnboardingTourTrigger />
+      </Suspense>
       <DashboardHeader description="Ready to level up your coding skills today?" />
-      <DashboardBanner />
+      {/* <DashboardBanner /> */}
       <DashboardCards cardsData={dashboardCardsData} />
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-8 gap-4 mt-8">
         <div className="xl:col-span-2 space-y-6">

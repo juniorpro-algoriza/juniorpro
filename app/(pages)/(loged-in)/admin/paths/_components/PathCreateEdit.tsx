@@ -32,7 +32,7 @@ export const PathCreateEdit = ({
 }) => {
   const router = useRouter();
   const isEditing = !!pathId;
-  const { data: pathData } = useLearningPathById(
+  const { data: pathData, isLoading } = useLearningPathById(
     pathId ? Number(pathId) : 0,
     isEditing
   );
@@ -140,6 +140,7 @@ export const PathCreateEdit = ({
       if (error instanceof Error) {
         try {
           const errorData = JSON.parse(error.message);
+          console.log(errorData);
           if (errorData.errorMessage === "LearningPathHasNoMissions") {
             errorMessage =
               "Cannot complete path: No missions have been added to this learning path yet.";
@@ -228,18 +229,20 @@ export const PathCreateEdit = ({
           Cancel
         </Button>
         <div className="flex items-center gap-2 max-sm:w-full flex-wrap">
-          {isEditing && pathData?.status !== PATH_STATUS.Completed && (
-            <Button
-              intent="main"
-              size="mainDefault"
-              type="button"
-              className="max-sm:flex-1"
-              onClick={handleCompletePath}
-              disabled={isCompleting}
-            >
-              {isCompleting ? "Completing..." : "Complete Path"}
-            </Button>
-          )}
+          {isEditing &&
+            !isLoading &&
+            pathData?.status !== PATH_STATUS.Completed && (
+              <Button
+                intent="main"
+                size="mainDefault"
+                type="button"
+                className="max-sm:flex-1"
+                onClick={handleCompletePath}
+                disabled={isCompleting}
+              >
+                {isCompleting ? "Completing..." : "Complete Path"}
+              </Button>
+            )}
 
           <Button
             intent="main2"

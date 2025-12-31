@@ -1,5 +1,4 @@
 import { PathCard } from "@components/client";
-import { Sparkles } from "lucide-react";
 import React from "react";
 export const RecommendedForYou = ({
   paths,
@@ -16,9 +15,8 @@ export const RecommendedForYou = ({
 }) => {
   return (
     <div id="recommended-paths" className="space-y-5">
-      <h2 className=" flex items-center gap-2 uppercase text-gray-600">
-        <Sparkles className="text-blue-main size-4" />
-        Recommended for You
+      <h2 className=" flex items-center gap-2 uppercase text-gray-600 font-bold">
+        Learning paths
       </h2>
       <div className="grid xl:grid-cols-3 sm:grid-cols-2 gap-5">
         {paths.map((path) => (
@@ -31,7 +29,7 @@ export const RecommendedForYou = ({
           />
         ))}
         {paths.length === 0 && (
-          <p className="ms-4 text-gray-600">No recommended paths found.</p>
+          <p className="ms-4 text-gray-600">No learning paths found.</p>
         )}
       </div>
     </div>

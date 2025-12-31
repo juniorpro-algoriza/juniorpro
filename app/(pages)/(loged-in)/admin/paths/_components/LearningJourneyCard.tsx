@@ -7,7 +7,7 @@ import { useMissions } from "../../tanstack/missions/useMissions";
 import { PATH_STATUS } from "../../../../../configs";
 export const LearningJourneyCard = ({
   pathId,
-  status,
+  status = PATH_STATUS.Completed,
 }: {
   pathId: string;
   status?: number;

@@ -21,7 +21,7 @@ export const useLearningPaths = (
   enabled: boolean = true
 ) => {
   return useQuery({
-    queryKey: QUERY_KEYS.admin.paths.all(params),
+    queryKey: ["admin", "paths", params],
     queryFn: () => getLearningPaths(params),
     enabled,
   });
@@ -40,7 +40,10 @@ export const useAddLearningPath = () => {
   return useMutation({
     mutationFn: (data: AddLearningPathModel) => postLearningPath(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.admin.paths.list });
+      queryClient.refetchQueries({
+        queryKey: ["admin", "paths"],
+        exact: false,
+      });
     },
   });
 };
@@ -50,8 +53,11 @@ export const useUpdateLearningPath = () => {
   return useMutation({
     mutationFn: (data: AddLearningPathModel) => putLearningPath(data),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.admin.paths.list });
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
+        queryKey: ["admin", "paths"],
+        exact: false,
+      });
+      queryClient.refetchQueries({
         queryKey: QUERY_KEYS.admin.paths.byId(variables.id as number),
       });
     },
@@ -63,7 +69,10 @@ export const useDeleteLearningPath = () => {
   return useMutation({
     mutationFn: deleteLearningPath,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.admin.paths.list });
+      queryClient.refetchQueries({
+        queryKey: ["admin", "paths"],
+        exact: false,
+      });
     },
   });
 };
@@ -73,7 +82,10 @@ export const useCompleteLearningPath = () => {
   return useMutation({
     mutationFn: completeLearningPath,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.admin.paths.list });
+      queryClient.refetchQueries({
+        queryKey: ["admin", "paths"],
+        exact: false,
+      });
     },
   });
 };

@@ -12,12 +12,12 @@ import MyJourneyImage from "@public/images/map-icon.png";
 // import CollaborationImage from "@public/images/hand-shake-icon.png";
 // import ChallengesImage from "@public/images/trophy-icon.png";
 // import AchievementsImage from "@public/images/medal-icon.png";
-import PointsShopImage from "@public/images/shopping-bag-icon.png";
+import JuniorsImage from "@public/images/juniors.png";
 import SubscriptionImage from "@public/images/subscription-icon-3d.png";
 import LogoutImage from "@public/images/logout-icon-3d.png";
+import HelpImage from "@public/images/help.png";
 import { Skeleton } from "../../Skeleton";
 import { ModalLink } from "../../ModalLink";
-import { Info } from "lucide-react";
 
 interface MenuItem {
   href: string;
@@ -85,7 +85,7 @@ const contributorMenuItems: MenuItem[] = [
   // },
   {
     href: "/contributor/juniors",
-    image: PointsShopImage.src,
+    image: JuniorsImage.src,
     label: "Juniors",
   },
   {
@@ -242,7 +242,13 @@ export const SidebarNav = () => {
         {userRole === "junior" && (
           <ModalLink name="WelcomePopup">
             <div className="flex items-center space-x-3 px-2 py-3 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 w-full cursor-pointer">
-              <Info className="w-4 h-4 text-gray-600 hover:scale-110 transition-transform duration-400" />
+              <Image
+                src={HelpImage.src}
+                alt="help"
+                width={200}
+                height={200}
+                className="w-6 h-auto"
+              />{" "}
               <span className="truncate">Help !</span>
             </div>
           </ModalLink>

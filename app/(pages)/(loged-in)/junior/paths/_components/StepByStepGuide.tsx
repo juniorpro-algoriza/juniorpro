@@ -22,7 +22,7 @@ export const StepByStepGuide = ({
   const [open, setOpen] = React.useState(0);
 
   return (
-    <div className="space-y-4" id="step-by-step-guide">
+    <div className="space-y-4">
       {steps?.map((item, index) => (
         <MainCard key={item.id} classname=" p-0" isAnimated>
           {/* Header */}

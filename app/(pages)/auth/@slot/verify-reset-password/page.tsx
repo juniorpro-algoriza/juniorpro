@@ -3,8 +3,8 @@ import { VerifyResetPassword } from "../../_components";
 
 const VerifyResetPasswordPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <Suspense fallback={null}>
+      <main>
         <VerifyResetPassword />
       </main>
     </Suspense>

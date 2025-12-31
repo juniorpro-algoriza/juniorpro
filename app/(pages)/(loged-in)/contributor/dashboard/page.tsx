@@ -1,6 +1,6 @@
 import { DashboardCards, DashboardHeader } from "@components/client";
 import TargetWithArrow from "@public/images/target_with_arrow.png";
-import LightningIcon from "@public/images/lightning-icon.png";
+import HoursLearnedIcon from "@public/images/hours-learned.png";
 import TrophyIcon from "@public/images/trophy-icon.png";
 import HandshakeIcon from "@public/images/hand-shake-icon.png";
 import { TrackYourJuniors, UpcomingSessions, YourJuniors } from "./_components";
@@ -25,11 +25,11 @@ const DashboardPage = async () => {
 export default DashboardPage;
 const dashboardCardsData = [
   {
-    label: "Total XP",
-    value: "530",
-    subtext: "Combined progress",
+    label: "Hours Learned",
+    value: "4.5",
+    subtext: "Across all juniors this week",
     subtextColor: "text-gray-600",
-    icon: LightningIcon.src,
+    icon: HoursLearnedIcon.src,
   },
   {
     label: "Missions Completed",

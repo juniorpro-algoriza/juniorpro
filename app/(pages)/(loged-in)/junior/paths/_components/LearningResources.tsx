@@ -13,7 +13,7 @@ export const LearningResources = ({
     | null;
 }) => {
   return (
-    <div className="space-y-3" id="learning-resources">
+    <div className="space-y-3">
       {learningResources?.map((resource) => (
         <div key={resource.id}>
           <Link href={resource.url || "#"} target="_blank">
@@ -28,7 +28,14 @@ export const LearningResources = ({
                   </h3>
                   {resource.duration ? (
                     <p className="text-gray-600 text-sm">
-                      {resource.duration} min
+                      {resource.duration}
+                      <span className="text-xs">
+                        {resource.type === 4
+                          ? resource.duration === 1
+                            ? " exercise"
+                            : " exercises"
+                          : " min"}
+                      </span>
                     </p>
                   ) : null}
                 </div>

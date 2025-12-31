@@ -1,11 +1,8 @@
-export { HeroImage } from "./HeroImage";
 export { LoginForm } from "./LoginForm";
 export { LoginLink } from "./LoginLink";
-export { Logo } from "./Logo";
 export { SignUpLink } from "./SignUpLink";
 export { SignUpRadio as SignUpTabs } from "./SignUpRadio";
 export { SocialLoginButtons } from "./SocialLoginButtons";
-export { WelcomeMessage } from "./WelcomeMessage";
 export { SignUpForm } from "./SignUpForm";
 export { ForgotPasswordForm } from "./ForgotPasswordForm";
 export { VerifyResetPassword } from "./VerifyResetPassword";

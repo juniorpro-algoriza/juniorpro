@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { components } from "../../../../../../api-schema";
-import { Button, MainCard, ModalLink, Skeleton } from "@components";
+import { MainCard, ModalLink, Skeleton } from "@components";
 import { UserCard } from "@components/client";
 import { UserPlus } from "lucide-react";
 import { useJuniorsData } from "../../tanstack";
@@ -12,6 +12,7 @@ type JuniorOfEnablerModel =
 export const JuniorsCards = () => {
   const { data: juniorResponse, isLoading } = useJuniorsData();
   const juniorsData = juniorResponse?.data;
+  console.log(juniorsData);
 
   if (isLoading) {
     return (
@@ -34,8 +35,7 @@ export const JuniorsCards = () => {
             classname="space-y-5 hover:scale-102 transition-all"
           >
             <UserCard
-              firstName={junior.name?.split(" ")[0] || "John"}
-              lastName={junior.name?.split(" ").slice(1).join(" ") || "Doe"}
+              firstName={junior.name || "John"}
               level={1}
               xp={junior.points || 1250}
               userType={2}
@@ -47,9 +47,9 @@ export const JuniorsCards = () => {
                 dayStreak: 0,
               }}
             />
-            <Button intent="main2" size="mainDefault" className="w-full">
+            {/* <Button intent="main2" size="mainDefault" className="w-full">
               View Progress
-            </Button>
+            </Button> */}
           </MainCard>
         ))}
         <ModalLink name="AddJuniors">
