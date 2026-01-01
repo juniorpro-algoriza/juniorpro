@@ -43,9 +43,24 @@ export const PlanCard = ({
     try {
       await deleteMutation.mutateAsync({ id: packageData.id });
       toast.success("Plan deleted successfully");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Failed to delete plan:", error);
-      toast.error("Failed to delete plan");
+
+      try {
+        // Parse the serialized error
+        const errorData = JSON.parse((error as Error).message);
+
+        if (errorData.errorMessage === "PackagesHasSubscriptions") {
+          toast.error(
+            "Cannot delete plan: subscribers are currently enrolled in this plan"
+          );
+        } else {
+          toast.error(errorData.errorMessage || "Failed to delete plan");
+        }
+      } catch {
+        // If parsing fails, show generic error
+        toast.error("Failed to delete plan");
+      }
     }
   }, [packageData.id, deleteMutation]);
 
