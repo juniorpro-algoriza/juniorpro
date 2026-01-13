@@ -6,10 +6,9 @@ export { StepRequirements } from "./StepRequirements";
 export type {
   CollaborationFormData,
   Judge,
-  Goal,
-  Role,
-  Responsibility,
-  Task,
   Requirement,
   Criterion,
+  Prize,
+  EvaluationCriterion,
+  Instruction,
 } from "./types";
