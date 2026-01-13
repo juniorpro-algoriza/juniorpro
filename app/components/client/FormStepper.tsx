@@ -14,11 +14,17 @@ interface FormStepperProps {
     step: number;
     title: string;
   }[];
+  className?: string;
 }
 
-export function FormStepper({ value, onClick, steps }: FormStepperProps) {
+export function FormStepper({
+  value,
+  onClick,
+  steps,
+  className,
+}: FormStepperProps) {
   return (
-    <Stepper value={value} className="w-full ">
+    <Stepper value={value} className={cx("w-full", className)}>
       {steps.map(({ step, title }) => (
         <StepperItem
           className="relative flex-1 flex-col!"

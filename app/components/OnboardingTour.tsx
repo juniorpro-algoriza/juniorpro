@@ -10,6 +10,9 @@ import {
   useJuniorsLearningPathCurrentMission,
 } from "../(pages)/(loged-in)/junior/tanstack/paths/useJuniorsPaths";
 import { MISSION_STATUS } from "../configs/constants";
+import { useConfirmGuidance } from "../tanstack";
+import { useAtom } from "jotai";
+import { userAtom } from "@atoms";
 
 // Dynamically import Tour to prevent SSR issues
 const Tour = dynamic(() => import("reactour"), {
@@ -37,6 +40,8 @@ export const OnboardingTour = ({
   const { data: currentMission } = useJuniorsLearningPathCurrentMission({
     Id: currentPathData?.data?.[0]?.id,
   });
+  const [user] = useAtom(userAtom);
+  const { mutate: confirmGuidanceMutate } = useConfirmGuidance();
 
   // Check if user is on dashboard page
   const isOnDashboardPage =
@@ -47,6 +52,12 @@ export const OnboardingTour = ({
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (currentStep === 15 && !user?.isGuided) {
+      confirmGuidanceMutate();
+    }
+  }, [currentStep, confirmGuidanceMutate, user]);
 
   useEffect(() => {
     // Update current step when initialStep changes
