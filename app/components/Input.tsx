@@ -1,9 +1,4 @@
-import {
-  Description,
-  Field,
-  Input as HeadlessInput,
-  Label,
-} from "@headlessui/react";
+import { Field, Input as HeadlessInput, Label } from "@headlessui/react";
 import { cva, cx } from "@lib";
 import type { VariantProps } from "cva";
 import type { InputHTMLAttributes, ReactNode, Ref } from "react";
@@ -50,7 +45,7 @@ const Input = ({
   ref,
   ...props
 }: InputProps) => {
-  const containerClasses = cx("flex flex-col space-y-2", containerClassName);
+  const containerClasses = cx("flex flex-col space-y-2 ", containerClassName);
 
   // Determine input state based on props if not explicitly provided
   const inputState =
@@ -90,11 +85,11 @@ const Input = ({
 
       {/* Error or Helper Text */}
       {(error ?? helperText) && (
-        <Description
+        <p
           className={descriptionVariants({ type: error ? "error" : "helper" })}
         >
           {error ?? helperText}
-        </Description>
+        </p>
       )}
     </Field>
   );

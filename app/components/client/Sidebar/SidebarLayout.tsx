@@ -17,7 +17,7 @@ export const SidebarLayout = ({ children }: { children: ReactNode }) => {
         `}
       >
         <div className="w-full min-w-0 max-w-none">
-          <div className="w-full min-w-0 min-h-screen p-6 space-y-6 bg-[#FAFBFC]">
+          <div className="w-full min-w-0 min-h-screen p-6 space-y-6 bg-[#FAFBFC] overflow-x-hidden">
             {children}
           </div>
         </div>

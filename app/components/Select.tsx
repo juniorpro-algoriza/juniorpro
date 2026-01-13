@@ -6,7 +6,6 @@ import {
   Listbox,
   ListboxOption,
   Transition,
-  Description,
   ListboxButton,
 } from "@headlessui/react";
 import { CheckIcon, ChevronDown } from "lucide-react";
@@ -198,9 +197,7 @@ export const Select = ({
         }}
       </Listbox>
 
-      {error && (
-        <Description className="text-sm text-red-600">{error}</Description>
-      )}
+      {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
   );
 };

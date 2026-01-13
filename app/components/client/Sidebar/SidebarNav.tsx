@@ -9,7 +9,7 @@ import { useTransition, ComponentType, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import HomeImage from "@public/images/home-icon.png";
 import MyJourneyImage from "@public/images/map-icon.png";
-// import CollaborationImage from "@public/images/hand-shake-icon.png";
+import CollaborationImage from "@public/images/hand-shake-icon.png";
 // import ChallengesImage from "@public/images/trophy-icon.png";
 // import AchievementsImage from "@public/images/medal-icon.png";
 import JuniorsImage from "@public/images/juniors.png";
@@ -33,11 +33,11 @@ const adminMenuItems: MenuItem[] = [
     image: MyJourneyImage.src,
     label: "Learning Paths",
   },
-  // {
-  //   href: "/admin/collaboration",
-  //   image: CollaborationImage.src,
-  //   label: "Collaboration",
-  // },
+  {
+    href: "/admin/collaboration",
+    image: CollaborationImage.src,
+    label: "Collaboration",
+  },
   // {
   //   href: "/admin/challenges",
   //   image: ChallengesImage.src,
