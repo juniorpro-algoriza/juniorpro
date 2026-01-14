@@ -1,5 +1,5 @@
 /* TODO: cleanup colors and remove duplicated ones */
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "@tailwindcss/forms";
 @theme {
   /* ! Colors */
@@ -128,16 +128,39 @@
   --color-gray-badge-400: #7e8ca0;
 
   /* new colors  */
-  --color-purple-main: #9810FA;
-  --color-blue-main: #155DFC;
-  --color-dark-blue-main: #4F39F6;
+  --color-purple-main: #9810fa;
+  --color-blue-main: #155dfc;
+  --color-dark-blue-main: #4f39f6;
+  /* marketing landing pages */
+  --color-pink-main: #ff5e73;
+  --color-yellow-main: #ffe285;
+  --color-blue-saturated: #3771f2;
+  --color-mint-green-main: #a7fadc;
+  --color-pale-purple-main: #c7b3ff;
+  --color-yellowish-green-main: #c6ff3e;
 
   /* ! Breakpoints */
   --breakpoint-2xl: 1440px;
 
   /* ! Shadows */
   --shadow-soft: 0px 4px 15px 0px rgba(0 0 0 / 0.08);
-  --shadow-main: 0px 2px 3px 0px rgba(0 0 0 / 0.10);
+  --shadow-main: 0px 2px 3px 0px rgba(0 0 0 / 0.1);
+  --shadow-thick-2: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-3: 3px 3px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-4: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-5: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-6: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-7: 7px 7px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-8: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-12: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-thick-blue-2: 2px 2px 0px 0px #3771f2;
+  --shadow-thick-blue-3: 3px 3px 0px 0px #3771f2;
+  --shadow-thick-blue-4: 4px 4px 0px 0px #3771f2;
+  --shadow-thick-blue-5: 5px 5px 0px 0px #3771f2;
+  --shadow-thick-blue-6: 6px 6px 0px 0px #3771f2;
+  --shadow-thick-blue-7: 7px 7px 0px 0px #3771f2;
+  --shadow-thick-blue-8: 8px 8px 0px 0px #3771f2;
+  --shadow-thick-blue-12: 12px 12px 0px 0px #3771f2;
 
   /* Font sizes */
   --text-10: 10px;
@@ -147,11 +170,11 @@
 
 /* !! Themes */
 @layer base {
-  [data-theme='dark'] {
+  [data-theme="dark"] {
     --color-primary-50: #ffffff;
   }
 
-  [data-theme='other'] {
+  [data-theme="other"] {
     --color-primary-50: #ffffff;
   }
 }

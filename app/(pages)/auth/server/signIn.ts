@@ -4,9 +4,10 @@ import type { ActionState } from "@server/types";
 import z from "zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getUserProfile } from "@server";
 
 const Schema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string(),
   redirect: z.string().optional(),
   join: z.string().optional(),
@@ -26,7 +27,7 @@ export const signIn = async (
 
   const { email, password, redirect: redirectUrl, join } = parsed.data;
 
-  const res = await fetch(`${baseUrl}/User/Login`, {
+  const res = await fetch(`${baseUrl}/api/User/Login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -49,14 +50,7 @@ export const signIn = async (
     path: "/",
   });
 
-  const profileRes = await fetch(`${baseUrl}/User/profile`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  if (!profileRes.ok)
-    return { success: false, error: "Failed to fetch user profile" };
-
-  const profile = await profileRes.json();
+  const profile = await getUserProfile();
   const userType = profile.userType;
   cookieStore.set("user_type", String(userType), {
     httpOnly: false,
@@ -74,7 +68,7 @@ export const signIn = async (
       "/contributor": 3,
       "/project/manager": 4,
     };
-    
+
     // Check if user is authorized for the redirect destination
     let isAuthorized = true;
     for (const [prefix, requiredType] of Object.entries(roleMap)) {
@@ -83,7 +77,7 @@ export const signIn = async (
         break;
       }
     }
-    
+
     // Only redirect if authorized
     if (isAuthorized) {
       if (join) redirect(`${redirectUrl}?join=${join}`);
@@ -95,7 +89,7 @@ export const signIn = async (
   // Default redirects
   switch (userType) {
     case 1:
-      redirect("/admin/dashboard");
+      redirect("/admin/paths");
     case 2:
       redirect("/junior/dashboard");
     case 3:

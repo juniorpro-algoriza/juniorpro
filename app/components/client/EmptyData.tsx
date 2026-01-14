@@ -1,22 +1,24 @@
-import SearchIcon from "@public/images/search_icon.svg";
-import Image from "next/image";
+import { PanelsTopLeft } from "lucide-react";
+import { MainCard } from "../MainCard";
 
 interface EmptyDataProps {
-  description: string;
-  projectsNum: number;
+  title?: string;
+  description?: string;
+  icon?: React.ReactElement;
 }
 
-export const EmptyData = ({ description, projectsNum }: EmptyDataProps) => {
-  if (projectsNum > 0) return null;
-
+export const EmptyData = ({
+  title,
+  description,
+  icon = <PanelsTopLeft />,
+}: EmptyDataProps) => {
   return (
-    <div className="flex flex-col gap-4 items-center justify-center p-8 h-full">
-      <Image
-        src={SearchIcon}
-        alt="search icon"
-        className="w-fit h-fit object-cover"
-      />
-      <p className="font-medium text-storm-500 text-xl">{description}</p>
-    </div>
+    <MainCard classname=" bg-[#F9FAFB80] place-items-center space-y-2">
+      <div className="flex items-center justify-center border border-gray-200 text-gray-600 p-3 rounded-full w-fit">
+        {icon}
+      </div>
+      <p className="font-bold text-lg text-gray-600">{title}</p>
+      <p className="text-sm text-gray-600">{description}</p>
+    </MainCard>
   );
 };

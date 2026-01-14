@@ -1,41 +1,28 @@
+import React from "react";
 import {
-  CTASection,
+  ChallengesSection,
+  CollaborationSection,
+  FinalLaunchSection,
+  FuelMeter,
   HeroSection,
-  HowItWorkSection,
-  PremiumTasksSection,
-  TestimonialsSection,
-  TrustedOrganizationsSection,
-} from "./components";
+  LearningPathSection,
+  MissionsSection,
+} from "./_components";
 
-export const dynamic = "force-dynamic";
-
-import { ProjectsSection } from "./components/ProjectsSection";
-
-export default async function HomePage() {
+const page = () => {
   return (
     <>
-      {/* Background */}
-      <div className="bg-linear-to-b h-[720px] absolute from-light-blue to-white inset-0 -z-10"></div>
-      {/* Section 1: Hero Section */}
-      <HeroSection />
-      {/* Section 2: How It Works */}
-      <section id="how-it-works">
-        <HowItWorkSection />
-      </section>
-      {/* Section 3: Premium Tasks */}
-      <PremiumTasksSection />
-      {/* Section 4: Featured Projects */}
-      <section id="projects">
-        <ProjectsSection />
-      </section>
-      {/* Section 5: Feedback Testimonials */}
-      <TestimonialsSection />
-      {/* Section 6: Trusted Organizations */}
-      <section id="trusted-orgs">
-        <TrustedOrganizationsSection />
-      </section>
-      {/* Section 7: CTA Section */}
-      <CTASection />
+      <main className="relative z-10 flex flex-col">
+        <FuelMeter />
+        <HeroSection />
+        <LearningPathSection />
+        <MissionsSection />
+        <ChallengesSection />
+        <CollaborationSection />
+        <FinalLaunchSection />
+      </main>
     </>
   );
-}
+};
+
+export default page;

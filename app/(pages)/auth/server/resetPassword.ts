@@ -1,6 +1,6 @@
 "use server";
 
-import { getData } from "@server";
+import { customFetch } from "@server/lib";
 
 type ForgetPasswordResponse = { success: true } | { error: string };
 
@@ -14,10 +14,9 @@ export async function resetPassword(
   }
 
   try {
-    await getData({
-      url: "account/reset-password",
-      method: "POST",
-      body: { email },
+    await customFetch("/api/account/reset-password", {
+      method: "post",
+      data: { email },
     });
 
     return { success: true };

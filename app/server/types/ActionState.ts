@@ -1,4 +1,4 @@
 export type ActionState = {
-    success: boolean | null,
-    error: string | null,
-}
+  success: boolean | null;
+  error: string | null;
+};

@@ -10,12 +10,14 @@ import Cookies from "js-cookie";
 import HomeImage from "@public/images/home-icon.png";
 import MyJourneyImage from "@public/images/map-icon.png";
 import CollaborationImage from "@public/images/hand-shake-icon.png";
-import ChallengesImage from "@public/images/trophy-icon.png";
-import AchievementsImage from "@public/images/medal-icon.png";
-import PointsShopImage from "@public/images/shopping-bag-icon.png";
+// import ChallengesImage from "@public/images/trophy-icon.png";
+// import AchievementsImage from "@public/images/medal-icon.png";
+import JuniorsImage from "@public/images/juniors.png";
 import SubscriptionImage from "@public/images/subscription-icon-3d.png";
 import LogoutImage from "@public/images/logout-icon-3d.png";
+import HelpImage from "@public/images/help.png";
 import { Skeleton } from "../../Skeleton";
+import { ModalLink } from "../../ModalLink";
 
 interface MenuItem {
   href: string;
@@ -25,7 +27,7 @@ interface MenuItem {
 }
 
 const adminMenuItems: MenuItem[] = [
-  { href: "/admin/dashboard", image: HomeImage.src, label: "Dashboard" },
+  // { href: "/admin/dashboard", image: HomeImage.src, label: "Dashboard" },
   {
     href: "/admin/paths",
     image: MyJourneyImage.src,
@@ -36,21 +38,21 @@ const adminMenuItems: MenuItem[] = [
     image: CollaborationImage.src,
     label: "Collaboration",
   },
-  {
-    href: "/admin/challenges",
-    image: ChallengesImage.src,
-    label: "Challenges",
-  },
-  {
-    href: "/admin/achievements",
-    image: AchievementsImage.src,
-    label: "Achievements",
-  },
-  {
-    href: "/admin/points-shop",
-    image: PointsShopImage.src,
-    label: "Points Shop",
-  },
+  // {
+  //   href: "/admin/challenges",
+  //   image: ChallengesImage.src,
+  //   label: "Challenges",
+  // },
+  // {
+  //   href: "/admin/achievements",
+  //   image: AchievementsImage.src,
+  //   label: "Achievements",
+  // },
+  // {
+  //   href: "/admin/points-shop",
+  //   image: PointsShopImage.src,
+  //   label: "Points Shop",
+  // },
   {
     href: "/admin/subscription",
     image: SubscriptionImage.src,
@@ -61,25 +63,30 @@ const adminMenuItems: MenuItem[] = [
 
 const contributorMenuItems: MenuItem[] = [
   { href: "/contributor/dashboard", image: HomeImage.src, label: "Dashboard" },
+  // {
+  //   href: "/contributor/paths",
+  //   image: MyJourneyImage.src,
+  //   label: "Learning Paths",
+  // },
+  // {
+  //   href: "/contributor/collaboration",
+  //   image: CollaborationImage.src,
+  //   label: "Collaboration",
+  // },
+  // {
+  //   href: "/contributor/challenges",
+  //   image: ChallengesImage.src,
+  //   label: "Challenges",
+  // },
+  // {
+  //   href: "/contributor/points-shop",
+  //   image: PointsShopImage.src,
+  //   label: "Points Shop",
+  // },
   {
-    href: "/contributor/paths",
-    image: MyJourneyImage.src,
-    label: "Learning Paths",
-  },
-  {
-    href: "/contributor/collaboration",
-    image: CollaborationImage.src,
-    label: "Collaboration",
-  },
-  {
-    href: "/contributor/challenges",
-    image: ChallengesImage.src,
-    label: "Challenges",
-  },
-  {
-    href: "/contributor/points-shop",
-    image: PointsShopImage.src,
-    label: "Points Shop",
+    href: "/contributor/juniors",
+    image: JuniorsImage.src,
+    label: "Juniors",
   },
   {
     href: "/contributor/subscription",
@@ -97,26 +104,26 @@ const juniorMenuItems: MenuItem[] = [
     image: MyJourneyImage.src,
     label: "Learning Paths",
   },
-  {
-    href: "/junior/collaboration",
-    image: CollaborationImage.src,
-    label: "Collaboration",
-  },
-  {
-    href: "/junior/challenges",
-    image: ChallengesImage.src,
-    label: "Challenges",
-  },
-  {
-    href: "/junior/achievements",
-    image: AchievementsImage.src,
-    label: "Achievements",
-  },
-  {
-    href: "/junior/points-shop",
-    image: PointsShopImage.src,
-    label: "Points Shop",
-  },
+  // {
+  //   href: "/junior/collaboration",
+  //   image: CollaborationImage.src,
+  //   label: "Collaboration",
+  // },
+  // {
+  //   href: "/junior/challenges",
+  //   image: ChallengesImage.src,
+  //   label: "Challenges",
+  // },
+  // {
+  //   href: "/junior/achievements",
+  //   image: AchievementsImage.src,
+  //   label: "Achievements",
+  // },
+  // {
+  //   href: "/junior/points-shop",
+  //   image: PointsShopImage.src,
+  //   label: "Points Shop",
+  // },
   // { href: "/junior/projects", icon: DocumentIcon, label: "Projects" },
   // { href: "/junior/chat", icon: ChatIcon, label: "Chat" },
   // { href: "/junior/schedule", icon: CalendarIcon, label: "Schedule" },
@@ -217,11 +224,12 @@ export const SidebarNav = () => {
             </li>
           );
         })}
-        {menuItems.length === 0 && [...Array(7)].map((_,index) => (
-          <li key={index}>
-            <Skeleton className="h-12 rounded-xl" />
-          </li>
-        ))}
+        {menuItems.length === 0 &&
+          [...Array(7)].map((_, index) => (
+            <li key={index}>
+              <Skeleton className="h-12 rounded-xl" />
+            </li>
+          ))}
       </ul>
       {/* {userRole === "junior" && (
         <Tip
@@ -231,6 +239,21 @@ export const SidebarNav = () => {
         />
       )} */}
       <div className="py-2 border-t border-border-secondary">
+        {userRole === "junior" && (
+          <ModalLink name="WelcomePopup">
+            <div className="flex items-center space-x-3 px-2 py-3 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 w-full cursor-pointer">
+              <Image
+                src={HelpImage.src}
+                alt="help"
+                width={200}
+                height={200}
+                className="w-6 h-auto"
+              />{" "}
+              <span className="truncate">Help !</span>
+            </div>
+          </ModalLink>
+        )}
+
         <button
           onClick={handleLogout}
           disabled={isPending}

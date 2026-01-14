@@ -27,7 +27,7 @@ export const ModalLink = ({
   // Set the modal name
   newParams.set("modal", name);
 
-  // Set any additional query parameters
+  // Set additional query parameters
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
       newParams.set(key, value.toString());

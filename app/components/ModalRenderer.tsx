@@ -12,54 +12,12 @@ import { modalNameSchema } from "./schemas/modalNameSchema";
 import type { ModalName } from "./types/ModalName";
 
 // Map of lazy-loaded modal components
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Modals: Record<ModalName, LazyExoticComponent<ComponentType<any>>> = {
+const Modals: Record<
+  ModalName,
+  LazyExoticComponent<ComponentType<Record<string, string | null>>>
+> = {
   AddJuniors: lazy(() =>
     import("./modals/AddJuniors").then((m) => ({ default: m.AddJuniors }))
-  ),
-  EditProfile: lazy(() =>
-    import("./modals/EditProfile").then((m) => ({ default: m.EditProfile }))
-  ),
-  AddProjectManager: lazy(() =>
-    import("./modals/AddProjectManager").then((m) => ({
-      default: m.AddProjectManager,
-    }))
-  ),
-  EditProjectManagerProfile: lazy(() =>
-    import("./modals/EditProjectManagerProfile").then((m) => ({
-      default: m.EditProjectManagerProfile,
-    }))
-  ),
-  AddJuniorForContributor: lazy(() =>
-    import("./modals/AddJuniorForContributor").then((m) => ({
-      default: m.AddJuniorForContributor,
-    }))
-  ),
-  AddContributor: lazy(() =>
-    import("./modals/AddContributor").then((m) => ({
-      default: m.AddContributor,
-    }))
-  ),
-
-  EditContributorProfile: lazy(() =>
-    import("./modals/EditContributorProfile").then((m) => ({
-      default: m.EditContributorProfile,
-    }))
-  ),
-  AssignPointsForContributors: lazy(() =>
-    import("./modals/AssignPointsForContributors").then((m) => ({
-      default: m.AssignPointsForContributors,
-    }))
-  ),
-  AssignPointsForJuniors: lazy(() =>
-    import("./modals/AssignPointsForJuniors").then((m) => ({
-      default: m.AssignPointsForJuniors,
-    }))
-  ),
-  EditJuniorsProfile: lazy(() =>
-    import("./modals/EditJuniorsProfile").then((m) => ({
-      default: m.EditJuniorsProfile,
-    }))
   ),
   MissionCompleted: lazy(() =>
     import("./modals/MissionCompleted").then((m) => ({
@@ -74,6 +32,11 @@ const Modals: Record<ModalName, LazyExoticComponent<ComponentType<any>>> = {
   CreateEditPlan: lazy(() =>
     import("./modals/CreateEditPlan").then((m) => ({
       default: m.CreateEditPlan,
+    }))
+  ),
+  WelcomePopup: lazy(() =>
+    import("./modals/WelcomePopup").then((m) => ({
+      default: m.WelcomePopup,
     }))
   ),
 };

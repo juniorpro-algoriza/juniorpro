@@ -39,7 +39,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(pages)/auth/components/SignUpInputs.tsx"
+    "app/(pages)/auth/_components/SignUpInputs.tsx"
   ],
   "exclude": ["node_modules"]
 }

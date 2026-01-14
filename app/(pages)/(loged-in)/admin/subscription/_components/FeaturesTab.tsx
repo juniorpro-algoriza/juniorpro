@@ -1,0 +1,75 @@
+import {
+  EnhancedTable,
+  MainCard,
+  Skeleton,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@components";
+import { components } from "../../../../../../api-schema";
+import { FEATURE_TYPE } from "../../../../../configs";
+
+type Feature =
+  components["schemas"]["Sawiha.Services.DTO.FeatureModels.FeatureModel"];
+
+interface FeaturesTableProps {
+  features: Feature[];
+  isLoading?: boolean;
+}
+
+export function FeaturesTable({ features, isLoading }: FeaturesTableProps) {
+  const featuresList = features || [];
+
+  return (
+    <MainCard classname="p-0">
+      <div className="p-5">
+        <h3 className="font-semibold text-lg flex items-center gap-3">
+          Features Available{" "}
+          <span className="text-xs px-2 py-1 text-dark-blue-main bg-blue-main/10 rounded-full font-medium">
+            {featuresList.length}
+          </span>
+        </h3>
+      </div>
+      <EnhancedTable>
+        <TableHeader>
+          <TableRow className="bg-[#F9FAFB] text-gray-600 border-y border-gray-200 uppercase">
+            <TableHead className="h-14 font-semibold min-w-[200px]">
+              Feature Name
+            </TableHead>
+            <TableHead className="h-14 font-semibold min-w-[200px]">
+              Description
+            </TableHead>
+            <TableHead className="h-14 font-semibold min-w-[100px]">
+              Type
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={3}>
+                <Skeleton className="h-20" />
+              </TableCell>
+            </TableRow>
+          ) : (
+            featuresList.map((feature) => (
+              <TableRow key={feature.id} className="border-gray-100">
+                <TableCell className="h-20 whitespace-normal break-words">
+                  {feature.nameEn}
+                </TableCell>
+                <TableCell className="h-20 whitespace-normal break-words">
+                  {feature.description}
+                </TableCell>
+                <TableCell className="h-20 whitespace-normal break-words">
+                  {FEATURE_TYPE[feature.key as keyof typeof FEATURE_TYPE]}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </EnhancedTable>
+    </MainCard>
+  );
+}

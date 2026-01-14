@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/account/resend-otp": {
+    "/api/account/resend-otp": {
         parameters: {
             query?: never;
             header?: never;
@@ -45,7 +45,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/account/verify-otp": {
+    "/api/account/verify-otp": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/account/update-password": {
+    "/api/account/update-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -127,7 +127,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/account/change-password": {
+    "/api/account/change-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -168,7 +168,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/account/reset-password": {
+    "/api/account/reset-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -209,7 +209,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/account/validate-date-reset-password": {
+    "/api/account/validate-date-reset-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -247,7 +247,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/account/verify-reset-password": {
+    "/api/account/verify-reset-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -288,7 +288,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin-dashboard/all-users-stats": {
+    "/api/admin-dashboard/all-users-stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -325,7 +325,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin-dashboard/juniors-stats": {
+    "/api/admin-dashboard/juniors-stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -362,7 +362,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin-dashboard/Enablers-stats": {
+    "/api/admin-dashboard/Enablers-stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -399,7 +399,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin-dashboard/project-managers-stats": {
+    "/api/admin-dashboard/project-managers-stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -436,7 +436,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin-dashboard/project-chart": {
+    "/api/admin-dashboard/project-chart": {
         parameters: {
             query?: never;
             header?: never;
@@ -473,7 +473,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Career": {
+    "/api/Lookup/Career": {
         parameters: {
             query?: never;
             header?: never;
@@ -535,7 +535,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Career/{Id}": {
+    "/api/Lookup/Career/{Id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -574,7 +574,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Career/LookupItemsWithDeleted/{IncludeDeleted}": {
+    "/api/Lookup/Career/LookupItemsWithDeleted/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -612,7 +612,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Career/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
+    "/api/Lookup/Career/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -652,7 +652,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Category": {
+    "/api/Lookup/Category": {
         parameters: {
             query?: never;
             header?: never;
@@ -714,7 +714,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Category/{Id}": {
+    "/api/Lookup/Category/{Id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -753,7 +753,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Category/LookupItemsWithDeleted/{IncludeDeleted}": {
+    "/api/Lookup/Category/LookupItemsWithDeleted/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -791,7 +791,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Category/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
+    "/api/Lookup/Category/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -831,7 +831,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Duration": {
+    "/api/Lookup/Duration": {
         parameters: {
             query?: never;
             header?: never;
@@ -893,7 +893,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Duration/{Id}": {
+    "/api/Lookup/Duration/{Id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -932,7 +932,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Duration/LookupItemsWithDeleted/{IncludeDeleted}": {
+    "/api/Lookup/Duration/LookupItemsWithDeleted/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -970,7 +970,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Duration/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
+    "/api/Lookup/Duration/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1010,7 +1010,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/sign-up": {
+    "/api/Enabler/sign-up": {
         parameters: {
             query?: never;
             header?: never;
@@ -1053,7 +1053,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/add": {
+    "/api/Enabler/add": {
         parameters: {
             query?: never;
             header?: never;
@@ -1096,7 +1096,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/update": {
+    "/api/Enabler/update": {
         parameters: {
             query?: never;
             header?: never;
@@ -1139,7 +1139,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/delete/{id}": {
+    "/api/Enabler/delete/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1178,7 +1178,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/details/{id}": {
+    "/api/Enabler/details/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1217,7 +1217,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/get-all": {
+    "/api/Enabler/get-all": {
         parameters: {
             query?: never;
             header?: never;
@@ -1259,7 +1259,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/invite-junior": {
+    "/api/Enabler/invite-junior": {
         parameters: {
             query?: never;
             header?: never;
@@ -1298,7 +1298,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/juniors": {
+    "/api/Enabler/juniors": {
         parameters: {
             query?: never;
             header?: never;
@@ -1340,7 +1340,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/add-junior": {
+    "/api/Enabler/add-junior": {
         parameters: {
             query?: never;
             header?: never;
@@ -1383,7 +1383,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/look-ups": {
+    "/api/Enabler/look-ups": {
         parameters: {
             query?: never;
             header?: never;
@@ -1420,7 +1420,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/assign-junior": {
+    "/api/Enabler/assign-junior": {
         parameters: {
             query?: never;
             header?: never;
@@ -1460,7 +1460,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/accept-junior": {
+    "/api/Enabler/accept-junior": {
         parameters: {
             query?: never;
             header?: never;
@@ -1499,7 +1499,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/reject-junior": {
+    "/api/Enabler/reject-junior": {
         parameters: {
             query?: never;
             header?: never;
@@ -1538,7 +1538,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/assign-points-by-admin": {
+    "/api/Enabler/assign-points-by-admin": {
         parameters: {
             query?: never;
             header?: never;
@@ -1578,7 +1578,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler/assign-points-to-junior": {
+    "/api/Enabler/assign-points-to-junior": {
         parameters: {
             query?: never;
             header?: never;
@@ -1618,7 +1618,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler-dashboard/points-allocation": {
+    "/api/Enabler-dashboard/points-allocation": {
         parameters: {
             query?: never;
             header?: never;
@@ -1655,7 +1655,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler-dashboard/juniors-projects": {
+    "/api/Enabler-dashboard/juniors-projects": {
         parameters: {
             query?: never;
             header?: never;
@@ -1699,7 +1699,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler-package": {
+    "/api/Enabler-package": {
         parameters: {
             query?: never;
             header?: never;
@@ -1726,9 +1726,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.GetPackageListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.GetPackageListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.GetPackageListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
                     };
                 };
             };
@@ -1741,7 +1741,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Enabler-package/{id}": {
+    "/api/Enabler-package/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1765,9 +1765,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.PackageModels.PackageDetails"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.PackageModels.PackageDetails"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.PackageModels.PackageDetails"];
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"];
                     };
                 };
             };
@@ -1780,7 +1780,203 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/feature": {
+    "/api/Enabler-package/subscripe/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Enabler-package/upgrade-plan/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Enabler-package/assign-junior/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Enabler-package/subscriptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    DurationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Enabler-package/current-subscription": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/feature": {
         parameters: {
             query?: never;
             header?: never;
@@ -1871,7 +2067,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/feature/{id}": {
+    "/api/feature/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1910,7 +2106,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/sign-up": {
+    "/api/junior/sign-up": {
         parameters: {
             query?: never;
             header?: never;
@@ -1953,7 +2149,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/statistics": {
+    "/api/junior/statistics": {
         parameters: {
             query?: never;
             header?: never;
@@ -1990,7 +2186,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/add": {
+    "/api/junior/add": {
         parameters: {
             query?: never;
             header?: never;
@@ -2033,7 +2229,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/update": {
+    "/api/junior/update": {
         parameters: {
             query?: never;
             header?: never;
@@ -2076,7 +2272,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/delete/{id}": {
+    "/api/junior/delete/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2115,7 +2311,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/details/{id}": {
+    "/api/junior/details/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2154,7 +2350,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/get-all": {
+    "/api/junior/get-all": {
         parameters: {
             query?: never;
             header?: never;
@@ -2197,7 +2393,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior/look-ups": {
+    "/api/junior/look-ups": {
         parameters: {
             query?: never;
             header?: never;
@@ -2234,7 +2430,44 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior-dashboard/stats": {
+    "/api/junior/confirm-guidance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-dashboard/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -2271,7 +2504,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior-dashboard/joined-projects": {
+    "/api/junior-dashboard/joined-projects": {
         parameters: {
             query?: never;
             header?: never;
@@ -2314,7 +2547,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior-learning-path": {
+    "/api/junior-learning-path": {
         parameters: {
             query?: never;
             header?: never;
@@ -2323,18 +2556,16 @@ export interface paths {
         };
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["Sawiha.CrossCutting.Common.Search.PagedRequest"];
-                    "text/json": components["schemas"]["Sawiha.CrossCutting.Common.Search.PagedRequest"];
-                    "application/*+json": components["schemas"]["Sawiha.CrossCutting.Common.Search.PagedRequest"];
-                };
-            };
+            requestBody?: never;
             responses: {
                 /** @description Success */
                 200: {
@@ -2357,7 +2588,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior-learning-path/{id}": {
+    "/api/junior-learning-path/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2396,7 +2627,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior-learning-path/current": {
+    "/api/junior-learning-path/mission": {
         parameters: {
             query?: never;
             header?: never;
@@ -2405,18 +2636,17 @@ export interface paths {
         };
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    Id?: number;
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["Sawiha.CrossCutting.Common.Search.PagedRequest"];
-                    "text/json": components["schemas"]["Sawiha.CrossCutting.Common.Search.PagedRequest"];
-                    "application/*+json": components["schemas"]["Sawiha.CrossCutting.Common.Search.PagedRequest"];
-                };
-            };
+            requestBody?: never;
             responses: {
                 /** @description Success */
                 200: {
@@ -2424,9 +2654,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.MissionsModels.GetMissionListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.MissionsModels.GetMissionListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.MissionsModels.GetMissionListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
                     };
                 };
             };
@@ -2439,7 +2669,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior-learning-path/current/{id}": {
+    "/api/junior-learning-path/current": {
         parameters: {
             query?: never;
             header?: never;
@@ -2448,11 +2678,13 @@ export interface paths {
         };
         get: {
             parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: number;
+                query?: {
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
                 };
+                header?: never;
+                path?: never;
                 cookie?: never;
             };
             requestBody?: never;
@@ -2478,7 +2710,127 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/junior-learning-path/join/{id}": {
+    "/api/junior-learning-path/current/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-learning-path/current/mission": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    Id?: number;
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-learning-path/current/mission/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionDetailResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionDetailResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionDetailResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-learning-path/join/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2504,9 +2856,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel"];
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
                     };
                 };
             };
@@ -2517,7 +2869,50 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/landing-home-page/projects": {
+    "/api/junior-learning-path/submit-mission": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.SubmitJuniorMissionRequest"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.SubmitJuniorMissionRequest"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.SubmitJuniorMissionRequest"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/landing-home-page/projects": {
         parameters: {
             query?: never;
             header?: never;
@@ -2561,7 +2956,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/landing-home-page/juniors-feedbacks": {
+    "/api/landing-home-page/juniors-feedbacks": {
         parameters: {
             query?: never;
             header?: never;
@@ -2598,7 +2993,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/landing-home-page/stats": {
+    "/api/landing-home-page/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -2635,7 +3030,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/landing-home-page/project-details/{id}": {
+    "/api/landing-home-page/project-details/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2674,7 +3069,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/learning-path-management": {
+    "/api/learning-path-management": {
         parameters: {
             query?: never;
             header?: never;
@@ -2769,7 +3164,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/learning-path-management/{id}": {
+    "/api/learning-path-management/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2831,7 +3226,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/learning-path-management/mission": {
+    "/api/learning-path-management/complete/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/learning-path-management/mission": {
         parameters: {
             query?: never;
             header?: never;
@@ -2927,7 +3361,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/learning-path-management/mission/{id}": {
+    "/api/learning-path-management/mission/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2989,7 +3423,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Level": {
+    "/api/Lookup/Level": {
         parameters: {
             query?: never;
             header?: never;
@@ -3051,7 +3485,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Level/{Id}": {
+    "/api/Lookup/Level/{Id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3090,7 +3524,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Level/LookupItemsWithDeleted/{IncludeDeleted}": {
+    "/api/Lookup/Level/LookupItemsWithDeleted/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3128,7 +3562,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Level/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
+    "/api/Lookup/Level/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3168,7 +3602,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin/package": {
+    "/api/admin/package": {
         parameters: {
             query?: never;
             header?: never;
@@ -3264,7 +3698,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin/package/{id}": {
+    "/api/admin/package/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3326,7 +3760,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin/package/toggle-activation/{id}": {
+    "/api/admin/package/toggle-activation/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3365,7 +3799,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project": {
+    "/api/project": {
         parameters: {
             query?: never;
             header?: never;
@@ -3463,7 +3897,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project/{id}": {
+    "/api/project/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3525,7 +3959,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/join": {
+    "/api/projectjunior/join": {
         parameters: {
             query?: never;
             header?: never;
@@ -3564,7 +3998,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/GetJuniorsJoinedProjectLookup/{projectId}": {
+    "/api/projectjunior/GetJuniorsJoinedProjectLookup/{projectId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3603,7 +4037,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/AssignTaskForJunior/{taskId}/{juniorId}": {
+    "/api/projectjunior/AssignTaskForJunior/{taskId}/{juniorId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3643,7 +4077,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/upload-task": {
+    "/api/projectjunior/upload-task": {
         parameters: {
             query?: never;
             header?: never;
@@ -3684,7 +4118,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/pending-reviewed-list": {
+    "/api/projectjunior/pending-reviewed-list": {
         parameters: {
             query?: never;
             header?: never;
@@ -3726,7 +4160,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/accept-task": {
+    "/api/projectjunior/accept-task": {
         parameters: {
             query?: never;
             header?: never;
@@ -3765,7 +4199,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/reject-task": {
+    "/api/projectjunior/reject-task": {
         parameters: {
             query?: never;
             header?: never;
@@ -3804,7 +4238,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/juniors-requests-for-team-project": {
+    "/api/projectjunior/juniors-requests-for-team-project": {
         parameters: {
             query?: never;
             header?: never;
@@ -3846,7 +4280,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/accept-junior-request": {
+    "/api/projectjunior/accept-junior-request": {
         parameters: {
             query?: never;
             header?: never;
@@ -3885,7 +4319,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/reject-junior-request": {
+    "/api/projectjunior/reject-junior-request": {
         parameters: {
             query?: never;
             header?: never;
@@ -3924,7 +4358,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/projectjunior/junior-tasks/{id}": {
+    "/api/projectjunior/junior-tasks/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -3963,7 +4397,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/add": {
+    "/api/project-manager/add": {
         parameters: {
             query?: never;
             header?: never;
@@ -4006,7 +4440,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/update": {
+    "/api/project-manager/update": {
         parameters: {
             query?: never;
             header?: never;
@@ -4049,7 +4483,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/delete/{id}": {
+    "/api/project-manager/delete/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4088,7 +4522,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/details/{id}": {
+    "/api/project-manager/details/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4127,7 +4561,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/get-all": {
+    "/api/project-manager/get-all": {
         parameters: {
             query?: never;
             header?: never;
@@ -4169,7 +4603,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/look-ups": {
+    "/api/project-manager/look-ups": {
         parameters: {
             query?: never;
             header?: never;
@@ -4206,7 +4640,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/Enablers": {
+    "/api/project-manager/Enablers": {
         parameters: {
             query?: never;
             header?: never;
@@ -4248,7 +4682,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/juniors": {
+    "/api/project-manager/juniors": {
         parameters: {
             query?: never;
             header?: never;
@@ -4290,7 +4724,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/project-manager/practice-zone-projects": {
+    "/api/project-manager/practice-zone-projects": {
         parameters: {
             query?: never;
             header?: never;
@@ -4334,7 +4768,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Skill": {
+    "/api/Lookup/Skill": {
         parameters: {
             query?: never;
             header?: never;
@@ -4397,7 +4831,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Skill/{Id}": {
+    "/api/Lookup/Skill/{Id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4436,7 +4870,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Skill/LookupItemsWithDeleted/{IncludeDeleted}": {
+    "/api/Lookup/Skill/LookupItemsWithDeleted/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4474,7 +4908,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Skill/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
+    "/api/Lookup/Skill/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4514,7 +4948,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Test": {
+    "/api/Test": {
         parameters: {
             query?: never;
             header?: never;
@@ -4547,7 +4981,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Tool": {
+    "/api/Lookup/Tool": {
         parameters: {
             query?: never;
             header?: never;
@@ -4610,7 +5044,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Tool/{Id}": {
+    "/api/Lookup/Tool/{Id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4649,7 +5083,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Tool/LookupItemsWithDeleted/{IncludeDeleted}": {
+    "/api/Lookup/Tool/LookupItemsWithDeleted/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4687,7 +5121,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Lookup/Tool/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
+    "/api/Lookup/Tool/LookupItemsByParentId/{ParentId}/{IncludeDeleted}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4727,7 +5161,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/upload/UploadProfileImage": {
+    "/api/upload/UploadProfileImage": {
         parameters: {
             query?: never;
             header?: never;
@@ -4769,7 +5203,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/upload/UploadProjectImage": {
+    "/api/upload/UploadProjectImage": {
         parameters: {
             query?: never;
             header?: never;
@@ -4811,7 +5245,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/upload/UploadJuniorTask": {
+    "/api/upload/UploadJuniorTask": {
         parameters: {
             query?: never;
             header?: never;
@@ -4853,7 +5287,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/User/Login": {
+    "/api/User/Login": {
         parameters: {
             query?: never;
             header?: never;
@@ -4892,7 +5326,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/User/RefreshToken": {
+    "/api/User/RefreshToken": {
         parameters: {
             query?: never;
             header?: never;
@@ -4931,7 +5365,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/User/profile": {
+    "/api/User/profile": {
         parameters: {
             query?: never;
             header?: never;
@@ -4966,7 +5400,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/User/my-profile": {
+    "/api/User/my-profile": {
         parameters: {
             query?: never;
             header?: never;
@@ -5001,7 +5435,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/User/update-profile": {
+    "/api/User/update-profile": {
         parameters: {
             query?: never;
             header?: never;
@@ -5179,6 +5613,51 @@ export interface components {
             /** Format: int64 */
             pg_total?: number;
         };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionListModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.PackageModels.GetPackageListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"][] | null;
@@ -5284,13 +5763,6 @@ export interface components {
             /** Format: int64 */
             pg_total?: number;
         };
-        "Sawiha.CrossCutting.Common.Search.PagedRequest": {
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            searchText?: string | null;
-        };
         "Sawiha.CrossCutting.Common.Security.JWT.JsonWebToken": {
             accessToken?: string | null;
             refreshToken?: string | null;
@@ -5342,6 +5814,11 @@ export interface components {
          * Format: int32
          * @enum {integer}
          */
+        "Sawiha.CrossCutting.Model.Entities.GenderType": 1 | 2;
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
         "Sawiha.CrossCutting.Model.Entities.JoinProjectStatus": 1 | 2 | 3 | 4;
         "Sawiha.CrossCutting.Model.Entities.Junior": {
             /** Format: int64 */
@@ -5369,10 +5846,12 @@ export interface components {
             careerId?: number | null;
             career?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Career"];
             projectJuniors?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJunior"][] | null;
+            gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
             /** Format: int32 */
             points?: number;
             /** Format: int32 */
             usedPoints?: number;
+            isGuided?: boolean;
             juniorLearningPaths?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"][] | null;
             isDeleted?: boolean;
             /** Format: date-time */
@@ -5454,12 +5933,18 @@ export interface components {
             nameAr?: string | null;
             description?: string | null;
             icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPathStatus"];
             missions?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.Mission"][] | null;
             juniorLearningPaths?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"][] | null;
             isDeleted?: boolean;
             /** Format: date-time */
             deletedAt?: string | null;
         };
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPathStatus": 1 | 2;
         "Sawiha.CrossCutting.Model.Entities.PathFeature.LearningResource": {
             /** Format: int64 */
             id?: number;
@@ -5720,6 +6205,11 @@ export interface components {
          * Format: int32
          * @enum {integer}
          */
+        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionStatus": 1 | 2;
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
         "Sawiha.CrossCutting.Model.Enums.FeatureType": 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
         /**
          * Format: int32
@@ -5957,6 +6447,7 @@ export interface components {
             password: string;
             /** Format: date-time */
             birthDate?: string | null;
+            gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
         };
         "Sawiha.Services.DTO.Enablers.EnablerDetailModel": {
             /** Format: int64 */
@@ -6040,6 +6531,7 @@ export interface components {
             password: string;
             /** Format: date-time */
             birthDate?: string | null;
+            gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
             /** Format: int64 */
             enablerId?: number | null;
         };
@@ -6048,6 +6540,7 @@ export interface components {
             id?: number;
             name?: string | null;
             email?: string | null;
+            gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
             isVerified?: boolean;
             enablerName?: string | null;
             /** Format: int32 */
@@ -6068,6 +6561,7 @@ export interface components {
             /** Format: int32 */
             completedProjects?: number;
             enablerAcceptanceStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.EnablerAcceptanceStatus"];
+            gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
         };
         "Sawiha.Services.DTO.JuniorModels.JuniorSignUpRequest": {
             firstName: string;
@@ -6077,6 +6571,7 @@ export interface components {
             enablerEmail?: string | null;
             /** Format: uuid */
             invitationId?: string | null;
+            gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
             /** Format: password */
             password: string;
             /** Format: password */
@@ -6180,24 +6675,24 @@ export interface components {
             /** Format: int64 */
             id?: number;
             /** Format: int64 */
-            pathId?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            description?: string | null;
+            pathId: number;
+            nameAr: string;
+            nameEn: string;
+            description: string;
             /** Format: int32 */
-            durationId?: number;
+            durationId: number;
             /** Format: int32 */
-            levelId?: number;
+            levelId: number;
             /** Format: int32 */
-            skillId?: number;
+            skillId: number;
             /** Format: int32 */
-            xp?: number;
+            xp: number;
             /** Format: int32 */
-            points?: number;
-            referenceAnswer?: string | null;
+            points: number;
+            referenceAnswer: string;
         };
         "Sawiha.Services.DTO.MissionsModels.AddMissionModel": {
-            missionDetails?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.AddMissionDetailsModel"];
+            missionDetails: components["schemas"]["Sawiha.Services.DTO.MissionsModels.AddMissionDetailsModel"];
             steps?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionGuideModel"][] | null;
             successCriterias?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionCriteriaModel"][] | null;
             learningResources?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.LearningResourcesModel"][] | null;
@@ -6212,21 +6707,21 @@ export interface components {
             /** Format: int64 */
             id?: number;
             /** Format: int64 */
-            pathId?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            description?: string | null;
+            pathId: number;
+            nameAr: string;
+            nameEn: string;
+            description: string;
             /** Format: int32 */
-            durationId?: number;
+            durationId: number;
             /** Format: int32 */
-            levelId?: number;
+            levelId: number;
             /** Format: int32 */
-            skillId?: number;
+            skillId: number;
             /** Format: int32 */
-            xp?: number;
+            xp: number;
             /** Format: int32 */
-            points?: number;
-            referenceAnswer?: string | null;
+            points: number;
+            referenceAnswer: string;
             durationNameAr?: string | null;
             durationNameEn?: string | null;
             levelNameAr?: string | null;
@@ -6252,6 +6747,65 @@ export interface components {
             xp?: number;
             /** Format: int32 */
             points?: number;
+        };
+        "Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionDetailResponse": {
+            missionDetails?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionDetailsModel"];
+            steps?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionGuideModel"][] | null;
+            successCriterias?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.MissionCriteriaModel"][] | null;
+            learningResources?: components["schemas"]["Sawiha.Services.DTO.MissionsModels.LearningResourcesModel"][] | null;
+        };
+        "Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionDetailsModel": {
+            /** Format: int64 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            /** Format: int32 */
+            durationId?: number;
+            durationNameAr?: string | null;
+            durationNameEn?: string | null;
+            /** Format: int32 */
+            levelId?: number;
+            levelNameAr?: string | null;
+            levelNameEn?: string | null;
+            /** Format: int32 */
+            xp?: number;
+            /** Format: int32 */
+            points?: number;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorPathMissionStatus"];
+            /** Format: int32 */
+            skillId?: number;
+            skillNameAr?: string | null;
+            skillNameEn?: string | null;
+            submissionLink?: string | null;
+            submissionNotes?: string | null;
+            referenceAnswer?: string | null;
+        };
+        "Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.GetJuniorMissionListModel": {
+            /** Format: int64 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            /** Format: int32 */
+            durationId?: number;
+            durationNameAr?: string | null;
+            durationNameEn?: string | null;
+            /** Format: int32 */
+            levelId?: number;
+            levelNameAr?: string | null;
+            levelNameEn?: string | null;
+            /** Format: int32 */
+            xp?: number;
+            /** Format: int32 */
+            points?: number;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorPathMissionStatus"];
+        };
+        "Sawiha.Services.DTO.MissionsModels.JuniorMissionsModels.SubmitJuniorMissionRequest": {
+            /** Format: int64 */
+            id?: number;
+            submissionLink?: string | null;
+            submissionNotes?: string | null;
         };
         "Sawiha.Services.DTO.MissionsModels.LearningResourcesModel": {
             /** Format: int64 */
@@ -6280,7 +6834,7 @@ export interface components {
         };
         "Sawiha.Services.DTO.PackageModels.AddPackageFeatureModel": {
             /** Format: int32 */
-            limitCount?: number;
+            limitCount?: number | null;
             isEnabled?: boolean;
             /** Format: int32 */
             featureId?: number;
@@ -6300,6 +6854,45 @@ export interface components {
             duration?: number;
             durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
             features?: components["schemas"]["Sawiha.Services.DTO.PackageModels.AddPackageFeatureModel"][] | null;
+        };
+        "Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageModel": {
+            /** Format: int32 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            /** Format: int32 */
+            juniorCapacity?: number;
+            /** Format: double */
+            price?: number;
+            isCurrentSubscription?: boolean;
+            /** Format: int64 */
+            packageSubscriptionId?: number | null;
+            /** Format: int32 */
+            duration?: number;
+            durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
+            features?: components["schemas"]["Sawiha.Services.DTO.PackageModels.PackageFeaturesDetailsModel"][] | null;
+        };
+        "Sawiha.Services.DTO.PackageModels.EnablerPackageModels.EnablerPackageSubscriptionModel": {
+            /** Format: int32 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            /** Format: int32 */
+            juniorCapacity?: number;
+            /** Format: double */
+            price?: number;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionStatus"];
+            /** Format: date-time */
+            startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
+            /** Format: int32 */
+            duration?: number;
+            durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
+            /** Format: int32 */
+            juniorsAssigned?: number;
         };
         "Sawiha.Services.DTO.PackageModels.GetPackageListModel": {
             /** Format: int32 */
@@ -6323,7 +6916,7 @@ export interface components {
         };
         "Sawiha.Services.DTO.PackageModels.PackageFeaturesDetailsModel": {
             /** Format: int32 */
-            limitCount?: number;
+            limitCount?: number | null;
             isEnabled?: boolean;
             /** Format: int32 */
             featureId?: number;
@@ -6356,6 +6949,7 @@ export interface components {
             totalPoints?: number;
             /** Format: int32 */
             juniors?: number;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPathStatus"];
         };
         "Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel": {
             /** Format: int64 */
@@ -6370,8 +6964,6 @@ export interface components {
             totalXP?: number;
             /** Format: int32 */
             totalPoints?: number;
-            /** Format: int32 */
-            juniors?: number;
             /** Format: double */
             progressPercentage?: number;
         };
@@ -6410,6 +7002,7 @@ export interface components {
             userType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.UserType"];
             /** Format: int64 */
             personaId?: number | null;
+            isGuided?: boolean | null;
         };
         "Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel": {
             /** Format: int64 */

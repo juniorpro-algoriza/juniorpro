@@ -8,14 +8,23 @@ import {
   ContinueLearning,
   UpcomingSession,
   LeaderBoard,
-  DashboardBanner,
-} from "./components";
+  // DashboardBanner,
+  WelcomePopupTrigger,
+  OnboardingTourTrigger,
+} from "./_components";
+import { Suspense } from "react";
 
 const DashboardPage = async () => {
   return (
     <>
+      <Suspense fallback={null}>
+        <WelcomePopupTrigger />
+      </Suspense>
+      <Suspense fallback={null}>
+        <OnboardingTourTrigger />
+      </Suspense>
       <DashboardHeader description="Ready to level up your coding skills today?" />
-      <DashboardBanner />
+      {/* <DashboardBanner /> */}
       <DashboardCards cardsData={dashboardCardsData} />
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-8 gap-4 mt-8">
         <div className="xl:col-span-2 space-y-6">
@@ -40,6 +49,7 @@ const dashboardCardsData = [
     subtext: "+450 this week",
     subtextColor: "text-green-600",
     icon: LightningIcon.src,
+    id: "total-xp",
   },
   {
     label: "Missions Completed",
@@ -47,6 +57,7 @@ const dashboardCardsData = [
     subtext: "3 in progress",
     subtextColor: "text-orange-600",
     icon: TargetWithArrow.src,
+    id: "missions-completed",
   },
   {
     label: "Projects Completed",
@@ -54,6 +65,7 @@ const dashboardCardsData = [
     subtext: "2 active teams",
     subtextColor: "text-green-600",
     icon: TrophyIcon.src,
+    id: "projects-completed",
   },
   {
     label: "Challenges Won",
@@ -61,5 +73,6 @@ const dashboardCardsData = [
     subtext: "1 active entry",
     subtextColor: "text-green-600",
     icon: HandshakeIcon.src,
+    id: "challenges-won",
   },
 ];

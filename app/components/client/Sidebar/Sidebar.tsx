@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import logoImage from "@public/images/logo.svg";
-import Image from "next/image";
+import { Rocket } from "lucide-react";
 
 import { useSidebar } from "@atoms";
 import { SidebarNav } from "./SidebarNav";
@@ -36,36 +35,40 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
       {isMobile && isOpen && (
         <div
-          className="fixed inset-0 bg-black/60 bg-opacity-50 z-20 lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 bg-opacity-50 z-40 lg:hidden transition-opacity duration-300"
           onClick={closeSidebar}
         />
       )}
 
       <aside
         className={`
-          w-85 bg-white border-r border-bright-gray fixed z-20 h-screen transition-all duration-300 ease-in-out
-          ${isMobile
-            ? isOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
-            : isOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
+          w-85 bg-white border-r border-bright-gray fixed z-40 h-screen transition-all duration-300 ease-in-out
+          ${
+            isMobile
+              ? isOpen
+                ? "translate-x-0"
+                : "-translate-x-full"
+              : isOpen
+                ? "translate-x-0"
+                : "-translate-x-full"
           }
           ${className}
         `}
       >
         <div className="flex flex-col h-full px-4 overflow-y-auto">
-          <div className="p-4">
-            <Image
-              unoptimized
-              className="block transition-transform duration-200 hover:scale-105"
-              src={logoImage}
-              alt="Logo"
-            />
+          <div className="px-4 pt-12 pb-8">
+            <div className="text-xl tracking-tight flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-pink-main to-[#FF8CF1] rounded-full border-2 border-black flex items-center justify-center">
+                <Rocket
+                  className="text-white transform -rotate-45 w-4 h-4"
+                  fill="white"
+                />
+              </div>
+              <span className="font-black">SAWIHA</span>
+            </div>
           </div>
           <SidebarUserInfo />
-          <SidebarNav /> 
+          <SidebarNav />
         </div>
       </aside>
     </>

@@ -1,18 +1,24 @@
+"use client";
+
 import { Breadcrumb } from "@components";
 import { Header, PlanTabs } from "@components/client";
-import React from "react";
-import { getPackages } from "../server";
+import { useSearchParams } from "next/navigation";
+import { usePackagesData } from "../tanstack/usePackagesData";
+import { Suspense } from "react";
 
-const SubscriptionPage = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
-  // Get search text from query parameters
-  const resolvedSearchParams = await searchParams;
-  const searchText = resolvedSearchParams.query || "";
+const SubscriptionContent = () => {
+  const searchParams = useSearchParams();
 
-  // get packages
-  const packagesResponse = await getPackages({
+  const searchText = searchParams.get("query") || "";
+  const period = (searchParams.get("period") || "month") as "month" | "year";
+
+  const { data: packagesResponse, isLoading } = usePackagesData({
     SearchText: searchText,
+    DurationType: period,
   });
-  const packages = packagesResponse.data || [];
+
+  const packages = packagesResponse?.data || [];
+
   return (
     <>
       <Breadcrumb
@@ -31,10 +37,20 @@ const SubscriptionPage = async ({ searchParams }: { searchParams: Promise<{ quer
         title="Subscription Management"
         description="Manage plans, features, and pricing strategies"
       />
-      <React.Suspense>
-        <PlanTabs module="contributor" packages={packages} />
-      </React.Suspense>
+      <PlanTabs
+        module="contributor"
+        packages={packages}
+        loadingPackages={isLoading}
+      />
     </>
+  );
+};
+
+const SubscriptionPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SubscriptionContent />
+    </Suspense>
   );
 };
 

@@ -1,10 +1,10 @@
 "use server";
 
 import { customFetch } from "@server/lib";
-import { PlanFormValues } from "../../subscription/schema";
+import { PlanFormValues } from "../../subscription/_schema";
 
 export async function putPackages({ data }: { data: PlanFormValues }) {
-  const packages = customFetch("/admin/package", {
+  const packages = customFetch("/api/admin/package", {
     method: "put",
     data: {
       id: data.id,
@@ -18,7 +18,7 @@ export async function putPackages({ data }: { data: PlanFormValues }) {
         featureId: feature.featureId,
         isEnabled: true,
         ...(feature.limitCount === null
-          ? { limitCount: undefined }
+          ? {}
           : { limitCount: feature.limitCount }),
       })),
     },

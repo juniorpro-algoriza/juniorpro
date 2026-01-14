@@ -1,16 +1,15 @@
 import { DashboardCards, DashboardHeader } from "@components/client";
 import TargetWithArrow from "@public/images/target_with_arrow.png";
-import LightningIcon from "@public/images/lightning-icon.png";
+import HoursLearnedIcon from "@public/images/hours-learned.png";
 import TrophyIcon from "@public/images/trophy-icon.png";
 import HandshakeIcon from "@public/images/hand-shake-icon.png";
-import { TrackYourJuniors, UpcomingSessions, YourJuniors } from "./components";
+import { TrackYourJuniors, UpcomingSessions, YourJuniors } from "./_components";
 const DashboardPage = async () => {
   // const pointsData = await getPointsData();
 
   return (
     <>
       <DashboardHeader description="Here's what's happening with your juniors today." />
-      {/* <CurrentPlan /> */}
       <DashboardCards cardsData={dashboardCardsData} />
       <div className="grid xl:grid-cols-3 md:grid-cols-2 xl:gap-5 gap-4">
         <YourJuniors />
@@ -19,13 +18,6 @@ const DashboardPage = async () => {
           <TrackYourJuniors />
         </div>
       </div>
-
-      {/* <DashboardHeader />
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <DashboardPoints pointsData={pointsData} />
-        <DashboardProjects />
-      </div>
-      <JuniorsTable /> */}
     </>
   );
 };
@@ -33,11 +25,11 @@ const DashboardPage = async () => {
 export default DashboardPage;
 const dashboardCardsData = [
   {
-    label: "Total XP",
-    value: "530",
-    subtext: "Combined progress",
+    label: "Hours Learned",
+    value: "4.5",
+    subtext: "Across all juniors this week",
     subtextColor: "text-gray-600",
-    icon: LightningIcon.src,
+    icon: HoursLearnedIcon.src,
   },
   {
     label: "Missions Completed",

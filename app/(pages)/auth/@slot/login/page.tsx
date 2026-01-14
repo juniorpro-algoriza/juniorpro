@@ -1,16 +1,9 @@
-import {
-  LoginForm,
-  Logo,
-  SignUpLink,
-  SocialLoginButtons,
-  WelcomeMessage,
-} from "../../components";
+"use client";
+import { LoginForm, SignUpLink, SocialLoginButtons } from "../../_components";
 
 const LoginSlot = () => {
   return (
-    <div className="space-y-6">
-      <Logo />
-      <WelcomeMessage content="Hello! Welcome back" />
+    <div className="space-y-6 w-full">
       <SocialLoginButtons />
       <LoginForm />
       <SignUpLink />

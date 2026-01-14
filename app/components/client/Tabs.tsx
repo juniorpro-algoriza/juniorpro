@@ -16,6 +16,7 @@ export interface TabsProps {
   selectedIndex?: number;
   onTabChange?: (index: number) => void;
   children?: React.ReactNode;
+  defaultIndex?: number;
 }
 
 export const Tabs: React.FC<TabsProps> = ({
@@ -30,9 +31,14 @@ export const Tabs: React.FC<TabsProps> = ({
   selectedIndex,
   onTabChange,
   children,
+  defaultIndex,
 }) => {
   return (
-    <TabGroup selectedIndex={selectedIndex} onChange={onTabChange}>
+    <TabGroup
+      selectedIndex={selectedIndex}
+      onChange={onTabChange}
+      defaultIndex={defaultIndex}
+    >
       <div className="flex items-center justify-between flex-wrap">
         <TabList className={cx(defaultTabListClass, tabListClassName)}>
           {tabs.map((tab, index) => (

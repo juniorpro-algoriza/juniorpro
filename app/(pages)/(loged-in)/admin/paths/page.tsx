@@ -1,28 +1,16 @@
 import React, { Suspense } from "react";
-import { Header, PathCard } from "@components/client";
-import { Breadcrumb, Button, PATH_ICON } from "@components";
+import { Header } from "@components/client";
+import { Breadcrumb, Button } from "@components";
 import { Plus } from "lucide-react";
-import { PathsFilters } from "./components";
-import { getLearningPaths } from "../server/paths/getLearningPaths";
+import { PathsFilters, PathsList } from "./_components";
 import Link from "next/link";
-import { components } from "../../../../../api-schema";
-
-const PathsPage = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
-  // Get search text from query parameters
+const PathsPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ query?: string }>;
+}) => {
   const resolvedSearchParams = await searchParams;
   const searchText = resolvedSearchParams.query || "";
-  const getLearningPathsResponse = await getLearningPaths({SearchText:searchText});
-
-  const paths =
-    getLearningPathsResponse.data?.map((path: components["schemas"]["Sawiha.Services.DTO.PathModels.GetLearningPathListModel"]) => ({
-      id: path.id || 0,
-      image: PATH_ICON[String(path.icon) as keyof typeof PATH_ICON],
-      title: path.nameEn || path.nameAr || "Untitled Path",
-      description: path.description || "No description available",
-      missions: path.missionsCount || 0,
-      xp: path.totalXP || 0,
-      points: path.totalPoints || 0,
-    })) || [];
 
   return (
     <>
@@ -58,14 +46,7 @@ const PathsPage = async ({ searchParams }: { searchParams: Promise<{ query?: str
         >
           <PathsFilters />
         </Suspense>
-        <div className="grid md:grid-cols-2 gap-5">
-          {paths?.map((path) => (
-            <PathCard key={path.id} path={path} userType="admin" />
-          ))}
-          {paths?.length === 0 && (
-            <p className="text-gray-600">No paths found.</p>
-          )}
-        </div>
+        <PathsList searchText={searchText} />
       </div>
     </>
   );

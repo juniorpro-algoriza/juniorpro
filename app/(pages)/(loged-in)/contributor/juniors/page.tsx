@@ -1,17 +1,33 @@
-export const dynamic = "force-dynamic";
-
-// import { getJuniorsData } from "@server";
-import { JuniorsHeader, JuniorsTable } from "./components";
+import { Breadcrumb } from "@components";
+import { Header } from "@components/client";
+import { JuniorsCards } from "./_components";
 
 const JuniorsPage = async () => {
   return (
-    <div className="min-h-screen px-6 py-3 bg-stone-50">
-      {/* Header */}
-      <JuniorsHeader />
-
-      {/* Juniors Table */}
-      <JuniorsTable />
-    </div>
+    <>
+      <Breadcrumb
+        breadcrumbs={[
+          {
+            title: "Home",
+            href: "/contributor/dashboard",
+          },
+          {
+            title: "Juniors",
+            href: "/contributor/juniors",
+          },
+        ]}
+      />
+      <Header
+        title={"My Juniors"}
+        description={
+          <>
+            Manage your team! You have{" "}
+            <span className="text-blue-main">empty seats</span> remaining
+          </>
+        }
+      />
+      <JuniorsCards />
+    </>
   );
 };
 export default JuniorsPage;

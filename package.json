@@ -1,22 +1,29 @@
 {
-  "name": "junior-pro-frontend",
+  "name": "sawiha-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "pnpm prepare && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "analyze-bundles": "ANALYZE=true pnpm build",
-    "openapi": "openapi-typescript https://juniorpro-001-site1.ntempurl.com/docs/v1/swagger.json -o ./api-schema/schema.d.ts"
+    "openapi": "openapi-typescript https://juniorpro-001-site1.ntempurl.com/docs/v1/swagger.json -o ./api-schema/schema.d.ts",
+    "prepare": "husky",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@headlessui/react": "^2.2.4",
+    "@swc/helpers": "^0.5.18",
     "@tailwindcss/forms": "^0.5.10",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.91.1",
     "@types/canvas-confetti": "^1.9.0",
     "canvas-confetti": "^1.9.4",
     "cva": "1.0.0-beta.4",
+    "date-fns": "^4.1.0",
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
@@ -24,11 +31,16 @@
     "jotai": "^2.13.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.525.0",
-    "next": "15.3.6",
+    "motion": "^12.23.26",
+    "next": "15.3.8",
     "nextjs-toploader": "^3.8.16",
     "openapi-typescript": "^7.10.1",
     "react": "^19.0.0",
+    "react-day-picker": "^9.12.0",
     "react-dom": "^19.0.0",
+    "react-shepherd": "^6.1.9",
+    "reactour": "^1.19.4",
+    "shepherd.js": "^14.5.1",
     "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",
     "usehooks-ts": "^3.1.1",
@@ -42,15 +54,27 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/reactour": "^1.18.5",
     "@typescript-eslint/eslint-plugin": "^8.35.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  }
 }

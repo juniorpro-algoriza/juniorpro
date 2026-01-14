@@ -1,21 +1,25 @@
 import Link from "next/link";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { MainCard } from "../MainCard";
 import Image from "next/image";
-import { EllipsisVertical, Target } from "lucide-react";
+import { ArrowRight, EllipsisVertical, Target } from "lucide-react";
 import LightningImage from "@public/images/lightning-icon-2.png";
 import DiamondImage from "@public/images/diamond-icon-2.png";
 import { Progress } from "../Progress";
 import { cx } from "@lib";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { deleteLearningPath } from "../../(pages)/(loged-in)/admin/server";
+import { useDeleteLearningPath } from "../../(pages)/(loged-in)/admin/tanstack";
+import { useJoinLearningPath } from "../../(pages)/(loged-in)/junior/tanstack/paths/useJuniorsPaths";
+import { Button } from "../Button";
+import { PATH_STATUS } from "../../configs";
 
 export const PathCard = ({
   path,
   userType,
   cardClassName,
+  hasJoinButton,
+  cardLink,
 }: {
   path: {
     id: number;
@@ -26,64 +30,138 @@ export const PathCard = ({
     xp: number;
     points: number;
     progress?: number;
+    status?: number;
   };
   userType: "junior" | "admin" | "project/manager" | "contributor";
   cardClassName?: string;
+  hasJoinButton?: boolean;
+  cardLink?: string;
 }) => {
-    const router = useRouter();
-    const [isDeleting, setIsDeleting] = useState(false);
-  
-    const handleDelete = useCallback(async () => {
+  const deleteMutation = useDeleteLearningPath();
+  const joinMutation = useJoinLearningPath();
+
+  const isDeleting = deleteMutation.isPending;
+  const isJoining = joinMutation.isPending;
+
+  const handleJoin = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault(); // Prevent navigation
+      e.stopPropagation();
+
       if (!path.id) return;
-  
+
       try {
-        setIsDeleting(true);
-        await deleteLearningPath({ id: path.id });
-        toast.success("Path deleted successfully");
-        router.refresh();
+        await joinMutation.mutateAsync({ id: path.id });
+        toast.success("Successfully joined the learning path!");
       } catch (error) {
-        console.error("Failed to delete path:", error);
-        toast.error("Failed to delete path");
-      } finally {
-        setIsDeleting(false);
+        console.error("Failed to join path:", error);
+        toast.error("Failed to join learning path");
       }
-    }, [path.id, router]);
+    },
+    [path.id, joinMutation]
+  );
+
+  const handleDelete = useCallback(async () => {
+    if (!path.id) return;
+
+    try {
+      await deleteMutation.mutateAsync({ id: path.id });
+      toast.success("Path deleted successfully");
+    } catch (error: unknown) {
+      console.error("Failed to delete path:", error);
+
+      try {
+        // Parse the serialized error
+        const errorData = JSON.parse((error as Error).message);
+
+        if (errorData.errorMessage === "JuniorsJoinedLearningPath") {
+          toast.error(
+            "Cannot delete path: juniors are currently enrolled in this path"
+          );
+        } else {
+          toast.error(errorData.errorMessage || "Failed to delete path");
+        }
+      } catch {
+        // If parsing fails, show generic error
+        toast.error("Failed to delete path");
+      }
+    }
+  }, [path.id, deleteMutation]);
   return (
-    <div key={path.id} className="relative">
+    <div
+      key={path.id}
+      className={cx("relative", !hasJoinButton && "my-current-path")}
+    >
+      {hasJoinButton && path.missions > 0 && (
+        <Button
+          intent="main2"
+          size="mainDefault"
+          onClick={handleJoin}
+          disabled={isJoining}
+          className="cursor-pointer absolute top-5 right-5 z-20"
+        >
+          {isJoining ? "Joining..." : "Join Path"}{" "}
+          <ArrowRight className="size-4" />
+        </Button>
+      )}
       {userType === "admin" && (
-          <Menu>
-            <MenuButton className="cursor-pointer focus-visible:outline-0 absolute top-5 right-5 z-20">
-              <EllipsisVertical className="text-gray-600 size-4" />
-            </MenuButton>
-            <MenuItems
-              anchor="bottom end"
-              className="w-40 bg-white border border-gray-200 rounded-xl focus-visible:outline-0"
-            >
-              <MenuItem disabled={isDeleting}>
-                <button
-                  type="button"
-                  onClick={handleDelete}
-                  className="w-full text-sm text-left block text-red-600 data-focus:bg-red-100 py-2 px-4 disabled:opacity-60 cursor-pointer"
-                  disabled={isDeleting}
-                >
-                  {isDeleting ? "Deleting..." : "Delete"}
-                </button>
-              </MenuItem>
-            </MenuItems>
-          </Menu>
-        )}
-      <Link href={`/${userType}/paths/${path.id}`}>
-        <MainCard classname={cx("relative space-y-2 overflow-hidden", cardClassName)}>
-          <div className="absolute -top-6 -right-6 aspect-square h-[90%] bg-blue-main opacity-4 rounded-full"></div>
-          <Image
-            src={path.image}
-            alt="Current path Image"
-            width={60}
-            height={60}
-          />
-          <h3 className=" font-bold">{path.title}</h3>
-          <p className="text-gray-600 text-sm">{path.description}</p>
-          {path.progress && (
+        <Menu>
+          <MenuButton className="cursor-pointer focus-visible:outline-0 absolute top-5 right-5 z-20">
+            <EllipsisVertical className="text-gray-600 size-4" />
+          </MenuButton>
+          <MenuItems
+            anchor="bottom end"
+            className="w-40 bg-white border border-gray-200 rounded-xl focus-visible:outline-0"
+          >
+            <MenuItem disabled={isDeleting}>
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="w-full text-sm text-left block text-red-600 data-focus:bg-red-100 py-2 px-4 disabled:opacity-60 cursor-pointer"
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
+              </button>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
+      )}
+      <Link href={cardLink || "#"}>
+        <MainCard
+          classname={cx(
+            "relative space-y-2 overflow-hidden cursor-pointer",
+            cardClassName
+          )}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="p-1.5 bg-[#EEF2FF80] rounded-xl">
+              <Image
+                src={path.image}
+                alt="Current path Image"
+                width={60}
+                height={60}
+              />
+            </div>
+          </div>
+          <h3 className="font-bold text-lg">
+            {path.title}
+            {userType === "admin" && (
+              <>
+                {path?.status == PATH_STATUS.Draft ? (
+                  <span className="text-gray-600 text-xs ml-2 font-medium bg-gray-100 px-2 py-1 rounded-full">
+                    Draft
+                  </span>
+                ) : (
+                  <span className="text-green-600 text-xs ml-2 font-medium bg-green-100 px-2 py-1 rounded-full">
+                    Completed
+                  </span>
+                )}
+              </>
+            )}
+          </h3>
+          <p className="text-gray-600">{path.description}</p>
+          <hr className="border-gray-100" />
+          {path.progress !== undefined && (
             <div className="space-y-2">
               <div className="flex justify-between items-center gap-3">
                 <p className="text-13 font-medium text-gray-600">Progress</p>
@@ -113,10 +191,7 @@ export const PathCard = ({
     </div>
   );
 };
-export const XpAndPoints = ({xp,points}:{
-  xp:number,
-  points:number,
-}) => {
+export const XpAndPoints = ({ xp, points }: { xp: number; points: number }) => {
   return (
     <>
       <div className="px-3 py-1 bg-[#E17100]/8 border border-[#E17100]/20 rounded-full flex items-center gap-2 text-[#E17100]">

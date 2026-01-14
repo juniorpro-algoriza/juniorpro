@@ -1,4 +1,4 @@
-import { inter } from "@lib";
+import { inter, QueryProvider } from "@lib";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 import type { ReactNode } from "react";
@@ -7,8 +7,8 @@ import { twMerge } from "tailwind-merge";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Junior Pro",
-  description: "Junior Pro - Your Path to Junior Developer Success",
+  title: "Sawiha",
+  description: "Sawiha - Your Path to Junior Developer Success",
 };
 
 const bodyStyle = twMerge("antialiased", inter.className);
@@ -23,7 +23,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
       <body className={bodyStyle}>
         <Toaster richColors position="top-center" />
         <NextTopLoader />
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
