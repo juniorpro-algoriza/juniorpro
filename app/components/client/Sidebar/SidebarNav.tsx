@@ -34,10 +34,11 @@ const adminMenuItems: MenuItem[] = [
     label: "Learning Paths",
   },
   {
-    href: "/admin/collaboration",
+    href: "/admin/challenges",
     image: CollaborationImage.src,
-    label: "Collaboration",
+    label: "Challenges",
   },
+
   // {
   //   href: "/admin/challenges",
   //   image: ChallengesImage.src,

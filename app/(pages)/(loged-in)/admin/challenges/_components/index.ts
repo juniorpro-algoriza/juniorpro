@@ -1,10 +1,11 @@
-export { CreateEditCollaboration } from "./CreateEditCollaboration";
+export { CreateEditChallenge } from "./CreateEditChallenge";
 export { StepBasicInfo } from "./StepBasicInfo";
 export { StepProjectDetails } from "./StepProjectDetails";
-export { StepRolesTeam } from "./StepRolesTeam";
+export { StepPrizes } from "./StepPrizes";
 export { StepRequirements } from "./StepRequirements";
+
 export type {
-  CollaborationFormData,
+  ChallengeFormData,
   Judge,
   Requirement,
   Criterion,

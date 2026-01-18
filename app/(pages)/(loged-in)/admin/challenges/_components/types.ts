@@ -33,7 +33,7 @@ export interface Criterion {
   text: string;
 }
 
-export interface CollaborationFormData {
+export interface ChallengeFormData {
   id?: number;
   // Step 1: Overview
   projectTitle: string;

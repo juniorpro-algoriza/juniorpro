@@ -2,7 +2,7 @@
 
 import { Input } from "@components";
 import {
-  CollaborationFormData,
+  ChallengeFormData,
   Requirement,
   Criterion,
   EvaluationCriterion,
@@ -11,8 +11,8 @@ import { Dispatch, SetStateAction, useMemo } from "react";
 import { Plus, Trash2, X } from "lucide-react";
 
 interface StepRequirementsProps {
-  formData: CollaborationFormData;
-  setFormData: Dispatch<SetStateAction<CollaborationFormData>>;
+  formData: ChallengeFormData;
+  setFormData: Dispatch<SetStateAction<ChallengeFormData>>;
   fieldErrors?: Record<string, string>;
 }
 

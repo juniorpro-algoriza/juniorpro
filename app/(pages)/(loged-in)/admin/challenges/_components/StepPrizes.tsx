@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@components";
-import { CollaborationFormData, Prize } from "./types";
+import { ChallengeFormData, Prize } from "./types";
 import { Dispatch, SetStateAction } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
@@ -12,21 +12,18 @@ const MEDALS = [
   "/images/2nd-medal.png",
   "/images/3rd-medal.png",
 ];
-// Assuming we have icons or I can stick to text/images. Image shows Medals 1st, 2nd, 3rd.
-// I'll simulate medals with colors or text.
 
-interface StepRolesTeamProps {
-  // Keeping name for compatibility
-  formData: CollaborationFormData;
-  setFormData: Dispatch<SetStateAction<CollaborationFormData>>;
+interface StepPrizesProps {
+  formData: ChallengeFormData;
+  setFormData: Dispatch<SetStateAction<ChallengeFormData>>;
   fieldErrors?: Record<string, string>;
 }
 
-export const StepRolesTeam = ({
+export const StepPrizes = ({
   formData,
   setFormData,
   fieldErrors = {},
-}: StepRolesTeamProps) => {
+}: StepPrizesProps) => {
   const handleAddPrize = () => {
     const rank = (formData.prizes?.length || 0) + 1;
     const newPrize: Prize = {

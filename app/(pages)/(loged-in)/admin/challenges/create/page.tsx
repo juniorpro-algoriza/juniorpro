@@ -1,9 +1,9 @@
 import { Breadcrumb } from "@components";
 import { Header } from "@components/client";
 import React from "react";
-import { CreateEditCollaboration } from "../_components";
+import { CreateEditChallenge } from "../_components";
 
-const CreateCollaboration = () => {
+const CreateChallenges = () => {
   return (
     <>
       <Breadcrumb
@@ -13,22 +13,22 @@ const CreateCollaboration = () => {
             href: "/admin/dashboard",
           },
           {
-            title: "Collaboration",
-            href: "/admin/collaboration",
+            title: "Challenges",
+            href: "/admin/challenges",
           },
           {
-            title: "Create Collaboration",
-            href: "/admin/collaboration/create",
+            title: "Create Challenges",
+            href: "/admin/challenges/create",
           },
         ]}
       />
       <Header
-        title="Create Collaboration"
+        title="Create Challenges"
         description="Design a competitive coding challenge for juniors"
       />
-      <CreateEditCollaboration />
+      <CreateEditChallenge />
     </>
   );
 };
 
-export default CreateCollaboration;
+export default CreateChallenges;
