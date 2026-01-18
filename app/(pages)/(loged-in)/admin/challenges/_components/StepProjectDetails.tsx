@@ -1,13 +1,13 @@
 "use client";
 
 import { Input } from "@components";
-import { CollaborationFormData, Instruction } from "./types";
+import { ChallengeFormData, Instruction } from "./types";
 import { Dispatch, SetStateAction } from "react";
 import { Plus, Trash2 } from "lucide-react";
 
 interface StepProjectDetailsProps {
-  formData: CollaborationFormData;
-  setFormData: Dispatch<SetStateAction<CollaborationFormData>>;
+  formData: ChallengeFormData;
+  setFormData: Dispatch<SetStateAction<ChallengeFormData>>;
   fieldErrors?: Record<string, string>;
 }
 
@@ -44,7 +44,7 @@ export const StepProjectDetails = ({
     <div className="space-y-6 py-2">
       <div className="space-y-1">
         <h3 className="text-lg font-semibold">
-          How to Complete This Challenge
+          How to Complete This Challenges
         </h3>
         <p className="text-sm text-gray-600">
           Define step-by-step instructions for participants
@@ -60,7 +60,7 @@ export const StepProjectDetails = ({
               </span>
               <div className="flex-1">
                 <Input
-                  placeholder="e.g., Register for the challenge and form your team"
+                  placeholder="e.g., Register for the challenges and form your team"
                   value={inst.text}
                   onChange={(e) =>
                     handleInstructionChange(inst.id, e.target.value)
@@ -68,6 +68,7 @@ export const StepProjectDetails = ({
                   error={fieldErrors[`instructions.${index}.text`]}
                 />
               </div>
+
               <button
                 type="button"
                 onClick={() => handleRemoveInstruction(inst.id)}

@@ -3,16 +3,16 @@
 import { useState, useCallback, FormEvent } from "react";
 import { toast } from "sonner";
 import {
-  collaborationFormSchema,
+  challengeFormSchema,
   step1Schema,
   step2Schema,
   step3Schema,
   step4Schema,
-  CollaborationFormValues,
-} from "../_schema/collaboration.schema";
-import { CollaborationFormData } from "../_components/types";
+  ChallengeFormValues,
+} from "../_schema/challenge.schema";
+import { ChallengeFormData } from "../_components/types";
 
-const getInitialFormData = (): CollaborationFormData => ({
+const getInitialFormData = (): ChallengeFormData => ({
   // Step 1: Overview
   projectTitle: "",
   description: "",
@@ -57,10 +57,10 @@ const getInitialFormData = (): CollaborationFormData => ({
   participationGems: 50,
 });
 
-export const useCreateEditCollaboration = () => {
+export const useCreateEditChallenge = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] =
-    useState<CollaborationFormData>(getInitialFormData());
+    useState<ChallengeFormData>(getInitialFormData());
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -76,7 +76,7 @@ export const useCreateEditCollaboration = () => {
         registrationDeadline: formData.registrationDeadline || undefined,
       };
 
-      const result = collaborationFormSchema.safeParse(dataToValidate);
+      const result = challengeFormSchema.safeParse(dataToValidate);
 
       if (!result.success) {
         const errors: Record<string, string> = {};
@@ -85,7 +85,7 @@ export const useCreateEditCollaboration = () => {
           errors[fieldName] = issue.message;
         });
         setFieldErrors(errors);
-        console.error("Collaboration validation failed:", result.error.issues);
+        console.error("Challenges validation failed:", result.error.issues);
         toast.error("Please fix validation errors before submitting");
         return;
       }
@@ -94,23 +94,22 @@ export const useCreateEditCollaboration = () => {
       setIsSubmitting(true);
 
       try {
-        const payload: CollaborationFormValues =
-          result.data as CollaborationFormValues;
+        const payload: ChallengeFormValues = result.data as ChallengeFormValues;
 
         // TODO: Implement API call
-        console.log("Submitting collaboration:", payload);
+        console.log("Submitting challenges:", payload);
 
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        toast.success("Collaboration created successfully!");
+        toast.success("Challenges created successfully!");
 
         // Reset form
         setFormData(getInitialFormData());
         setCurrentStep(1);
       } catch (error) {
-        console.error("Failed to create collaboration:", error);
-        toast.error("Failed to create collaboration. Please try again.");
+        console.error("Failed to create challenges:", error);
+        toast.error("Failed to create challenges. Please try again.");
       } finally {
         setIsSubmitting(false);
       }

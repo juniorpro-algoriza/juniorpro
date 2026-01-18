@@ -2,15 +2,15 @@
 
 import { Input, Select, Textarea } from "@components";
 import { Switch } from "@headlessui/react";
-import { CollaborationFormData, Judge } from "./types";
+import { ChallengeFormData, Judge } from "./types";
 import { Dispatch, SetStateAction } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { PATH_ICON } from "../../../../../configs";
 
 interface StepBasicInfoProps {
-  formData: CollaborationFormData;
-  setFormData: Dispatch<SetStateAction<CollaborationFormData>>;
+  formData: ChallengeFormData;
+  setFormData: Dispatch<SetStateAction<ChallengeFormData>>;
   fieldErrors?: Record<string, string>;
 }
 
@@ -54,9 +54,9 @@ export const StepBasicInfo = ({
   setFormData,
   fieldErrors = {},
 }: StepBasicInfoProps) => {
-  const handleChange = <T extends keyof CollaborationFormData>(
+  const handleChange = <T extends keyof ChallengeFormData>(
     field: T,
-    value: CollaborationFormData[T]
+    value: ChallengeFormData[T]
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -101,7 +101,7 @@ export const StepBasicInfo = ({
         </div>
 
         <Input
-          label="Challenge Title *"
+          label="Challenges Title *"
           placeholder="e.g., Build a Calculator App"
           value={formData.projectTitle}
           onChange={(e) => handleChange("projectTitle", e.target.value)}
@@ -119,7 +119,7 @@ export const StepBasicInfo = ({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Select
-            label="Challenge Type *"
+            label="Challenges Type *"
             options={CHALLENGE_TYPES}
             value={formData.challengeType || ""}
             onChange={(val) => handleChange("challengeType", String(val))}
@@ -169,7 +169,7 @@ export const StepBasicInfo = ({
         <div className="space-y-1">
           <h3 className="text-lg font-semibold">Timeline & Dates</h3>
           <p className="text-sm text-gray-600">
-            Set challenge duration and deadlines
+            Set challenges duration and deadlines
           </p>
         </div>
 
@@ -247,7 +247,7 @@ export const StepBasicInfo = ({
         </div>
 
         <div className="space-y-2">
-          <label className="block text-sm font-medium">Challenge Icon</label>
+          <label className="block text-sm font-medium">Challenges Icon</label>
           <div className="flex gap-4 overflow-x-auto pb-2">
             {Object.entries(PATH_ICON).map(([key, src]) => (
               <button
@@ -301,14 +301,14 @@ export const StepBasicInfo = ({
         <div className="space-y-1">
           <h3 className="text-lg font-semibold">Access Type</h3>
           <p className="text-sm text-gray-600">
-            Define how participants can access this challenge
+            Define how participants can access this challenges
           </p>
         </div>
 
         <div className="space-y-4">
           <div className="p-5 border border-gray-200 rounded-2xl bg-gray-50/50 flex items-center justify-between transition-all hover:border-gray-300">
             <div className="space-y-1">
-              <h4 className="font-semibold">Premium Challenge</h4>
+              <h4 className="font-semibold">Premium Challenges</h4>
               <p className="text-sm text-gray-500">
                 Require points or subscription to access
               </p>

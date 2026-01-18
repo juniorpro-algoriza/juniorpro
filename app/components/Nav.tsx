@@ -44,6 +44,7 @@ export function Nav({ isAuthenticated }: { isAuthenticated: boolean }) {
             >
               Collaboration
             </Link>
+
             <Link
               href="/pricing"
               className="hover:text-pink-main transition-colors text-sm"
@@ -144,6 +145,7 @@ export function Nav({ isAuthenticated }: { isAuthenticated: boolean }) {
                 >
                   Collaboration
                 </Link>
+
                 <Link
                   href="/pricing"
                   className="text-lg font-bold hover:text-pink-main transition-colors"

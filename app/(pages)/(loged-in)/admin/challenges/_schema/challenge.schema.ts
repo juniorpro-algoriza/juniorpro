@@ -42,13 +42,13 @@ export const criterionSchema = z.object({
   text: z.string().min(1, "Criterion text is required"),
 });
 
-export const collaborationSchemaObject = z.object({
+export const challengeSchemaObject = z.object({
   id: z.number().int().positive().optional(),
 
   // Step 1: Overview
-  projectTitle: z.string().min(1, "Challenge title is required"),
+  projectTitle: z.string().min(1, "Challenges title is required"),
   description: z.string().min(1, "Description is required"),
-  challengeType: z.string().min(1, "Challenge type is required"),
+  challengeType: z.string().min(1, "Challenges type is required"),
   difficultyLevel: z.string().min(1, "Difficulty level is required"),
   category: z.string().min(1, "Category is required"),
   skills: z
@@ -64,7 +64,7 @@ export const collaborationSchemaObject = z.object({
   }),
   registrationDeadline: z.date().optional(),
 
-  icon: z.string().min(1, "Challenge icon is required"),
+  icon: z.string().min(1, "Challenges icon is required"),
   kpPoints: z.coerce.number().min(0).default(0),
   gems: z.coerce.number().min(0).default(0),
 
@@ -87,7 +87,7 @@ export const collaborationSchemaObject = z.object({
   participationGems: z.coerce.number().min(0).default(0),
 });
 
-export const collaborationFormSchema = collaborationSchemaObject
+export const challengeFormSchema = challengeSchemaObject
   .refine(
     (data) => {
       if (data.endDateTime && data.startDateTime) {
@@ -133,10 +133,10 @@ export const collaborationFormSchema = collaborationSchemaObject
     }
   });
 
-export type CollaborationFormValues = z.infer<typeof collaborationFormSchema>;
+export type ChallengeFormValues = z.infer<typeof challengeFormSchema>;
 
 // Step 1: Overview
-export const step1Schema = collaborationSchemaObject
+export const step1Schema = challengeSchemaObject
   .pick({
     projectTitle: true,
     description: true,
@@ -184,19 +184,19 @@ export const step1Schema = collaborationSchemaObject
   });
 
 // Step 2: How to Complete
-export const step2Schema = collaborationSchemaObject.pick({
+export const step2Schema = challengeSchemaObject.pick({
   instructions: true,
 });
 
 // Step 3: Requirements
-export const step3Schema = collaborationSchemaObject.pick({
+export const step3Schema = challengeSchemaObject.pick({
   evaluationCriteria: true,
   requirements: true,
   successCriteria: true,
 });
 
 // Step 4: Prizes
-export const step4Schema = collaborationSchemaObject.pick({
+export const step4Schema = challengeSchemaObject.pick({
   prizes: true,
   participationGems: true,
 });
