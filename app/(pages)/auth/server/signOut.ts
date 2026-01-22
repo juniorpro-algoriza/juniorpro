@@ -10,7 +10,7 @@ export async function signOut() {
   cookieStore.set("auth_token", "", {
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
     expires: new Date(0),
   });
@@ -18,7 +18,7 @@ export async function signOut() {
   cookieStore.set("user_type", "", {
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
     expires: new Date(0),
   });
