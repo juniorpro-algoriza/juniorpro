@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { signOut } from "../../../(pages)/auth/server";
 import { useTransition, ComponentType, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useQueryClient } from "@tanstack/react-query";
 import HomeImage from "@public/images/home-icon.png";
 import MyJourneyImage from "@public/images/map-icon.png";
 import CollaborationImage from "@public/images/hand-shake-icon.png";
@@ -133,8 +134,12 @@ const juniorMenuItems: MenuItem[] = [
 
 export const SidebarNav = () => {
   const [isPending, startTransition] = useTransition();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
+    // Clear all queries from cache
+    queryClient.clear();
+
     startTransition(() => {
       signOut();
     });

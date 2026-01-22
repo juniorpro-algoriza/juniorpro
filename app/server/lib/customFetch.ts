@@ -131,7 +131,7 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
         document.cookie = "user_type=; Max-Age=0; path=/";
 
         // Client-side redirect
-        const currentPath = window.location.pathname;
+        const currentPath = window.location.pathname + window.location.search;
         window.location.href = `/auth/login?redirect=${encodeURIComponent(currentPath)}`;
       }
     }

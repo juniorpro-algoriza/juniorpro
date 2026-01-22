@@ -80,7 +80,10 @@ export const signIn = async (
 
     // Only redirect if authorized
     if (isAuthorized) {
-      if (join) redirect(`${redirectUrl}?join=${join}`);
+      if (join) {
+        const separator = redirectUrl.includes("?") ? "&" : "?";
+        redirect(`${redirectUrl}${separator}join=${join}`);
+      }
       redirect(redirectUrl);
     }
     // If not authorized, fall through to default dashboard redirect
