@@ -83,7 +83,7 @@ export const signUp = async (
     cookieStore.set("signup_email", email, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
     });
 
@@ -91,7 +91,7 @@ export const signUp = async (
       cookieStore.set("contributor_email", contributorEmail, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "lax",
         path: "/",
       });
 

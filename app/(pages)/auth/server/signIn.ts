@@ -46,7 +46,7 @@ export const signIn = async (
   cookieStore.set("auth_token", token, {
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
   });
 
@@ -55,7 +55,7 @@ export const signIn = async (
   cookieStore.set("user_type", String(userType), {
     httpOnly: false,
     secure: true,
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
   });
 
