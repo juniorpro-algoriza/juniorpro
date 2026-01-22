@@ -39,6 +39,11 @@ const Modals: Record<
       default: m.WelcomePopup,
     }))
   ),
+  PaymentModal: lazy(() =>
+    import("./modals/PaymentModal").then((m) => ({
+      default: m.PaymentModal,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {

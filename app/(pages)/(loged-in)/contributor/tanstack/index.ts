@@ -4,3 +4,4 @@ export * from "./useJuniorsData";
 export * from "./usePackagesData";
 export * from "./useSubscribe";
 export * from "./useUpgradePlan";
+export * from "./useVerifyPayment";

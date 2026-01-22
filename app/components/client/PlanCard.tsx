@@ -68,8 +68,12 @@ export const PlanCard = ({
     if (!packageData.id) return;
 
     try {
-      await subscribeMutation.mutateAsync(packageData.id);
-      toast.success("Subscribed successfully!");
+      const response = await subscribeMutation.mutateAsync(packageData.id);
+      if (typeof response === "string" && response.startsWith("http")) {
+        window.location.href = response;
+      } else {
+        toast.success("Subscribed successfully!");
+      }
     } catch (error) {
       console.error("Failed to subscribe:", error);
       toast.error("Failed to subscribe");
@@ -80,8 +84,12 @@ export const PlanCard = ({
     if (!packageData.id) return;
 
     try {
-      await upgradeMutation.mutateAsync(packageData.id);
-      toast.success("Plan upgraded successfully!");
+      const response = await upgradeMutation.mutateAsync(packageData.id);
+      if (typeof response === "string" && response.startsWith("http")) {
+        window.location.href = response;
+      } else {
+        toast.success("Plan upgraded successfully!");
+      }
     } catch (error) {
       console.error("Failed to upgrade:", error);
       toast.error("Failed to upgrade plan");

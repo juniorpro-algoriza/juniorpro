@@ -66,7 +66,10 @@ export async function middleware(req: NextRequest) {
   const isAuthRoute = path.startsWith("/auth");
   if (!token && !isAuthRoute && !isPublicProjectPage) {
     const redirectUrl = new URL("/auth/login", req.url);
-    redirectUrl.searchParams.set("redirect", req.nextUrl.pathname);
+    const requestUrl = new URL(req.url);
+    const fullRedirectPath = requestUrl.pathname + requestUrl.search;
+    console.log("Middleware - Unauthenticated redirect:", fullRedirectPath);
+    redirectUrl.searchParams.set("redirect", fullRedirectPath);
     return NextResponse.redirect(redirectUrl);
   }
 
@@ -79,7 +82,13 @@ export async function middleware(req: NextRequest) {
   ) {
     if (!token) {
       const redirectUrl = new URL("/auth/login", req.url);
-      redirectUrl.searchParams.set("redirect", req.nextUrl.pathname);
+      const requestUrl = new URL(req.url);
+      const fullRedirectPath = requestUrl.pathname + requestUrl.search;
+      console.log(
+        "Middleware - Unauthenticated Role Protection redirect:",
+        fullRedirectPath
+      );
+      redirectUrl.searchParams.set("redirect", fullRedirectPath);
       return NextResponse.redirect(redirectUrl);
     }
 
@@ -98,10 +107,17 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // Add current pathname to headers for server components
-  const response = NextResponse.next();
-  response.headers.set("x-pathname", req.nextUrl.pathname);
-  return response;
+  // Add current full path to headers for server components/actions to see
+  const requestHeaders = new Headers(req.headers);
+  const requestUrl = new URL(req.url);
+  const fullPath = requestUrl.pathname + requestUrl.search;
+  requestHeaders.set("x-pathname", fullPath);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {

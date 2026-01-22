@@ -79,7 +79,7 @@ export const Modal = ({
               panelClassName
             )}
           >
-            <div className="absolute top-4 right-4 cursor-pointer text-gray-600">
+            <div className="absolute top-4 right-4 cursor-pointer text-gray-600 z-30">
               <XIcon className="size-5" onClick={onClose} />
             </div>
             {title && <DialogTitle className="font-bold">{title}</DialogTitle>}

@@ -1806,9 +1806,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": number;
-                        "application/json": number;
-                        "text/json": number;
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
                     };
                 };
             };
@@ -1845,9 +1845,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": number;
-                        "application/json": number;
-                        "text/json": number;
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
                     };
                 };
             };
@@ -3799,6 +3799,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+     
     "/api/project": {
         parameters: {
             query?: never;
@@ -6966,6 +6967,9 @@ export interface components {
             totalPoints?: number;
             /** Format: double */
             progressPercentage?: number;
+        };
+        "Sawiha.Services.DTO.Payment.ConfirmPaymentRequest": {
+            sessionId?: string | null;
         };
         "Sawiha.Services.DTO.Profile.MyProfileBeforeUpdateModel": {
             firstName?: string | null;
