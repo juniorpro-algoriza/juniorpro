@@ -242,7 +242,7 @@ function StepperTitle({
   return (
     <h3
       className={cx(
-        "font-medium sm:text-sm text-xs group-data-[state=completed]/step:text-dark-blue-main group-data-[state=active]/step:text-dark-blue-main text-gray-300",
+        "font-medium text-center sm:text-sm text-xs group-data-[state=completed]/step:text-dark-blue-main group-data-[state=active]/step:text-dark-blue-main text-gray-300",
         className
       )}
       data-slot="stepper-title"
