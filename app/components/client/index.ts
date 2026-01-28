@@ -14,3 +14,4 @@ export { DashboardCards } from "./DashboardCards";
 export { UserCard } from "./UserCard";
 export { PathTimeline } from "./PathTimeline";
 export { SearchInput } from "./SearchInput";
+export { DetailCard } from "./DetailCard";

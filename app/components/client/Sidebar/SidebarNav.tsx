@@ -11,7 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import HomeImage from "@public/images/home-icon.png";
 import MyJourneyImage from "@public/images/map-icon.png";
 import CollaborationImage from "@public/images/hand-shake-icon.png";
-// import ChallengesImage from "@public/images/trophy-icon.png";
+import ChallengesImage from "@public/images/trophy-icon.png";
 // import AchievementsImage from "@public/images/medal-icon.png";
 import JuniorsImage from "@public/images/juniors.png";
 import SubscriptionImage from "@public/images/subscription-icon-3d.png";
@@ -36,13 +36,18 @@ const adminMenuItems: MenuItem[] = [
   },
   {
     href: "/admin/challenges",
-    image: CollaborationImage.src,
+    image: ChallengesImage.src,
     label: "Challenges",
+  },
+  {
+    href: "/admin/collaborations",
+    image: CollaborationImage.src,
+    label: "Collaborations",
   },
 
   // {
   //   href: "/admin/challenges",
-  //   image: ChallengesImage.src,
+  //   image: Collaboration.src,
   //   label: "Challenges",
   // },
   // {
@@ -60,6 +65,7 @@ const adminMenuItems: MenuItem[] = [
     image: SubscriptionImage.src,
     label: "Subscription",
   },
+
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 

@@ -44,3 +44,9 @@ export {
 export { Skeleton } from "./Skeleton";
 export { DatePicker } from "./DatePicker";
 export { Calendar, CalendarDayButton } from "./Calender";
+export { Tabs } from "./client/Tabs";
+export { SearchInput } from "./client/SearchInput";
+export { InfoSection } from "./InfoSection";
+export { RoleCard } from "./RoleCard";
+export { Carousel } from "./Carousel";
+export { DetailCard } from "./client/DetailCard";
