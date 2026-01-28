@@ -9,14 +9,15 @@ import { OverviewTab, RequirementsTab, TaskBoardTab } from "../_components";
 export default function CollaborationDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = React.use(params);
   const breadcrumbs = [
     { title: "Home", href: "/admin/dashboard" },
     { title: "Collaborations", href: "/admin/collaborations" },
     {
       title: "Build Ecommerce Website Collab",
-      href: `/admin/collaborations/${params.id}`,
+      href: `/admin/collaborations/${id}`,
     },
   ];
 

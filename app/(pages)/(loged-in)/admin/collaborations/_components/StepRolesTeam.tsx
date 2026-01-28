@@ -3,7 +3,7 @@
 import { Input, Textarea, Select, Button } from "@components";
 import { CollaborationFormData, Role, Task } from "./types";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Plus, Trash2, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 
 interface StepRolesTeamProps {
   formData: CollaborationFormData;

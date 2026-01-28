@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-import { Calendar, DollarSign, Plus, Settings, Users } from "lucide-react";
+import { Calendar, DollarSign, Plus, Users } from "lucide-react";
 import { Breadcrumb, Button, MainCard, Progress } from "@components";
 import { PATH_ICON } from "../../../../configs/constants";
 import Image from "next/image";
