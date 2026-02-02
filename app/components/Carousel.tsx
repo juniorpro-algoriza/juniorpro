@@ -43,21 +43,21 @@ export const Carousel = ({ children, className, options }: CarouselProps) => {
         </div>
       </div>
 
-      {/* Navigation Buttons - Hidden on mobile, shown on md+ */}
+      {/* Navigation Buttons */}
       <button
         onClick={scrollPrev}
-        className="absolute left-5 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 size-10 md:size-12 rounded-full bg-[#EAECF0] border-4 border-white shadow-sm hidden md:flex items-center justify-center text-[#475467] transition-all hover:bg-gray-200 hover:scale-110 active:scale-95 z-10 ring-1 ring-gray-200"
+        className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 -translate-x-1 sm:-translate-x-4 lg:-translate-x-8 size-8 sm:size-10 md:size-12 rounded-full bg-[#EAECF0] border-2 sm:border-4 border-white shadow-sm flex items-center justify-center text-[#475467] transition-all hover:bg-gray-200 hover:scale-110 active:scale-95 z-10 ring-1 ring-gray-200"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="size-4 md:size-5 stroke-[3]" />
+        <ChevronLeft className="size-3 sm:size-4 md:size-5 stroke-[3]" />
       </button>
 
       <button
         onClick={scrollNext}
-        className="absolute right-5 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 size-10 md:size-12 rounded-full bg-[#EAECF0] border-4 border-white shadow-sm hidden md:flex items-center justify-center text-[#475467] transition-all hover:bg-gray-200 hover:scale-110 active:scale-95 z-10 ring-1 ring-gray-200"
+        className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-4 lg:translate-x-8 size-8 sm:size-10 md:size-12 rounded-full bg-[#EAECF0] border-2 sm:border-4 border-white shadow-sm flex items-center justify-center text-[#475467] transition-all hover:bg-gray-200 hover:scale-110 active:scale-95 z-10 ring-1 ring-gray-200"
         aria-label="Next slide"
       >
-        <ChevronRight className="size-4 md:size-5 stroke-[3]" />
+        <ChevronRight className="size-3 sm:size-4 md:size-5 stroke-[3]" />
       </button>
     </div>
   );

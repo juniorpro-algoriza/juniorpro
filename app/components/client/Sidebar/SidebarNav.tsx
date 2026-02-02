@@ -112,11 +112,11 @@ const juniorMenuItems: MenuItem[] = [
     image: MyJourneyImage.src,
     label: "Learning Paths",
   },
-  // {
-  //   href: "/junior/collaboration",
-  //   image: CollaborationImage.src,
-  //   label: "Collaboration",
-  // },
+  {
+    href: "/junior/collaborations",
+    image: CollaborationImage.src,
+    label: "Collaborations",
+  },
   // {
   //   href: "/junior/challenges",
   //   image: ChallengesImage.src,
