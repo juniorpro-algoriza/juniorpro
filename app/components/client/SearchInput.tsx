@@ -1,6 +1,7 @@
 "use client";
 
 import { Input } from "@components";
+import { cx } from "@lib";
 import { SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -8,8 +9,13 @@ import { useDebounceValue } from "usehooks-ts";
 interface SearchInputProps {
   className?: string;
   placeholder?: string;
+  containerClassName?: string;
 }
-export const SearchInput = ({ className, placeholder }: SearchInputProps) => {
+export const SearchInput = ({
+  className,
+  placeholder,
+  containerClassName,
+}: SearchInputProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -31,7 +37,7 @@ export const SearchInput = ({ className, placeholder }: SearchInputProps) => {
   }, [debouncedQuery]);
 
   return (
-    <div className="relative">
+    <div className={cx("relative", containerClassName)}>
       <Input
         type="text"
         placeholder={placeholder}
