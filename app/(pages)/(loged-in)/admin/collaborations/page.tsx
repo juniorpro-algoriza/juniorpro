@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 
 import { ArrowRight, Plus } from "lucide-react";
@@ -126,10 +126,12 @@ const Collaborations = () => {
         ]}
       >
         <div className="flex sm:items-center sm:gap-4 flex-col sm:flex-row max-sm:w-full">
-          <SearchInput
-            placeholder="search collaboration..."
-            className="min-w-[200px]"
-          />
+          <Suspense fallback={<div className="w-10 h-10" />}>
+            <SearchInput
+              placeholder="search collaboration..."
+              className="min-w-[200px]"
+            />
+          </Suspense>
           <Link href="/admin/collaborations/create" className=" ">
             <Button
               intent="main2"
