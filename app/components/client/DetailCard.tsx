@@ -59,7 +59,7 @@ export const DetailCard = ({
             <div className="-rotate-12">{icon}</div>
           </div>
           <div>
-            <h1 className="text-xl md:text-3xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-xl md:text-3xl font-bold text-black leading-tight">
               {title}
             </h1>
             <p className="text-gray-500 mt-2 text-sm md:text-lg">
