@@ -52,3 +52,4 @@ export { InfoSection } from "./InfoSection";
 export { RoleCard } from "./RoleCard";
 export { Carousel } from "./Carousel";
 export { DetailCard } from "./client/DetailCard";
+export { FileUpload } from "./FileUpload";

@@ -27,7 +27,7 @@ export const InfoSection = ({
   return (
     <MainCard
       classname={cx(
-        "p-5 md:p-8 !rounded-3xl border-gray-100 shadow-sm relative overflow-hidden ",
+        "p-4 sm:p-6 md:p-8 !rounded-2xl sm:!rounded-3xl border-gray-100 shadow-sm relative overflow-hidden",
         className
       )}
     >
@@ -37,50 +37,53 @@ export const InfoSection = ({
           {watermark}
         </div>
       )}
-      <div className="flex items-start gap-4 mb-6">
+      <div className="flex items-start gap-3 sm:gap-4 mb-5 sm:mb-6">
         {icon && (
-          <div className="p-3 bg-blue-main/10 text-blue-main rounded-xl">
+          <div className="p-2 sm:p-3 bg-blue-main/10 text-blue-main rounded-lg sm:rounded-xl">
             {icon}
           </div>
         )}
         <div>
-          <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-tight">
+            {title}
+          </h3>
           {description && (
-            <p className="text-gray-500 text-sm mt-1">{description}</p>
+            <p className="text-gray-500 text-xs sm:text-sm mt-1 decoration-skip-ink">
+              {description}
+            </p>
           )}
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {items.map((item, index) => (
           <div
             key={index}
             className={cx(
-              "flex items-center gap-5 p-5 md:p-6 rounded-[2rem] bg-gray-50/50 border border-gray-100/50",
+              "flex items-center gap-3 sm:gap-5 p-3 sm:p-5 md:p-6 rounded-2xl sm:rounded-[2rem] bg-gray-50/50 border border-gray-100/50",
               "transition-all duration-300 hover:bg-white hover:shadow-md hover:border-blue-main/10 group"
             )}
           >
             {/* Icon/Indicator */}
             <div className="flex-shrink-0">
               {type === "numbered" && (
-                <div className="size-10 rounded-full bg-white border border-blue-main/10 text-blue-main flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
+                <div className="size-8 sm:size-10 rounded-full bg-white border border-blue-main/10 text-blue-main flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm group-hover:scale-110 transition-transform">
                   {index + 1}
                 </div>
               )}
               {type === "checked" && (
-                <div className="size-7 rounded-full bg-blue-main text-white flex items-center justify-center shadow-lg shadow-blue-main/20 group-hover:scale-110 transition-transform">
-                  <Check className="size-4 stroke-[3]" />
+                <div className="size-6 sm:size-7 rounded-full bg-blue-main text-white flex items-center justify-center shadow-lg shadow-blue-main/20 group-hover:scale-110 transition-transform">
+                  <Check className="size-3 sm:size-4 stroke-[3]" />
                 </div>
               )}
               {type === "bullet" && (
-                <div className="bg-blue-main/10 p-3 rounded-full ml-2">
-
-                  <div className="size-2.5 rounded-full bg-blue-main  group-hover:scale-125 transition-transform" />
+                <div className="bg-blue-main/10 p-2 sm:p-3 rounded-full ml-1 sm:ml-2">
+                  <div className="size-2 sm:size-2.5 rounded-full bg-blue-main group-hover:scale-125 transition-transform" />
                 </div>
               )}
             </div>
             {/* Content */}
-            <span className="text-gray-900 font-semibold text-sm md:text-base">
+            <span className="text-gray-900 font-semibold text-xs sm:text-sm md:text-base decoration-skip-ink">
               {item}
             </span>
           </div>

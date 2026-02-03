@@ -7,4 +7,6 @@ export const modalNameSchema = z.enum([
   "CreateEditPlan",
   "WelcomePopup",
   "PaymentModal",
+  "JoinCollaboration",
+  "TaskDetails",
 ]);
