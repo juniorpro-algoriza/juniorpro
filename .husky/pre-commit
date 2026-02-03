@@ -1,1 +1,2 @@
+//husky and lint stage and format all document
 npx lint-staged
