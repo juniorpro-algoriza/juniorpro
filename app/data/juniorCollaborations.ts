@@ -45,6 +45,8 @@ export interface Collaboration {
   roles: Role[];
   tasks: Task[];
   status: "open" | "joined" | "completed";
+  isLocked?: boolean;
+  levelRequired?: number;
 }
 
 export const JUNIOR_COLLABORATIONS: Collaboration[] = [
@@ -242,6 +244,95 @@ export const JUNIOR_COLLABORATIONS: Collaboration[] = [
         priority: "Medium",
         assignee: { name: "You", initials: "ME" },
         dueDate: "01 Mar 2024, 04:00PM",
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: "Advanced Blockchain DeFi Platform",
+    description:
+      "Build a decentralized finance platform with smart contracts and tokenomics.",
+    reward: { amount: 2500, currency: "SAR" },
+    dueDate: "30 June 2024",
+    rolesCount: { open: 6, total: 8 },
+    status: "open",
+    isLocked: true,
+    levelRequired: 5,
+    requirements: [
+      "Strong understanding of blockchain technology",
+      "Experience with Solidity smart contracts",
+      "Knowledge of Web3.js or Ethers.js",
+      "Familiarity with DeFi protocols",
+    ],
+    features: [
+      "Create and deploy ERC-20 tokens",
+      "Implement liquidity pools",
+      "Build yield farming mechanisms",
+      "Develop governance voting system",
+    ],
+    guidelines: [
+      "Follow smart contract security best practices",
+      "Conduct thorough testing on testnets",
+      "Implement proper access controls",
+      "Document all contract interactions",
+    ],
+    roles: [
+      {
+        id: 5,
+        title: "Smart Contract Developer",
+        description: "Develop and audit smart contracts for the DeFi platform.",
+        statusLabel: "0/3 Open",
+        statusState: "open",
+        tools: ["Solidity", "Hardhat", "OpenZeppelin"],
+        mentor: {
+          name: "Mohammed Al-Rashid",
+          role: "Blockchain Architect",
+          initials: "MR",
+        },
+        responsibilities: [
+          "Write secure smart contracts",
+          "Implement token standards",
+          "Create automated market maker",
+        ],
+      },
+      {
+        id: 6,
+        title: "Frontend Web3 Developer",
+        description:
+          "Build the user interface for interacting with smart contracts.",
+        statusLabel: "0/2 Open",
+        statusState: "open",
+        tools: ["React", "Web3.js", "MetaMask"],
+        mentor: {
+          name: "Lisa Wang",
+          role: "Web3 Frontend Lead",
+          initials: "LW",
+        },
+        responsibilities: [
+          "Connect wallet integration",
+          "Build transaction interfaces",
+          "Implement real-time price feeds",
+        ],
+      },
+    ],
+    tasks: [
+      {
+        id: 1,
+        title: "Setup Development Environment",
+        description: "Configure Hardhat, testnets, and CI/CD pipeline.",
+        status: "Not Started",
+        priority: "High",
+        assignee: null,
+        dueDate: "05 April 2024, 10:00AM",
+      },
+      {
+        id: 2,
+        title: "Design Token Economics",
+        description: "Create tokenomics model and whitepaper documentation.",
+        status: "Not Started",
+        priority: "High",
+        assignee: null,
+        dueDate: "12 April 2024, 02:00PM",
       },
     ],
   },
