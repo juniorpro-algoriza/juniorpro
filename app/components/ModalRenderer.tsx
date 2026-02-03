@@ -44,6 +44,16 @@ const Modals: Record<
       default: m.PaymentModal,
     }))
   ),
+  JoinCollaboration: lazy(() =>
+    import("./modals/JoinCollaboration").then((m) => ({
+      default: m.JoinCollaboration,
+    }))
+  ),
+  TaskDetails: lazy(() =>
+    import("./modals/TaskDetails").then((m) => ({
+      default: m.TaskDetails,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {

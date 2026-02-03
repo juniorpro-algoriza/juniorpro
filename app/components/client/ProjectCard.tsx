@@ -8,7 +8,7 @@ import { cx } from "@lib";
 interface ProjectCardProps {
   title: string;
   description: string;
-  progress: number;
+  progress?: number;
   membersCurrent: number;
   membersTotal: number;
   dateEnd: string;
@@ -80,17 +80,19 @@ export const ProjectCard = ({
       </div>
 
       {/* Progress */}
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">
-            Progress
-          </span>
-          <span className="bg-blue-main/10 border border-blue-main/20 text-blue-main text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-lg">
-            {progress}%
-          </span>
+      {progress && (
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">
+              Progress
+            </span>
+            <span className="bg-blue-main/10 border border-blue-main/20 text-blue-main text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-lg">
+              {progress}%
+            </span>
+          </div>
+          <Progress width={progress} className="bg-gray-100" />
         </div>
-        <Progress width={progress} className="bg-gray-100" />
-      </div>
+      )}
 
       {/* Meta Data Row */}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm text-gray-500 mb-6">
@@ -118,7 +120,7 @@ export const ProjectCard = ({
             <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
               Rewards
             </h4>
-            <div className="flex items-center gap-2 text-sm font-medium text-gray-900">
+            <div className="flex items-center gap-2 text-sm font-medium text-gray-900 flex-wrap">
               {/* Placeholder for medal icon if needed, using generic dot for now or emoji */}
               <Image
                 src="/images/1stBadge.png"

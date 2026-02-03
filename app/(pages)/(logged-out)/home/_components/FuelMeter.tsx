@@ -1,19 +1,30 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import React, { useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Rocket } from "lucide-react";
 
 export function FuelMeter() {
   const { scrollYProgress } = useScroll();
-  const fuelLevel = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const [displayFuel, setDisplayFuel] = useState(0);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const fuelHeight = useTransform(smoothProgress, [0, 1], ["0%", "93%"]);
+  const fuelPercentage = useTransform(smoothProgress, [0, 1], [0, 100]);
+  const bubblesOpacity = useTransform(smoothProgress, [0, 0.1], [0, 1]); // Show bubbles after 10%
+
+  const textRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const unsubscribe = fuelLevel.on("change", (latest) => {
-      setDisplayFuel(Math.round(latest));
+    const unsubscribe = fuelPercentage.on("change", (latest) => {
+      if (textRef.current) {
+        textRef.current.innerText = Math.round(latest) + "%";
+      }
     });
     return unsubscribe;
-  }, [fuelLevel]);
+  }, [fuelPercentage]);
 
   return (
     <motion.div
@@ -27,34 +38,32 @@ export function FuelMeter() {
         <div className="w-16 h-64 bg-white/90 backdrop-blur-sm rounded-full border-2 border-black shadow-thick-4 p-2 overflow-hidden">
           {/* Fuel Fill */}
           <motion.div
-            className="absolute bottom-2  left-2 right-2 bg-gradient-to-t from-[#C6FF3E] via-[#A7FADC] to-[#5CA9FF] rounded-full"
+            className="absolute bottom-2 left-2 right-2 bg-gradient-to-t from-[#C6FF3E] via-[#A7FADC] to-[#5CA9FF] rounded-full"
             style={{
-              height: `${displayFuel * 0.93}%`,
+              height: fuelHeight,
             }}
           >
             {/* Bubbles Animation */}
-            {displayFuel > 10 && (
-              <>
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 bg-white/40 rounded-full"
-                    style={{
-                      left: `${30 + i * 20}%`,
-                    }}
-                    animate={{
-                      y: [0, -50],
-                      opacity: [1, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: i * 0.5,
-                    }}
-                  />
-                ))}
-              </>
-            )}
+            <motion.div style={{ opacity: bubblesOpacity }}>
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 bg-white/40 rounded-full"
+                  style={{
+                    left: `${30 + i * 20}%`,
+                  }}
+                  animate={{
+                    y: [0, -50],
+                    opacity: [1, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.5,
+                  }}
+                />
+              ))}
+            </motion.div>
           </motion.div>
 
           {/* Measurement Lines */}
@@ -85,8 +94,10 @@ export function FuelMeter() {
       </div>
 
       {/* Fuel Percentage */}
-      <div className="px-3 py-2 bg-white rounded-full border-2 border-black shadow-thick-3 text-xs">
-        <span className="text-[#0C1335]">{displayFuel}%</span>
+      <div className="px-3 py-2 bg-white rounded-full border-2 border-black shadow-thick-3 text-xs w-[60px] flex justify-center">
+        <span ref={textRef} className="text-[#0C1335]">
+          0%
+        </span>
       </div>
 
       {/* Label */}

@@ -16,7 +16,7 @@ import type {
 interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof textarea> {
-  label?: string;
+  label?: string | ReactNode;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;

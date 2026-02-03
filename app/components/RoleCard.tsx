@@ -1,5 +1,5 @@
 import { cx } from "@lib";
-import { ArrowRight, Code } from "lucide-react";
+import { Code } from "lucide-react";
 import React from "react";
 import { MainCard } from "./MainCard";
 
@@ -39,7 +39,7 @@ export const RoleCard = ({
   return (
     <MainCard
       classname={cx(
-        "!rounded-3xl p-6 border transition-all duration-200 relative overflow-hidden",
+        "!rounded-3xl p-4 sm:p-6 m-1 border transition-all duration-200 relative overflow-hidden",
         isSelectVariant ? "cursor-pointer hover:border-blue-main/30" : "",
         isSelected
           ? "border-blue-main shadow-md ring-1 ring-blue-main"
@@ -50,15 +50,15 @@ export const RoleCard = ({
       <div onClick={isSelectVariant ? onSelect : undefined}>
         {/* Selection Radio Circle */}
         {isSelectVariant && (
-          <div className="absolute top-6 left-6">
+          <div className="absolute top-4 sm:top-6 left-4 sm:left-6">
             <div
               className={cx(
-                "h-6 w-6 rounded-full border-2 flex items-center justify-center transition-colors",
+                "h-5 w-5 sm:h-6 sm:w-6 rounded-full border-2 flex items-center justify-center transition-colors",
                 isSelected ? "border-blue-main" : "border-gray-300"
               )}
             >
               {isSelected && (
-                <div className="h-3 w-3 bg-blue-main rounded-full" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 bg-blue-main rounded-full" />
               )}
             </div>
           </div>
@@ -67,17 +67,21 @@ export const RoleCard = ({
         {/* Header */}
         <div
           className={cx(
-            "flex justify-between items-start mb-4 flex-wrap gap-3",
-            isSelectVariant && "pl-10"
+            "flex justify-between items-start mb-3 sm:mb-4 flex-wrap gap-2 sm:gap-3",
+            isSelectVariant && "pl-8 sm:pl-10"
           )}
         >
           <div>
-            <h3 className="text-lg font-bold text-gray-900">{title}</h3>
-            <p className="text-sm text-gray-500 mt-1">{description}</p>
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-tight">
+              {title}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              {description}
+            </p>
           </div>
           <div
             className={cx(
-              "px-3 py-1 rounded-full text-xs font-bold",
+              "px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold",
               statusState === "full"
                 ? "bg-gray-100 text-gray-600"
                 : statusState === "filled"
@@ -90,15 +94,15 @@ export const RoleCard = ({
         </div>
 
         {/* Tools */}
-        <div className={cx("mb-6", isSelectVariant && "pl-0")}>
-          <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+        <div className={cx("mb-4 sm:mb-6", isSelectVariant && "pl-0")}>
+          <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
             <Code className="h-3 w-3 text-blue-main/30" /> Tools & Tech
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {tools.map((tool) => (
               <span
                 key={tool}
-                className="px-3 py-1 rounded-full bg-gray-50 border border-gray-100 text-xs font-medium text-gray-600"
+                className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-gray-50 border border-gray-100 text-[10px] sm:text-xs font-medium text-gray-600"
               >
                 {tool}
               </span>
@@ -107,8 +111,8 @@ export const RoleCard = ({
         </div>
 
         {/* Mentor */}
-        <div className="mb-6">
-          <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <div className="mb-4 sm:mb-6">
+          <div className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 sm:mb-3 flex items-center gap-2">
             <svg
               className="h-3 w-3"
               viewBox="0 0 24 24"
@@ -121,20 +125,24 @@ export const RoleCard = ({
             </svg>
             Assigned Mentor
           </div>
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50/50 border border-gray-100">
-            <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">
+          <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl bg-gray-50/50 border border-gray-100">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gray-200 flex items-center justify-center text-[10px] sm:text-xs font-bold text-gray-500 shrink-0">
               {mentor.initials}
             </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900">{mentor.name}</p>
-              <p className="text-xs text-gray-500">{mentor.role}</p>
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm font-bold text-gray-900 truncate">
+                {mentor.name}
+              </p>
+              <p className="text-[10px] sm:text-xs text-gray-500 truncate">
+                {mentor.role}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Responsibilities */}
         <div>
-          <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <div className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 sm:mb-3 flex items-center gap-2">
             <svg
               className="h-3 w-3"
               viewBox="0 0 24 24"
@@ -148,27 +156,18 @@ export const RoleCard = ({
             </svg>
             Key Responsibilities
           </div>
-          <ul className="space-y-2">
+          <ul className="space-y-1.5 sm:space-y-2">
             {responsibilities.map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-start gap-2 text-sm text-gray-600"
+                className="flex items-start gap-2 text-xs sm:text-sm text-gray-600"
               >
-                <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-blue-main flex-shrink-0" />
+                <div className="mt-1.5 h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-blue-main flex-shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
           </ul>
         </div>
-
-        {/* Arrow for selection mode if needed */}
-        {isSelectVariant && (
-          <div className="mt-4 flex justify-end">
-            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
-              <ArrowRight className="h-4 w-4 text-gray-600" />
-            </div>
-          </div>
-        )}
       </div>
     </MainCard>
   );

@@ -46,12 +46,12 @@ export function ChallengesSection() {
   >([]);
 
   useEffect(() => {
-    const newParticles = [...Array(50)].map((_, i) => ({
+    const newParticles = [...Array(20)].map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
-      duration: 2 + Math.random() * 3,
-      delay: Math.random() * 1.5,
+      duration: 3 + Math.random() * 2,
+      delay: Math.random() * 2,
     }));
     setParticles(newParticles);
   }, []);
@@ -62,20 +62,21 @@ export function ChallengesSection() {
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
-            className="absolute will-change-transform"
+            className="absolute"
             style={{
               left: `${particle.left}%`,
               top: `${particle.top}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.6, 0.2],
+              y: [0, -20, 0],
+              opacity: [0.1, 0.4, 0.1],
             }}
             transition={{
               duration: particle.duration,
               repeat: Infinity,
               delay: particle.delay,
               type: "tween",
+              ease: "easeInOut",
             }}
           >
             <span className="text-white text-sm">✨</span>
@@ -122,11 +123,15 @@ export function ChallengesSection() {
           {challenges.map((challenge, index) => (
             <motion.div
               key={challenge.id}
-              className="bg-white rounded-[2rem] border-2 border-black p-8 relative overflow-hidden shadow-thick-6 transition-all hover:shadow-thick-8 hover:-translate-y-1"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{
+                delay: index * 0.2,
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="bg-white rounded-[2rem] border-2 border-black p-8 relative overflow-hidden shadow-thick-6 transition-all hover:shadow-thick-8 hover:-translate-y-1"
             >
               {/* Icon - Static, Filled, Bordered */}
               <div

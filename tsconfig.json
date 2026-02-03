@@ -31,7 +31,8 @@
       "@utils/server": ["./app/utils/server"],
       "@styles": ["./app/styles"],
       "@components/client": ["./app/components/client"],
-      "@atoms": ["./app/atoms"]
+      "@atoms": ["./app/atoms"],
+      "@data/*": ["./app/data/*"]
     }
   },
   "include": [
