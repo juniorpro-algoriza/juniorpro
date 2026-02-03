@@ -45,7 +45,7 @@ export default function JuniorCollaborationDetailsPage({
     },
     {
       name: "Task Board",
-      content: <TaskBoardTab tasks={collab.tasks} />,
+      content: <TaskBoardTab tasks={collab.tasks} collabId={collab.id} />,
     },
   ];
 

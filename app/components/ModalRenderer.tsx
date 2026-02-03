@@ -49,6 +49,11 @@ const Modals: Record<
       default: m.JoinCollaboration,
     }))
   ),
+  TaskDetails: lazy(() =>
+    import("./modals/TaskDetails").then((m) => ({
+      default: m.TaskDetails,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {

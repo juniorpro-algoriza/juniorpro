@@ -35,30 +35,31 @@ export function CollaborationSection() {
     <section className="md:py-24 py-12 px-6 relative z-10 overflow-hidden">
       {/* Orbiting Planets */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
             style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + i * 10}%`,
+              left: `${25 + i * 20}%`,
+              top: `${25 + i * 15}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              x: [0, 20, 0],
-              rotate: [0, 360],
+              y: [0, -15, 0],
+              x: [0, 10, 0],
+              rotate: [0, 180],
             }}
             transition={{
-              duration: 10 + i * 2,
+              duration: 8 + i * 1.5,
               repeat: Infinity,
-              ease: "linear",
+              ease: "easeInOut",
+              repeatType: "reverse",
             }}
           >
             <div
-              className="w-8 h-8 rounded-full border-2 border-white/20 bg-gradient-to-br from-[#9C7FFF] to-[#5CA9FF] opacity-40"
+              className="rounded-full border-2 border-white/30 bg-gradient-to-br from-[#9C7FFF]/20 to-[#5CA9FF]/20 backdrop-blur-sm"
               style={{
-                width: `${20 + i * 8}px`,
-                height: `${20 + i * 8}px`,
+                width: `${24 + i * 6}px`,
+                height: `${24 + i * 6}px`,
               }}
             />
           </motion.div>
@@ -105,11 +106,15 @@ export function CollaborationSection() {
           {collaborationFeatures.map((feature, index) => (
             <motion.div
               key={feature.id}
-              className="bg-white rounded-4xl border-2 border-black p-8 relative overflow-hidden shadow-thick-6 transition-all hover:shadow-thick-6 hover:-translate-y-1"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{
+                delay: index * 0.2,
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="bg-white rounded-4xl border-2 border-black p-8 relative overflow-hidden shadow-thick-6 transition-all hover:shadow-thick-6 hover:-translate-y-1"
             >
               {/* Icon - Static, Filled, Bordered */}
               <div className="w-16 h-16 rounded-full border-2 border-black flex items-center justify-center mb-6 relative z-10 shadow-thick-4 bg-[#F0F7FF]">

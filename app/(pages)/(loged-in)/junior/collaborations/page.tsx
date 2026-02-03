@@ -14,11 +14,17 @@ import {
 import { PATH_ICON } from "../../../../configs/constants";
 
 import { JUNIOR_COLLABORATIONS } from "@data/juniorCollaborations";
+import { OnboardingTourTrigger } from "../dashboard/_components";
 type ButtonIntent = "main" | "main2" | undefined;
 
 const JuniorCollaborations = () => {
   return (
     <>
+      {/* Tour Trigger */}
+      <Suspense fallback={null}>
+        <OnboardingTourTrigger />
+      </Suspense>
+
       {/* Breadcrumb */}
       <Breadcrumb
         breadcrumbs={[

@@ -12,6 +12,7 @@ import {
 } from "@components";
 import { Calendar } from "lucide-react";
 import { cx } from "@lib";
+import { useRouter } from "next/navigation";
 import { Task } from "@data/juniorCollaborations";
 
 const STATUS_STYLING = {
@@ -28,9 +29,11 @@ const PRIORITY_STYLING = {
 
 interface TaskBoardTabProps {
   tasks: Task[];
+  collabId: number;
 }
 
-export function TaskBoardTab({ tasks }: TaskBoardTabProps) {
+export function TaskBoardTab({ tasks, collabId }: TaskBoardTabProps) {
+  const router = useRouter();
   const [statusFilter, setStatusFilter] = React.useState<string | number>(
     "all"
   );
@@ -125,7 +128,12 @@ export function TaskBoardTab({ tasks }: TaskBoardTabProps) {
               {tasks.map((task) => (
                 <TableRow
                   key={task.id}
-                  className="group hover:bg-gray-50/30 transition-colors border-gray-200"
+                  onClick={() =>
+                    router.push(
+                      `?modal=TaskDetails&taskId=${task.id}&collabId=${collabId}`
+                    )
+                  }
+                  className="group hover:bg-gray-50/30 transition-colors border-gray-200 cursor-pointer"
                 >
                   <TableCell className="py-5 px-6 min-w-[300px]">
                     <div className="space-y-1">
