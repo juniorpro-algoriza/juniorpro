@@ -119,6 +119,12 @@ export const useSubmitMission = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.junior.paths.currentMissionList,
       });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.paths.current,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.paths.list,
+      });
     },
   });
 };

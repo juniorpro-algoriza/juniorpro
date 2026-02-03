@@ -78,6 +78,8 @@ const JuniorCollaborations = () => {
                             collab.id.toString() as keyof typeof PATH_ICON
                           ] || PATH_ICON["1"]
                         }
+                        isLocked={collab.isLocked}
+                        levelRequired={collab.levelRequired}
                         type="collaboration"
                         rewards={
                           <div className="flex items-center gap-2 text-sm font-medium text-gray-900 flex-wrap">
@@ -149,6 +151,8 @@ const JuniorCollaborations = () => {
                             collab.id.toString() as keyof typeof PATH_ICON
                           ] || PATH_ICON["1"]
                         }
+                        isLocked={collab.isLocked}
+                        levelRequired={collab.levelRequired}
                         type="collaboration"
                         rewards={
                           <div className="flex items-center gap-2 text-sm font-medium text-gray-900 flex-wrap">
@@ -195,6 +199,8 @@ const JuniorCollaborations = () => {
                             collab.id.toString() as keyof typeof PATH_ICON
                           ] || PATH_ICON["1"]
                         }
+                        isLocked={collab.isLocked}
+                        levelRequired={collab.levelRequired}
                         type="collaboration"
                         rewards={
                           <div className="flex items-center gap-2 text-sm font-medium text-gray-900 flex-wrap">
