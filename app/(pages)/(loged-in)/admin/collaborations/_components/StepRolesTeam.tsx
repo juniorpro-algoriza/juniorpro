@@ -5,13 +5,13 @@ import { CollaborationFormData, Role, Responsibility } from "./types";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
-import { useLookup } from "../../../../../tanstack/useLookup";
+import { useLookup } from "../../../../../../app/tanstack/useLookup";
 import {
   useGetCollaborationRoles,
   useUpdateCollaborationRole,
   useDeleteCollaborationRole,
   useAddCollaborationRole,
-} from "../../tanstack/collaboration";
+} from "../../tanstack/collaborations/index";
 import { useQueryClient } from "@tanstack/react-query";
 import { components } from "../../../../../../api-schema";
 import {
