@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, Textarea } from "@components";
+import { Input } from "@components";
 import { CollaborationFormData, Goal } from "./types";
 import { Dispatch, SetStateAction } from "react";
 import { Plus, Trash2 } from "lucide-react";
@@ -40,29 +40,6 @@ export const StepProjectDetails = ({
 
   return (
     <div className="space-y-8 py-2">
-      {/* What We're Building Section */}
-      <div className="space-y-4">
-        <div className="space-y-1">
-          <h3 className="text-lg font-semibold">What We're Building</h3>
-          <p className="text-sm text-gray-600">
-            Describe the project in detail
-          </p>
-        </div>
-
-        <Textarea
-          placeholder="Brief overview of what students will create and learn in this mission..."
-          value={formData.whatWereBuilding}
-          onChange={(e) =>
-            setFormData((prev) => ({
-              ...prev,
-              whatWereBuilding: e.target.value,
-            }))
-          }
-          rows={6}
-          error={fieldErrors.whatWereBuilding}
-        />
-      </div>
-
       {/* Key Features & Goals Section */}
       <div className="space-y-4">
         <div className="space-y-1">

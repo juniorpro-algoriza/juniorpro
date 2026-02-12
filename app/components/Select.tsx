@@ -8,7 +8,7 @@ import {
   Transition,
   ListboxButton,
 } from "@headlessui/react";
-import { CheckIcon, ChevronDown } from "lucide-react";
+import { CheckIcon, ChevronDown, LoaderCircle } from "lucide-react";
 import { cx } from "@lib";
 
 // Helper to sync Headless UI state with local state safely
@@ -37,6 +37,7 @@ interface BaseProps {
   disabled?: boolean;
   multiple?: boolean;
   error?: string;
+  loading?: boolean;
 }
 
 interface SingleSelectProps extends BaseProps {
@@ -62,6 +63,7 @@ export const Select = ({
   disabled = false,
   multiple = false,
   error = "",
+  loading,
 }: SelectProps) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [buttonBounds, setButtonBounds] = React.useState<DOMRect | null>(null);
@@ -140,6 +142,9 @@ export const Select = ({
 
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                   <ChevronDown className="h-5 w-5 text-gray-400" />
+                  {loading && (
+                    <LoaderCircle className="h-5 w-5 text-gray-400 animate-spin" />
+                  )}
                 </span>
               </ListboxButton>
 

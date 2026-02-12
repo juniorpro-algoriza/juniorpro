@@ -1,50 +1,142 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 import Link from "next/link";
 
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight, Plus, Search } from "lucide-react";
 import {
   Breadcrumb,
   Button,
   Jumbotron,
   ProjectCard,
-  SearchInput,
   Tabs,
+  Skeleton,
+  Input,
 } from "@components";
 import { PATH_ICON } from "../../../../configs/constants";
+import { useCollaborationsWithFilters } from "../../../../tanstack";
+import { components } from "../../../../../api-schema";
 
-/**
- * Mock Data for the collaborations
- * Creating 2 cards as seen in the screenshot
- */
-const COLLABORATIONS = [
-  {
-    id: 1,
-    title: "Web Development Basics",
-    description: "Learn HTML, CSS, and build your first websites",
-    progress: 60,
-    price: 100,
-    currency: "SAR",
-    membersCurrent: 2,
-    membersTotal: 4,
-    dateStart: "Oct 15",
-    dateEnd: "Nov 25",
-  },
-  {
-    id: 2,
-    title: "Web Development Basics",
-    description: "Learn HTML, CSS, and build your first websites",
-    progress: 60,
-    price: 100,
-    currency: "SAR",
-    membersCurrent: 2,
-    membersTotal: 4,
-    dateStart: "Oct 15",
-    dateEnd: "Nov 25",
-  },
-];
+// Type definition from API schema
+type GetCollaborationListModel =
+  components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel"];
 
 const Collaborations = () => {
+  const {
+    collaborations,
+    isLoading,
+    error,
+    filters,
+    tabCounts,
+    updateFilters,
+  } = useCollaborationsWithFilters();
+
+  const handleSearch = (value: string) => {
+    updateFilters({ search: value, pageNumber: 1 });
+  };
+
+  const handleTabChange = (index: number) => {
+    const statusMap = ["all", "active", "completed"];
+    const status = statusMap[index] as "all" | "active" | "completed";
+    updateFilters({ status, pageNumber: 1 });
+  };
+
+  const formatCollaborationData = (collab: GetCollaborationListModel) => {
+    const progress = collab.requiredMissions
+      ? Math.min(
+          ((collab.takenJuniorSeats || 0) / collab.requiredMissions) * 100,
+          100
+        )
+      : 0;
+
+    return {
+      id: collab.id || 0,
+      title: collab.nameEn || collab.nameAr || "Untitled Collaboration",
+      description: collab.description || "No description available",
+      progress: Math.round(progress),
+      price: collab.money || 0,
+      currency: "SAR",
+      membersCurrent: collab.takenJuniorSeats || 0,
+      membersTotal: collab.totalJuniorSeats || 0,
+      dateEnd: collab.registerationDeadline
+        ? new Date(collab.registerationDeadline).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          })
+        : "No deadline",
+    };
+  };
+
+  const renderCollaborationCards = () => {
+    if (isLoading) {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 6 }).map((_, idx) => (
+            <Skeleton key={idx} className="h-[300px] w-full mb-2" />
+          ))}
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="text-red-500 py-10 text-center font-medium">
+          Error loading collaborations. Please try again.
+        </div>
+      );
+    }
+
+    if (collaborations.length === 0) {
+      return (
+        <div className="text-gray-500 py-10 text-center font-medium">
+          {filters.search
+            ? "No collaborations found matching your search."
+            : "No collaborations found."}
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {collaborations.map((collab) => {
+          const formattedCollab = formatCollaborationData(collab);
+          return (
+            <Link
+              key={formattedCollab.id}
+              href={`/admin/collaborations/${formattedCollab.id}`}
+              className="block h-full transition-transform hover:scale-[1.01]"
+            >
+              <ProjectCard
+                title={formattedCollab.title}
+                description={formattedCollab.description}
+                progress={formattedCollab.progress}
+                membersCurrent={formattedCollab.membersCurrent}
+                membersTotal={formattedCollab.membersTotal}
+                dateEnd={formattedCollab.dateEnd}
+                iconSrc={
+                  PATH_ICON[
+                    formattedCollab.id.toString() as keyof typeof PATH_ICON
+                  ] || PATH_ICON["1"]
+                }
+                type="collaboration"
+                rewards={
+                  <>
+                    Each member will get{" "}
+                    <span className="font-bold">
+                      {formattedCollab.price} {formattedCollab.currency}
+                    </span>{" "}
+                    after completion
+                  </>
+                }
+                buttonText="Edit Path"
+                buttonIntent="main"
+                buttonIcon={<ArrowRight size={20} />}
+              />
+            </Link>
+          );
+        })}
+      </div>
+    );
+  };
   return (
     <>
       {/* Breadcrumb */}
@@ -67,71 +159,31 @@ const Collaborations = () => {
       <Tabs
         tabs={[
           {
-            name: `All Projects (${COLLABORATIONS.length})`,
-            content: (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {COLLABORATIONS.map((collab, idx) => (
-                  <Link
-                    key={idx}
-                    href={`/admin/collaborations/${collab.id}`}
-                    className="block h-full transition-transform hover:scale-[1.01]"
-                  >
-                    <ProjectCard
-                      title={collab.title}
-                      description={collab.description}
-                      progress={collab.progress}
-                      membersCurrent={collab.membersCurrent}
-                      membersTotal={collab.membersTotal}
-                      dateEnd={collab.dateEnd}
-                      iconSrc={
-                        PATH_ICON[
-                          collab.id.toString() as keyof typeof PATH_ICON
-                        ] || PATH_ICON["1"]
-                      }
-                      type="collaboration"
-                      rewards={
-                        <>
-                          Each member will get{" "}
-                          <span className="font-bold">
-                            {collab.price} {collab.currency}
-                          </span>{" "}
-                          after completion
-                        </>
-                      }
-                      buttonText="Edit Path"
-                      buttonIntent="main"
-                      buttonIcon={<ArrowRight size={20} />}
-                    />
-                  </Link>
-                ))}
-              </div>
-            ),
+            name: `All Projects (${tabCounts.all})`,
+            content: renderCollaborationCards(),
           },
           {
-            name: `Active Projects (0)`,
-            content: (
-              <div className="text-gray-500 py-10 text-center font-medium">
-                No active projects found.
-              </div>
-            ),
+            name: `Active Projects (${tabCounts.active})`,
+            content: renderCollaborationCards(),
           },
           {
-            name: "Completed Projects",
-            content: (
-              <div className="text-gray-500 py-10 text-center font-medium">
-                No completed projects found.
-              </div>
-            ),
+            name: `Completed Projects (${tabCounts.completed})`,
+            content: renderCollaborationCards(),
           },
         ]}
+        onTabChange={handleTabChange}
       >
         <div className="flex sm:items-center sm:gap-4 flex-col sm:flex-row max-sm:w-full">
-          <Suspense fallback={<div className="w-10 h-10" />}>
-            <SearchInput
+          <div className="relative min-w-[200px]">
+            <Input
+              type="text"
               placeholder="search collaboration..."
-              className="min-w-[200px]"
+              value={filters.search}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="pl-10"
+              leftIcon={<Search size={16} />}
             />
-          </Suspense>
+          </div>
           <Link href="/admin/collaborations/create" className=" ">
             <Button
               intent="main2"

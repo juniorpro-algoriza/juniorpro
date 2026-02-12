@@ -88,53 +88,31 @@ export const StepOverview = ({
       {/* Timeline & Dates Section */}
       <div className="space-y-4">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Timeline & Dates</h3>
+          <h3 className="text-lg font-semibold">Registration Deadline</h3>
           <p className="text-sm text-gray-600">
-            Set project timeline and deadlines
+            Set the deadline for participants to register
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            label="Start Date & Time *"
-            type="datetime-local"
-            value={
-              formData.startDateTime
-                ? new Date(
-                    formData.startDateTime.getTime() -
-                      formData.startDateTime.getTimezoneOffset() * 60000
-                  )
-                    .toISOString()
-                    .slice(0, 16)
-                : ""
-            }
-            onChange={(e) => {
-              const date = e.target.value ? new Date(e.target.value) : null;
-              if (date) handleChange("startDateTime", date);
-            }}
-            error={fieldErrors.startDateTime}
-          />
-
-          <Input
-            label="End Date & Time *"
-            type="datetime-local"
-            value={
-              formData.endDateTime
-                ? new Date(
-                    formData.endDateTime.getTime() -
-                      formData.endDateTime.getTimezoneOffset() * 60000
-                  )
-                    .toISOString()
-                    .slice(0, 16)
-                : ""
-            }
-            onChange={(e) => {
-              const date = e.target.value ? new Date(e.target.value) : null;
-              if (date) handleChange("endDateTime", date);
-            }}
-            error={fieldErrors.endDateTime}
-          />
-        </div>
+        <Input
+          label="Registration Deadline *"
+          type="datetime-local"
+          value={
+            formData.registrationDeadline
+              ? new Date(
+                  formData.registrationDeadline.getTime() -
+                    formData.registrationDeadline.getTimezoneOffset() * 60000
+                )
+                  .toISOString()
+                  .slice(0, 16)
+              : ""
+          }
+          onChange={(e) => {
+            const date = e.target.value ? new Date(e.target.value) : null;
+            if (date) handleChange("registrationDeadline", date);
+          }}
+          error={fieldErrors.registrationDeadline}
+        />
       </div>
 
       {/* Reward Section */}

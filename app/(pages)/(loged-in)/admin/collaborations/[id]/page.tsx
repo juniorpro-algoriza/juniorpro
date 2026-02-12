@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Breadcrumb, DetailCard, Tabs } from "@components";
 import { Calendar, Users2, Pencil } from "lucide-react";
 import type { TabData } from "@types";
@@ -12,6 +13,12 @@ export default function CollaborationDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = React.use(params);
+  const router = useRouter();
+
+  const handleEditClick = () => {
+    router.push(`/admin/collaborations/${id}/edit`);
+  };
+
   const breadcrumbs = [
     { title: "Home", href: "/admin/dashboard" },
     { title: "Collaborations", href: "/admin/collaborations" },
@@ -47,6 +54,7 @@ export default function CollaborationDetailsPage({
         iconClassName="bg-blue-main/5 border border-blue-main/10"
         buttonText="Edit Collaboration"
         buttonIcon={<Pencil className="size-4" />}
+        onButtonClick={handleEditClick}
         progress={60}
         backgroundOverlay="/images/handOnHand.svg"
       >
