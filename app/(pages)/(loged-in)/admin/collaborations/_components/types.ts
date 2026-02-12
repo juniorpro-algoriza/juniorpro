@@ -1,11 +1,16 @@
+export interface Responsibility {
+  id: string;
+  text: string;
+}
+
 export interface Role {
   id: string;
   category: string;
   roleDescription: string;
-  responsibilities: string;
+  teamCapacity: number;
+  responsibilities: Responsibility[];
   toolsRequired: string[];
   assignMentor: string;
-  tasks: Task[];
 }
 
 export interface Task {
@@ -29,15 +34,12 @@ export interface CollaborationFormData {
   description: string;
   projectIcon: string;
 
-  startDateTime: Date | null;
-  endDateTime: Date | null;
+  registrationDeadline: Date | null;
 
   xpReward: number;
   gemsPoints: number;
   money: number;
 
-  // Step 2: Project Details
-  whatWereBuilding: string;
   goals: Goal[];
 
   // Step 3: Roles & Team

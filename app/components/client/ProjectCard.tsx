@@ -80,7 +80,7 @@ export const ProjectCard = ({
       </div>
 
       {/* Progress */}
-      {progress && (
+      {progress !== undefined && (
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
             <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">

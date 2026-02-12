@@ -288,6 +288,578 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin-collaboration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationModel"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationModel"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationModel"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationModel"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationModel"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationModel"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetById.GetCollaborationDetailsModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetById.GetCollaborationDetailsModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetById.GetCollaborationDetailsModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/add-role": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleRequest"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleRequest"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleRequest"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/update-role": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleRequest"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleRequest"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleRequest"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/delete-role/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    Id?: number;
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/role-details/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/add-role-task": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/update-role-task": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/delete-role-task/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/role-tasks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query: {
+                    CollaborationId: number;
+                    RoleId?: number;
+                    JuniorId?: number;
+                    Status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"];
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/role-task-details/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin-dashboard/all-users-stats": {
         parameters: {
             query?: never;
@@ -3799,7 +4371,49 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-     
+    "/api/payments/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Sawiha.Services.DTO.Payment.ConfirmPaymentRequest"];
+                    "text/json": components["schemas"]["Sawiha.Services.DTO.Payment.ConfirmPaymentRequest"];
+                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.Payment.ConfirmPaymentRequest"];
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/project": {
         parameters: {
             query?: never;
@@ -5509,6 +6123,51 @@ export interface components {
             referenceCode?: string | null;
             readonly isSucceeded?: boolean;
         };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel"][] | null;
@@ -5776,6 +6435,21 @@ export interface components {
             nameAr?: string | null;
             nameEn?: string | null;
         };
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus": 1 | 2 | 3;
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationStatus": 1 | 2 | 3 | 4;
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority": 1 | 2 | 3;
         "Sawiha.CrossCutting.Model.Entities.Enabler": {
             /** Format: int64 */
             id?: number;
@@ -6206,7 +6880,7 @@ export interface components {
          * Format: int32
          * @enum {integer}
          */
-        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionStatus": 1 | 2;
+        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionStatus": 1 | 2 | 3 | 4;
         /**
          * Format: int32
          * @enum {integer}
@@ -6349,6 +7023,71 @@ export interface components {
             email: string;
             otp: string;
         };
+        "Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationDetailsModel": {
+            /** Format: int64 */
+            id?: number;
+            nameAr: string;
+            nameEn: string;
+            description: string;
+            icon: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+            /** Format: date-time */
+            registerationDeadline: string;
+            /** Format: int32 */
+            requiredMissions: number;
+            /** Format: int32 */
+            xpReward: number;
+            /** Format: int32 */
+            points?: number | null;
+            /** Format: int32 */
+            money?: number | null;
+        };
+        "Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationModel": {
+            collaborationDetails: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationDetailsModel"];
+            requirements: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationRequirementModel"][];
+            goals: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationGoalModel"][];
+        };
+        "Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationGoalModel": {
+            /** Format: int64 */
+            id?: number;
+            description?: string | null;
+        };
+        "Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationRequirementModel": {
+            /** Format: int64 */
+            id?: number;
+            description?: string | null;
+        };
+        "Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel": {
+            /** Format: int64 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
+            /** Format: date-time */
+            registerationDeadline?: string;
+            status000?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationStatus"];
+            /** Format: int32 */
+            requiredMissions?: number;
+            /** Format: int32 */
+            xpReward?: number;
+            /** Format: int32 */
+            points?: number | null;
+            /** Format: int32 */
+            money?: number | null;
+            /** Format: int32 */
+            totalJuniorSeats?: number;
+            /** Format: int32 */
+            takenJuniorSeats?: number;
+        };
+        "Sawiha.Services.DTO.AdminCollaborationModels.GetById.GetCollaborationDetailsModel": {
+            collaborationDetails?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel"];
+            requirements?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationRequirementModel"][] | null;
+            goals?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationGoalModel"][] | null;
+        };
         "Sawiha.Services.DTO.AdminDashboardModels.AllUsersStatsResponse": {
             /** Format: int32 */
             juniors?: number;
@@ -6390,6 +7129,102 @@ export interface components {
             wallet?: number;
             /** Format: int32 */
             waitingList?: number;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleModel": {
+            /** Format: int64 */
+            id?: number;
+            description?: string | null;
+            /** Format: int64 */
+            collaborationId?: number;
+            /** Format: int32 */
+            categoryId?: number;
+            /** Format: int32 */
+            mentorId?: number;
+            /** Format: int32 */
+            teamCapacity?: number;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleRequest": {
+            collaborationRole?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleModel"];
+            tools?: number[] | null;
+            responsiblities?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.CollaborationRoleResponsiblitiesModel"][] | null;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleModels.Add.CollaborationRoleResponsiblitiesModel": {
+            /** Format: int64 */
+            id?: number;
+            description?: string | null;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleModels.GetAll.CollaborationRoleToolModel": {
+            /** Format: int32 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel": {
+            /** Format: int64 */
+            id?: number;
+            description?: string | null;
+            /** Format: int64 */
+            collaborationId?: number;
+            /** Format: int32 */
+            categoryId?: number;
+            categoryNameAr?: string | null;
+            categoryNameEn?: string | null;
+            /** Format: int32 */
+            mentorId?: number;
+            mentorName?: string | null;
+            /** Format: int32 */
+            teamCapacity?: number;
+            /** Format: int32 */
+            juniorsJoined?: number;
+            tools?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.CollaborationRoleToolModel"][] | null;
+            responsibilities?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.CollaborationRoleResponsiblitiesModel"][] | null;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel": {
+            /** Format: int64 */
+            id?: number;
+            title?: string | null;
+            description?: string | null;
+            priority?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"];
+            /** Format: int64 */
+            collaborationRoleId?: number;
+            /** Format: int64 */
+            roleJuniorId?: number | null;
+            /** Format: date-time */
+            dueDate?: string | null;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel": {
+            /** Format: int64 */
+            id?: number;
+            title?: string | null;
+            description?: string | null;
+            priority?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"];
+            /** Format: int64 */
+            collaborationRoleId?: number;
+            /** Format: int64 */
+            roleJuniorId?: number | null;
+            /** Format: date-time */
+            dueDate?: string | null;
+            juniorName?: string | null;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel": {
+            /** Format: int64 */
+            id?: number;
+            title?: string | null;
+            description?: string | null;
+            priority?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"];
+            /** Format: int64 */
+            collaborationRoleId?: number;
+            /** Format: int64 */
+            roleJuniorId?: number | null;
+            /** Format: date-time */
+            dueDate?: string | null;
+            juniorName?: string | null;
+            projectLink?: string | null;
+            additionalNotes?: string | null;
+            submitedFile?: string | null;
         };
         "Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel": {
             /** Format: int64 */
@@ -6894,6 +7729,7 @@ export interface components {
             durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
             /** Format: int32 */
             juniorsAssigned?: number;
+            isPaymentConfirmed?: boolean;
         };
         "Sawiha.Services.DTO.PackageModels.GetPackageListModel": {
             /** Format: int32 */
