@@ -95,7 +95,7 @@ export function ChallengesSection() {
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border-2 border-black bg-[#FF9ECE] text-black text-xs font-black uppercase tracking-wider mb-6 shadow-thick-4"
           >
             <Trophy className="w-4 h-4" strokeWidth={2.5} />
-            Step 3: Unlock Challenges
+            Step 3: Unlock Advanced Challenges
           </motion.div>
 
           <motion.h2
@@ -104,7 +104,7 @@ export function ChallengesSection() {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-extrabold text-white mb-4"
           >
-            Unlock Challenges
+            As They Grow, New Challenges Appear.{" "}
           </motion.h2>
 
           <motion.p
@@ -113,8 +113,9 @@ export function ChallengesSection() {
             viewport={{ once: true }}
             className="text-[#C7E4FF] md:text-xl text-lg font-medium max-w-2xl mx-auto"
           >
-            Once enough missions are complete, juniors unlock new arenas to
-            shine.
+            After completing core missions, juniors unlock higher-level
+            challenges that test deeper understanding and problem-solving skills
+            with other learners
           </motion.p>
         </div>
 

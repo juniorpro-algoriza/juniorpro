@@ -136,13 +136,15 @@ export const OnboardingTour = ({
       selector: "",
       style: {
         borderRadius: "20px",
+        maxWidth: "400px",
       },
+
       content: () => (
-        <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Welcome to Your Tour!</h3>
-          <p className="text-gray-800 font-bold">
+        <div className="relative space-y-4 overflow-hidden">
+          <h3 className="text-2xl font-extrabold ">Welcome to Your Tour!</h3>
+          <p className="text-gray-800 font-bold text-lg">
             {isOnDashboardPage
-              ? "Let’s look around! I’ll show you the most important parts in 1 minute."
+              ? "Let’s look around! In 60 seconds, you’ll learn where to start, how to track progress, and how to unlock challenges"
               : "This tour works best on your dashboard page. Let's navigate there to get started!"}
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
@@ -180,9 +182,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Your Level Bar 📊</h3>
-          <p className="text-gray-800 font-bold">
-            Finish missions to fill this bar. When it’s full, you level up!
+          <h3 className="text-xl font-extrabold "> Level Progress</h3>
+          <p className="text-gray-800 font-semibold">
+            This bar shows how close you are to the next level. Complete
+            missions to earn XP and fill it up. When it’s full, you level up.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -212,10 +215,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">XP = Rocket Fuel 🚀</h3>
-          <p className="text-gray-800 font-bold">
-            XP is what you earn after missions. More XP helps you level up
-            faster!
+          <h3 className="text-xl font-extrabold "> XP (Experience Points)</h3>
+          <p className="text-gray-800 font-semibold">
+            XP is what you earn when you complete missions. The more XP you
+            collect, the faster you level up.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -245,10 +248,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Streak 🔥</h3>
-          <p className="text-gray-800 font-bold">
-            This is how many days in a row you learned. Come back tomorrow to
-            keep it going!
+          <h3 className="text-xl font-extrabold ">Daily Streaks </h3>
+          <p className="text-gray-800 font-semibold">
+            This shows how many days in a row you’ve learned. Keep coming back
+            daily to grow your streak. If you skip a day, it resets.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -278,10 +281,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Points ⭐</h3>
-          <p className="text-gray-800 font-bold">
-            You get points for learning and finishing goals. Save them for
-            rewards!
+          <h3 className="text-xl font-extrabold ">Points </h3>
+          <p className="text-gray-800 font-semibold">
+            You earn points by learning and completing goals. Use your points to
+            unlock new challenges and special rewards.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -311,10 +314,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Badges 🏅</h3>
-          <p className="text-gray-800 font-bold">
-            Badges are trophies you collect when you do something awesome. Try
-            to earn them all!
+          <h3 className="text-xl font-extrabold ">Badges </h3>
+          <p className="text-gray-800 font-semibold">
+            Badges are rewards you earn for completing missions, challenges, and
+            collaborations. Try to collect them all!
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -344,10 +347,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Your Total XP 📈</h3>
-          <p className="text-gray-800 font-bold">
-            This is all the XP you’ve earned so far. Keep going and watch it
-            grow!
+          <h3 className="text-xl font-extrabold ">Your Total XP </h3>
+          <p className="text-gray-800 font-semibold">
+            This is all the XP you’ve earned so far. Complete more missions to
+            increase it and reach higher levels.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -377,9 +380,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Missions Done ✅</h3>
-          <p className="text-gray-800 font-bold">
-            Every time you finish a mission, this number goes up. Nice work!
+          <h3 className="text-xl font-extrabold ">Missions Done </h3>
+          <p className="text-gray-800 font-semibold">
+            This shows how many missions you've completed. Missions are small
+            tasks that help you learn step by step.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -409,9 +413,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Projects Done 🧩</h3>
-          <p className="text-gray-800 font-bold">
-            Projects are bigger builds. They show what you can really do!
+          <h3 className="text-xl font-extrabold ">Projects Done </h3>
+          <p className="text-gray-800 font-semibold">
+            This shows how many projects you've finished. Projects are bigger
+            builds where you apply what you’ve learned.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -441,10 +446,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Challenges Done ⚔️</h3>
-          <p className="text-gray-800 font-bold">
-            Challenges are harder than missions, but they give bigger rewards
-            when you win!
+          <h3 className="text-xl font-extrabold ">Challenges Done </h3>
+          <p className="text-gray-800 font-semibold">
+            This shows how many challenges you’ve completed. Challenges test
+            your skills with tougher tasks and bigger rewards.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -474,9 +479,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Today’s Goal 🎯</h3>
-          <p className="text-gray-800 font-bold">
-            Finish this goal to earn a bonus. Small goal → big progress!
+          <h3 className="text-xl font-extrabold ">Today’s Goal </h3>
+          <p className="text-gray-800 font-semibold">
+            This is your daily target. Complete it to earn a bonus and make
+            steady progress
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -506,9 +512,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Live Sessions 🗓️</h3>
-          <p className="text-gray-800 font-bold">
-            Your mentor sessions are here. Tap one to see the time and join.
+          <h3 className="text-xl font-extrabold ">Upcoming Sessions </h3>
+          <p className="text-gray-800 font-semibold">
+            This section shows your upcoming mentor sessions. Tap a session to
+            see the details and join on time.{" "}
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -538,10 +545,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Learning Paths 🧭</h3>
-          <p className="text-gray-800 font-bold">
-            This is where you choose what to learn next. Pick a path and start
-            your missions!
+          <h3 className="text-xl font-extrabold ">Learning Paths </h3>
+          <p className="text-gray-800 font-semibold">
+            This is where you choose what to learn. Pick a path and start
+            completing missions.
           </p>
           <div className="flex justify-between flex-wrap items-center gap-2 pt-2">
             <Button
@@ -568,10 +575,10 @@ export const OnboardingTour = ({
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Your Learning Paths 🧠</h3>
-          <p className="text-gray-800 font-bold">
-            Here you can see your current path , and also choose any other path
-            you like. Tap a path to explore it, then join to start!
+          <h3 className="text-xl font-extrabold ">Your Learning Paths </h3>
+          <p className="text-gray-800 font-semibold">
+            Here you can see your current path and explore other paths. Click on
+            a path to view its missions, then join to begin learning
           </p>
           <div className="flex justify-between flex-wrap items-center gap-2 pt-2 ">
             <Link href="/junior/dashboard?tour=true&step=12">
@@ -601,10 +608,11 @@ export const OnboardingTour = ({
 
         return (
           <div className="space-y-4">
-            <h3 className="text-xl font-extrabold ">Choose a Path 🧩</h3>
-            <p className="text-gray-800 font-bold">
-              These are paths you can join. Tap any path to see what’s inside,
-              then hit “Join Path” to start.
+            <h3 className="text-xl font-extrabold ">Choose a Path </h3>
+            <p className="text-gray-800 font-semibold">
+              These are the paths you can join. Tap any path to preview what
+              you’ll learn, then click on <b>Join Path </b>to start your
+              missions.
             </p>
             <div className="flex justify-between flex-wrap items-center gap-2 pt-2">
               <Button
@@ -645,10 +653,10 @@ export const OnboardingTour = ({
 
         return (
           <div className="space-y-4">
-            <h3 className="text-xl font-extrabold ">Path Details 📍</h3>
-            <p className="text-gray-800 font-bold">
-              Here you can see your missions, what’s done, and what’s next. One
-              step at a time!
+            <h3 className="text-xl font-extrabold ">Path Details </h3>
+            <p className="text-gray-800 font-semibold">
+              This page shows your missions and your progress. You’ll see what’s
+              completed, what’s next, and what to do now one step at a time.
             </p>
             <div className="flex justify-between flex-wrap items-center gap-2 pt-2 ">
               <Button
@@ -684,10 +692,11 @@ export const OnboardingTour = ({
             return (
               <div className="space-y-4">
                 <h3 className="text-xl font-extrabold ">
-                  Continue Your Mission ▶️
+                  Continue Your Mission
                 </h3>
-                <p className="text-gray-800 font-bold">
-                  Jump back in right where you stopped. One step at a time!
+                <p className="text-gray-800 font-semibold">
+                  Continue from where you left off. Complete the mission to earn
+                  XP and move closer to the next level
                 </p>
                 <div className="flex justify-between flex-wrap items-center gap-2 pt-2 ">
                   <Link href={`/junior/paths?tour=true&step=15`} className="">
@@ -722,12 +731,10 @@ export const OnboardingTour = ({
 
             return (
               <div className="space-y-4">
-                <h3 className="text-xl font-extrabold ">
-                  Review Your Mission 👀
-                </h3>
-                <p className="text-gray-800 font-bold">
-                  Want to see what you did? You can open your finished mission
-                  here.
+                <h3 className="text-xl font-extrabold ">Review Your Mission</h3>
+                <p className="text-gray-800 font-semibold">
+                  Check your completed mission to see your progress and
+                  improvements.
                 </p>
                 <div className="flex justify-between flex-wrap items-center gap-2 pt-2 ">
                   <Link href={`/junior/paths?tour=true&step=15`} className="">
@@ -766,9 +773,10 @@ export const OnboardingTour = ({
 
         return (
           <div className="space-y-4">
-            <h3 className="text-xl font-extrabold ">Mission Steps 🪜</h3>
-            <p className="text-gray-800 font-bold">
-              Follow these steps to finish the mission. Do them one by one.
+            <h3 className="text-xl font-extrabold ">Mission Steps </h3>
+            <p className="text-gray-800 font-semibold">
+              Follow these steps to complete your mission. Finish them one by
+              one to move forward
             </p>
             <div className="flex justify-between flex-wrap items-center gap-2 pt-2 ">
               <Link
@@ -804,10 +812,10 @@ export const OnboardingTour = ({
 
         return (
           <div className="space-y-4">
-            <h3 className="text-xl font-extrabold ">Help & Resources 📚</h3>
-            <p className="text-gray-800 font-bold">
-              Need help? Find videos and tips here to understand the mission
-              faster.
+            <h3 className="text-xl font-extrabold ">Help & Resources </h3>
+            <p className="text-gray-800 font-semibold">
+              Need help? Find videos, guides, and tips here to understand the
+              mission better.
             </p>
             <div className="flex justify-between flex-wrap items-center gap-2 pt-2 ">
               <Link
@@ -843,9 +851,10 @@ export const OnboardingTour = ({
 
             return (
               <div className="space-y-4">
-                <h3 className="text-xl font-extrabold ">Send Your Work 📤</h3>
-                <p className="text-gray-800 font-bold">
-                  Paste your link and submit. Then you’ll earn your rewards!
+                <h3 className="text-xl font-extrabold ">Submit Your Work </h3>
+                <p className="text-gray-800 font-semibold">
+                  Paste your project link and submit it here. Once submitted,
+                  you’ll earn your rewards.
                 </p>
                 <div className="flex justify-between flex-wrap items-center gap-2 pt-2 ">
                   <Link
@@ -878,9 +887,10 @@ export const OnboardingTour = ({
 
             return (
               <div className="space-y-4">
-                <h3 className="text-xl font-extrabold ">Your Submission 📄</h3>
-                <p className="text-gray-800 font-bold">
-                  This is what you submitted. You can check it anytime. ✅
+                <h3 className="text-xl font-extrabold ">Your Submission </h3>
+                <p className="text-gray-800 font-semibold">
+                  This shows the work you’ve submitted. Check it anytime and see
+                  how your progress is growing.
                 </p>
                 <div className="flex justify-between flex-wrap items-center gap-2 pt-2 w-full">
                   <Link

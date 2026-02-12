@@ -118,19 +118,17 @@ export function MissionsSection() {
               whileHover={{ scale: 1.05, rotate: -2 }}
             >
               <Rocket className="size-4" strokeWidth={2.5} />
-              Step 2: Ignition Boost
+              Step 2: Complete Missions
             </motion.div>
 
             <h2 className="text-3xl md:text-5xl font-extrabold text-black mb-4 leading-tight">
-              Complete Missions.
-              <br />
-              Build Your Power.
+              Small Wins. Real Skill Growth.
             </h2>
 
             <p className="text-blue-saturated md:text-xl text-lg font-medium max-w-2xl mx-auto mb-8 leading-relaxed">
-              Missions are fun, bite-sized challenges that level up your real
-              skills. Solve puzzles, fix code, design UI, or unlock logic
-              quests.
+              Missions are short, focused challenges designed to build practical
+              skills. Juniors solve problems, write real code, and apply what
+              they learn
             </p>
 
             <Button intent="mainPink" size="custom">

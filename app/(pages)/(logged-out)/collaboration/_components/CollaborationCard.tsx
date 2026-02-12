@@ -40,15 +40,16 @@ export function CollaborationCard() {
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-white rounded-full border-[3px] border-black shadow-thick-4 mb-8 transform hover:scale-105 hover:-rotate-2 transition-transform">
               <Users className="w-5 h-5 text-blue-saturated" fill="#3771F2" />
               <span className="text-sm tracking-wide font-black text-black uppercase">
-                Squad Up
+                Join a Team{" "}
               </span>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl mb-8 text-black max-w-5xl mx-auto leading-[1.15] tracking-tight font-extrabold drop-shadow-sm">
-              Join a Crew
+              Collaborations{" "}
             </h1>
             <p className="text-xl md:text-2xl text-[#1F3D8B] font-medium leading-relaxed max-w-3xl mb-12 mx-auto">
-              Find your perfect team and build amazing projects together.
+              Work with other learners to build projects and solve challenges
+              together.{" "}
             </p>
           </div>
 

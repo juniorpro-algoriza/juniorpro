@@ -57,7 +57,7 @@ export function LearningPathSection() {
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border-2 border-black bg-mint-green-main text-black text-xs font-black uppercase tracking-wider mb-6 shadow-thick-4 will-change-transform"
           >
             <BrainCircuit className="size-4" strokeWidth={2.5} />
-            Step 1: Choose a Path
+            Step 1: Choose a Learning Path
           </motion.div>
 
           <motion.h2
@@ -94,8 +94,9 @@ export function LearningPathSection() {
             viewport={{ once: true, margin: "-20px" }}
             className="text-blue-saturated md:text-xl text-lg font-medium max-w-2xl mx-auto will-change-transform"
           >
-            Guided journeys designed for their age and skill level — small
-            tasks, fun lessons, friendly explanations.
+            Each junior follows a carefully designed path tailored to their
+            level — combining small achievable missions, learning resources, and
+            clear step-by-step guidance.
           </motion.p>
         </div>
 

@@ -77,7 +77,7 @@ export function CollaborationSection() {
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border-2 border-black text-black text-xs font-black uppercase tracking-wider mb-6 shadow-thick-4 bg-pale-purple-main"
           >
             <Users className="size-4" strokeWidth={2.5} />
-            Step 4: Join Collaborations
+            Step 4: Collaborate & Earn
           </motion.div>
 
           <motion.h2
@@ -86,8 +86,7 @@ export function CollaborationSection() {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-extrabold text-white mb-4"
           >
-            Join Collaborations &<br />
-            Real Projects
+            From Learning to Earning.{" "}
           </motion.h2>
 
           <motion.p
@@ -96,8 +95,9 @@ export function CollaborationSection() {
             viewport={{ once: true }}
             className="text-[#A7D2FF] md:text-xl text-lg font-medium max-w-2xl mx-auto"
           >
-            From small tasks to real projects — juniors practice teamwork,
-            communication, and creative thinking.
+            Juniors work in guided team projects where they apply their skills
+            to real-world tasks and unlock opportunities to earn real rewards
+            for their contributions.
           </motion.p>
         </div>
 

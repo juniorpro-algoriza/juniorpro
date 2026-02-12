@@ -95,12 +95,11 @@ export function FinalLaunchSection() {
             viewport={{ once: true }}
             className="inline-block px-8 py-3 rounded-full border-2 border-yellowish-green-main bg-yellowish-green-main/10 text-yellowish-green-main text-sm font-black uppercase tracking-widest mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(198,255,62,0.3)]"
           >
-            MISSION STATUS: GO
+            Ready to Launch
           </motion.div>
 
           <h2 className="text-3xl md:text-5xl text-white mb-6 leading-tight font-black tracking-tight drop-shadow-xl">
-            Fueled Up &<br />
-            Ready to Soar.
+            Prepared to Build, Ready to Grow.
           </h2>
 
           <motion.p
@@ -110,9 +109,9 @@ export function FinalLaunchSection() {
             transition={{ delay: 0.2 }}
             className="md:text-xl text-lg text-white/90 font-medium leading-relaxed max-w-3xl mx-auto drop-shadow-md"
           >
-            Your junior is ready to go anywhere above the sky. Armed with
-            real-world skills and critical thinking, they are prepared to face
-            anything the future holds.
+            Through guided missions and real projects, juniors develop critical
+            thinking, creativity, and technical skills — setting them up for
+            long-term success.
           </motion.p>
         </motion.div>
 
@@ -123,8 +122,7 @@ export function FinalLaunchSection() {
             size="custom"
             className="text-lg sm:px-10 shadow-thick-5 py-5 max-sm:w-full"
           >
-            <Sparkles className="inline mr-2 size-6" />
-            Launch Their Journey Now
+            Launch Their Journey
           </Button>
 
           <Button
