@@ -37,7 +37,6 @@ export default function CollaborationDetailsPage({
   return (
     <div className="space-y-6 p-4 md:p-0">
       <Breadcrumb breadcrumbs={breadcrumbs} />
-
       {/* Header Card */}
       <DetailCard
         title="Build Ecommerce Website Collab"
@@ -89,8 +88,7 @@ export default function CollaborationDetailsPage({
           </DetailCard.FooterItem>
         </DetailCard.Footer>
       </DetailCard>
-
-      {/* Tabs */}
+      a{/* Tabs */}
       <Tabs tabs={tabs} />
     </div>
   );

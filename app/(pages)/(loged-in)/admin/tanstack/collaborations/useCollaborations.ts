@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "../../../../configs/queryKeys";
+import { QUERY_KEYS } from "../../../../../configs/queryKeys";
 import {
   createAdminCollaboration,
   updateAdminCollaboration,
@@ -9,7 +9,7 @@ import {
   getCollaborationRoles,
   updateCollaborationRole,
   deleteCollaborationRole,
-} from "../server/collaboration";
+} from "../../server/collaborations";
 
 export const useCreateAdminCollaboration = () => {
   const queryClient = useQueryClient();

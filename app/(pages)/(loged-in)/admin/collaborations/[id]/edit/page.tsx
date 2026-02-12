@@ -2,7 +2,7 @@ import { Breadcrumb } from "@components";
 import { Header } from "@components/client";
 import React from "react";
 import { CreateEditCollaboration } from "../../_components";
-import { getCollaborationById } from "../../../server/collaboration";
+import { getCollaborationById } from "../../../server/collaborations";
 import { notFound } from "next/navigation";
 
 interface EditCollaborationPageProps {

@@ -15,7 +15,7 @@ import {
   useCreateAdminCollaboration,
   useAddCollaborationRole,
   useUpdateAdminCollaboration,
-} from "../../tanstack/collaboration";
+} from "../../tanstack/collaborations/index";
 import { components } from "../../../../../../api-schema";
 
 type GetCollaborationDetailsModel =
