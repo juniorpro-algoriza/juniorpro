@@ -1,5 +1,5 @@
 import { cx } from "@lib";
-import { Code } from "lucide-react";
+import { Code, Target, User } from "lucide-react";
 import React from "react";
 import { MainCard } from "./MainCard";
 
@@ -96,7 +96,7 @@ export const RoleCard = ({
         {/* Tools */}
         <div className={cx("mb-4 sm:mb-6", isSelectVariant && "pl-0")}>
           <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
-            <Code className="h-3 w-3 text-blue-main/30" /> Tools & Tech
+            <Code className="h-3 w-3 " strokeWidth={2.5} /> Tools & Tech
           </div>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {tools.map((tool) => (
@@ -113,16 +113,7 @@ export const RoleCard = ({
         {/* Mentor */}
         <div className="mb-4 sm:mb-6">
           <div className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 sm:mb-3 flex items-center gap-2">
-            <svg
-              className="h-3 w-3"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
+            <User className="size-3" strokeWidth={2.5} />
             Assigned Mentor
           </div>
           <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl bg-gray-50/50 border border-gray-100">
@@ -143,17 +134,7 @@ export const RoleCard = ({
         {/* Responsibilities */}
         <div>
           <div className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 sm:mb-3 flex items-center gap-2">
-            <svg
-              className="h-3 w-3"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-              <path d="M2 12h20" />
-            </svg>
+            <Target className="size-3" strokeWidth={2.5} />
             Key Responsibilities
           </div>
           <ul className="space-y-1.5 sm:space-y-2">

@@ -50,9 +50,10 @@ const Modals: Record<
     }))
   ),
   TaskDetails: lazy(() =>
-    import("./modals/TaskDetails").then((m) => ({
-      default: m.TaskDetails,
-    }))
+    import("./modals/TaskDetails").then((m) => ({ default: m.TaskDetails }))
+  ),
+  CreateTask: lazy(() =>
+    import("./modals/CreateTask").then((m) => ({ default: m.CreateTask }))
   ),
 };
 

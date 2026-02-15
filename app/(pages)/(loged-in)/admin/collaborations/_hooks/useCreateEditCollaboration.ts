@@ -357,7 +357,13 @@ export const useCreateEditCollaboration = (
             .map((t) => parseInt(t))
             .filter((t) => !isNaN(t)),
           responsibilities: role.responsibilities.map((r) => ({
-            id: 0, // API might expect id
+            id:
+              r.id &&
+              !isNaN(parseInt(r.id)) &&
+              parseInt(r.id) > 0 &&
+              parseInt(r.id) < 1000000000000
+                ? parseInt(r.id)
+                : 0,
             description: r.text,
           })),
         }));
