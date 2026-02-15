@@ -11,8 +11,8 @@ import {
 } from "@components";
 import { useCreateTask } from "../../../(pages)/(loged-in)/admin/collaborations/_hooks/useCreateTask";
 import { useGetCollaborationRoles } from "../../../(pages)/(loged-in)/admin/tanstack/collaborations";
-import { Plus, X } from "lucide-react";
 import { components } from "../../../../api-schema";
+import { Plus } from "lucide-react";
 
 interface CreateTaskProps {
   collaborationId: string;
@@ -53,38 +53,22 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
   ];
 
   return (
-    <Modal panelClassName="w-[95%] max-w-2xl bg-white rounded-[32px] shadow-2xl p-0 overflow-hidden">
-      {/* Header */}
-      <div className="p-8 pb-4 flex items-start justify-between">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 text-blue-main font-bold text-xl">
-            <Plus size={24} />
-            <h2>Create New Task</h2>
-          </div>
-          <p className="text-gray-500 text-sm">
-            Define the task details and assign it to a team member
-          </p>
-        </div>
-        <button
-          onClick={() => window.history.back()}
-          className="p-2 hover:bg-gray-50 rounded-full transition-colors"
-        >
-          <X size={20} className="text-gray-400" />
-        </button>
+    <Modal panelClassName="w-full max-w-2xl p-6 bg-white rounded-2xl shadow-xl ">
+      <div className="flex items-center gap-2  font-bold text-xl">
+        <Plus size={24} className="text-blue-main" />
+        <h2>Create New Task</h2>
       </div>
+      <p className="text-gray-600 ">
+        Define the task details and assign it to a team member
+      </p>
 
-      {/* Form */}
-      <form
-        onSubmit={handleSubmit}
-        className="p-8 pt-4 space-y-6 max-h-[70dvh] overflow-y-auto custom-scrollbar"
-      >
+      <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           label="TASK TITLE"
           placeholder="e.g., Design Homepage"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           error={fieldErrors.title}
-          className="bg-white border-gray-200 rounded-2xl"
         />
 
         <Select
@@ -110,27 +94,25 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
           error={fieldErrors.juniorId}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Select
-            label="PRIORITY"
-            placeholder="Select priority"
-            options={priorityOptions}
-            value={formData.priority}
-            onChange={(val) =>
-              setFormData({ ...formData, priority: val.toString() })
-            }
-            error={fieldErrors.priority}
-          />
+        <Select
+          label="PRIORITY"
+          placeholder="Select priority"
+          options={priorityOptions}
+          value={formData.priority}
+          onChange={(val) =>
+            setFormData({ ...formData, priority: val.toString() })
+          }
+          error={fieldErrors.priority}
+        />
 
-          <DatePicker
-            label="DUE DATE"
-            value={formData.dueDate || undefined}
-            onChange={(date) =>
-              setFormData({ ...formData, dueDate: date || null })
-            }
-            error={fieldErrors.dueDate}
-          />
-        </div>
+        <DatePicker
+          label="DUE DATE"
+          value={formData.dueDate || undefined}
+          onChange={(date) =>
+            setFormData({ ...formData, dueDate: date || null })
+          }
+          error={fieldErrors.dueDate}
+        />
 
         <Textarea
           label="DESCRIPTION *"
@@ -140,30 +122,27 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
             setFormData({ ...formData, description: e.target.value })
           }
           error={fieldErrors.description}
-          className="bg-white border-gray-200 rounded-2xl min-h-[120px]"
+          className="min-h-[120px]"
         />
-      </form>
 
-      {/* Footer */}
-      <div className="p-8 border-t border-gray-50 flex items-center justify-end gap-4">
-        <Button
-          intent="main"
-          size="mainDefault"
-          onClick={() => window.history.back()}
-          className="px-8 border-gray-200 text-gray-600 hover:text-gray-900"
-        >
-          Cancel
-        </Button>
-        <Button
-          intent="main2"
-          size="mainDefault"
-          onClick={handleSubmit}
-          className="px-8 rounded-full shadow-lg shadow-blue-main/20"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Creating..." : "Create Task"}
-        </Button>
-      </div>
+        <div className="flex items-center justify-end gap-3 pt-4">
+          <Button
+            intent="main"
+            size="mainDefault"
+            onClick={() => window.history.back()}
+          >
+            Cancel
+          </Button>
+          <Button
+            intent="main2"
+            size="mainDefault"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Creating..." : "Create Task"}
+          </Button>
+        </div>
+      </form>
     </Modal>
   );
 };
