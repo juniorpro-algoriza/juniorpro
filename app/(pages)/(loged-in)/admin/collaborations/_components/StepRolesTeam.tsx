@@ -171,7 +171,7 @@ export const StepRolesTeam = ({
                     resp: CollaborationRoleResponsiblitiesModel,
                     index: number
                   ) => ({
-                    id: index.toString(),
+                    id: resp.id?.toString() || index.toString(),
                     text: resp.description || "",
                   })
                 )
@@ -526,7 +526,13 @@ export const StepRolesTeam = ({
           .map((t) => parseInt(t))
           .filter((t) => !isNaN(t)),
         responsiblities: roleToSave.responsibilities.map((r) => ({
-          id: 0,
+          id:
+            r.id &&
+            !isNaN(parseInt(r.id)) &&
+            parseInt(r.id) > 0 &&
+            parseInt(r.id) < 1000000000000
+              ? parseInt(r.id)
+              : 0,
           description: r.text,
         })),
       };
@@ -730,7 +736,7 @@ export const StepRolesTeam = ({
                   <button
                     type="button"
                     onClick={() => handleAddResponsibility(role.id)}
-                    className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 px-1"
+                    className="text-sm font-semibold cursor-pointer text-blue-600 hover:text-blue-700 flex items-center gap-1 px-1"
                   >
                     <Plus size={16} />
                     Add Another Responsibility

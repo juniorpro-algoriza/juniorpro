@@ -445,6 +445,45 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin-collaboration/make-collaboration-ready/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin-collaboration/add-role": {
         parameters: {
             query?: never;
@@ -848,6 +887,210 @@ export interface paths {
                         "text/plain": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel"];
                         "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel"];
                         "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/accept-junior-role": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: {
+                    id?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/reject-junior-role": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: {
+                    Id?: number;
+                    RejectReason?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/junior-roles-requests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query: {
+                    CollaborationId: number;
+                    RoleId?: number;
+                    Status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleJuniorStatus"];
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/roles-look-up": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    Id?: number;
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAllLookUp.GetAllCollaborationRoleLookUpModel"][];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAllLookUp.GetAllCollaborationRoleLookUpModel"][];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAllLookUp.GetAllCollaborationRoleLookUpModel"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-collaboration/role-assigned-juniors/look-up/{roleId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    roleId: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
                     };
                 };
             };
@@ -3033,6 +3276,207 @@ export interface paths {
             };
         };
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-collaboration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-collaboration/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.GetById.GetJuniorCollaborationDetailsModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.GetById.GetJuniorCollaborationDetailsModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.GetById.GetJuniorCollaborationDetailsModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-collaboration/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    Id?: number;
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-collaboration/role-details/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-collaboration/join-role": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query: {
+                    RoleId: number;
+                    JoiningReason?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"];
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -6138,6 +6582,21 @@ export interface components {
             /** Format: int64 */
             pg_total?: number;
         };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.GetAllCollaborationRoleModel"][] | null;
@@ -6186,6 +6645,36 @@ export interface components {
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.Enablers.EnablerDetailModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerDetailModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"][] | null;
             code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
             httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
             errorMessage?: string | null;
@@ -6435,6 +6924,11 @@ export interface components {
             nameAr?: string | null;
             nameEn?: string | null;
         };
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleJuniorStatus": 1 | 2 | 3;
         /**
          * Format: int32
          * @enum {integer}
@@ -7068,8 +7562,12 @@ export interface components {
             description?: string | null;
             icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
             /** Format: date-time */
+            startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
+            /** Format: date-time */
             registerationDeadline?: string;
-            status000?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationStatus"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationStatus"];
             /** Format: int32 */
             requiredMissions?: number;
             /** Format: int32 */
@@ -7087,6 +7585,18 @@ export interface components {
             collaborationDetails?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel"];
             requirements?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationRequirementModel"][] | null;
             goals?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationGoalModel"][] | null;
+        };
+        "Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel": {
+            /** Format: int64 */
+            id?: number;
+            roleCategoryNameAr?: string | null;
+            roleCategoryNameEn?: string | null;
+            juniorName?: string | null;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleJuniorStatus"];
+            joiningReason?: string | null;
+            actionReason?: string | null;
+            /** Format: date-time */
+            actionDate?: string | null;
         };
         "Sawiha.Services.DTO.AdminDashboardModels.AllUsersStatsResponse": {
             /** Format: int32 */
@@ -7178,6 +7688,13 @@ export interface components {
             juniorsJoined?: number;
             tools?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.CollaborationRoleToolModel"][] | null;
             responsibilities?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.CollaborationRoleResponsiblitiesModel"][] | null;
+        };
+        "Sawiha.Services.DTO.CollaborationRoleModels.GetAllLookUp.GetAllCollaborationRoleLookUpModel": {
+            /** Format: int64 */
+            id?: number;
+            description?: string | null;
+            categoryNameAr?: string | null;
+            categoryNameEn?: string | null;
         };
         "Sawiha.Services.DTO.CollaborationRoleTaskModels.Add.AddCollaborationRoleTaskModel": {
             /** Format: int64 */
@@ -7334,6 +7851,56 @@ export interface components {
             key?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.FeatureKey"];
             /** Format: int32 */
             usedInPlan?: number;
+        };
+        "Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel": {
+            /** Format: int64 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
+            /** Format: date-time */
+            registerationDeadline?: string;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationStatus"];
+            /** Format: int32 */
+            requiredMissions?: number;
+            /** Format: int32 */
+            xpReward?: number;
+            /** Format: int32 */
+            points?: number | null;
+            /** Format: int32 */
+            money?: number | null;
+            /** Format: int32 */
+            totalJuniorSeats?: number;
+            /** Format: int32 */
+            takenJuniorSeats?: number;
+            isJoined?: boolean;
+            /** Format: int32 */
+            progressPercentage?: number;
+        };
+        "Sawiha.Services.DTO.JuniorCollaborationModels.GetById.GetJuniorCollaborationDetailsModel": {
+            collaborationDetails?: components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel"];
+            requirements?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationRequirementModel"][] | null;
+            goals?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationGoalModel"][] | null;
+        };
+        "Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel": {
+            /** Format: int64 */
+            id?: number;
+            description?: string | null;
+            /** Format: int64 */
+            collaborationId?: number;
+            /** Format: int32 */
+            categoryId?: number;
+            categoryNameAr?: string | null;
+            categoryNameEn?: string | null;
+            mentorName?: string | null;
+            /** Format: int32 */
+            teamCapacity?: number;
+            /** Format: int32 */
+            juniorsJoined?: number;
+            isJoined?: boolean;
+            tools?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.CollaborationRoleToolModel"][] | null;
+            responsibilities?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.CollaborationRoleResponsiblitiesModel"][] | null;
         };
         "Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel": {
             /** Format: int64 */

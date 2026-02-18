@@ -15,67 +15,179 @@ import {
 } from "@components";
 import { Calendar, Plus } from "lucide-react";
 import { cx } from "@lib";
+import { Skeleton } from "@components";
+import { useGetCollaborationRoleTasks } from "../../tanstack/collaborations";
+import { useRouter } from "next/navigation";
+import { components } from "../../../../../../api-schema";
+import {
+  getTaskStatusOptions,
+  TASK_PRIORITY_LABELS,
+  TASK_STATUS_LABELS,
+} from "../../../../../constants/collaborationEnums";
 
-const TASKS = [
-  {
-    id: 1,
-    title: "Implement Authentication Flow",
-    description: "Create the login and signup pages using React and Firebase",
-    status: "Not Started",
-    priority: "High",
-    assignee: { name: "Sarah Ahmed", initials: "SA" },
-    dueDate: "20 Jan 2024, 12:00PM",
-  },
-  {
-    id: 2,
-    title: "Database Schema Design",
-    description: "Design the Firestore schema for users, tasks, and teams",
-    status: "In Progress",
-    priority: "High",
-    assignee: { name: "Sarah Ahmed", initials: "SA" },
-    dueDate: "20 Jan 2024, 12:00PM",
-  },
-  {
-    id: 3,
-    title: "Landing Page UI",
-    description:
-      "Design and build the landing page based on the Figma wireframes",
-    status: "Not Started",
-    priority: "Medium",
-    assignee: null,
-    dueDate: "20 Jan 2024, 12:00PM",
-  },
-  {
-    id: 4,
-    title: "Landing Page UI",
-    description:
-      "Design and build the landing page based on the Figma wireframes",
-    status: "Submitted",
-    priority: "Medium",
-    assignee: { name: "Sarah Ahmed", initials: "SA" },
-    dueDate: "20 Jan 2024, 12:00PM",
-  },
-];
+type GetAllCollaborationRoleTaskModel =
+  components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel"];
 
-const STATUS_STYLING = {
-  "Not Started": "bg-gray-100 text-gray-600 border-gray-200",
-  "In Progress": "bg-orange-50 text-orange-600 border-orange-100",
-  Submitted: "bg-green-50 text-green-600 border-green-100",
-};
+interface TaskBoardTabProps {
+  collaborationId: number;
+}
 
-const PRIORITY_STYLING = {
-  High: "bg-red-50 text-red-600 border-red-100",
-  Medium: "bg-orange-50 text-orange-600 border-orange-100",
-  Low: "bg-blue-50 text-blue-600 border-blue-100",
-};
+export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
+  const router = useRouter();
+  const { data: tasks, isLoading } = useGetCollaborationRoleTasks({
+    collaborationId,
+    pageNumber: 1,
+    pageSize: 100,
+  });
 
-export function TaskBoardTab() {
-  const [statusFilter, setStatusFilter] = React.useState<string | number>(
-    "all"
-  );
-  const [memberFilter, setMemberFilter] = React.useState<string | number>(
-    "all"
-  );
+  const taskList = tasks || [];
+
+  const getStatusColor = (
+    status?:
+      | components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"]
+      | null
+  ) => {
+    switch (status) {
+      case 1: // NotStarted
+        return "bg-gray-100 text-gray-800";
+      case 2: // InProgress
+        return "bg-blue-100 text-blue-800";
+      case 3: // Submitted
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const getStatusText = (
+    status?:
+      | components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"]
+      | null
+  ) => {
+    switch (status) {
+      case 1:
+        return TASK_STATUS_LABELS[1]; // Not Started
+      case 2:
+        return TASK_STATUS_LABELS[2]; // In Progress
+      case 3:
+        return TASK_STATUS_LABELS[3]; // Submitted
+      default:
+        return "Unknown";
+    }
+  };
+
+  const getPriorityColor = (
+    priority?:
+      | components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority"]
+      | null
+  ) => {
+    switch (priority) {
+      case 1: // Low
+        return "bg-gray-100 text-gray-800";
+      case 2: // Medium
+        return "bg-yellow-100 text-yellow-800";
+      case 3: // High
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const getPriorityText = (
+    priority?:
+      | components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority"]
+      | null
+  ) => {
+    switch (priority) {
+      case 1:
+        return TASK_PRIORITY_LABELS[1]; // Low
+      case 2:
+        return TASK_PRIORITY_LABELS[2]; // Medium
+      case 3:
+        return TASK_PRIORITY_LABELS[3]; // High
+      default:
+        return "Unknown";
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="py-4 space-y-6">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-lg font-bold text-gray-900">Task Board</h2>
+            <p className="text-sm text-gray-500">
+              Manage and track collaboration tasks
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <SearchInput placeholder="Search tasks..." className="w-64" />
+            <Button>
+              <Plus className="size-4" />
+              Add Task
+            </Button>
+          </div>
+        </div>
+
+        {/* List Content */}
+        <MainCard classname="p-0 border-gray-100 overflow-hidden">
+          <div className="p-6 border-b border-gray-50 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <h3 className="text-lg font-bold text-gray-900">Total Tasks</h3>
+              <span className="flex items-center justify-center px-2 py-0.5 bg-blue-main/10 text-blue-main text-xs font-bold rounded-full border border-blue-main/10">
+                Loading...
+              </span>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <EnhancedTable>
+              <TableHeader>
+                <TableRow className="bg-gray-50/50 text-gray-500 border-y border-gray-100">
+                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                    Task Details
+                  </TableHead>
+                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-center">
+                    Status
+                  </TableHead>
+                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-center">
+                    Priority
+                  </TableHead>
+                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                    Assignee
+                  </TableHead>
+                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                    Due Date
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {[...Array(5)].map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-6 w-full" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-center">
+                      <Skeleton className="h-6 w-16 mx-auto" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-center">
+                      <Skeleton className="h-6 w-16 mx-auto" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-6 w-24" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-6 w-20" />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </EnhancedTable>
+          </div>
+        </MainCard>
+      </div>
+    );
+  }
 
   return (
     <div className="py-4 space-y-6">
@@ -94,14 +206,9 @@ export function TaskBoardTab() {
           <div className="flex items-center sm:gap-3 gap-1 flex-1 w-full flex-wrap">
             <div className="max-sm:min-w-44 sm:w-44 flex-1">
               <Select
-                options={[
-                  { label: "All Status", value: "all" },
-                  { label: "Not Started", value: "not-started" },
-                  { label: "In Progress", value: "in-progress" },
-                  { label: "Submitted", value: "submitted" },
-                ]}
-                value={statusFilter}
-                onChange={setStatusFilter}
+                options={getTaskStatusOptions()}
+                value="all"
+                onChange={() => {}}
               />
             </div>
             <div className="max-sm:min-w-44 sm:w-44 flex-1">
@@ -110,8 +217,8 @@ export function TaskBoardTab() {
                   { label: "All Members", value: "all" },
                   { label: "Sarah Ahmed", value: "sarah" },
                 ]}
-                value={memberFilter}
-                onChange={setMemberFilter}
+                value="all"
+                onChange={() => {}}
               />
             </div>
           </div>
@@ -121,6 +228,9 @@ export function TaskBoardTab() {
           size="mainDefault"
           icon={<Plus size={18} />}
           className="lg:w-auto w-full"
+          onClick={() =>
+            router.push(`?modal=CreateTask&collaborationId=${collaborationId}`)
+          }
         >
           New Task
         </Button>
@@ -132,7 +242,7 @@ export function TaskBoardTab() {
           <div className="flex items-center gap-3">
             <h3 className="text-lg font-bold text-gray-900">Total Tasks</h3>
             <span className="flex items-center justify-center px-2 py-0.5 bg-blue-main/10 text-blue-main text-xs font-bold rounded-full border border-blue-main/10">
-              {TASKS.length}
+              {taskList.length}
             </span>
           </div>
         </div>
@@ -159,18 +269,23 @@ export function TaskBoardTab() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {TASKS.map((task) => (
+              {taskList.map((task: GetAllCollaborationRoleTaskModel) => (
                 <TableRow
                   key={task.id}
-                  className="group hover:bg-gray-50/30 transition-colors border-gray-200"
+                  className="group hover:bg-gray-50/30 transition-colors border-gray-200 cursor-pointer"
+                  onClick={() =>
+                    router.push(
+                      `?modal=TaskDetails&taskId=${task.id}&collabId=${collaborationId}`
+                    )
+                  }
                 >
                   <TableCell className="py-5 px-6 min-w-[300px]">
                     <div className="space-y-1">
                       <p className="font-bold text-gray-900 group-hover:text-blue-main transition-colors text-base">
-                        {task.title}
+                        {task.title || "Untitled Task"}
                       </p>
                       <p className="text-sm text-gray-400 font-medium line-clamp-1">
-                        {task.description}
+                        {task.description || "No description"}
                       </p>
                     </div>
                   </TableCell>
@@ -178,34 +293,34 @@ export function TaskBoardTab() {
                     <span
                       className={cx(
                         "px-3 py-1.5 rounded-full text-xs font-bold border",
-                        STATUS_STYLING[
-                          task.status as keyof typeof STATUS_STYLING
-                        ]
+                        getStatusColor(task.status)
                       )}
                     >
-                      {task.status}
+                      {getStatusText(task.status)}
                     </span>
                   </TableCell>
                   <TableCell className="py-5 px-6 text-center">
                     <span
                       className={cx(
                         "px-3 py-1.5 rounded-full text-xs font-bold border",
-                        PRIORITY_STYLING[
-                          task.priority as keyof typeof PRIORITY_STYLING
-                        ]
+                        getPriorityColor(task.priority)
                       )}
                     >
-                      {task.priority}
+                      {getPriorityText(task.priority)}
                     </span>
                   </TableCell>
                   <TableCell className="py-5 px-6">
-                    {task.assignee ? (
+                    {task.juniorName ? (
                       <div className="flex items-center gap-3">
                         <div className="size-9 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 border border-gray-200">
-                          {task.assignee.initials}
+                          {task.juniorName
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                            .toUpperCase()}
                         </div>
                         <span className="text-base font-bold text-gray-700">
-                          {task.assignee.name}
+                          {task.juniorName}
                         </span>
                       </div>
                     ) : (
@@ -217,7 +332,13 @@ export function TaskBoardTab() {
                   <TableCell className="py-5 px-6 whitespace-nowrap">
                     <div className="flex items-center gap-2 text-gray-500 font-medium text-sm">
                       <Calendar size={16} className="text-gray-400" />
-                      {task.dueDate}
+                      {task.dueDate
+                        ? new Date(task.dueDate).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })
+                        : "No due date"}
                     </div>
                   </TableCell>
                 </TableRow>

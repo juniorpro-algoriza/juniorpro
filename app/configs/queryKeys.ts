@@ -19,9 +19,21 @@ export const QUERY_KEYS = {
       all: (params: SearchParams) =>
         ["admin", "collaborations", params] as const,
       byId: (id: number) => ["admin", "collaborations", id] as const,
+      detail: (id: number) =>
+        ["admin", "collaborations", "detail", id] as const,
       list: ["admin", "collaborations"] as const,
       roles: (collaborationId: number) =>
         ["admin", "collaborations", "roles", collaborationId] as const,
+      roleTasks: (collaborationId: number, roleId?: number) =>
+        [
+          "admin",
+          "collaborations",
+          "role-tasks",
+          collaborationId,
+          roleId,
+        ] as const,
+      roleAssignedJuniors: (roleId: number) =>
+        ["admin", "collaborations", "role-assigned-juniors", roleId] as const,
     },
     packages: {
       all: (params: { SearchText: string; DurationType: "month" | "year" }) =>
