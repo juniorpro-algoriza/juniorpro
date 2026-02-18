@@ -8,3 +8,4 @@ export { deleteCollaborationRole } from "./deleteCollaborationRole";
 export { addCollaborationRoleTask } from "./addCollaborationRoleTask";
 export { updateCollaborationRoleTask } from "./updateCollaborationRoleTask";
 export { getCollaborationRoleTasks } from "./getCollaborationRoleTasks";
+export { getRoleAssignedJuniors } from "./getRoleAssignedJuniors";

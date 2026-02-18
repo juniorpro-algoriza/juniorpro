@@ -19,6 +19,11 @@ import { Skeleton } from "@components";
 import { useGetCollaborationRoleTasks } from "../../tanstack/collaborations";
 import { useRouter } from "next/navigation";
 import { components } from "../../../../../../api-schema";
+import {
+  getTaskStatusOptions,
+  TASK_PRIORITY_LABELS,
+  TASK_STATUS_LABELS,
+} from "../../../../../constants/collaborationEnums";
 
 type GetAllCollaborationRoleTaskModel =
   components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel"];
@@ -47,7 +52,7 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
         return "bg-gray-100 text-gray-800";
       case 2: // InProgress
         return "bg-blue-100 text-blue-800";
-      case 3: // Completed
+      case 3: // Submitted
         return "bg-green-100 text-green-800";
       default:
         return "bg-gray-100 text-gray-800";
@@ -61,11 +66,11 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
   ) => {
     switch (status) {
       case 1:
-        return "Not Started";
+        return TASK_STATUS_LABELS[1]; // Not Started
       case 2:
-        return "In Progress";
+        return TASK_STATUS_LABELS[2]; // In Progress
       case 3:
-        return "Completed";
+        return TASK_STATUS_LABELS[3]; // Submitted
       default:
         return "Unknown";
     }
@@ -95,11 +100,11 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
   ) => {
     switch (priority) {
       case 1:
-        return "Low";
+        return TASK_PRIORITY_LABELS[1]; // Low
       case 2:
-        return "Medium";
+        return TASK_PRIORITY_LABELS[2]; // Medium
       case 3:
-        return "High";
+        return TASK_PRIORITY_LABELS[3]; // High
       default:
         return "Unknown";
     }
@@ -201,12 +206,7 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
           <div className="flex items-center sm:gap-3 gap-1 flex-1 w-full flex-wrap">
             <div className="max-sm:min-w-44 sm:w-44 flex-1">
               <Select
-                options={[
-                  { label: "All Status", value: "all" },
-                  { label: "Not Started", value: "not-started" },
-                  { label: "In Progress", value: "in-progress" },
-                  { label: "Submitted", value: "submitted" },
-                ]}
+                options={getTaskStatusOptions()}
                 value="all"
                 onChange={() => {}}
               />

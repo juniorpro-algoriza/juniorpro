@@ -32,6 +32,8 @@ export const QUERY_KEYS = {
           collaborationId,
           roleId,
         ] as const,
+      roleAssignedJuniors: (roleId: number) =>
+        ["admin", "collaborations", "role-assigned-juniors", roleId] as const,
     },
     packages: {
       all: (params: { SearchText: string; DurationType: "month" | "year" }) =>

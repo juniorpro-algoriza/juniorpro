@@ -9,4 +9,5 @@ export {
   useGetCollaborationRoleTasks,
   useAddCollaborationRoleTask,
   useUpdateCollaborationRoleTask,
+  useGetRoleAssignedJuniors,
 } from "./useCollaborations";

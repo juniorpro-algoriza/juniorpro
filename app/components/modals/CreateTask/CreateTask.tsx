@@ -10,15 +10,24 @@ import {
   DatePicker,
 } from "@components";
 import { useCreateTask } from "../../../(pages)/(loged-in)/admin/collaborations/_hooks/useCreateTask";
-import { useGetCollaborationRoles } from "../../../(pages)/(loged-in)/admin/tanstack/collaborations";
+import {
+  useGetCollaborationRoles,
+  useGetRoleAssignedJuniors,
+} from "../../../(pages)/(loged-in)/admin/tanstack/collaborations";
 import { components } from "../../../../api-schema";
 import { Plus } from "lucide-react";
+import { getTaskPriorityOptions } from "../../../constants/collaborationEnums";
+
+type GetAdminCollaborationRoleJuniorsModel =
+  components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel"];
 
 interface CreateTaskProps {
-  collaborationId: string;
+  collaborationId?: string;
+  [key: string]: string | null | undefined;
 }
 
-export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
+export const CreateTask = (props: CreateTaskProps) => {
+  const collaborationId = props.collaborationId || "";
   const collabId = parseInt(collaborationId);
   const { formData, setFormData, fieldErrors, isSubmitting, handleSubmit } =
     useCreateTask(collabId);
@@ -26,6 +35,9 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
   const { data: rolesResponse, isLoading: rolesLoading } =
     useGetCollaborationRoles(collabId);
   const roles = rolesResponse?.data || [];
+
+  const { data: assigneeResponse, isLoading: assigneeLoading } =
+    useGetRoleAssignedJuniors(parseInt(formData.roleId) || 0);
 
   const roleOptions = roles
     .filter((role) => role.id !== undefined)
@@ -38,19 +50,15 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
       })
     );
 
-  // Assignee options should ideally be filtered by role, but since we don't have the list,
-  // we'll use a placeholder or check if any role has juniorsJoined info we can use.
-  // For now, let's keep it simple as per image.
-  const assigneeOptions = [
-    { label: "Select team member", value: "" },
-    // This would be populated from an API normally
-  ];
+  const assigneeOptions =
+    assigneeResponse?.data?.map(
+      (item: GetAdminCollaborationRoleJuniorsModel) => ({
+        label: item.juniorName || `Junior ${item.id}`,
+        value: item.id!.toString(),
+      })
+    ) || [];
 
-  const priorityOptions = [
-    { label: "Low", value: "1" },
-    { label: "Medium", value: "2" },
-    { label: "High", value: "3" },
-  ];
+  const priorityOptions = getTaskPriorityOptions();
 
   return (
     <Modal panelClassName="w-full max-w-2xl p-6 bg-white rounded-2xl shadow-xl ">
@@ -64,7 +72,7 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
-          label="TASK TITLE"
+          label="TASK TITLE *"
           placeholder="e.g., Design Homepage"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -72,30 +80,34 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
         />
 
         <Select
-          label="ROLE"
+          label="ROLE *"
           placeholder="Select role"
           options={roleOptions}
           value={formData.roleId}
           onChange={(val) =>
-            setFormData({ ...formData, roleId: val.toString() })
+            setFormData({ ...formData, roleId: val.toString(), juniorId: null })
           }
           error={fieldErrors.roleId}
           loading={rolesLoading}
         />
 
         <Select
-          label="ASSIGNEE"
-          placeholder="Select team member"
+          label="ASSIGNEE (Optional)"
+          placeholder={
+            !formData.roleId ? "Select role first" : "Select team member"
+          }
           options={assigneeOptions}
           value={formData.juniorId || ""}
           onChange={(val) =>
             setFormData({ ...formData, juniorId: val.toString() })
           }
           error={fieldErrors.juniorId}
+          disabled={!formData.roleId}
+          loading={assigneeLoading}
         />
 
         <Select
-          label="PRIORITY"
+          label="PRIORITY *"
           placeholder="Select priority"
           options={priorityOptions}
           value={formData.priority}
@@ -106,7 +118,7 @@ export const CreateTask = ({ collaborationId }: CreateTaskProps) => {
         />
 
         <DatePicker
-          label="DUE DATE"
+          label="DUE DATE *"
           value={formData.dueDate || undefined}
           onChange={(date) =>
             setFormData({ ...formData, dueDate: date || null })

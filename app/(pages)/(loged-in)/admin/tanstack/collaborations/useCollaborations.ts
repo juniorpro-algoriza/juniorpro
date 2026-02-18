@@ -13,6 +13,7 @@ import {
   getCollaborationRoleTasks,
   addCollaborationRoleTask,
   updateCollaborationRoleTask,
+  getRoleAssignedJuniors,
 } from "../../server/collaborations";
 import { components } from "../../../../../../api-schema";
 
@@ -159,5 +160,13 @@ export const useUpdateCollaborationRoleTask = () => {
         queryKey: ["admin", "collaborations", "role-tasks"],
       });
     },
+  });
+};
+
+export const useGetRoleAssignedJuniors = (roleId: number) => {
+  return useQuery({
+    queryKey: QUERY_KEYS.admin.collaborations.roleAssignedJuniors(roleId),
+    queryFn: () => getRoleAssignedJuniors(roleId),
+    enabled: !!roleId,
   });
 };
