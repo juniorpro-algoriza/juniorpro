@@ -16,14 +16,21 @@ import {
 import { Calendar, Plus } from "lucide-react";
 import { cx } from "@lib";
 import { Skeleton } from "@components";
-import { useGetCollaborationRoleTasks } from "../../tanstack/collaborations";
-import { useRouter } from "next/navigation";
+import {
+  useGetCollaborationRoleTasks,
+  useGetRoleAssignedJuniors,
+} from "../../tanstack/collaborations";
+import { useRouter, useSearchParams } from "next/navigation";
 import { components } from "../../../../../../api-schema";
 import {
   getTaskStatusOptions,
   TASK_PRIORITY_LABELS,
   TASK_STATUS_LABELS,
-} from "../../../../../constants/collaborationEnums";
+  TASK_STATUS,
+} from "../../../../../configs/constants";
+
+type GetAdminCollaborationRoleJuniorsModel =
+  components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel"];
 
 type GetAllCollaborationRoleTaskModel =
   components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel"];
@@ -34,11 +41,37 @@ interface TaskBoardTabProps {
 
 export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const [selectedStatus, setSelectedStatus] = React.useState<string>("all");
+  const [selectedJunior, setSelectedJunior] = React.useState<string>("all");
+
   const { data: tasks, isLoading } = useGetCollaborationRoleTasks({
     collaborationId,
     pageNumber: 1,
     pageSize: 100,
+    searchText: query || undefined,
+    status:
+      selectedStatus === "all"
+        ? undefined
+        : (Number(selectedStatus) as
+            | typeof TASK_STATUS.NOT_STARTED
+            | typeof TASK_STATUS.IN_PROGRESS
+            | typeof TASK_STATUS.SUBMITTED),
+    juniorId: selectedJunior === "all" ? undefined : Number(selectedJunior),
   });
+
+  const { data: members, isLoading: isMembersLoading } =
+    useGetRoleAssignedJuniors({ collaborationId });
+  const hasMembers = !!members && members.length > 0;
+
+  const memberOptions = React.useMemo(() => {
+    if (!members) return [];
+    return members.map((m: GetAdminCollaborationRoleJuniorsModel) => ({
+      label: m.juniorName || `Junior ${m.id}`,
+      value: String(m.id),
+    }));
+  }, [members]);
 
   const taskList = tasks || [];
 
@@ -49,13 +82,13 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
   ) => {
     switch (status) {
       case 1: // NotStarted
-        return "bg-gray-100 text-gray-800";
+        return "bg-slate-50 text-slate-500 border-slate-200";
       case 2: // InProgress
-        return "bg-blue-100 text-blue-800";
+        return "bg-amber-50 text-amber-600 border-amber-100";
       case 3: // Submitted
-        return "bg-green-100 text-green-800";
+        return "bg-emerald-50 text-emerald-600 border-emerald-100";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-slate-50 text-slate-500 border-slate-200";
     }
   };
 
@@ -83,13 +116,13 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
   ) => {
     switch (priority) {
       case 1: // Low
-        return "bg-gray-100 text-gray-800";
+        return "bg-blue-50 text-blue-500 border-transparent";
       case 2: // Medium
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-amber-50 text-amber-600 border-transparent";
       case 3: // High
-        return "bg-red-100 text-red-800";
+        return "bg-red-50 text-red-500 border-transparent";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-slate-50 text-slate-500 border-transparent";
     }
   };
 
@@ -110,85 +143,6 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="py-4 space-y-6">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-lg font-bold text-gray-900">Task Board</h2>
-            <p className="text-sm text-gray-500">
-              Manage and track collaboration tasks
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <SearchInput placeholder="Search tasks..." className="w-64" />
-            <Button>
-              <Plus className="size-4" />
-              Add Task
-            </Button>
-          </div>
-        </div>
-
-        {/* List Content */}
-        <MainCard classname="p-0 border-gray-100 overflow-hidden">
-          <div className="p-6 border-b border-gray-50 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <h3 className="text-lg font-bold text-gray-900">Total Tasks</h3>
-              <span className="flex items-center justify-center px-2 py-0.5 bg-blue-main/10 text-blue-main text-xs font-bold rounded-full border border-blue-main/10">
-                Loading...
-              </span>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto">
-            <EnhancedTable>
-              <TableHeader>
-                <TableRow className="bg-gray-50/50 text-gray-500 border-y border-gray-100">
-                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
-                    Task Details
-                  </TableHead>
-                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-center">
-                    Status
-                  </TableHead>
-                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-center">
-                    Priority
-                  </TableHead>
-                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
-                    Assignee
-                  </TableHead>
-                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
-                    Due Date
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {[...Array(5)].map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="py-5 px-6">
-                      <Skeleton className="h-6 w-full" />
-                    </TableCell>
-                    <TableCell className="py-5 px-6 text-center">
-                      <Skeleton className="h-6 w-16 mx-auto" />
-                    </TableCell>
-                    <TableCell className="py-5 px-6 text-center">
-                      <Skeleton className="h-6 w-16 mx-auto" />
-                    </TableCell>
-                    <TableCell className="py-5 px-6">
-                      <Skeleton className="h-6 w-24" />
-                    </TableCell>
-                    <TableCell className="py-5 px-6">
-                      <Skeleton className="h-6 w-20" />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </EnhancedTable>
-          </div>
-        </MainCard>
-      </div>
-    );
-  }
-
   return (
     <div className="py-4 space-y-6">
       {/* Controls */}
@@ -207,18 +161,24 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
             <div className="max-sm:min-w-44 sm:w-44 flex-1">
               <Select
                 options={getTaskStatusOptions()}
-                value="all"
-                onChange={() => {}}
+                value={selectedStatus}
+                onChange={(val) => setSelectedStatus(String(val))}
               />
             </div>
             <div className="max-sm:min-w-44 sm:w-44 flex-1">
               <Select
-                options={[
-                  { label: "All Members", value: "all" },
-                  { label: "Sarah Ahmed", value: "sarah" },
-                ]}
-                value="all"
-                onChange={() => {}}
+                options={memberOptions}
+                value={selectedJunior}
+                onChange={(val) => setSelectedJunior(String(val))}
+                loading={isMembersLoading}
+                disabled={isMembersLoading || !hasMembers}
+                placeholder={
+                  isMembersLoading
+                    ? "All Members..."
+                    : !hasMembers
+                      ? "No members"
+                      : "All Members"
+                }
               />
             </div>
           </div>
@@ -242,7 +202,7 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
           <div className="flex items-center gap-3">
             <h3 className="text-lg font-bold text-gray-900">Total Tasks</h3>
             <span className="flex items-center justify-center px-2 py-0.5 bg-blue-main/10 text-blue-main text-xs font-bold rounded-full border border-blue-main/10">
-              {taskList.length}
+              {isLoading ? "Loading..." : taskList.length}
             </span>
           </div>
         </div>
@@ -269,80 +229,120 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {taskList.map((task: GetAllCollaborationRoleTaskModel) => (
-                <TableRow
-                  key={task.id}
-                  className="group hover:bg-gray-50/30 transition-colors border-gray-200 cursor-pointer"
-                  onClick={() =>
-                    router.push(
-                      `?modal=TaskDetails&taskId=${task.id}&collabId=${collaborationId}`
-                    )
-                  }
-                >
-                  <TableCell className="py-5 px-6 min-w-[300px]">
-                    <div className="space-y-1">
-                      <p className="font-bold text-gray-900 group-hover:text-blue-main transition-colors text-base">
-                        {task.title || "Untitled Task"}
-                      </p>
-                      <p className="text-sm text-gray-400 font-medium line-clamp-1">
-                        {task.description || "No description"}
-                      </p>
-                    </div>
-                  </TableCell>
-                  <TableCell className="py-5 px-6 text-center">
-                    <span
-                      className={cx(
-                        "px-3 py-1.5 rounded-full text-xs font-bold border",
-                        getStatusColor(task.status)
-                      )}
-                    >
-                      {getStatusText(task.status)}
-                    </span>
-                  </TableCell>
-                  <TableCell className="py-5 px-6 text-center">
-                    <span
-                      className={cx(
-                        "px-3 py-1.5 rounded-full text-xs font-bold border",
-                        getPriorityColor(task.priority)
-                      )}
-                    >
-                      {getPriorityText(task.priority)}
-                    </span>
-                  </TableCell>
-                  <TableCell className="py-5 px-6">
-                    {task.juniorName ? (
-                      <div className="flex items-center gap-3">
-                        <div className="size-9 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 border border-gray-200">
-                          {task.juniorName
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")
-                            .toUpperCase()}
-                        </div>
-                        <span className="text-base font-bold text-gray-700">
-                          {task.juniorName}
-                        </span>
+              {isLoading ? (
+                /* Loading State */
+                [...Array(2)].map((_, index) => (
+                  <TableRow key={index} className="border-y border-gray-100">
+                    <TableCell className="py-5 px-6 min-w-[300px]">
+                      <div className="space-y-2">
+                        <Skeleton className="h-5 w-3/4" />
+                        <Skeleton className="h-4 w-1/2" />
                       </div>
-                    ) : (
-                      <span className="text-sm font-medium text-gray-300 italic">
-                        Unassigned
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-center">
+                      <Skeleton className="h-8 w-24 rounded-full mx-auto" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-center">
+                      <Skeleton className="h-8 w-24 rounded-full mx-auto" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <div className="flex items-center gap-3">
+                        <Skeleton className="size-9 rounded-full" />
+                        <Skeleton className="h-5 w-24" />
+                      </div>
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-5 w-20" />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : taskList.length > 0 ? (
+                /* Data State */
+                taskList.map((task: GetAllCollaborationRoleTaskModel) => (
+                  <TableRow
+                    key={task.id}
+                    className="group hover:bg-gray-50/30 transition-colors border-gray-200 cursor-pointer"
+                    onClick={() =>
+                      router.push(
+                        `?modal=TaskDetails&taskId=${task.id}&collabId=${collaborationId}`
+                      )
+                    }
+                  >
+                    <TableCell className="py-5 px-6 min-w-[300px]">
+                      <div className="space-y-1">
+                        <p className="font-bold text-gray-900 group-hover:text-blue-main transition-colors text-base">
+                          {task.title || "Untitled Task"}
+                        </p>
+                        <p className="text-sm text-gray-400 font-medium line-clamp-1">
+                          {task.description || "No description"}
+                        </p>
+                      </div>
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-center">
+                      <span
+                        className={cx(
+                          "px-3 py-1.5 rounded-full text-xs font-bold border",
+                          getStatusColor(task.status)
+                        )}
+                      >
+                        {getStatusText(task.status)}
                       </span>
-                    )}
-                  </TableCell>
-                  <TableCell className="py-5 px-6 whitespace-nowrap">
-                    <div className="flex items-center gap-2 text-gray-500 font-medium text-sm">
-                      <Calendar size={16} className="text-gray-400" />
-                      {task.dueDate
-                        ? new Date(task.dueDate).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })
-                        : "No due date"}
-                    </div>
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-center">
+                      <span
+                        className={cx(
+                          "px-3 py-1.5 rounded-full text-xs font-bold border",
+                          getPriorityColor(task.priority)
+                        )}
+                      >
+                        {getPriorityText(task.priority)}
+                      </span>
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      {task.juniorName ? (
+                        <div className="flex items-center gap-3">
+                          <div className="size-9 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 border border-gray-200">
+                            {task.juniorName
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")
+                              .toUpperCase()}
+                          </div>
+                          <span className="text-base font-bold text-gray-700">
+                            {task.juniorName}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-sm font-medium text-gray-300 italic">
+                          Unassigned
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell className="py-5 px-6 whitespace-nowrap">
+                      <div className="flex items-center gap-2 text-gray-500 font-medium text-sm">
+                        <Calendar size={16} className="text-gray-400" />
+                        {task.dueDate
+                          ? new Date(task.dueDate).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })
+                          : "No due date"}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                /* Empty State */
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="py-12 text-center text-gray-400 font-medium"
+                  >
+                    No tasks found matching your criteria.
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </EnhancedTable>
         </div>

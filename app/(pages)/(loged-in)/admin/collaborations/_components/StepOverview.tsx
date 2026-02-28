@@ -88,10 +88,52 @@ export const StepOverview = ({
       {/* Timeline & Dates Section */}
       <div className="space-y-4">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Registration Deadline</h3>
+          <h3 className="text-lg font-semibold">Timeline & Dates</h3>
           <p className="text-sm text-gray-600">
-            Set the deadline for participants to register
+            Set project duration and deadlines
           </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label="START DATE & TIME *"
+            type="datetime-local"
+            value={
+              formData.startDate
+                ? new Date(
+                    formData.startDate.getTime() -
+                      formData.startDate.getTimezoneOffset() * 60000
+                  )
+                    .toISOString()
+                    .slice(0, 16)
+                : ""
+            }
+            onChange={(e) => {
+              const date = e.target.value ? new Date(e.target.value) : null;
+              if (date) handleChange("startDate", date);
+            }}
+            error={fieldErrors.startDate}
+          />
+
+          <Input
+            label="END DATE & TIME *"
+            type="datetime-local"
+            value={
+              formData.endDate
+                ? new Date(
+                    formData.endDate.getTime() -
+                      formData.endDate.getTimezoneOffset() * 60000
+                  )
+                    .toISOString()
+                    .slice(0, 16)
+                : ""
+            }
+            onChange={(e) => {
+              const date = e.target.value ? new Date(e.target.value) : null;
+              if (date) handleChange("endDate", date);
+            }}
+            error={fieldErrors.endDate}
+          />
         </div>
 
         <Input

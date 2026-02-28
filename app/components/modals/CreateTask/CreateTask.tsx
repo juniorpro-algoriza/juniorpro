@@ -16,10 +16,10 @@ import {
 } from "../../../(pages)/(loged-in)/admin/tanstack/collaborations";
 import { components } from "../../../../api-schema";
 import { Plus } from "lucide-react";
-import { getTaskPriorityOptions } from "../../../constants/collaborationEnums";
+import { getTaskPriorityOptions } from "../../../configs/constants";
 
-type GetAdminCollaborationRoleJuniorsModel =
-  components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel"];
+type EnablerLookupModel =
+  components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerLookupModel"];
 
 interface CreateTaskProps {
   collaborationId?: string;
@@ -37,7 +37,10 @@ export const CreateTask = (props: CreateTaskProps) => {
   const roles = rolesResponse?.data || [];
 
   const { data: assigneeResponse, isLoading: assigneeLoading } =
-    useGetRoleAssignedJuniors(parseInt(formData.roleId) || 0);
+    useGetRoleAssignedJuniors({
+      collaborationId: collabId,
+      roleId: parseInt(formData.roleId) || undefined,
+    });
 
   const roleOptions = roles
     .filter((role) => role.id !== undefined)
@@ -51,12 +54,10 @@ export const CreateTask = (props: CreateTaskProps) => {
     );
 
   const assigneeOptions =
-    assigneeResponse?.data?.map(
-      (item: GetAdminCollaborationRoleJuniorsModel) => ({
-        label: item.juniorName || `Junior ${item.id}`,
-        value: item.id!.toString(),
-      })
-    ) || [];
+    assigneeResponse?.map((item: EnablerLookupModel) => ({
+      label: item.nameEn || item.nameAr || `Junior ${item.id}`,
+      value: item.id!.toString(),
+    })) || [];
 
   const priorityOptions = getTaskPriorityOptions();
 
@@ -94,7 +95,13 @@ export const CreateTask = (props: CreateTaskProps) => {
         <Select
           label="ASSIGNEE (Optional)"
           placeholder={
-            !formData.roleId ? "Select role first" : "Select team member"
+            !formData.roleId
+              ? "Select role first"
+              : assigneeLoading
+                ? "Getting assignees..."
+                : assigneeOptions.length === 0
+                  ? "No assignees available for this role"
+                  : "Select team member"
           }
           options={assigneeOptions}
           value={formData.juniorId || ""}
@@ -102,7 +109,7 @@ export const CreateTask = (props: CreateTaskProps) => {
             setFormData({ ...formData, juniorId: val.toString() })
           }
           error={fieldErrors.juniorId}
-          disabled={!formData.roleId}
+          disabled={!formData.roleId || assigneeOptions.length === 0}
           loading={assigneeLoading}
         />
 

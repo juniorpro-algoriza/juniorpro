@@ -24,14 +24,14 @@ export const QUERY_KEYS = {
       list: ["admin", "collaborations"] as const,
       roles: (collaborationId: number) =>
         ["admin", "collaborations", "roles", collaborationId] as const,
-      roleTasks: (collaborationId: number, roleId?: number) =>
-        [
-          "admin",
-          "collaborations",
-          "role-tasks",
-          collaborationId,
-          roleId,
-        ] as const,
+      roleTasks: (params: {
+        collaborationId: number;
+        pageNumber: number;
+        pageSize: number;
+        searchText?: string;
+        status?: number;
+        juniorId?: number;
+      }) => ["admin", "collaborations", "role-tasks", params] as const,
       roleAssignedJuniors: (roleId: number) =>
         ["admin", "collaborations", "role-assigned-juniors", roleId] as const,
     },

@@ -2,10 +2,16 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Breadcrumb, DetailCard, Tabs } from "@components";
+import { Breadcrumb, DetailCard, Tabs, Skeleton } from "@components";
 import { Calendar, Users2, Pencil } from "lucide-react";
 import type { TabData } from "@types";
-import { OverviewTab, RequirementsTab, TaskBoardTab } from "../_components";
+import {
+  OverviewTab,
+  RequirementsTab,
+  TaskBoardTab,
+  ApplicantsTab,
+  ParticipantsTab,
+} from "../_components";
 import { useGetCollaborationById } from "../../tanstack/collaborations";
 
 export default function CollaborationDetailsPage({
@@ -30,9 +36,32 @@ export default function CollaborationDetailsPage({
   if (isLoading) {
     return (
       <div className="space-y-6 p-4 md:p-0">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-64 mb-4"></div>
-          <div className="h-64 bg-gray-200 rounded"></div>
+        <Skeleton className="h-5 w-48 mb-4" /> {/* Breadcrumb simulation */}
+        {/* Header Card Skeleton */}
+        <div className="bg-white border border-gray-100 rounded-[32px] p-6 space-y-6">
+          <div className="flex items-start gap-4">
+            <Skeleton className="size-12 md:size-16 rounded-2xl" />
+            <div className="space-y-2 flex-1">
+              <Skeleton className="h-7 w-1/3" />
+              <Skeleton className="h-4 w-2/3" />
+            </div>
+            <Skeleton className="h-11 w-36 rounded-xl hidden md:block" />
+          </div>
+
+          <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-gray-50">
+            <Skeleton className="h-5 w-48" />
+            <Skeleton className="h-5 w-40 md:ml-auto" />
+            <Skeleton className="h-5 w-32" />
+          </div>
+        </div>
+        {/* Tabs Skeleton */}
+        <div className="space-y-6">
+          <div className="flex gap-4 border-b border-gray-100 pb-2">
+            {[...Array(5)].map((_, i) => (
+              <Skeleton key={i} className="h-8 w-24 rounded-lg" />
+            ))}
+          </div>
+          <Skeleton className="h-96 w-full rounded-[32px]" />
         </div>
       </div>
     );
@@ -73,6 +102,14 @@ export default function CollaborationDetailsPage({
     {
       name: "Requirements",
       content: <RequirementsTab collaboration={collaboration} />,
+    },
+    {
+      name: "Applicants",
+      content: <ApplicantsTab collaborationId={collaborationId} />,
+    },
+    {
+      name: "Participants",
+      content: <ParticipantsTab collaborationId={collaborationId} />,
     },
     {
       name: "Task Board",

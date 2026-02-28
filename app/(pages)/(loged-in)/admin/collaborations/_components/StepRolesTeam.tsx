@@ -777,7 +777,7 @@ export const StepRolesTeam = ({
                   <div className="flex justify-end pt-2">
                     <Button
                       type="button"
-                      intent="main2"
+                      intent="main"
                       size="mainDefault"
                       onClick={() => handleSaveRole(role.id)}
                       disabled={savingRoleIds.has(role.id)}

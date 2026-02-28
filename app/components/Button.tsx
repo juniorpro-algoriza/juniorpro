@@ -17,6 +17,7 @@ type ButtonVariant =
   | "mainWhite"
   | "mainBlack"
   | "mainBlue"
+  | "successMain"
   | "dangerMain";
 type ButtonSize =
   | "small"
@@ -36,6 +37,7 @@ export interface ButtonProps
   size?: ButtonSize;
   icon?: ReactNode;
   iconPosition?: IconPosition;
+  isLoading?: boolean;
   ref?: Ref<HTMLButtonElement>; // Accept ref as a normal prop
 }
 
@@ -46,20 +48,46 @@ export const Button = ({
   intent = "primary",
   icon,
   iconPosition = "right",
+  isLoading,
   ref,
   ...props
-}: ButtonProps) => {
+}: ButtonProps & { isLoading?: boolean }) => {
   return (
     <HeadlessButton
       ref={ref}
-      className={cx(button({ intent, size }), className)}
+      disabled={props.disabled || isLoading}
+      className={cx(
+        button({ intent, size }),
+        className,
+        isLoading && "opacity-80 cursor-wait"
+      )}
       {...props}
     >
-      {iconPosition === "left" && icon && (
+      {isLoading && (
+        <span className="mr-2 animate-spin">
+          <svg className="size-4" viewBox="0 0 24 24">
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+              fill="none"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+        </span>
+      )}
+      {!isLoading && iconPosition === "left" && icon && (
         <span className="mr-2 flex-shrink-0">{icon}</span>
       )}
       {children}
-      {iconPosition === "right" && icon && (
+      {!isLoading && iconPosition === "right" && icon && (
         <span className="ml-2 flex-shrink-0">{icon}</span>
       )}
     </HeadlessButton>
@@ -101,6 +129,8 @@ const button = cva({
       main: "bg-white text-dark-blue-main hover:bg-dark-blue-main/5 focus:ring-dark-blue-main/10  border-b-5 border-dark-blue-main/15 [box-shadow:0px_1px_3px_0px_#0000001A] ",
       main2:
         "bg-dark-blue-main text-white hover:bg-dark-blue-main/85 focus:ring-dark-blue-main/10 disabled:bg-dark-blue-main/10 disabled:text-dark-blue-main border-b-5 border-[#372AAC] [box-shadow:0px_1px_3px_0px_#0000001A] ",
+      successMain:
+        "bg-green-500 text-white hover:bg-green-600 focus:ring-green-500/10 disabled:bg-green-500/10 disabled:text-green-500 border-b-5 border-green-700 [box-shadow:0px_1px_3px_0px_#0000001A] ",
       dangerMain:
         "bg-red-500 text-white hover:bg-red-600 focus:ring-red-500/10 disabled:bg-red-500/10 disabled:text-red-500 border-b-5 border-red-700 [box-shadow:0px_1px_3px_0px_#0000001A] ",
       // marketing screens

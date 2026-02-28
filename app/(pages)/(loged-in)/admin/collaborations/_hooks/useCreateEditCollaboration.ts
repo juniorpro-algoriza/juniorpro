@@ -26,6 +26,8 @@ const getInitialFormData = (): CollaborationFormData => ({
   description: "",
   projectIcon: "",
   registrationDeadline: null,
+  startDate: null,
+  endDate: null,
   xpReward: 1000,
   gemsPoints: 100,
   money: 50,
@@ -58,6 +60,8 @@ const transformApiDataToFormData = (
     description: details?.description || "",
     projectIcon: details?.icon?.toString() || "",
     registrationDeadline,
+    startDate: details?.startDate ? new Date(details.startDate) : null,
+    endDate: details?.endDate ? new Date(details.endDate) : null,
     xpReward: details?.xpReward || 1000,
     gemsPoints: details?.points || 100,
     money: details?.money || 50,
@@ -110,6 +114,8 @@ export const useCreateEditCollaboration = (
       const dataToValidate = {
         ...formData,
         registrationDeadline: formData.registrationDeadline || undefined,
+        startDate: formData.startDate || undefined,
+        endDate: formData.endDate || undefined,
       };
 
       const result = collaborationFormSchema
@@ -163,11 +169,8 @@ export const useCreateEditCollaboration = (
               | 11
               | 12,
             startDate:
-              payload.registrationDeadline?.toISOString() ||
-              new Date().toISOString(),
-            endDate:
-              payload.registrationDeadline?.toISOString() ||
-              new Date().toISOString(),
+              payload.startDate?.toISOString() || new Date().toISOString(),
+            endDate: payload.endDate?.toISOString() || new Date().toISOString(),
             registerationDeadline: payload.registrationDeadline?.toISOString(),
             requiredMissions: 1,
             xpReward: payload.xpReward,
@@ -263,6 +266,8 @@ export const useCreateEditCollaboration = (
       const dataToValidate = {
         ...formData,
         registrationDeadline: formData.registrationDeadline || undefined,
+        startDate: formData.startDate || undefined,
+        endDate: formData.endDate || undefined,
       };
 
       const result = step4Schema.safeParse(dataToValidate);
@@ -397,6 +402,8 @@ export const useCreateEditCollaboration = (
     const dataToValidate = {
       ...formData,
       registrationDeadline: formData.registrationDeadline || undefined,
+      startDate: formData.startDate || undefined,
+      endDate: formData.endDate || undefined,
     };
 
     switch (currentStep) {
@@ -493,11 +500,8 @@ export const useCreateEditCollaboration = (
               | 11
               | 12,
             startDate:
-              payload.registrationDeadline?.toISOString() ||
-              new Date().toISOString(),
-            endDate:
-              payload.registrationDeadline?.toISOString() ||
-              new Date().toISOString(),
+              payload.startDate?.toISOString() || new Date().toISOString(),
+            endDate: payload.endDate?.toISOString() || new Date().toISOString(),
             registerationDeadline: payload.registrationDeadline?.toISOString(),
             requiredMissions: 1,
             xpReward: payload.xpReward,
