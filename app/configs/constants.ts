@@ -99,17 +99,21 @@ export const TASK_PRIORITY_LABELS = {
   [TASK_PRIORITY.HIGH]: "High",
 } as const;
 
-// CollaborationRoleTaskStatus: NotStarted = 1, InProgress = 2, Submited = 3
+// CollaborationRoleTaskStatus: NotStarted = 1, InProgress = 2, UnderReview = 3, Rejected = 4, Completed = 5
 export const TASK_STATUS = {
   NOT_STARTED: 1,
   IN_PROGRESS: 2,
-  SUBMITTED: 3,
+  UNDER_REVIEW: 3,
+  REJECTED: 4,
+  COMPLETED: 5,
 } as const;
 
 export const TASK_STATUS_LABELS = {
   [TASK_STATUS.NOT_STARTED]: "Not Started",
   [TASK_STATUS.IN_PROGRESS]: "In Progress",
-  [TASK_STATUS.SUBMITTED]: "Submitted",
+  [TASK_STATUS.UNDER_REVIEW]: "Under Review",
+  [TASK_STATUS.REJECTED]: "Rejected",
+  [TASK_STATUS.COMPLETED]: "Completed",
 } as const;
 
 // Helper functions for getting options
@@ -139,8 +143,16 @@ export const getTaskStatusOptions = () => [
     value: TASK_STATUS.IN_PROGRESS.toString(),
   },
   {
-    label: TASK_STATUS_LABELS[TASK_STATUS.SUBMITTED],
-    value: TASK_STATUS.SUBMITTED.toString(),
+    label: TASK_STATUS_LABELS[TASK_STATUS.UNDER_REVIEW],
+    value: TASK_STATUS.UNDER_REVIEW.toString(),
+  },
+  {
+    label: TASK_STATUS_LABELS[TASK_STATUS.REJECTED],
+    value: TASK_STATUS.REJECTED.toString(),
+  },
+  {
+    label: TASK_STATUS_LABELS[TASK_STATUS.COMPLETED],
+    value: TASK_STATUS.COMPLETED.toString(),
   },
 ];
 

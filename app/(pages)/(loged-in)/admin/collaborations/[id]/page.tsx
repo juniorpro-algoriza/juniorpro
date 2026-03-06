@@ -2,9 +2,11 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Breadcrumb, DetailCard, Tabs, Skeleton } from "@components";
-import { Calendar, Users2, Pencil } from "lucide-react";
+import { Breadcrumb, DetailCard, Tabs, Skeleton, Button } from "@components";
+import { Calendar, Users2, Pencil, Check } from "lucide-react";
 import type { TabData } from "@types";
+import { COLLABORATION_STATUS } from "../../../../../configs/constants";
+import { toast } from "sonner";
 import {
   OverviewTab,
   RequirementsTab,
@@ -12,7 +14,10 @@ import {
   ApplicantsTab,
   ParticipantsTab,
 } from "../_components";
-import { useGetCollaborationById } from "../../tanstack/collaborations";
+import {
+  useGetCollaborationById,
+  useMakeCollaborationReady,
+} from "../../tanstack/collaborations";
 
 export default function CollaborationDetailsPage({
   params,
@@ -29,8 +34,18 @@ export default function CollaborationDetailsPage({
     error,
   } = useGetCollaborationById(collaborationId);
 
+  const { mutate: publishCollaboration, isPending: isPublishing } =
+    useMakeCollaborationReady();
+
   const handleEditClick = () => {
     router.push(`/admin/collaborations/${id}/edit`);
+  };
+
+  const handlePublishClick = () => {
+    publishCollaboration(collaborationId, {
+      onSuccess: () => toast.success("Collaboration published successfully"),
+      onError: () => toast.error("Failed to publish collaboration"),
+    });
   };
 
   if (isLoading) {
@@ -146,6 +161,21 @@ export default function CollaborationDetailsPage({
         onButtonClick={handleEditClick}
         progress={Math.round(progress)}
         backgroundOverlay="/images/handOnHand.svg"
+        extraActions={
+          collaborationDetails?.status === COLLABORATION_STATUS.DRAFT ? (
+            <Button
+              intent="successMain"
+              size="mainDefault"
+              onClick={handlePublishClick}
+              isLoading={isPublishing}
+              icon={<Check className="size-4" />}
+              iconPosition="left"
+              className="flex-1 md:flex-none"
+            >
+              Publish
+            </Button>
+          ) : undefined
+        }
       >
         <DetailCard.Footer>
           <DetailCard.FooterItem

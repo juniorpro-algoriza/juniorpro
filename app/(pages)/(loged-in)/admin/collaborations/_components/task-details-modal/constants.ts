@@ -11,7 +11,7 @@ export const PRIORITY_ICON_COLORS: Record<string, string> = {
 };
 
 export const STATUS_DOT_COLORS: Record<string, string> = {
-  "Not Started": "bg-slate-300",
-  "In Progress": "bg-blue-500",
-  Submitted: "bg-[#00D97E]",
+  "Not Started": "bg-slate-300 border-slate-400",
+  "In Progress": "bg-blue-500 border-blue-600",
+  Submitted: "bg-green-500 border-green-600",
 };

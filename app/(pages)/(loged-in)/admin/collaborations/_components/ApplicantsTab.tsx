@@ -9,6 +9,7 @@ import {
   useRejectJuniorRole,
 } from "../../tanstack/collaborations";
 import { components } from "../../../../../../api-schema";
+import { toast } from "sonner";
 
 type Application =
   components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel"];
@@ -40,7 +41,10 @@ export function ApplicantsTab({ collaborationId }: ApplicantsTabProps) {
   const rejectMutation = useRejectJuniorRole();
 
   const handleAccept = (id: number) => {
-    acceptMutation.mutate(id);
+    acceptMutation.mutate(id, {
+      onSuccess: () => toast.success("Applicant approved successfully"),
+      onError: () => toast.error("Failed to approve applicant"),
+    });
   };
 
   const handleOpenRejectModal = (id: number, name: string) => {
@@ -58,10 +62,12 @@ export function ApplicantsTab({ collaborationId }: ApplicantsTabProps) {
         },
         {
           onSuccess: () => {
+            toast.success("Applicant rejected successfully");
             setRejectingId(null);
             setRejectingName("");
             setRejectReason("");
           },
+          onError: () => toast.error("Failed to reject applicant"),
         }
       );
     }
@@ -69,6 +75,19 @@ export function ApplicantsTab({ collaborationId }: ApplicantsTabProps) {
 
   const pendingApplications = pendingResponse?.data || [];
   const rejectedApplications = rejectedResponse?.data || [];
+
+  console.log(
+    "[GET /api/admin-collaboration/junior-roles-requests] params: { CollaborationId:",
+    collaborationId,
+    ", Status: 1 (Pending) } →",
+    pendingResponse
+  );
+  console.log(
+    "[GET /api/admin-collaboration/junior-roles-requests] params: { CollaborationId:",
+    collaborationId,
+    ", Status: 3 (Rejected) } →",
+    rejectedResponse
+  );
 
   return (
     <div className="space-y-10 py-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -267,12 +286,12 @@ export function ApplicantsTab({ collaborationId }: ApplicantsTabProps) {
       {rejectingId && (
         <Modal
           onClose={() => setRejectingId(null)}
-          panelClassName="p-0 overflow-hidden max-w-md rounded-3xl"
+          panelClassName="p-0 overflow-hidden md:w-2xl rounded-3xl"
         >
           <div className="relative">
             {/* Header with Circle Icon */}
-            <div className="bg-red-50 h-32 flex items-center justify-center relative">
-              <div className="size-20 bg-red-500 rounded-full flex items-center justify-center border-[6px] border-white shadow-lg z-10">
+            <div className="bg-red-200 h-32 flex items-center justify-center relative">
+              <div className="size-25 bg-red-500 rounded-full flex items-center justify-center border-[4px] border-white shadow-lg z-10 absolute bottom-0 right-1/2 translate-x-1/2 translate-y-1/2">
                 <X className="size-10 text-white stroke-[3]" />
               </div>
               <div
@@ -283,15 +302,15 @@ export function ApplicantsTab({ collaborationId }: ApplicantsTabProps) {
               </div>
             </div>
 
-            <div className="px-8 pb-10 pt-12 text-center space-y-6">
+            <div className="px-8 pb-10 pt-14 text-center space-y-6">
               <div className="space-y-2">
-                <span className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em]">
+                <span className="text-sm font-black text-red-500 uppercase tracking-[0.2em]">
                   Application Rejected
                 </span>
                 <h2 className="text-3xl font-black text-gray-900 leading-tight">
                   Confirm Rejection
                 </h2>
-                <p className="text-gray-500 font-medium">
+                <p className="text-gray-500 font-semibold ">
                   Are you sure you want to reject{" "}
                   <span className="text-gray-900 font-bold">
                     {rejectingName}
@@ -308,7 +327,7 @@ export function ApplicantsTab({ collaborationId }: ApplicantsTabProps) {
                   className="min-h-[120px] rounded-2xl border-2 border-gray-100 focus:border-red-500 transition-colors bg-gray-50/30"
                   required
                 />
-                <p className="text-[10px] text-gray-400 text-center font-medium">
+                <p className="text-sm text-gray-400 text-center font-medium">
                   This reason will be shared with the student.
                 </p>
               </div>
@@ -317,7 +336,7 @@ export function ApplicantsTab({ collaborationId }: ApplicantsTabProps) {
                 <Button
                   intent="dangerMain"
                   size="mainLg"
-                  className="w-full text-base py-5"
+                  className="w-full"
                   onClick={handleReject}
                   disabled={!rejectReason.trim() || rejectMutation.isPending}
                   isLoading={rejectMutation.isPending}

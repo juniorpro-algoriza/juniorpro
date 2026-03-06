@@ -29,8 +29,8 @@ import {
   TASK_STATUS,
 } from "../../../../../configs/constants";
 
-type GetAdminCollaborationRoleJuniorsModel =
-  components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel"];
+type EnablerLookupModel =
+  components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerLookupModel"];
 
 type GetAllCollaborationRoleTaskModel =
   components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel"];
@@ -57,23 +57,42 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
         : (Number(selectedStatus) as
             | typeof TASK_STATUS.NOT_STARTED
             | typeof TASK_STATUS.IN_PROGRESS
-            | typeof TASK_STATUS.SUBMITTED),
+            | typeof TASK_STATUS.UNDER_REVIEW
+            | typeof TASK_STATUS.REJECTED
+            | typeof TASK_STATUS.COMPLETED),
     juniorId: selectedJunior === "all" ? undefined : Number(selectedJunior),
   });
 
   const { data: members, isLoading: isMembersLoading } =
     useGetRoleAssignedJuniors({ collaborationId });
-  const hasMembers = !!members && members.length > 0;
-
   const memberOptions = React.useMemo(() => {
-    if (!members) return [];
-    return members.map((m: GetAdminCollaborationRoleJuniorsModel) => ({
-      label: m.juniorName || `Junior ${m.id}`,
-      value: String(m.id),
-    }));
+    const allOption = { label: "All Members", value: "all" };
+    if (!members) return [allOption];
+    return [
+      allOption,
+      ...members.map((m: EnablerLookupModel) => ({
+        label: m.nameEn || m.nameAr || `Junior ${m.id}`,
+        value: String(m.id),
+      })),
+    ];
   }, [members]);
 
   const taskList = tasks || [];
+
+  console.log(
+    "[TaskBoardTab] members (EnablerLookupModel ids):",
+    members?.map((m) => ({ id: m.id, name: m.nameEn || m.nameAr }))
+  );
+  console.log(
+    "[TaskBoardTab] tasks (roleJuniorId on each task):",
+    taskList.map((t) => ({
+      id: t.id,
+      title: t.title,
+      roleJuniorId: t.roleJuniorId,
+      juniorName: t.juniorName,
+    }))
+  );
+  console.log("[TaskBoardTab] selectedJunior filter value:", selectedJunior);
 
   const getStatusColor = (
     status?:
@@ -85,7 +104,11 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
         return "bg-slate-50 text-slate-500 border-slate-200";
       case 2: // InProgress
         return "bg-amber-50 text-amber-600 border-amber-100";
-      case 3: // Submitted
+      case 3: // UnderReview
+        return "bg-blue-50 text-blue-600 border-blue-100";
+      case 4: // Rejected
+        return "bg-red-50 text-red-500 border-red-100";
+      case 5: // Completed
         return "bg-emerald-50 text-emerald-600 border-emerald-100";
       default:
         return "bg-slate-50 text-slate-500 border-slate-200";
@@ -103,7 +126,11 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
       case 2:
         return TASK_STATUS_LABELS[2]; // In Progress
       case 3:
-        return TASK_STATUS_LABELS[3]; // Submitted
+        return TASK_STATUS_LABELS[3]; // Under Review
+      case 4:
+        return TASK_STATUS_LABELS[4]; // Rejected
+      case 5:
+        return TASK_STATUS_LABELS[5]; // Completed
       default:
         return "Unknown";
     }
@@ -157,28 +184,21 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
           </div>
 
           {/* Select Filters */}
-          <div className="flex items-center sm:gap-3 gap-1 flex-1 w-full flex-wrap">
-            <div className="max-sm:min-w-44 sm:w-44 flex-1">
+          <div className="flex items-center sm:gap-3 gap-1 flex-1 w-full">
+            <div className="max-sm:min-w-44 sm:min-w-34 ">
               <Select
                 options={getTaskStatusOptions()}
                 value={selectedStatus}
                 onChange={(val) => setSelectedStatus(String(val))}
               />
             </div>
-            <div className="max-sm:min-w-44 sm:w-44 flex-1">
+            <div className="max-sm:min-w-44 sm:min-w-55">
               <Select
                 options={memberOptions}
                 value={selectedJunior}
                 onChange={(val) => setSelectedJunior(String(val))}
                 loading={isMembersLoading}
-                disabled={isMembersLoading || !hasMembers}
-                placeholder={
-                  isMembersLoading
-                    ? "All Members..."
-                    : !hasMembers
-                      ? "No members"
-                      : "All Members"
-                }
+                disabled={isMembersLoading}
               />
             </div>
           </div>
@@ -263,9 +283,7 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
                     key={task.id}
                     className="group hover:bg-gray-50/30 transition-colors border-gray-200 cursor-pointer"
                     onClick={() =>
-                      router.push(
-                        `?modal=TaskDetails&taskId=${task.id}&collabId=${collaborationId}`
-                      )
+                      router.push(`?modal=TaskDetails&taskId=${task.id}`)
                     }
                   >
                     <TableCell className="py-5 px-6 min-w-[300px]">

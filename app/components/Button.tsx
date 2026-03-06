@@ -18,7 +18,8 @@ type ButtonVariant =
   | "mainBlack"
   | "mainBlue"
   | "successMain"
-  | "dangerMain";
+  | "dangerMain"
+  | "warningMain";
 type ButtonSize =
   | "small"
   | "medium"
@@ -133,6 +134,8 @@ const button = cva({
         "bg-green-500 text-white hover:bg-green-600 focus:ring-green-500/10 disabled:bg-green-500/10 disabled:text-green-500 border-b-5 border-green-700 [box-shadow:0px_1px_3px_0px_#0000001A] ",
       dangerMain:
         "bg-red-500 text-white hover:bg-red-600 focus:ring-red-500/10 disabled:bg-red-500/10 disabled:text-red-500 border-b-5 border-red-700 [box-shadow:0px_1px_3px_0px_#0000001A] ",
+      warningMain:
+        "bg-orange-500 text-white hover:bg-orange-600 focus:ring-orange-500/10 disabled:bg-orange-500/10 disabled:text-orange-500 border-b-5 border-orange-700 [box-shadow:0px_1px_3px_0px_#0000001A] ",
       // marketing screens
       mainPink:
         "bg-pink-main hover:bg-pink-main/95 text-white rounded-full px-8 py-4 border-2 border-black shadow-thick-4 transition-all hover:shadow-thick-6 hover:-translate-y-1",

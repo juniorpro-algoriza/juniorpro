@@ -16,3 +16,4 @@ export { getCollaborationRoleTaskById } from "./getCollaborationRoleTaskById";
 export { acceptRoleTask } from "./acceptRoleTask";
 export { rejectRoleTask } from "./rejectRoleTask";
 export { deleteCollaborationRoleTask } from "./deleteCollaborationRoleTask";
+export { makeCollaborationReady } from "./makeCollaborationReady";

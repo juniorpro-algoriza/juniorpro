@@ -21,6 +21,7 @@ import {
   acceptRoleTask,
   rejectRoleTask,
   deleteCollaborationRoleTask,
+  makeCollaborationReady,
 } from "../../server/collaborations";
 import { components } from "../../../../../../api-schema";
 
@@ -275,6 +276,22 @@ export const useDeleteCollaborationRoleTask = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["admin", "collaborations", "role-task-details"],
+      });
+    },
+  });
+};
+
+export const useMakeCollaborationReady = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: makeCollaborationReady,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.admin.collaborations.list,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "detail"],
       });
     },
   });

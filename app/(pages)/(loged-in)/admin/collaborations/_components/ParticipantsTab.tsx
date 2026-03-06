@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@components";
-import { User, Eye, Users2 } from "lucide-react";
+import { User, Eye } from "lucide-react";
 import { useGetJuniorRoleRequests } from "../../tanstack/collaborations";
 import { components } from "../../../../../../api-schema";
 
@@ -33,55 +33,78 @@ export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
 
   return (
     <div className="space-y-6 py-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Header / Stats */}
-      <div className="flex items-center gap-3">
-        <h2 className="text-xl font-bold text-[#111827]">Total Participants</h2>
-        <span className="bg-[#EEF2FF] text-[#6366F1] text-xs font-bold px-2.5 py-1 rounded-full">
-          {participants.length}
-        </span>
-      </div>
-
       {/* Participants Table */}
-      {isLoading ? (
-        <MainCard classname="p-0 overflow-hidden border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2rem]">
-          <div className="p-8 space-y-4">
-            {[1, 2, 3].map((i) => (
-              <Skeleton key={i} className="h-16 w-full rounded-2xl" />
-            ))}
+      <MainCard classname="p-0 border-gray-100 overflow-hidden">
+        <div className="p-6 border-b border-gray-50 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <h3 className="text-lg font-bold text-gray-900">
+              Total Participants
+            </h3>
+            <span className="flex items-center justify-center px-2 py-0.5 bg-blue-main/10 text-blue-main text-xs font-bold rounded-full border border-blue-main/10">
+              {isLoading ? "Loading..." : participants.length}
+            </span>
           </div>
-        </MainCard>
-      ) : participants.length > 0 ? (
-        <MainCard classname="p-0 overflow-hidden border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2rem]">
-          <div className="overflow-x-auto">
-            <EnhancedTable>
-              <TableHeader className="bg-gray-50/30 border-b border-gray-100/50">
-                <TableRow>
-                  <TableHead className="text-[11px] font-black text-[#9CA3AF] uppercase tracking-widest px-8 py-6">
-                    PARTICIPANT
-                  </TableHead>
-                  <TableHead className="text-[11px] font-black text-[#9CA3AF] uppercase tracking-widest px-8 py-6">
-                    LEVEL
-                  </TableHead>
-                  <TableHead className="text-[11px] font-black text-[#9CA3AF] uppercase tracking-widest px-8 py-6">
-                    REGISTERED
-                  </TableHead>
-                  <TableHead className="text-[11px] font-black text-[#9CA3AF] uppercase tracking-widest px-8 py-6">
-                    TASKS DONE
-                  </TableHead>
-                  <TableHead className="text-[11px] font-black text-[#9CA3AF] uppercase tracking-widest px-8 py-6 text-right">
-                    ACTION
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {participants.map((p: Application) => (
+        </div>
+
+        <div className="overflow-x-auto">
+          <EnhancedTable>
+            <TableHeader>
+              <TableRow className="bg-gray-50/50 text-gray-500 border-y border-gray-100">
+                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                  PARTICIPANT
+                </TableHead>
+                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                  LEVEL
+                </TableHead>
+                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                  REGISTERED
+                </TableHead>
+                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                  TASKS DONE
+                </TableHead>
+                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-right">
+                  ACTION
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading ? (
+                /* Loading State */
+                [...Array(3)].map((_, index) => (
+                  <TableRow key={index} className="border-y border-gray-100">
+                    <TableCell className="py-5 px-6">
+                      <div className="flex items-center gap-4">
+                        <Skeleton className="size-12 rounded-full" />
+                        <div className="space-y-2">
+                          <Skeleton className="h-5 w-32" />
+                          <Skeleton className="h-4 w-24" />
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-5 w-8" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-5 w-32" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-5 w-8" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-right">
+                      <Skeleton className="h-8 w-16 rounded-lg ml-auto" />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : participants.length > 0 ? (
+                /* Data State */
+                participants.map((p: Application) => (
                   <TableRow
                     key={p.id}
-                    className="hover:bg-gray-50/50 transition-colors border-b border-gray-50 last:border-0 group"
+                    className="group hover:bg-gray-50/30 transition-colors border-gray-200"
                   >
-                    <TableCell className="px-8 py-6">
+                    <TableCell className="py-5 px-6">
                       <div className="flex items-center gap-4">
-                        <div className="size-12 rounded-full bg-[#F3F4F6] flex items-center justify-center text-[#6B7280] font-bold text-sm shrink-0">
+                        <div className="size-12 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 border border-gray-200">
                           {p.juniorName ? (
                             p.juniorName
                               .split(" ")
@@ -92,64 +115,54 @@ export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
                             <User className="size-5" />
                           )}
                         </div>
-                        <div className="space-y-0.5">
-                          <div className="font-bold text-[#1F2937]">
+                        <div className="space-y-1">
+                          <div className="font-bold text-gray-900 text-base">
                             {p.juniorName || "Unknown Student"}
                           </div>
-                          <div className="text-xs text-[#9CA3AF] font-medium">
+                          <div className="text-sm text-gray-400 font-medium">
                             {p.roleCategoryNameEn || "UI Designer"}
                           </div>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="px-8 py-6 text-sm text-[#4B5563] font-medium">
+                    <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
                       12
                     </TableCell>
-                    <TableCell className="px-8 py-6 text-sm text-[#4B5563] font-medium">
+                    <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
                       {p.actionDate
-                        ? new Date(p.actionDate)
-                            .toLocaleDateString("en-GB", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              hour12: true,
-                            })
-                            .replace(",", "")
-                        : "20 Jan 2024, 12:00PM"}
+                        ? new Date(p.actionDate).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })
+                        : "No date"}
                     </TableCell>
-                    <TableCell className="px-8 py-6 text-sm text-[#4B5563] font-medium">
+                    <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
                       12
                     </TableCell>
-                    <TableCell className="px-8 py-6 text-right">
-                      <button className="inline-flex items-center gap-2 text-sm font-semibold text-[#6B7280] hover:text-[#4F46E5] transition-colors">
+                    <TableCell className="py-5 px-6 text-right">
+                      <button className="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-main transition-colors">
                         <Eye className="size-4" />
                         View
                       </button>
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </EnhancedTable>
-          </div>
-        </MainCard>
-      ) : (
-        <div className="bg-white border-2 border-dashed border-gray-100 rounded-[2rem] py-20 flex flex-col items-center justify-center text-center space-y-4 shadow-sm">
-          <div className="size-16 rounded-full bg-gray-50 flex items-center justify-center text-gray-300">
-            <Users2 className="size-8" />
-          </div>
-          <div>
-            <h3 className="font-bold text-gray-900 text-lg">
-              No participants yet
-            </h3>
-            <p className="text-gray-500 max-w-xs mx-auto">
-              Accepted applicants will appear here once they join the
-              collaboration.
-            </p>
-          </div>
+                ))
+              ) : (
+                /* Empty State */
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="py-12 text-center text-gray-400 font-medium"
+                  >
+                    No participants found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </EnhancedTable>
         </div>
-      )}
+      </MainCard>
     </div>
   );
 }

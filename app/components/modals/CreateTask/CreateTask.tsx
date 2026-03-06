@@ -72,77 +72,85 @@ export const CreateTask = (props: CreateTaskProps) => {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Input
-          label="TASK TITLE *"
-          placeholder="e.g., Design Homepage"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          error={fieldErrors.title}
-        />
+        <div className="space-y-4 h-[400px] overflow-y-scroll px-1">
+          <Input
+            label="TASK TITLE *"
+            placeholder="e.g., Design Homepage"
+            value={formData.title}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
+            error={fieldErrors.title}
+          />
 
-        <Select
-          label="ROLE *"
-          placeholder="Select role"
-          options={roleOptions}
-          value={formData.roleId}
-          onChange={(val) =>
-            setFormData({ ...formData, roleId: val.toString(), juniorId: null })
-          }
-          error={fieldErrors.roleId}
-          loading={rolesLoading}
-        />
+          <Select
+            label="ROLE *"
+            placeholder="Select role"
+            options={roleOptions}
+            value={formData.roleId}
+            onChange={(val) =>
+              setFormData({
+                ...formData,
+                roleId: val.toString(),
+                juniorId: null,
+              })
+            }
+            error={fieldErrors.roleId}
+            loading={rolesLoading}
+          />
 
-        <Select
-          label="ASSIGNEE (Optional)"
-          placeholder={
-            !formData.roleId
-              ? "Select role first"
-              : assigneeLoading
-                ? "Getting assignees..."
-                : assigneeOptions.length === 0
-                  ? "No assignees available for this role"
-                  : "Select team member"
-          }
-          options={assigneeOptions}
-          value={formData.juniorId || ""}
-          onChange={(val) =>
-            setFormData({ ...formData, juniorId: val.toString() })
-          }
-          error={fieldErrors.juniorId}
-          disabled={!formData.roleId || assigneeOptions.length === 0}
-          loading={assigneeLoading}
-        />
+          <Select
+            label="ASSIGNEE (Optional)"
+            placeholder={
+              !formData.roleId
+                ? "Select role first"
+                : assigneeLoading
+                  ? "Getting assignees..."
+                  : assigneeOptions.length === 0
+                    ? "No assignees available for this role"
+                    : "Select team member"
+            }
+            options={assigneeOptions}
+            value={formData.juniorId || ""}
+            onChange={(val) =>
+              setFormData({ ...formData, juniorId: val.toString() })
+            }
+            error={fieldErrors.juniorId}
+            disabled={!formData.roleId || assigneeOptions.length === 0}
+            loading={assigneeLoading}
+          />
 
-        <Select
-          label="PRIORITY *"
-          placeholder="Select priority"
-          options={priorityOptions}
-          value={formData.priority}
-          onChange={(val) =>
-            setFormData({ ...formData, priority: val.toString() })
-          }
-          error={fieldErrors.priority}
-        />
+          <Select
+            label="PRIORITY *"
+            placeholder="Select priority"
+            options={priorityOptions}
+            value={formData.priority}
+            onChange={(val) =>
+              setFormData({ ...formData, priority: val.toString() })
+            }
+            error={fieldErrors.priority}
+          />
 
-        <DatePicker
-          label="DUE DATE *"
-          value={formData.dueDate || undefined}
-          onChange={(date) =>
-            setFormData({ ...formData, dueDate: date || null })
-          }
-          error={fieldErrors.dueDate}
-        />
+          <DatePicker
+            label="DUE DATE *"
+            value={formData.dueDate || undefined}
+            onChange={(date) =>
+              setFormData({ ...formData, dueDate: date || null })
+            }
+            error={fieldErrors.dueDate}
+          />
 
-        <Textarea
-          label="DESCRIPTION *"
-          placeholder="e.g., Build and maintain the frontend UI, ensure responsive design..."
-          value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-          error={fieldErrors.description}
-          className="min-h-[120px]"
-        />
+          <Textarea
+            label="DESCRIPTION *"
+            placeholder="e.g., Build and maintain the frontend UI, ensure responsive design..."
+            value={formData.description}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+            error={fieldErrors.description}
+            className="min-h-[120px]"
+          />
+        </div>
 
         <div className="flex items-center justify-end gap-3 pt-4">
           <Button

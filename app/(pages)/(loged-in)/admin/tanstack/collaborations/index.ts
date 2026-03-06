@@ -17,4 +17,5 @@ export {
   useAcceptRoleTask,
   useRejectRoleTask,
   useDeleteCollaborationRoleTask,
+  useMakeCollaborationReady,
 } from "./useCollaborations";
