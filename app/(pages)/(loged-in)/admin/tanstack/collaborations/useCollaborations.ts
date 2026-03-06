@@ -14,6 +14,14 @@ import {
   addCollaborationRoleTask,
   updateCollaborationRoleTask,
   getRoleAssignedJuniors,
+  getJuniorRoleRequests,
+  acceptJuniorRole,
+  rejectJuniorRole,
+  getCollaborationRoleTaskById,
+  acceptRoleTask,
+  rejectRoleTask,
+  deleteCollaborationRoleTask,
+  makeCollaborationReady,
 } from "../../server/collaborations";
 import { components } from "../../../../../../api-schema";
 
@@ -123,15 +131,12 @@ export const useGetCollaborationRoleTasks = (params: {
   roleId?: number;
   juniorId?: number;
   status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"];
-  pageNumber?: number;
-  pageSize?: number;
+  pageNumber: number;
+  pageSize: number;
   searchText?: string;
 }) => {
   return useQuery({
-    queryKey: QUERY_KEYS.admin.collaborations.roleTasks(
-      params.collaborationId,
-      params.roleId
-    ),
+    queryKey: QUERY_KEYS.admin.collaborations.roleTasks(params),
     queryFn: () => getCollaborationRoleTasks(params),
     enabled: !!params.collaborationId,
   });
@@ -163,10 +168,131 @@ export const useUpdateCollaborationRoleTask = () => {
   });
 };
 
-export const useGetRoleAssignedJuniors = (roleId: number) => {
+export const useGetRoleAssignedJuniors = (params: {
+  collaborationId: number;
+  roleId?: number;
+}) => {
   return useQuery({
-    queryKey: QUERY_KEYS.admin.collaborations.roleAssignedJuniors(roleId),
-    queryFn: () => getRoleAssignedJuniors(roleId),
-    enabled: !!roleId,
+    queryKey: QUERY_KEYS.admin.collaborations.roleAssignedJuniors(
+      params.roleId || 0
+    ),
+    queryFn: () => getRoleAssignedJuniors(params),
+    enabled: !!params.collaborationId,
+  });
+};
+
+export const useGetJuniorRoleRequests = (params: {
+  collaborationId: number;
+  roleId?: number;
+  status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleJuniorStatus"];
+  pageNumber?: number;
+  pageSize?: number;
+  searchText?: string;
+}) => {
+  return useQuery({
+    queryKey: ["admin", "collaborations", "junior-role-requests", params],
+    queryFn: () => getJuniorRoleRequests(params),
+    enabled: !!params.collaborationId,
+  });
+};
+
+export const useAcceptJuniorRole = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: acceptJuniorRole,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "junior-role-requests"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "detail"],
+      });
+    },
+  });
+};
+
+export const useRejectJuniorRole = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: rejectJuniorRole,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "junior-role-requests"],
+      });
+    },
+  });
+};
+
+export const useGetCollaborationRoleTaskById = (id: number) => {
+  return useQuery({
+    queryKey: ["admin", "collaborations", "role-task-details", id],
+    queryFn: () => getCollaborationRoleTaskById(id),
+    enabled: !!id,
+  });
+};
+
+export const useAcceptRoleTask = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: acceptRoleTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "role-tasks"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "role-task-details"],
+      });
+    },
+  });
+};
+
+export const useRejectRoleTask = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: rejectRoleTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "role-tasks"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "role-task-details"],
+      });
+    },
+  });
+};
+
+export const useDeleteCollaborationRoleTask = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteCollaborationRoleTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "role-tasks"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "role-task-details"],
+      });
+    },
+  });
+};
+
+export const useMakeCollaborationReady = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: makeCollaborationReady,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.admin.collaborations.list,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "detail"],
+      });
+    },
   });
 };

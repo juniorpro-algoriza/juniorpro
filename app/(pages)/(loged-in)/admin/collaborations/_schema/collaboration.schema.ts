@@ -90,6 +90,12 @@ export const collaborationSchemaObject = z.object({
   registrationDeadline: z.date({
     message: "Registration deadline is required",
   }),
+  startDate: z.date({
+    message: "Start date is required",
+  }),
+  endDate: z.date({
+    message: "End date is required",
+  }),
 
   xpReward: z.coerce.number().min(1, "XP Reward is required").default(0),
   gemsPoints: z.coerce.number().min(1, "Gems / Points is required").default(0),
@@ -115,6 +121,8 @@ export const step1Schema = collaborationSchemaObject.pick({
   description: true,
   projectIcon: true,
   registrationDeadline: true,
+  startDate: true,
+  endDate: true,
   xpReward: true,
   gemsPoints: true,
   money: true,

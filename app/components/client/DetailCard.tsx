@@ -16,6 +16,7 @@ interface DetailCardProps {
   className?: string;
   iconClassName?: string;
   backgroundOverlay?: string;
+  extraActions?: React.ReactNode;
 }
 
 export const DetailCard = ({
@@ -30,6 +31,7 @@ export const DetailCard = ({
   className,
   iconClassName,
   backgroundOverlay,
+  extraActions,
 }: DetailCardProps) => {
   return (
     <MainCard
@@ -67,15 +69,18 @@ export const DetailCard = ({
             </p>
           </div>
         </div>
-        <Button
-          intent="main"
-          size="mainDefault"
-          onClick={onButtonClick}
-          className="shadow-sm w-full md:w-auto"
-        >
-          {buttonIcon}
-          {buttonText}
-        </Button>
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <Button
+            intent="main"
+            size="mainDefault"
+            onClick={onButtonClick}
+            className="shadow-sm flex-1 md:flex-none"
+          >
+            {buttonIcon}
+            {buttonText}
+          </Button>
+          {extraActions}
+        </div>
       </div>
       <div className="relative z-10 border-t-2 border-dashed border-gray-200"></div>
       {/* Progress Section */}

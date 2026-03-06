@@ -35,6 +35,8 @@ export interface CollaborationFormData {
   projectIcon: string;
 
   registrationDeadline: Date | null;
+  startDate: Date | null;
+  endDate: Date | null;
 
   xpReward: number;
   gemsPoints: number;

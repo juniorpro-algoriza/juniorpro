@@ -12,10 +12,12 @@ import {
   Skeleton,
   Input,
 } from "@components";
-import { PATH_ICON } from "../../../../configs/constants";
+import {
+  PATH_ICON,
+  getCollaborationStatusOptions,
+} from "../../../../configs/constants";
 import { useCollaborationsWithFilters } from "../../../../tanstack";
 import { components } from "../../../../../api-schema";
-import { getCollaborationStatusOptions } from "../../../../constants/collaborationEnums";
 
 // Type definition from API schema
 type GetCollaborationListModel =
