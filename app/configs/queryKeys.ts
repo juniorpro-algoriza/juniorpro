@@ -62,6 +62,24 @@ export const QUERY_KEYS = {
     }) => ["contributor", "packages", params] as const,
   },
   junior: {
+    collaborations: {
+      all: (params: SearchParams) =>
+        ["junior", "collaborations", params] as const,
+      list: ["junior", "collaborations"] as const,
+      detail: (id: number) =>
+        ["junior", "collaborations", "detail", id] as const,
+      roles: (collaborationId: number) =>
+        ["junior", "collaborations", "roles", collaborationId] as const,
+      roleTasks: (params: {
+        collaborationId: number;
+        pageNumber: number;
+        pageSize: number;
+        searchText?: string;
+        status?: number;
+      }) => ["junior", "collaborations", "role-tasks", params] as const,
+      roleTaskDetail: (id: number) =>
+        ["junior", "collaborations", "role-task-detail", id] as const,
+    },
     paths: {
       all: (params: SearchParams) => ["junior", "paths", params] as const,
       byId: (id: number) => ["junior", "paths", id] as const,

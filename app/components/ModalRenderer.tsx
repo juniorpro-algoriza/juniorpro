@@ -55,6 +55,11 @@ const Modals: Record<
   CreateTask: lazy(() =>
     import("./modals/CreateTask").then((m) => ({ default: m.CreateTask }))
   ),
+  JuniorTaskDetails: lazy(() =>
+    import("./modals/JuniorTaskDetails").then((m) => ({
+      default: m.JuniorTaskDetails,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {

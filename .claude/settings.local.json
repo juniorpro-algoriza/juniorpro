@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /c/Users/user/Desktop/\"Projects AZM\"/juniorpro_azure/app/\\\\\\(pages\\\\\\)/\\\\\\(loged-in\\\\\\)/admin/collaborations/)",
+      "Bash(ls -la \"/c/Users/user/Desktop/Projects AZM/juniorpro_azure/app/\\(pages\\)/\\(loged-in\\)/junior/collaborations/_components/\")"
+    ]
+  }
+}

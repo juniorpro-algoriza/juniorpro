@@ -1,0 +1,1 @@
+export { JuniorTaskDetails } from "./JuniorTaskDetails";

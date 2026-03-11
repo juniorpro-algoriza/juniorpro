@@ -44,7 +44,18 @@ export default function CollaborationDetailsPage({
   const handlePublishClick = () => {
     publishCollaboration(collaborationId, {
       onSuccess: () => toast.success("Collaboration published successfully"),
-      onError: () => toast.error("Failed to publish collaboration"),
+      onError: (error) => {
+        let message = "Failed to publish collaboration";
+        try {
+          const parsed = JSON.parse(error.message);
+          if (parsed.errorMessage) {
+            message = parsed.errorMessage;
+          }
+        } catch {
+          // use default message
+        }
+        toast.error(message);
+      },
     });
   };
 
@@ -132,10 +143,9 @@ export default function CollaborationDetailsPage({
     },
   ];
 
-  // Calculate progress based on filled roles vs total capacity
+  const progress = collaborationDetails?.progressPercentage || 0;
   const totalCapacity = collaborationDetails?.totalJuniorSeats || 0;
   const takenSeats = collaborationDetails?.takenJuniorSeats || 0;
-  const progress = totalCapacity > 0 ? (takenSeats / totalCapacity) * 100 : 0;
 
   return (
     <div className="space-y-6 p-4 md:p-0">
@@ -159,7 +169,7 @@ export default function CollaborationDetailsPage({
         buttonText="Edit Collaboration"
         buttonIcon={<Pencil className="size-4" />}
         onButtonClick={handleEditClick}
-        progress={Math.round(progress)}
+        progress={progress}
         backgroundOverlay="/images/handOnHand.svg"
         extraActions={
           collaborationDetails?.status === COLLABORATION_STATUS.DRAFT ? (
