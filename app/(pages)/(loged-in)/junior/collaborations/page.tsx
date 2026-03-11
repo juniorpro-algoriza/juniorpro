@@ -224,4 +224,10 @@ const JuniorCollaborations = () => {
   );
 };
 
-export default JuniorCollaborations;
+const JuniorCollaborationsPage = () => (
+  <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+    <JuniorCollaborations />
+  </Suspense>
+);
+
+export default JuniorCollaborationsPage;
