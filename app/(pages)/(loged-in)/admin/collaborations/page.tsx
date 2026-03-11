@@ -53,18 +53,11 @@ const Collaborations = () => {
   };
 
   const formatCollaborationData = (collab: GetCollaborationListModel) => {
-    const progress = collab.requiredMissions
-      ? Math.min(
-          ((collab.takenJuniorSeats || 0) / collab.requiredMissions) * 100,
-          100
-        )
-      : 0;
-
     return {
       id: collab.id || 0,
       title: collab.nameEn || collab.nameAr || "Untitled Collaboration",
       description: collab.description || "No description available",
-      progress: Math.round(progress),
+      progress: collab.progressPercentage || 0,
       price: collab.money || 0,
       currency: "SAR",
       membersCurrent: collab.takenJuniorSeats || 0,

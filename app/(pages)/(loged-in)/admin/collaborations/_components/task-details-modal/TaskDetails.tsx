@@ -87,8 +87,8 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
         description: task.description || "",
         dueDate: task.dueDate || null,
       });
-      if (task.additionalNotes) {
-        setRejectionReason(task.additionalNotes);
+      if (task.actionReason && (task.status || 0) === TASK_STATUS.REJECTED) {
+        setRejectionReason(task.actionReason);
       }
     }
   }, [task]);
@@ -174,17 +174,17 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
     }
   };
 
-  const handleDeleteRequest = async () => {
-    if (!taskId) return;
-    try {
-      await rejectTask.mutateAsync({ id: Number(taskId), actionReason: "" });
-      setRejectionReason("");
-      toast.success("Request deleted");
-      refetch();
-    } catch {
-      toast.error("Failed to delete request");
-    }
-  };
+  // const handleDeleteRequest = async () => {
+  //   if (!taskId) return;
+  //   try {
+  //     await rejectTask.mutateAsync({ id: Number(taskId), actionReason: "" });
+  //     setRejectionReason("");
+  //     toast.success("Request deleted");
+  //     refetch();
+  //   } catch {
+  //     toast.error("Failed to delete request");
+  //   }
+  // };
 
   const handleDeleteTask = async () => {
     if (!taskId) return;
@@ -192,8 +192,15 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
       await deleteTask.mutateAsync(Number(taskId));
       toast.success("Task deleted successfully");
       onClose();
-    } catch {
-      toast.error("Failed to delete task");
+    } catch (error) {
+      let message = "Failed to delete task";
+      try {
+        const parsed = JSON.parse((error as Error).message);
+        if (parsed.errorMessage) message = parsed.errorMessage;
+      } catch {
+        // use default message
+      }
+      toast.error(message);
     }
   };
 
@@ -250,8 +257,9 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
     task.juniorName ||
     null;
 
-  const hasSubmittedFile = !!task.submitedFile;
-  const hasRequestedChanges = !!task.additionalNotes;
+  const hasSubmittedFile = !!task.submitedFile || !!task.projectLink;
+  const hasRequestedChanges =
+    !!task.actionReason && (task.status || 0) === TASK_STATUS.REJECTED;
   const isSubmitted = (task.status || 0) === TASK_STATUS.UNDER_REVIEW;
   const canEdit =
     task.status === TASK_STATUS.NOT_STARTED ||
@@ -557,31 +565,50 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
                         <p className="text-xs text-gray-500 flex items-center gap-1">
                           <Clock size={11} />
                           Submitted on{" "}
-                          {task.dueDate
-                            ? new Date(task.dueDate).toLocaleDateString("en-CA")
+                          {task.submissionDate
+                            ? new Date(task.submissionDate).toLocaleDateString(
+                                "en-CA"
+                              )
                             : "N/A"}
                         </p>
+                        {task.additionalNotes &&
+                          (task.status || 0) !== TASK_STATUS.REJECTED && (
+                            <p className="text-xs text-gray-500 pt-1 max-w-sm">
+                              <span className="font-bold text-gray-600">
+                                Additional Notes:
+                              </span>{" "}
+                              {task.additionalNotes}
+                            </p>
+                          )}
                         <div className="flex items-center gap-3 pt-1">
                           {task.projectLink && (
                             <a
-                              href={task.projectLink}
+                              href={
+                                task.projectLink.startsWith("http")
+                                  ? task.projectLink
+                                  : `https://${task.projectLink}`
+                              }
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center gap-1.5 text-blue-main text-xs font-bold hover:underline"
                             >
                               <LinkIcon size={12} />
-                              View
+                              View Project
                             </a>
                           )}
                           {task.submitedFile && (
                             <a
-                              href={task.submitedFile}
+                              href={
+                                task.submitedFile.startsWith("http")
+                                  ? task.submitedFile
+                                  : `https://${task.submitedFile}`
+                              }
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center gap-1.5 text-blue-main text-xs font-bold hover:underline"
                             >
                               <Download size={12} />
-                              Download
+                              Download File
                             </a>
                           )}
                         </div>
@@ -612,7 +639,7 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
                             disabled={acceptTask.isPending}
                             intent="successMain"
                             size="custom"
-                            className=" size-12 rounded-2xl"
+                            className=" size-12 rounded-2xl gap-1"
                             isLoading={acceptTask.isPending}
                           >
                             <Check size={18} />
@@ -657,7 +684,7 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
                         <button
                           onClick={() => {
                             setMode("view");
-                            setRejectionReason(task.additionalNotes || "");
+                            setRejectionReason(task.actionReason || "");
                           }}
                           className="px-4 py-2 text-gray-500 font-bold text-sm hover:text-gray-700 transition-colors"
                         >
@@ -674,13 +701,13 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
                       </p>
                       <div className="p-4 bg-orange-50/50 border border-orange-100 rounded-xl">
                         <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                          {task.additionalNotes}
+                          {task.actionReason}
                         </p>
                       </div>
-                      <div className="flex items-center gap-4">
+                      {/* <div className="flex items-center gap-4">
                         <button
                           onClick={() => {
-                            setRejectionReason(task.additionalNotes || "");
+                            setRejectionReason(task.actionReason || "");
                             setMode("requestChanges");
                           }}
                           className="flex items-center gap-1.5 text-blue-main text-xs font-bold hover:underline"
@@ -695,7 +722,7 @@ export const TaskDetails = ({ taskId }: TaskDetailsProps) => {
                           <Trash2 size={12} />
                           Delete
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   )}
                 </div>

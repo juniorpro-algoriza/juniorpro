@@ -64,7 +64,9 @@ export const useCreateTask = (
           roleJuniorId: result.data.juniorId
             ? parseInt(result.data.juniorId)
             : null,
-          dueDate: result.data.dueDate?.toISOString() || null,
+          dueDate: result.data.dueDate
+            ? `${result.data.dueDate.getFullYear()}-${String(result.data.dueDate.getMonth() + 1).padStart(2, "0")}-${String(result.data.dueDate.getDate()).padStart(2, "0")}T00:00:00.000Z`
+            : null,
         };
 
         if (initialData?.id) {

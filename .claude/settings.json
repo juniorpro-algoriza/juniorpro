@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /c/Users/user/Desktop/\"Projects AZM\"/juniorpro_azure/app/\\\\\\(pages\\\\\\)/\\\\\\(loged-in\\\\\\)/admin/collaborations/_components/)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(ls -la /c/Users/user/Desktop/\"Projects AZM\"/juniorpro_azure/app/\\\\\\(pages\\\\\\)/\\\\\\(logged-out\\\\\\)/collaboration/)",
+      "Bash(ls -la \"/c/Users/user/Desktop/Projects AZM/juniorpro_azure/app/\\(pages\\)/\\(loged-in\\)/admin/tanstack/collaborations/\")",
+      "Bash(npx tsc --noEmit)"
+    ]
+  }
+}
