@@ -105,7 +105,16 @@ export const ProjectCard = ({
         <div className="flex items-center gap-1.5 md:gap-2">
           <Users size={14} className="md:size-4" />
           <span className="font-medium whitespace-nowrap">
-            {membersTotal - membersCurrent} / {membersTotal} open roles
+            {type === "challenge" ? (
+              <>
+                <span className="text-gray-900">{membersCurrent}</span>{" "}
+                Participants
+              </>
+            ) : (
+              <>
+                {membersTotal - membersCurrent} / {membersTotal} open roles
+              </>
+            )}
           </span>
         </div>
       </div>

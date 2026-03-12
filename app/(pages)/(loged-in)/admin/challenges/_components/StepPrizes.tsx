@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@components";
-import { ChallengeFormData, Prize } from "./types";
+import { ChallengeFormData, ChallengePrize } from "./types";
 import { Dispatch, SetStateAction } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
@@ -26,13 +26,12 @@ export const StepPrizes = ({
 }: StepPrizesProps) => {
   const handleAddPrize = () => {
     const rank = (formData.prizes?.length || 0) + 1;
-    const newPrize: Prize = {
+    const newPrize: ChallengePrize = {
       id: Date.now().toString(),
-      rank: rank,
-      money: undefined,
-      xp: undefined,
-      gems: undefined,
-      label: "",
+      rank,
+      titleEn: "",
+      xp: 0,
+      points: 0,
     };
     setFormData((prev) => ({
       ...prev,
@@ -41,18 +40,16 @@ export const StepPrizes = ({
   };
 
   const handleRemovePrize = (id: string) => {
-    setFormData((prev) => {
-      const newPrizes = prev.prizes.filter((p) => p.id !== id);
-      // Re-calculate ranks?
-      // For now, let's just let them be, or mapping index + 1 as rank visually.
-      return { ...prev, prizes: newPrizes };
-    });
+    setFormData((prev) => ({
+      ...prev,
+      prizes: prev.prizes.filter((p) => p.id !== id),
+    }));
   };
 
-  const handlePrizeChange = <K extends keyof Prize>(
+  const handlePrizeChange = <K extends keyof ChallengePrize>(
     id: string,
     field: K,
-    value: Prize[K]
+    value: ChallengePrize[K]
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -83,7 +80,7 @@ export const StepPrizes = ({
                 <div className="flex items-center gap-4">
                   <div
                     className={cx(
-                      "w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg  text-dark-blue-main overflow-hidden relative",
+                      "w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg text-dark-blue-main overflow-hidden relative",
                       index < 3 ? "" : "border border-gray-200 shadow-sm"
                     )}
                   >
@@ -98,18 +95,24 @@ export const StepPrizes = ({
                       index + 1
                     )}
                   </div>
-                  <div className="font-semibold text-gray-700">
-                    {index === 0
-                      ? "1st"
-                      : index === 1
-                        ? "2nd"
-                        : index === 2
-                          ? "3rd"
-                          : `${index + 1}th`}{" "}
-                    Place
+                  <div className="space-y-0.5">
+                    <div className="font-semibold text-gray-700">
+                      {index === 0
+                        ? "1st"
+                        : index === 1
+                          ? "2nd"
+                          : index === 2
+                            ? "3rd"
+                            : `${index + 1}th`}{" "}
+                      Place
+                    </div>
+                    <p className="text-xs text-gray-500">
+                      Configure rewards for this position
+                    </p>
                   </div>
                   <div className="flex-1" />
                   <button
+                    type="button"
                     onClick={() => handleRemovePrize(prize.id)}
                     className="text-gray-400 hover:text-red-500"
                   >
@@ -119,51 +122,47 @@ export const StepPrizes = ({
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <Input
-                    placeholder="Money (1000)"
-                    label={index === 0 ? "Money Reward" : undefined}
+                    label={index === 0 ? "Cash Prize" : undefined}
+                    placeholder="$ 1000"
                     type="number"
-                    value={prize.money ?? ""}
+                    value={prize.points || ""}
                     onChange={(e) =>
                       handlePrizeChange(
                         prize.id,
-                        "money",
+                        "points",
                         Number(e.target.value)
                       )
                     }
-                    error={fieldErrors[`prizes.${index}.money`]}
+                    error={fieldErrors[`prizes.${index}.points`]}
                   />
                   <Input
-                    placeholder="XP (500)"
-                    label={index === 0 ? "Experience Points" : undefined}
+                    label={index === 0 ? "Gems" : undefined}
+                    placeholder="500"
                     type="number"
-                    value={prize.xp ?? ""}
+                    value={prize.xp || ""}
                     onChange={(e) =>
                       handlePrizeChange(prize.id, "xp", Number(e.target.value))
                     }
                     error={fieldErrors[`prizes.${index}.xp`]}
                   />
                   <Input
-                    placeholder="Gems (300)"
-                    label={index === 0 ? "Gems" : undefined}
+                    label={index === 0 ? "XP Points" : undefined}
+                    placeholder="300"
                     type="number"
-                    value={prize.gems ?? ""}
+                    value={prize.xp || ""}
                     onChange={(e) =>
-                      handlePrizeChange(
-                        prize.id,
-                        "gems",
-                        Number(e.target.value)
-                      )
+                      handlePrizeChange(prize.id, "xp", Number(e.target.value))
                     }
-                    error={fieldErrors[`prizes.${index}.gems`]}
+                    error={fieldErrors[`prizes.${index}.xp`]}
                   />
                   <Input
-                    placeholder="Label (e.g. Gold Champion)"
-                    label={index === 0 ? "Label/Title" : undefined}
-                    value={prize.label ?? ""}
+                    label={index === 0 ? "Badge Title" : undefined}
+                    placeholder="Gold Champion"
+                    value={prize.titleEn}
                     onChange={(e) =>
-                      handlePrizeChange(prize.id, "label", e.target.value)
+                      handlePrizeChange(prize.id, "titleEn", e.target.value)
                     }
-                    error={fieldErrors[`prizes.${index}.label`]}
+                    error={fieldErrors[`prizes.${index}.titleEn`]}
                   />
                 </div>
               </div>
@@ -177,33 +176,6 @@ export const StepPrizes = ({
             <Plus size={18} />
             Add Prize Place
           </button>
-        </div>
-      </div>
-
-      <hr className="border-gray-100" />
-
-      {/* Participation Reward */}
-      <div className="space-y-4">
-        <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Participation Reward</h3>
-          <p className="text-sm text-gray-600">
-            Reward for all valid submissions
-          </p>
-        </div>
-
-        <div className="w-full md:w-1/3">
-          <Input
-            label="Gems"
-            type="number"
-            placeholder="50"
-            value={formData.participationGems ?? 0}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                participationGems: Number(e.target.value),
-              }))
-            }
-          />
         </div>
       </div>
     </div>
