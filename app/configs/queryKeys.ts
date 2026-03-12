@@ -52,6 +52,16 @@ export const QUERY_KEYS = {
       byId: (id: number) => ["admin", "missions", id] as const,
       list: ["admin", "missions"] as const,
     },
+    challenges: {
+      all: (params: PaginationParams) =>
+        ["admin", "challenges", params] as const,
+      byId: (id: number) => ["admin", "challenges", id] as const,
+      list: ["admin", "challenges"] as const,
+      participants: (params: PaginationParams) =>
+        ["admin", "challenges", "participants", params] as const,
+      participantById: (id: number) =>
+        ["admin", "challenges", "participant", id] as const,
+    },
   },
   contributor: {
     subscription: ["contributor", "subscription"] as const,
