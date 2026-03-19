@@ -12,7 +12,10 @@ import {
   Skeleton,
   Input,
 } from "@components";
-import { PATH_ICON } from "../../../../configs/constants";
+import {
+  PATH_ICON,
+  getCollaborationStatusOptions,
+} from "../../../../configs/constants";
 import { useCollaborationsWithFilters } from "../../../../tanstack";
 import { components } from "../../../../../api-schema";
 
@@ -35,32 +38,35 @@ const Collaborations = () => {
   };
 
   const handleTabChange = (index: number) => {
-    const statusMap = ["all", "active", "completed"];
-    const status = statusMap[index] as "all" | "active" | "completed";
-    updateFilters({ status, pageNumber: 1 });
+    const statusOptions = getCollaborationStatusOptions();
+    if (index === 0) {
+      updateFilters({ status: "all", pageNumber: 1 });
+    } else {
+      const status = statusOptions[index].value as
+        | "all"
+        | "draft"
+        | "ready"
+        | "inprogress"
+        | "completed";
+      updateFilters({ status, pageNumber: 1 });
+    }
   };
 
   const formatCollaborationData = (collab: GetCollaborationListModel) => {
-    const progress = collab.requiredMissions
-      ? Math.min(
-          ((collab.takenJuniorSeats || 0) / collab.requiredMissions) * 100,
-          100
-        )
-      : 0;
-
     return {
       id: collab.id || 0,
       title: collab.nameEn || collab.nameAr || "Untitled Collaboration",
       description: collab.description || "No description available",
-      progress: Math.round(progress),
+      progress: Number((collab.progressPercentage || 0).toFixed(2)),
       price: collab.money || 0,
       currency: "SAR",
       membersCurrent: collab.takenJuniorSeats || 0,
       membersTotal: collab.totalJuniorSeats || 0,
       dateEnd: collab.registerationDeadline
         ? new Date(collab.registerationDeadline).toLocaleDateString("en-US", {
-            month: "short",
+            month: "long",
             day: "numeric",
+            year: "numeric",
           })
         : "No deadline",
     };
@@ -159,15 +165,23 @@ const Collaborations = () => {
       <Tabs
         tabs={[
           {
-            name: `All Projects (${tabCounts.all})`,
+            name: `All (${tabCounts.all})`,
             content: renderCollaborationCards(),
           },
           {
-            name: `Active Projects (${tabCounts.active})`,
+            name: `Draft (${tabCounts.draft})`,
             content: renderCollaborationCards(),
           },
           {
-            name: `Completed Projects (${tabCounts.completed})`,
+            name: `Ready to Start (${tabCounts.ready})`,
+            content: renderCollaborationCards(),
+          },
+          {
+            name: `In Progress (${tabCounts.inprogress})`,
+            content: renderCollaborationCards(),
+          },
+          {
+            name: `Completed (${tabCounts.completed})`,
             content: renderCollaborationCards(),
           },
         ]}

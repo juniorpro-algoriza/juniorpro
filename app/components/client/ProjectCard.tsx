@@ -105,7 +105,16 @@ export const ProjectCard = ({
         <div className="flex items-center gap-1.5 md:gap-2">
           <Users size={14} className="md:size-4" />
           <span className="font-medium whitespace-nowrap">
-            {membersTotal - membersCurrent} / {membersTotal} open roles
+            {type === "challenge" ? (
+              <>
+                <span className="text-gray-900">{membersCurrent}</span>{" "}
+                Participants
+              </>
+            ) : (
+              <>
+                {membersTotal - membersCurrent} / {membersTotal} open roles
+              </>
+            )}
           </span>
         </div>
       </div>
@@ -173,8 +182,19 @@ export const ProjectCard = ({
                   className="flex justify-between items-center text-sm"
                 >
                   <span className="flex items-center gap-2 text-gray-600 font-medium">
-                    {/* Using generic emoji for place */}
-                    {idx === 0 ? "🥇" : idx === 1 ? "🥈" : "🥉"} {prize.place}
+                    <Image
+                      src={
+                        idx === 0
+                          ? "/images/1st-medal.png"
+                          : idx === 1
+                            ? "/images/2nd-medal.png"
+                            : "/images/3rd-medal.png"
+                      }
+                      width={20}
+                      height={20}
+                      alt={`${idx + 1} place`}
+                    />
+                    {prize.place}
                   </span>
                   <span className="font-bold text-gray-900">
                     {prize.amount}

@@ -65,17 +65,17 @@ export const CreateEditCollaboration = ({
   return (
     <div className="space-y-6">
       <div className="border-b border-gray-100 pb-4 space-y-5">
-        <div className="text-nowrap">
+        {/* <div className="text-nowrap">
           <h2 className="text-xl font-bold text-midnight">
             {mode === "edit" ? "Edit Collaboration" : "Create Collaboration"}
           </h2>
           <p className="text-gray-600 text-sm">
             Step {currentStep} of 4: {stepData[currentStep - 1].title}
           </p>
-        </div>
+        </div> */}
 
         <FormStepper
-          steps={stepData}
+          steps={mode === "edit" ? stepData : stepData.slice(0, 3)}
           value={currentStep}
           onClick={handleStepChange}
           className="scale-110"
@@ -117,7 +117,7 @@ export const CreateEditCollaboration = ({
               fieldErrors={fieldErrors}
             />
           )}
-          {currentStep === 4 && (
+          {currentStep === 4 && mode === "edit" && (
             <StepRolesTeam
               formData={formData}
               setFormData={setFormData}
@@ -205,7 +205,7 @@ export const CreateEditCollaboration = ({
               ) : (
                 <Button
                   key="done-btn"
-                  intent="main"
+                  intent="main2"
                   size="mainDefault"
                   onClick={() => router.push("/admin/collaborations")}
                   type="button"

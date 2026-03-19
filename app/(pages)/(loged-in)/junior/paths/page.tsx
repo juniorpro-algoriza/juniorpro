@@ -84,7 +84,7 @@ const MyJourneyPage = () => {
               image: PATH_ICON[String(path.id) as keyof typeof PATH_ICON],
               title: path.nameEn || path.nameAr || "Learning Path",
               description: path.description || "Learn new skills",
-              progress: path.progressPercentage || 0,
+              progress: Number((path.progressPercentage || 0).toFixed(2)),
               missions: path.missionsCount || 0,
               xp: path.totalXP || 0,
               points: path.totalPoints || 0,

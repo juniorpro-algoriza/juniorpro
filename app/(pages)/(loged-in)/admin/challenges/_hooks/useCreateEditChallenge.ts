@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   challengeFormSchema,
@@ -8,72 +9,154 @@ import {
   step2Schema,
   step3Schema,
   step4Schema,
-  ChallengeFormValues,
 } from "../_schema/challenge.schema";
 import { ChallengeFormData } from "../_components/types";
+import {
+  useCreateAdminChallenge,
+  useUpdateAdminChallenge,
+} from "../../tanstack/challenges";
+import { components } from "../../../../../../api-schema";
 
-const getInitialFormData = (): ChallengeFormData => ({
-  // Step 1: Overview
-  projectTitle: "",
+type AddChallengeRequest =
+  components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.AddChallengeRequest"];
+
+const getInitialFormData = (
+  initialData?: Partial<ChallengeFormData>
+): ChallengeFormData => ({
+  nameEn: "",
+  nameAr: "",
   description: "",
-  challengeType: "",
-  difficultyLevel: "",
-  category: "",
-  skills: [],
+  levelId: null,
+  categoryId: null,
+  juniorsCapacity: 0,
+  startDate: null,
+  endDate: null,
+  registerationDeadline: null,
+  icon: null,
+  accessCostType: 1,
 
-  startDateTime: null,
-  endDateTime: null,
-  registrationDeadline: null,
+  guideSteps: [{ id: Date.now().toString(), description: "" }],
+  goals: [{ id: (Date.now() + 1).toString(), description: "" }],
 
-  icon: "",
-  kpPoints: 0,
-  gems: 0,
+  requirements: [{ id: (Date.now() + 2).toString(), description: "" }],
+  evaluations: [],
 
-  isPremium: false,
-  pointsCost: undefined,
-  isSubscriptionOnly: false,
-
-  judges: [{ id: Date.now().toString(), email: "" }],
-
-  // Step 2: How to Complete
-  instructions: [{ id: Date.now().toString(), text: "" }],
-
-  // Step 3: Requirements
-  evaluationCriteria: [{ id: Date.now().toString(), name: "", weight: 0 }],
-  requirements: [{ id: Date.now().toString(), text: "" }],
-  successCriteria: [{ id: Date.now().toString(), text: "" }],
-
-  // Step 4: Prizes
   prizes: [
     {
-      id: Date.now().toString(),
+      id: (Date.now() + 3).toString(),
       rank: 1,
-      money: 1000,
-      xp: undefined,
-      gems: undefined,
-      label: "",
+      titleEn: "",
+      xp: 0,
+      points: 0,
     },
   ],
-  participationGems: 50,
+  ...initialData,
 });
 
-export const useCreateEditChallenge = () => {
+// Returns the numeric API id if the string is a small number (API-assigned),
+// or null for locally generated ids (Date.now() strings).
+function parseApiId(id: string): number | null {
+  const num = Number(id);
+  if (!Number.isNaN(num) && num < 1_000_000) return num;
+  return 0;
+}
+
+function mapFormToApiPayload(formData: ChallengeFormData): AddChallengeRequest {
+  return {
+    challengeDetails: {
+      id: formData.id || undefined,
+      nameEn: formData.nameEn,
+      nameAr: formData.nameAr || formData.nameEn,
+      description: formData.description,
+      levelId: formData.levelId || undefined,
+      categoryId: formData.categoryId || undefined,
+      juniorsCapacity: formData.juniorsCapacity,
+      startDate: formData.startDate?.toISOString(),
+      endDate: formData.endDate?.toISOString(),
+      registerationDeadline:
+        formData.registerationDeadline?.toISOString() || undefined,
+      icon: (formData.icon || 1) as
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12,
+      accessCostType: (formData.accessCostType || 1) as 1 | 2 | 3,
+    },
+    guideSteps: formData.guideSteps
+      .filter((s) => s.description.trim())
+      .map((s, i) => ({
+        id: parseApiId(s.id) ?? i,
+        description: s.description,
+      })),
+    goals: formData.goals
+      .filter((g) => g.description.trim())
+      .map((g) => ({
+        id: parseApiId(g.id),
+        description: g.description,
+      })),
+    requirements: formData.requirements
+      .filter((r) => r.description.trim())
+      .map((r) => ({
+        id: parseApiId(r.id) ?? undefined,
+        description: r.description,
+      })),
+    evaluations: formData.evaluations
+      .filter((e) => e.titleEn.trim())
+      .map((e) => ({
+        id: parseApiId(e.id),
+        titleEn: e.titleEn,
+        titleAr: e.titleAr || e.titleEn,
+        description: e.description || "",
+        percentage: e.percentage,
+      })),
+    prizeDistributions: formData.prizes.map((p, index) => ({
+      id: parseApiId(p.id),
+      titleEn: p.titleEn,
+      titleAr: p.titleAr || p.titleEn,
+      xp: p.xp,
+      points: p.points,
+      rank: (index + 1) as 1 | 2 | 3 | 4 | 5 | 6,
+    })),
+  };
+}
+
+export const useCreateEditChallenge = (options?: {
+  initialData?: Partial<ChallengeFormData>;
+  challengeId?: number;
+}) => {
+  const router = useRouter();
+  const isEditMode = !!options?.challengeId;
+
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [formData, setFormData] =
-    useState<ChallengeFormData>(getInitialFormData());
+  const [formData, setFormData] = useState<ChallengeFormData>(
+    getInitialFormData(options?.initialData)
+  );
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const createMutation = useCreateAdminChallenge();
+  const updateMutation = useUpdateAdminChallenge();
 
   const handleSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      // Convert formData to match schema expectations
       const dataToValidate = {
         ...formData,
-        startDateTime: formData.startDateTime || undefined,
-        endDateTime: formData.endDateTime || undefined,
-        registrationDeadline: formData.registrationDeadline || undefined,
+        startDate: formData.startDate || undefined,
+        endDate: formData.endDate || undefined,
+        registerationDeadline: formData.registerationDeadline || undefined,
+        levelId: formData.levelId || 0,
+        categoryId: formData.categoryId || 0,
+        icon: formData.icon || 0,
       };
 
       const result = challengeFormSchema.safeParse(dataToValidate);
@@ -85,7 +168,6 @@ export const useCreateEditChallenge = () => {
           errors[fieldName] = issue.message;
         });
         setFieldErrors(errors);
-        console.error("Challenges validation failed:", result.error.issues);
         toast.error("Please fix validation errors before submitting");
         return;
       }
@@ -94,40 +176,50 @@ export const useCreateEditChallenge = () => {
       setIsSubmitting(true);
 
       try {
-        const payload: ChallengeFormValues = result.data as ChallengeFormValues;
+        const payload = mapFormToApiPayload(formData);
 
-        // TODO: Implement API call
-        console.log("Submitting challenges:", payload);
+        if (isEditMode) {
+          await updateMutation.mutateAsync(payload);
+          toast.success("Challenge updated successfully!");
+        } else {
+          await createMutation.mutateAsync(payload);
+          toast.success("Challenge created successfully!");
+        }
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        toast.success("Challenges created successfully!");
-
-        // Reset form
-        setFormData(getInitialFormData());
-        setCurrentStep(1);
+        router.push("/admin/challenges");
       } catch (error) {
-        console.error("Failed to create challenges:", error);
-        toast.error("Failed to create challenges. Please try again.");
+        console.error("Failed to save challenge:", error);
+        let message = isEditMode
+          ? "Failed to update challenge"
+          : "Failed to create challenge";
+        try {
+          const parsed = JSON.parse(
+            error instanceof Error ? error.message : ""
+          );
+          if (parsed.errorMessage) message = parsed.errorMessage;
+        } catch {
+          // use default message
+        }
+        toast.error(message);
       } finally {
         setIsSubmitting(false);
       }
     },
-    [formData]
+    [formData, isEditMode, createMutation, updateMutation, router]
   );
 
   const canProceedToNextStep = useCallback(() => {
-    let result;
-
-    // Convert formData to match schema expectations
     const dataToValidate = {
       ...formData,
-      startDateTime: formData.startDateTime || undefined,
-      endDateTime: formData.endDateTime || undefined,
-      registrationDeadline: formData.registrationDeadline || undefined,
+      startDate: formData.startDate || undefined,
+      endDate: formData.endDate || undefined,
+      registerationDeadline: formData.registerationDeadline || undefined,
+      levelId: formData.levelId || 0,
+      categoryId: formData.categoryId || 0,
+      icon: formData.icon || 0,
     };
 
+    let result;
     switch (currentStep) {
       case 1:
         result = step1Schema.safeParse(dataToValidate);
@@ -160,9 +252,6 @@ export const useCreateEditChallenge = () => {
       result.error.issues[0]?.message ??
       "Please complete required fields before continuing";
 
-    // Special handling for array errors in nested paths (ui might not show them directly if not wired)
-    // But setting fieldErrors should propagate to components if they check them.
-
     return { success: false, message };
   }, [currentStep, formData]);
 
@@ -188,6 +277,7 @@ export const useCreateEditChallenge = () => {
     formData,
     fieldErrors,
     isSubmitting,
+    isEditMode,
     setFormData,
     setCurrentStep,
     handleContinue,

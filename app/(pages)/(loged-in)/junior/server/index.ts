@@ -7,3 +7,18 @@ export { getJuniorsLearningPathCurrentMission } from "./paths/getJuniorsLearning
 export { getJuniorsLearningPathCurrentMissionById } from "./paths/getJuniorsLearningPathCurrentMissionById";
 export { postJuniorsLearningPathSubmitMission } from "./paths/postJuniorsLearningPathSubmitMission";
 export { postJuniorsLearningPathJoin } from "./paths/postJuniorsLearningPathJoin";
+
+// Challenges
+export { getJuniorChallenges } from "./challenges";
+export { getJuniorChallengeById } from "./challenges";
+export { joinChallenge } from "./challenges";
+export { submitChallenge } from "./challenges";
+
+// Collaborations
+export { getJuniorCollaborations } from "./collaborations";
+export { getJuniorCollaborationById } from "./collaborations";
+export { getJuniorCollaborationRoles } from "./collaborations";
+export { getJuniorCollaborationRoleTasks } from "./collaborations";
+export { getJuniorRoleTaskDetails } from "./collaborations";
+export { postJoinCollaborationRole } from "./collaborations";
+export { submitJuniorTask } from "./collaborations";

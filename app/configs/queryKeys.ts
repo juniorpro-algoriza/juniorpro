@@ -24,14 +24,16 @@ export const QUERY_KEYS = {
       list: ["admin", "collaborations"] as const,
       roles: (collaborationId: number) =>
         ["admin", "collaborations", "roles", collaborationId] as const,
-      roleTasks: (collaborationId: number, roleId?: number) =>
-        [
-          "admin",
-          "collaborations",
-          "role-tasks",
-          collaborationId,
-          roleId,
-        ] as const,
+      roleTasks: (params: {
+        collaborationId: number;
+        pageNumber: number;
+        pageSize: number;
+        searchText?: string;
+        status?: number;
+        juniorId?: number;
+      }) => ["admin", "collaborations", "role-tasks", params] as const,
+      roleAssignedJuniors: (roleId: number) =>
+        ["admin", "collaborations", "role-assigned-juniors", roleId] as const,
     },
     packages: {
       all: (params: { SearchText: string; DurationType: "month" | "year" }) =>
@@ -50,6 +52,16 @@ export const QUERY_KEYS = {
       byId: (id: number) => ["admin", "missions", id] as const,
       list: ["admin", "missions"] as const,
     },
+    challenges: {
+      all: (params: PaginationParams) =>
+        ["admin", "challenges", params] as const,
+      byId: (id: number) => ["admin", "challenges", id] as const,
+      list: ["admin", "challenges"] as const,
+      participants: (params: PaginationParams) =>
+        ["admin", "challenges", "participants", params] as const,
+      participantById: (id: number) =>
+        ["admin", "challenges", "participant", id] as const,
+    },
   },
   contributor: {
     subscription: ["contributor", "subscription"] as const,
@@ -60,6 +72,29 @@ export const QUERY_KEYS = {
     }) => ["contributor", "packages", params] as const,
   },
   junior: {
+    collaborations: {
+      all: (params: SearchParams) =>
+        ["junior", "collaborations", params] as const,
+      list: ["junior", "collaborations"] as const,
+      detail: (id: number) =>
+        ["junior", "collaborations", "detail", id] as const,
+      roles: (collaborationId: number) =>
+        ["junior", "collaborations", "roles", collaborationId] as const,
+      roleTasks: (params: {
+        collaborationId: number;
+        pageNumber: number;
+        pageSize: number;
+        searchText?: string;
+        status?: number;
+      }) => ["junior", "collaborations", "role-tasks", params] as const,
+      roleTaskDetail: (id: number) =>
+        ["junior", "collaborations", "role-task-detail", id] as const,
+    },
+    challenges: {
+      all: (params: SearchParams) => ["junior", "challenges", params] as const,
+      list: ["junior", "challenges"] as const,
+      detail: (id: number) => ["junior", "challenges", "detail", id] as const,
+    },
     paths: {
       all: (params: SearchParams) => ["junior", "paths", params] as const,
       byId: (id: number) => ["junior", "paths", id] as const,

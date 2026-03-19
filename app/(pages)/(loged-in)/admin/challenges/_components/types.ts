@@ -1,71 +1,59 @@
-export interface Judge {
+export interface GuideStep {
   id: string;
-  email: string;
+  description: string;
 }
 
-export interface Instruction {
+export interface Goal {
   id: string;
-  text: string;
+  description: string;
 }
 
-export interface EvaluationCriterion {
+export interface ChallengeRequirement {
   id: string;
-  name: string;
-  weight: number;
+  description: string;
 }
 
-export interface Prize {
+export interface ChallengeEvaluation {
+  id: string;
+  titleEn: string;
+  titleAr?: string;
+  description?: string;
+  percentage: number;
+}
+
+export interface ChallengePrize {
   id: string;
   rank: number;
-  money?: number;
-  xp?: number;
-  gems?: number;
-  label?: string;
-}
-
-export interface Requirement {
-  id: string;
-  text: string;
-}
-
-export interface Criterion {
-  id: string;
-  text: string;
+  titleEn: string;
+  titleAr?: string;
+  xp: number;
+  points: number;
 }
 
 export interface ChallengeFormData {
   id?: number;
+
   // Step 1: Overview
-  projectTitle: string;
+  nameEn: string;
+  nameAr: string;
   description: string;
-  challengeType: string;
-  difficultyLevel: string;
-  category: string;
-  skills: string[];
+  levelId: number | null;
+  categoryId: number | null;
+  juniorsCapacity: number;
+  startDate: Date | null;
+  endDate: Date | null;
+  registerationDeadline: Date | null;
+  icon: number | null;
+  accessCostType: number; // 1=Free, 2=Points, 3=Subscription
 
-  startDateTime: Date | null;
-  endDateTime: Date | null;
-  registrationDeadline?: Date | null;
-
-  icon: string;
-  kpPoints: number;
-  gems: number;
-
-  isPremium: boolean;
-  pointsCost?: number;
-  isSubscriptionOnly?: boolean;
-
-  judges: Judge[];
-
-  // Step 2: How to Complete
-  instructions: Instruction[];
+  // Step 2: Project Details
+  guideSteps: GuideStep[];
+  goals: Goal[];
 
   // Step 3: Requirements
-  evaluationCriteria: EvaluationCriterion[];
-  requirements: Requirement[];
-  successCriteria: Criterion[];
+  requirements: ChallengeRequirement[];
+  evaluations: ChallengeEvaluation[];
 
   // Step 4: Prizes
-  prizes: Prize[];
-  participationGems: number;
+  prizes: ChallengePrize[];
 }

@@ -4,7 +4,13 @@ import { useState, useEffect, useMemo } from "react";
 import { useAdminCollaborations } from "./useAdminCollaborations";
 import type { components } from "../../api-schema/schema";
 
-type CollaborationStatus = "all" | "active" | "completed";
+// Matches backend CollaborationStatus enum: Draft=1, Ready=2, Inprogress=3, Completed=4
+type CollaborationStatus =
+  | "all"
+  | "draft"
+  | "ready"
+  | "inprogress"
+  | "completed";
 type Collaboration =
   components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel"];
 
@@ -14,6 +20,15 @@ interface CollaborationFilters {
   pageNumber: number;
   pageSize: number;
 }
+
+// Map status string to backend CollaborationStatus enum value
+const STATUS_TO_ENUM: Record<CollaborationStatus, number | null> = {
+  all: null,
+  draft: 1,
+  ready: 2,
+  inprogress: 3,
+  completed: 4,
+};
 
 export const useCollaborationsWithFilters = () => {
   const [filters, setFilters] = useState<CollaborationFilters>({
@@ -65,44 +80,34 @@ export const useCollaborationsWithFilters = () => {
     if (!collaborationsData?.data) return [];
 
     const collaborations = collaborationsData.data;
+    const enumValue = STATUS_TO_ENUM[filters.status];
 
-    switch (filters.status) {
-      case "active":
-        return collaborations.filter(
-          (collab: Collaboration) =>
-            collab.status000 === 1 || collab.status000 === 2
-        );
-      case "completed":
-        return collaborations.filter(
-          (collab: Collaboration) =>
-            collab.status000 === 3 || collab.status000 === 4
-        );
-      default:
-        return collaborations;
-    }
+    if (enumValue === null) return collaborations;
+    return collaborations.filter(
+      (collab: Collaboration) => collab.status === enumValue
+    );
   }, [collaborationsData, filters.status]);
 
   // Get counts for tabs
   const tabCounts = useMemo(() => {
     if (!collaborationsData?.data) {
-      return {
-        all: 0,
-        active: 0,
-        completed: 0,
-      };
+      return { all: 0, draft: 0, ready: 0, inprogress: 0, completed: 0 };
     }
 
     const collaborations = collaborationsData.data;
-    console.log("collaborations", collaborations);
     return {
       all: collaborations.length,
-      active: collaborations.filter(
-        (collab: Collaboration) =>
-          collab.status000 === 1 || collab.status000 === 2
+      draft: collaborations.filter(
+        (collab: Collaboration) => collab.status === 1
+      ).length,
+      ready: collaborations.filter(
+        (collab: Collaboration) => collab.status === 2
+      ).length,
+      inprogress: collaborations.filter(
+        (collab: Collaboration) => collab.status === 3
       ).length,
       completed: collaborations.filter(
-        (collab: Collaboration) =>
-          collab.status000 === 3 || collab.status000 === 4
+        (collab: Collaboration) => collab.status === 4
       ).length,
     };
   }, [collaborationsData]);

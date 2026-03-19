@@ -11,11 +11,12 @@ interface DetailCardProps {
   buttonText: string;
   buttonIcon?: React.ReactNode;
   onButtonClick?: () => void;
-  progress: number;
+  progress?: number;
   children?: React.ReactNode;
   className?: string;
   iconClassName?: string;
   backgroundOverlay?: string;
+  extraActions?: React.ReactNode;
 }
 
 export const DetailCard = ({
@@ -30,6 +31,7 @@ export const DetailCard = ({
   className,
   iconClassName,
   backgroundOverlay,
+  extraActions,
 }: DetailCardProps) => {
   return (
     <MainCard
@@ -67,29 +69,34 @@ export const DetailCard = ({
             </p>
           </div>
         </div>
-        <Button
-          intent="main"
-          size="mainDefault"
-          onClick={onButtonClick}
-          className="shadow-sm w-full md:w-auto"
-        >
-          {buttonIcon}
-          {buttonText}
-        </Button>
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <Button
+            intent="main"
+            size="mainDefault"
+            onClick={onButtonClick}
+            className="shadow-sm flex-1 md:flex-none"
+          >
+            {buttonIcon}
+            {buttonText}
+          </Button>
+          {extraActions}
+        </div>
       </div>
       <div className="relative z-10 border-t-2 border-dashed border-gray-200"></div>
       {/* Progress Section */}
-      <div className="relative z-10">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-            Progress
-          </span>
-          <span className="bg-blue-main/10 border border-blue-main/20 text-blue-main text-xs font-bold px-2 py-1 rounded-xl">
-            {progress}%
-          </span>
+      {progress !== undefined && progress !== null && (
+        <div className="relative z-10">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+              Progress
+            </span>
+            <span className="bg-blue-main/10 border border-blue-main/20 text-blue-main text-xs font-bold px-2 py-1 rounded-xl">
+              {progress}%
+            </span>
+          </div>
+          <Progress width={progress} height="12px" />
         </div>
-        <Progress width={progress} height="12px" />
-      </div>
+      )}
 
       {/* Children will contain the compound footer */}
       <div className="relative z-10">{children}</div>

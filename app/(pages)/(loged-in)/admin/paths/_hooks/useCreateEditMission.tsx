@@ -104,40 +104,45 @@ export const useCreateEditMission = (
     }
   }, [isEditing, missionData]);
 
-  const createStepData = (formData: MissionFormData) => {
-    if (!pathId) {
-      throw new Error("Path ID is required for mission creation/editing");
-    }
+  const createStepData = useCallback(
+    (formData: MissionFormData) => {
+      if (!pathId) {
+        throw new Error("Path ID is required for mission creation/editing");
+      }
 
-    return {
-      missionDetails: {
-        ...(missionId ? { id: parseInt(missionId, 10) } : {}),
-        pathId: parseInt(pathId, 10),
-        nameEn: formData.nameEn,
-        nameAr: formData.nameEn,
-        description: formData.description,
-        durationId: formData.durationId,
-        levelId: formData.levelId,
-        skillId: formData.skillId,
-        xp: formData.xp,
-        points: formData.points,
-        referenceAnswer: formData.solutionCode,
-      },
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      steps: formData.guideSteps.map(({ id: _id, ...step }) => step),
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      learningResources: formData.resources.map(({ id: _id, ...resource }) => ({
-        titleEn: resource.titleEn,
-        type: resource.type,
-        url: resource.url,
-        duration: resource.duration ?? undefined,
-      })),
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      successCriterias: formData.criteria.map(({ id: _id, ...criteria }) => ({
-        description: criteria.label,
-      })),
-    };
-  };
+      return {
+        missionDetails: {
+          ...(missionId ? { id: parseInt(missionId, 10) } : {}),
+          pathId: parseInt(pathId, 10),
+          nameEn: formData.nameEn,
+          nameAr: formData.nameEn,
+          description: formData.description,
+          durationId: formData.durationId,
+          levelId: formData.levelId,
+          skillId: formData.skillId,
+          xp: formData.xp,
+          points: formData.points,
+          referenceAnswer: formData.solutionCode,
+        },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        steps: formData.guideSteps.map(({ id: _id, ...step }) => step),
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        learningResources: formData.resources.map(
+          ({ id: _id, ...resource }) => ({
+            titleEn: resource.titleEn,
+            type: resource.type,
+            url: resource.url,
+            duration: resource.duration ?? undefined,
+          })
+        ),
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        successCriterias: formData.criteria.map(({ id: _id, ...criteria }) => ({
+          description: criteria.label,
+        })),
+      };
+    },
+    [pathId, missionId]
+  );
 
   const mapValidationErrors = (
     issues: ValidationIssue[]
@@ -277,7 +282,7 @@ export const useCreateEditMission = (
       message: "Please complete required fields before continuing",
       errors,
     };
-  }, [currentStep, formData]);
+  }, [currentStep, formData, createStepData]);
 
   const handleContinue = useCallback(() => {
     const { success, errors } = validateStep();
@@ -333,7 +338,15 @@ export const useCreateEditMission = (
         setIsSubmitting(false);
       }
     },
-    [validateStep, formData, isEditing, missionId]
+    [
+      validateStep,
+      formData,
+      isEditing,
+      missionId,
+      createStepData,
+      addMissionMutation,
+      updateMissionMutation,
+    ]
   );
 
   const resetForm = useCallback(() => {

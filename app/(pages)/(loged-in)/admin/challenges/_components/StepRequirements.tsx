@@ -3,9 +3,8 @@
 import { Input } from "@components";
 import {
   ChallengeFormData,
-  Requirement,
-  Criterion,
-  EvaluationCriterion,
+  ChallengeRequirement,
+  ChallengeEvaluation,
 } from "./types";
 import { Dispatch, SetStateAction, useMemo } from "react";
 import { Plus, Trash2, X } from "lucide-react";
@@ -21,51 +20,66 @@ export const StepRequirements = ({
   setFormData,
   fieldErrors = {},
 }: StepRequirementsProps) => {
-  // Evaluation Criteria Handlers
-  const handleAddEvalCriterion = () => {
-    const newCrit: EvaluationCriterion = {
+  // Evaluation handlers
+  const handleAddEvaluation = () => {
+    const newEval: ChallengeEvaluation = {
       id: Date.now().toString(),
-      name: "",
-      weight: 0,
+      titleEn: "",
+      percentage: 0,
     };
     setFormData((prev) => ({
       ...prev,
-      evaluationCriteria: [...(prev.evaluationCriteria || []), newCrit],
+      evaluations: [...(prev.evaluations || []), newEval],
     }));
   };
 
-  const handleRemoveEvalCriterion = (id: string) => {
+  const handleRemoveEvaluation = (id: string) => {
     setFormData((prev) => ({
       ...prev,
-      evaluationCriteria: prev.evaluationCriteria.filter((c) => c.id !== id),
+      evaluations: prev.evaluations.filter((e) => e.id !== id),
     }));
   };
 
-  const handleEvalCriterionChange = <K extends keyof EvaluationCriterion>(
+  const handleEvaluationChange = <K extends keyof ChallengeEvaluation>(
     id: string,
     field: K,
-    value: EvaluationCriterion[K]
+    value: ChallengeEvaluation[K]
   ) => {
-    setFormData((prev) => ({
-      ...prev,
-      evaluationCriteria: prev.evaluationCriteria.map((c) =>
-        c.id === id ? { ...c, [field]: value } : c
-      ),
-    }));
+    setFormData((prev) => {
+      if (field === "percentage") {
+        const othersTotal = (prev.evaluations || [])
+          .filter((e) => e.id !== id)
+          .reduce((sum, e) => sum + (Number(e.percentage) || 0), 0);
+        const maxAllowed = 100 - othersTotal;
+        const clamped = Math.min(Math.max(Number(value) || 0, 0), maxAllowed);
+        return {
+          ...prev,
+          evaluations: prev.evaluations.map((e) =>
+            e.id === id ? { ...e, percentage: clamped } : e
+          ),
+        };
+      }
+      return {
+        ...prev,
+        evaluations: prev.evaluations.map((e) =>
+          e.id === id ? { ...e, [field]: value } : e
+        ),
+      };
+    });
   };
 
-  const totalWeight = useMemo(() => {
-    return (formData.evaluationCriteria || []).reduce(
-      (sum, item) => sum + (Number(item.weight) || 0),
+  const totalPercentage = useMemo(() => {
+    return (formData.evaluations || []).reduce(
+      (sum, item) => sum + (Number(item.percentage) || 0),
       0
     );
-  }, [formData.evaluationCriteria]);
+  }, [formData.evaluations]);
 
   // Requirements handlers
   const handleAddRequirement = () => {
-    const newRequirement: Requirement = {
+    const newRequirement: ChallengeRequirement = {
       id: Date.now().toString(),
-      text: "",
+      description: "",
     };
     setFormData((prev) => ({
       ...prev,
@@ -80,126 +94,17 @@ export const StepRequirements = ({
     }));
   };
 
-  const handleRequirementChange = (id: string, text: string) => {
+  const handleRequirementChange = (id: string, description: string) => {
     setFormData((prev) => ({
       ...prev,
       requirements: prev.requirements.map((req) =>
-        req.id === id ? { ...req, text } : req
-      ),
-    }));
-  };
-
-  // Success Criteria handlers
-  const handleAddCriterion = () => {
-    const newCriterion: Criterion = {
-      id: Date.now().toString(),
-      text: "",
-    };
-    setFormData((prev) => ({
-      ...prev,
-      successCriteria: [...prev.successCriteria, newCriterion],
-    }));
-  };
-
-  const handleRemoveCriterion = (id: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      successCriteria: prev.successCriteria.filter((crit) => crit.id !== id),
-    }));
-  };
-
-  const handleCriterionChange = (id: string, text: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      successCriteria: prev.successCriteria.map((crit) =>
-        crit.id === id ? { ...crit, text } : crit
+        req.id === id ? { ...req, description } : req
       ),
     }));
   };
 
   return (
     <div className="space-y-8 py-2">
-      {/* Evaluation Criteria Section */}
-      <div className="space-y-4">
-        <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Evaluation Criteria</h3>
-          <p className="text-sm text-gray-600">
-            Define how submissions will be judged (weights must total 100%)
-          </p>
-        </div>
-
-        <div className="space-y-3">
-          {formData.evaluationCriteria &&
-            formData.evaluationCriteria.map((crit, index) => (
-              <div
-                key={crit.id}
-                className="grid grid-cols-12 gap-3 items-start"
-              >
-                <div className="col-span-8">
-                  <Input
-                    label="Criteria"
-                    placeholder="Innovation & Creativity"
-                    value={crit.name}
-                    onChange={(e) =>
-                      handleEvalCriterionChange(crit.id, "name", e.target.value)
-                    }
-                    error={fieldErrors[`evaluationCriteria.${index}.name`]}
-                  />
-                </div>
-                <div className="col-span-3">
-                  <Input
-                    label="Weight %"
-                    type="number"
-                    placeholder="40"
-                    value={crit.weight}
-                    onChange={(e) =>
-                      handleEvalCriterionChange(
-                        crit.id,
-                        "weight",
-                        Number(e.target.value)
-                      )
-                    }
-                    error={fieldErrors[`evaluationCriteria.${index}.weight`]}
-                  />
-                </div>
-                <div className="col-span-1 pt-8 flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveEvalCriterion(crit.id)}
-                    className="text-gray-400 hover:text-red-500 transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-              </div>
-            ))}
-
-          <div className="flex items-center justify-between pt-2">
-            <button
-              type="button"
-              onClick={handleAddEvalCriterion}
-              className="flex items-center gap-2 text-gray-500 hover:text-dark-blue-main font-medium px-4 py-2 border border-dashed border-gray-300 rounded-lg hover:border-dark-blue-main transition-all flex-1 mr-4 justify-center"
-            >
-              <Plus size={18} />
-              Add Criterion
-            </button>
-
-            <div
-              className={`px-4 py-2 rounded-lg font-medium text-sm ${totalWeight === 100 ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"}`}
-            >
-              Total: {totalWeight}%
-            </div>
-          </div>
-          {fieldErrors.evaluationCriteria && (
-            <p className="text-red-500 text-sm mt-1">
-              {fieldErrors.evaluationCriteria}
-            </p>
-          )}
-        </div>
-      </div>
-
-      <hr className="border-gray-100" />
-
       {/* Requirements Section */}
       <div className="space-y-4">
         <div className="space-y-1">
@@ -218,11 +123,11 @@ export const StepRequirements = ({
               <div className="flex-1">
                 <Input
                   placeholder="e.g., Basic knowledge of HTML & CSS"
-                  value={requirement.text}
+                  value={requirement.description}
                   onChange={(e) =>
                     handleRequirementChange(requirement.id, e.target.value)
                   }
-                  error={fieldErrors[`requirements.${index}.text`]}
+                  error={fieldErrors[`requirements.${index}.description`]}
                 />
               </div>
               <button
@@ -248,49 +153,86 @@ export const StepRequirements = ({
 
       <hr className="border-gray-100" />
 
-      {/* Success Criteria Section */}
+      {/* Guidelines / Evaluation Criteria Section */}
       <div className="space-y-4">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Success Criteria</h3>
-          <p className="text-sm text-gray-600">How will we measure success?</p>
+          <h3 className="text-lg font-semibold">Guidelines</h3>
+          <p className="text-sm text-gray-600">
+            Define how submissions will be judged (percentages must total 100%)
+          </p>
         </div>
 
         <div className="space-y-3">
-          {formData.successCriteria.map((criterion, index) => (
-            <div key={criterion.id} className="flex gap-3">
-              <div className="flex justify-center w-8 pt-3">
-                <div className="w-6 h-6 rounded-full bg-dark-blue-main text-white flex items-center justify-center text-xs font-bold">
-                  {index + 1}
+          {formData.evaluations &&
+            formData.evaluations.map((evalItem, index) => (
+              <div
+                key={evalItem.id}
+                className="grid grid-cols-12 gap-3 items-start"
+              >
+                <div className="col-span-8">
+                  <Input
+                    label="Criteria"
+                    placeholder="Innovation & Creativity"
+                    value={evalItem.titleEn}
+                    onChange={(e) =>
+                      handleEvaluationChange(
+                        evalItem.id,
+                        "titleEn",
+                        e.target.value
+                      )
+                    }
+                    error={fieldErrors[`evaluations.${index}.titleEn`]}
+                  />
+                </div>
+                <div className="col-span-3">
+                  <Input
+                    label="Weight %"
+                    type="number"
+                    placeholder="40"
+                    value={evalItem.percentage}
+                    onChange={(e) =>
+                      handleEvaluationChange(
+                        evalItem.id,
+                        "percentage",
+                        Number(e.target.value)
+                      )
+                    }
+                    error={fieldErrors[`evaluations.${index}.percentage`]}
+                  />
+                </div>
+                <div className="col-span-1 pt-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveEvaluation(evalItem.id)}
+                    className="text-gray-400 hover:text-red-500 transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
                 </div>
               </div>
-              <div className="flex-1">
-                <Input
-                  placeholder="e.g., All calculator functions work correctly"
-                  value={criterion.text}
-                  onChange={(e) =>
-                    handleCriterionChange(criterion.id, e.target.value)
-                  }
-                  error={fieldErrors[`successCriteria.${index}.text`]}
-                />
-              </div>
-              <button
-                type="button"
-                onClick={() => handleRemoveCriterion(criterion.id)}
-                className="mt-3 text-gray-400 hover:text-red-500 transition-colors"
-              >
-                <Trash2 size={18} />
-              </button>
-            </div>
-          ))}
+            ))}
 
-          <button
-            type="button"
-            onClick={handleAddCriterion}
-            className="w-full py-3 border border-dashed border-gray-300 rounded-xl text-gray-500 hover:text-dark-blue-main hover:border-dark-blue-main hover:bg-indigo-50 transition-all flex items-center justify-center gap-2 font-medium"
-          >
-            <Plus size={18} />
-            Add Criterion
-          </button>
+          <div className="flex items-center justify-between pt-2">
+            <button
+              type="button"
+              onClick={handleAddEvaluation}
+              className="flex items-center gap-2 text-gray-500 hover:text-dark-blue-main font-medium px-4 py-2 border border-dashed border-gray-300 rounded-lg hover:border-dark-blue-main transition-all flex-1 mr-4 justify-center"
+            >
+              <Plus size={18} />
+              Add Guidline
+            </button>
+
+            <div
+              className={`px-4 py-2 rounded-lg font-medium text-sm ${totalPercentage === 100 ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"}`}
+            >
+              Total: {totalPercentage}%
+            </div>
+          </div>
+          {fieldErrors.evaluations && (
+            <p className="text-red-500 text-sm mt-1">
+              {fieldErrors.evaluations}
+            </p>
+          )}
         </div>
       </div>
     </div>

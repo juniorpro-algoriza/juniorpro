@@ -90,6 +90,12 @@ export const collaborationSchemaObject = z.object({
   registrationDeadline: z.date({
     message: "Registration deadline is required",
   }),
+  startDate: z.date({
+    message: "Start date is required",
+  }),
+  endDate: z.date({
+    message: "End date is required",
+  }),
 
   xpReward: z.coerce.number().min(1, "XP Reward is required").default(0),
   gemsPoints: z.coerce.number().min(1, "Gems / Points is required").default(0),
@@ -105,20 +111,95 @@ export const collaborationSchemaObject = z.object({
   requirements: z.array(requirementSchema).default([]),
 });
 
-export const collaborationFormSchema = collaborationSchemaObject;
+export const collaborationFormSchema = collaborationSchemaObject
+  .refine(
+    (data) => {
+      if (data.registrationDeadline && data.startDate) {
+        return data.startDate > data.registrationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "Start date must be after registration deadline",
+      path: ["startDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.registrationDeadline && data.endDate) {
+        return data.endDate > data.registrationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "End date must be after registration deadline",
+      path: ["endDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.startDate && data.endDate) {
+        return data.endDate > data.startDate;
+      }
+      return true;
+    },
+    {
+      message: "End date must be after start date",
+      path: ["endDate"],
+    }
+  );
 
 export type CollaborationFormValues = z.infer<typeof collaborationFormSchema>;
 
 // Step 1: Overview
-export const step1Schema = collaborationSchemaObject.pick({
-  projectTitle: true,
-  description: true,
-  projectIcon: true,
-  registrationDeadline: true,
-  xpReward: true,
-  gemsPoints: true,
-  money: true,
-});
+export const step1Schema = collaborationSchemaObject
+  .pick({
+    projectTitle: true,
+    description: true,
+    projectIcon: true,
+    registrationDeadline: true,
+    startDate: true,
+    endDate: true,
+    xpReward: true,
+    gemsPoints: true,
+    money: true,
+  })
+  .refine(
+    (data) => {
+      if (data.registrationDeadline && data.startDate) {
+        return data.startDate > data.registrationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "Start date must be after registration deadline",
+      path: ["startDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.registrationDeadline && data.endDate) {
+        return data.endDate > data.registrationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "End date must be after registration deadline",
+      path: ["endDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.startDate && data.endDate) {
+        return data.endDate > data.startDate;
+      }
+      return true;
+    },
+    {
+      message: "End date must be after start date",
+      path: ["endDate"],
+    }
+  );
 
 // Step 2: Project Details
 export const step2Schema = collaborationSchemaObject.pick({

@@ -55,6 +55,16 @@ const Modals: Record<
   CreateTask: lazy(() =>
     import("./modals/CreateTask").then((m) => ({ default: m.CreateTask }))
   ),
+  JuniorTaskDetails: lazy(() =>
+    import("./modals/JuniorTaskDetails").then((m) => ({
+      default: m.JuniorTaskDetails,
+    }))
+  ),
+  JoinChallenge: lazy(() =>
+    import("./modals/JoinChallenge").then((m) => ({
+      default: m.JoinChallenge,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {

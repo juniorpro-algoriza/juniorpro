@@ -5,7 +5,10 @@ export const createTaskSchema = z.object({
   roleId: z.string().min(1, "Role is required"),
   juniorId: z.string().optional().nullable(),
   priority: z.string().min(1, "Priority is required"),
-  dueDate: z.date().nullable(),
+  dueDate: z
+    .date()
+    .nullable()
+    .refine((val) => val !== null, "Due date is required"),
   description: z.string().min(1, "Description is required"),
 });
 

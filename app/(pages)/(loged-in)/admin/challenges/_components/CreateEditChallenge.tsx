@@ -10,37 +10,40 @@ import {
   StepRequirements,
 } from "./index";
 import { useCreateEditChallenge } from "../_hooks/useCreateEditChallenge";
+import { ChallengeFormData } from "./types";
 
 const stepData = [
   { step: 1, title: "Overview" },
-  { step: 2, title: "How to Complete" },
+  { step: 2, title: "Project Details" },
   { step: 3, title: "Requirements" },
   { step: 4, title: "Prizes" },
 ];
 
-export const CreateEditChallenge = () => {
+interface CreateEditChallengeProps {
+  initialData?: Partial<ChallengeFormData>;
+  challengeId?: number;
+}
+
+export const CreateEditChallenge = ({
+  initialData,
+  challengeId,
+}: CreateEditChallengeProps) => {
   const {
     currentStep,
     formData,
     fieldErrors,
     isSubmitting,
+    isEditMode,
     setFormData,
     setCurrentStep,
     handleContinue,
     handleBack,
     handleSubmit,
-  } = useCreateEditChallenge();
+  } = useCreateEditChallenge({ initialData, challengeId });
 
   return (
     <div className="space-y-6">
       <div className="border-b border-gray-100 pb-4 space-y-5">
-        <div className="text-nowrap">
-          <h2 className="text-xl font-bold text-midnight">Create Challenges</h2>
-          <p className="text-gray-600 text-sm">
-            Step {currentStep} of 4: {stepData[currentStep - 1].title}
-          </p>
-        </div>
-
         <FormStepper
           steps={stepData}
           value={currentStep}
@@ -120,7 +123,11 @@ export const CreateEditChallenge = () => {
                 form="create-challenges-form"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Submitting..." : "Submit"}{" "}
+                {isSubmitting
+                  ? "Submitting..."
+                  : isEditMode
+                    ? "Update"
+                    : "Submit"}{" "}
                 <ArrowRight className="size-5" />
               </Button>
             )}
