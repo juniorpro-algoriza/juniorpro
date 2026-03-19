@@ -1,4 +1,4 @@
-# SAWIHA Frontend (Junior pro)
+# SAWIHA Frontend (Junior pro frontend)
 
 Professional platform for managing junior learning paths and contributions.
 
