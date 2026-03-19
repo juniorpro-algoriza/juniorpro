@@ -65,32 +65,42 @@ export default function EditChallengePage({
       : null,
     icon: (details?.icon as number) || null,
     accessCostType: (details?.accessCostType as number) || 1,
-    guideSteps: (challenge.guideSteps || []).map((s, i) => ({
-      id: s.id?.toString() || i.toString(),
-      description: s.description || "",
-    })),
-    goals: (challenge.goals || []).map((g, i) => ({
-      id: g.id?.toString() || i.toString(),
-      description: g.description || "",
-    })),
-    requirements: (challenge.requirements || []).map((r, i) => ({
+    guideSteps: ((challenge.guideSteps || []) as Record<string, unknown>[]).map(
+      (s, i) => ({
+        id: s.id?.toString() || i.toString(),
+        description: (s.description as string) || "",
+      })
+    ),
+    goals: ((challenge.goals || []) as Record<string, unknown>[]).map(
+      (g, i) => ({
+        id: g.id?.toString() || i.toString(),
+        description: (g.description as string) || "",
+      })
+    ),
+    requirements: (
+      (challenge.requirements || []) as Record<string, unknown>[]
+    ).map((r, i) => ({
       id: r.id?.toString() || i.toString(),
-      description: r.description || "",
+      description: (r.description as string) || "",
     })),
-    evaluations: (challenge.evaluations || []).map((e, i) => ({
+    evaluations: (
+      (challenge.evaluations || []) as Record<string, unknown>[]
+    ).map((e, i) => ({
       id: e.id?.toString() || i.toString(),
-      titleEn: e.titleEn || "",
-      titleAr: e.titleAr || "",
-      description: e.description || "",
-      percentage: e.percentage || 0,
+      titleEn: (e.titleEn as string) || "",
+      titleAr: (e.titleAr as string) || "",
+      description: (e.description as string) || "",
+      percentage: (e.percentage as number) || 0,
     })),
-    prizes: (challenge.prizeDistributions || []).map((p, i) => ({
+    prizes: (
+      (challenge.prizeDistributions || []) as Record<string, unknown>[]
+    ).map((p, i) => ({
       id: p.id?.toString() || i.toString(),
       rank: (p.rank as number) || i + 1,
-      titleEn: p.titleEn || "",
-      titleAr: p.titleAr || "",
-      xp: p.xp || 0,
-      points: p.points || 0,
+      titleEn: (p.titleEn as string) || "",
+      titleAr: (p.titleAr as string) || "",
+      xp: (p.xp as number) || 0,
+      points: (p.points as number) || 0,
     })),
   };
 

@@ -5,11 +5,11 @@ import { InfoSection } from "@components";
 import { ListTodo, BookOpenCheck } from "lucide-react";
 import { components } from "../../../../../../api-schema";
 
-type GetChallengeDetailsModel =
-  components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsModel"];
+type GetChallengeDetailsResponse =
+  components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsResponse"];
 
 interface RequirementsTabProps {
-  challenge?: GetChallengeDetailsModel;
+  challenge?: GetChallengeDetailsResponse;
 }
 
 export function RequirementsTab({ challenge }: RequirementsTabProps) {
