@@ -53,6 +53,14 @@ const getInitialFormData = (
   ...initialData,
 });
 
+// Returns the numeric API id if the string is a small number (API-assigned),
+// or null for locally generated ids (Date.now() strings).
+function parseApiId(id: string): number | null {
+  const num = Number(id);
+  if (!Number.isNaN(num) && num < 1_000_000) return num;
+  return 0;
+}
+
 function mapFormToApiPayload(formData: ChallengeFormData): AddChallengeRequest {
   return {
     challengeDetails: {
@@ -85,32 +93,32 @@ function mapFormToApiPayload(formData: ChallengeFormData): AddChallengeRequest {
     guideSteps: formData.guideSteps
       .filter((s) => s.description.trim())
       .map((s, i) => ({
-        id: i,
+        id: parseApiId(s.id) ?? i,
         description: s.description,
       })),
     goals: formData.goals
       .filter((g) => g.description.trim())
       .map((g) => ({
-        id: null,
+        id: parseApiId(g.id),
         description: g.description,
       })),
     requirements: formData.requirements
       .filter((r) => r.description.trim())
       .map((r) => ({
-        id: undefined,
+        id: parseApiId(r.id) ?? undefined,
         description: r.description,
       })),
     evaluations: formData.evaluations
       .filter((e) => e.titleEn.trim())
       .map((e) => ({
-        id: null,
+        id: parseApiId(e.id),
         titleEn: e.titleEn,
         titleAr: e.titleAr || e.titleEn,
         description: e.description || "",
         percentage: e.percentage,
       })),
     prizeDistributions: formData.prizes.map((p, index) => ({
-      id: null,
+      id: parseApiId(p.id),
       titleEn: p.titleEn,
       titleAr: p.titleAr || p.titleEn,
       xp: p.xp,

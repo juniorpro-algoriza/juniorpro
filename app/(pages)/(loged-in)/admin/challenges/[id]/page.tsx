@@ -124,7 +124,6 @@ export default function ChallengeDetailsPage({
         buttonText="Edit Challenge"
         buttonIcon={<Pencil className="size-4" />}
         onButtonClick={handleEditClick}
-        progress={0}
         backgroundOverlay="/images/handOnHand.svg"
       >
         <DetailCard.Footer>

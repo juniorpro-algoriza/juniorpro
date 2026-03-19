@@ -169,7 +169,7 @@ export default function CollaborationDetailsPage({
         buttonText="Edit Collaboration"
         buttonIcon={<Pencil className="size-4" />}
         onButtonClick={handleEditClick}
-        progress={progress}
+        progress={Number(progress.toFixed(2))}
         backgroundOverlay="/images/handOnHand.svg"
         extraActions={
           collaborationDetails?.status === COLLABORATION_STATUS.DRAFT ? (

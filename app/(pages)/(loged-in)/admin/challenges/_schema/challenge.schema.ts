@@ -22,8 +22,8 @@ export const evaluationSchema = z.object({
   description: z.string().optional(),
   percentage: z.coerce
     .number({ message: "Percentage is required" })
-    .min(1, "Percentage must be greater than 0")
-    .max(100),
+    .min(0, "Percentage must be between 0 and 100")
+    .max(100, "Percentage must be between 0 and 100"),
 });
 
 export const prizeSchema = z.object({
@@ -92,6 +92,30 @@ export const challengeFormSchema = challengeSchemaObject
       path: ["endDate"],
     }
   )
+  .refine(
+    (data) => {
+      if (data.registerationDeadline && data.startDate) {
+        return data.startDate > data.registerationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "Start date must be after registration deadline",
+      path: ["startDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.registerationDeadline && data.endDate) {
+        return data.endDate > data.registerationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "End date must be after registration deadline",
+      path: ["endDate"],
+    }
+  )
   .superRefine((data, ctx) => {
     if (data.evaluations && data.evaluations.length > 0) {
       const totalPercentage = data.evaluations.reduce(
@@ -136,6 +160,30 @@ export const step1Schema = challengeSchemaObject
       message: "End date must be after start date",
       path: ["endDate"],
     }
+  )
+  .refine(
+    (data) => {
+      if (data.registerationDeadline && data.startDate) {
+        return data.startDate > data.registerationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "Start date must be after registration deadline",
+      path: ["startDate"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.registerationDeadline && data.endDate) {
+        return data.endDate > data.registerationDeadline;
+      }
+      return true;
+    },
+    {
+      message: "End date must be after registration deadline",
+      path: ["endDate"],
+    }
   );
 
 // Step 2: Project Details
@@ -145,10 +193,26 @@ export const step2Schema = challengeSchemaObject.pick({
 });
 
 // Step 3: Requirements
-export const step3Schema = challengeSchemaObject.pick({
-  requirements: true,
-  evaluations: true,
-});
+export const step3Schema = challengeSchemaObject
+  .pick({
+    requirements: true,
+    evaluations: true,
+  })
+  .superRefine((data, ctx) => {
+    if (data.evaluations && data.evaluations.length > 0) {
+      const totalPercentage = data.evaluations.reduce(
+        (sum, item) => sum + (item.percentage || 0),
+        0
+      );
+      if (Math.abs(totalPercentage - 100) > 0.1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Total percentage must be 100% (current: ${totalPercentage}%)`,
+          path: ["evaluations"],
+        });
+      }
+    }
+  });
 
 // Step 4: Prizes
 export const step4Schema = challengeSchemaObject.pick({

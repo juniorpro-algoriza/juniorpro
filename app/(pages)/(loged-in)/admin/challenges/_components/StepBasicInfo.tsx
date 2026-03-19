@@ -4,7 +4,7 @@ import { Input, Select, Textarea } from "@components";
 import { ChallengeFormData } from "./types";
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import { PATH_ICON } from "../../../../../configs";
+import { ACCESS_COST_OPTIONS, PATH_ICON } from "../../../../../configs";
 import { useLookup } from "../../../../../tanstack/useLookup";
 
 interface StepBasicInfoProps {
@@ -12,12 +12,6 @@ interface StepBasicInfoProps {
   setFormData: Dispatch<SetStateAction<ChallengeFormData>>;
   fieldErrors?: Record<string, string>;
 }
-
-const ACCESS_COST_OPTIONS = [
-  { label: "Free", value: "1" },
-  { label: "Points", value: "2" },
-  { label: "Subscription", value: "3" },
-];
 
 export const StepBasicInfo = ({
   formData,
@@ -113,7 +107,7 @@ export const StepBasicInfo = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Input
             label="Start Date & Time *"
             type="datetime-local"
@@ -152,6 +146,26 @@ export const StepBasicInfo = ({
               if (date) handleChange("endDate", date);
             }}
             error={fieldErrors.endDate}
+          />
+
+          <Input
+            label="Registration Deadline *"
+            type="datetime-local"
+            value={
+              formData.registerationDeadline
+                ? new Date(
+                    formData.registerationDeadline.getTime() -
+                      formData.registerationDeadline.getTimezoneOffset() * 60000
+                  )
+                    .toISOString()
+                    .slice(0, 16)
+                : ""
+            }
+            onChange={(e) => {
+              const date = e.target.value ? new Date(e.target.value) : null;
+              if (date) handleChange("registerationDeadline", date);
+            }}
+            error={fieldErrors.registerationDeadline}
           />
         </div>
       </div>

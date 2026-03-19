@@ -45,12 +45,27 @@ export const StepRequirements = ({
     field: K,
     value: ChallengeEvaluation[K]
   ) => {
-    setFormData((prev) => ({
-      ...prev,
-      evaluations: prev.evaluations.map((e) =>
-        e.id === id ? { ...e, [field]: value } : e
-      ),
-    }));
+    setFormData((prev) => {
+      if (field === "percentage") {
+        const othersTotal = (prev.evaluations || [])
+          .filter((e) => e.id !== id)
+          .reduce((sum, e) => sum + (Number(e.percentage) || 0), 0);
+        const maxAllowed = 100 - othersTotal;
+        const clamped = Math.min(Math.max(Number(value) || 0, 0), maxAllowed);
+        return {
+          ...prev,
+          evaluations: prev.evaluations.map((e) =>
+            e.id === id ? { ...e, percentage: clamped } : e
+          ),
+        };
+      }
+      return {
+        ...prev,
+        evaluations: prev.evaluations.map((e) =>
+          e.id === id ? { ...e, [field]: value } : e
+        ),
+      };
+    });
   };
 
   const totalPercentage = useMemo(() => {

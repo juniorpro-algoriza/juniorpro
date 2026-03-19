@@ -57,15 +57,16 @@ const Collaborations = () => {
       id: collab.id || 0,
       title: collab.nameEn || collab.nameAr || "Untitled Collaboration",
       description: collab.description || "No description available",
-      progress: collab.progressPercentage || 0,
+      progress: Number((collab.progressPercentage || 0).toFixed(2)),
       price: collab.money || 0,
       currency: "SAR",
       membersCurrent: collab.takenJuniorSeats || 0,
       membersTotal: collab.totalJuniorSeats || 0,
       dateEnd: collab.registerationDeadline
         ? new Date(collab.registerationDeadline).toLocaleDateString("en-US", {
-            month: "short",
+            month: "long",
             day: "numeric",
+            year: "numeric",
           })
         : "No deadline",
     };

@@ -8,6 +8,12 @@ export { getJuniorsLearningPathCurrentMissionById } from "./paths/getJuniorsLear
 export { postJuniorsLearningPathSubmitMission } from "./paths/postJuniorsLearningPathSubmitMission";
 export { postJuniorsLearningPathJoin } from "./paths/postJuniorsLearningPathJoin";
 
+// Challenges
+export { getJuniorChallenges } from "./challenges";
+export { getJuniorChallengeById } from "./challenges";
+export { joinChallenge } from "./challenges";
+export { submitChallenge } from "./challenges";
+
 // Collaborations
 export { getJuniorCollaborations } from "./collaborations";
 export { getJuniorCollaborationById } from "./collaborations";

@@ -13,6 +13,12 @@ const MEDALS = [
   "/images/3rd-medal.png",
 ];
 
+const PRIZE_BG = [
+  "bg-yellow-50 border-yellow-300",
+  "bg-gray-50 border-gray-300",
+  "bg-amber-50 border-amber-300",
+];
+
 interface StepPrizesProps {
   formData: ChallengeFormData;
   setFormData: Dispatch<SetStateAction<ChallengeFormData>>;
@@ -75,7 +81,10 @@ export const StepPrizes = ({
             formData.prizes.map((prize, index) => (
               <div
                 key={prize.id}
-                className="p-4 border border-gray-200 rounded-xl bg-gray-50/30 flex flex-col gap-4"
+                className={cx(
+                  "p-4 border rounded-xl flex flex-col gap-4",
+                  index < 3 ? PRIZE_BG[index] : "bg-gray-50/10 border-gray-200"
+                )}
               >
                 <div className="flex items-center gap-4">
                   <div
@@ -120,7 +129,7 @@ export const StepPrizes = ({
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Input
                     label={index === 0 ? "Cash Prize" : undefined}
                     placeholder="$ 1000"
@@ -134,16 +143,6 @@ export const StepPrizes = ({
                       )
                     }
                     error={fieldErrors[`prizes.${index}.points`]}
-                  />
-                  <Input
-                    label={index === 0 ? "Gems" : undefined}
-                    placeholder="500"
-                    type="number"
-                    value={prize.xp || ""}
-                    onChange={(e) =>
-                      handlePrizeChange(prize.id, "xp", Number(e.target.value))
-                    }
-                    error={fieldErrors[`prizes.${index}.xp`]}
                   />
                   <Input
                     label={index === 0 ? "XP Points" : undefined}

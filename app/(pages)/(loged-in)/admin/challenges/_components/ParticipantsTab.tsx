@@ -16,24 +16,10 @@ import { User, Eye, Search } from "lucide-react";
 import { useGetChallengeParticipants } from "../../tanstack/challenges";
 import { components } from "../../../../../../api-schema";
 import { ParticipantDetailModal } from "./ParticipantDetailModal";
+import { CHALLENGE_PARTICIPANT_STATUS_CONFIG } from "../../../../../configs/constants";
 
 type Participant =
   components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetAllParticpants.GetAllChallengeParticipantModel"];
-
-const STATUS_MAP: Record<number, { label: string; className: string }> = {
-  1: {
-    label: "Registered",
-    className: "bg-gray-100 text-gray-600",
-  },
-  2: {
-    label: "In Progress",
-    className: "bg-amber-50 text-amber-600",
-  },
-  3: {
-    label: "Submitted",
-    className: "bg-green-50 text-green-600",
-  },
-};
 
 interface ParticipantsTabProps {
   challengeId: number;
@@ -53,7 +39,9 @@ export function ParticipantsTab({ challengeId }: ParticipantsTabProps) {
   const participants = (response?.data as Participant[] | undefined) || [];
 
   const getStatusBadge = (status?: number) => {
-    const statusInfo = STATUS_MAP[status || 1] || STATUS_MAP[1];
+    const statusInfo =
+      CHALLENGE_PARTICIPANT_STATUS_CONFIG[status || 1] ||
+      CHALLENGE_PARTICIPANT_STATUS_CONFIG[1];
     return (
       <span
         className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${statusInfo.className}`}
@@ -159,7 +147,7 @@ export function ParticipantsTab({ challengeId }: ParticipantsTabProps) {
                             {p.juniorName || "Unknown Student"}
                           </div>
                           <div className="text-sm text-gray-400 font-medium">
-                            {p.careerNameEn || p.careerNameAr || "—"}
+                            Current score : {p.evaluation || "—"}
                           </div>
                         </div>
                       </div>

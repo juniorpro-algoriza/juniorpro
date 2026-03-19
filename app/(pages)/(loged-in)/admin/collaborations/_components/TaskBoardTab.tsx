@@ -30,7 +30,7 @@ import {
 } from "../../../../../configs/constants";
 
 type EnablerLookupModel =
-  components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerLookupModel"];
+  components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAssignedJuniorLookup.GetCollaborationJuniorRoleLookupModel"];
 
 type GetAllCollaborationRoleTaskModel =
   components["schemas"]["Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel"];
@@ -72,7 +72,7 @@ export function TaskBoardTab({ collaborationId }: TaskBoardTabProps) {
       allOption,
       ...members.map((m: EnablerLookupModel) => ({
         label: m.nameEn || m.nameAr || `Junior ${m.id}`,
-        value: String(m.id),
+        value: String(m.juniorId),
       })),
     ];
   }, [members]);

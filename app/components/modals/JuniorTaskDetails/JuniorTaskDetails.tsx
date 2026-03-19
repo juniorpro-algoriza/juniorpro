@@ -18,6 +18,7 @@ import {
   useSubmitJuniorTask,
   useChangeJuniorTaskStatus,
 } from "../../../(pages)/(loged-in)/junior/tanstack/collaborations";
+import { useUserProfile } from "../../../tanstack";
 import {
   TASK_STATUS_LABELS,
   TASK_PRIORITY_LABELS,
@@ -67,6 +68,7 @@ export const JuniorTaskDetails = ({ taskId }: JuniorTaskDetailsProps) => {
     refetch,
   } = useJuniorRoleTaskDetails(Number(taskId));
 
+  const { data: profile } = useUserProfile();
   const submitTask = useSubmitJuniorTask();
   const changeStatus = useChangeJuniorTaskStatus();
 
@@ -126,15 +128,21 @@ export const JuniorTaskDetails = ({ taskId }: JuniorTaskDetailsProps) => {
   const currentAssigneeName = task.juniorName || null;
 
   const hasRequestedChanges = !!task.actionReason;
-  const isAssigned = !!task.roleJuniorId;
+  const currentUserName = profile
+    ? `${profile.firstName ?? ""} ${profile.lastName ?? ""}`.trim()
+    : null;
+  const isMyTask =
+    !!task.roleJuniorId &&
+    !!currentUserName &&
+    task.juniorName === currentUserName;
 
   const isSubmittable =
-    isAssigned &&
+    isMyTask &&
     (taskStatus === TASK_STATUS.NOT_STARTED ||
       taskStatus === TASK_STATUS.IN_PROGRESS ||
       taskStatus === TASK_STATUS.REJECTED);
-  const isNotStarted = isAssigned && taskStatus === TASK_STATUS.NOT_STARTED;
-  const isInProgress = isAssigned && taskStatus === TASK_STATUS.IN_PROGRESS;
+  const isNotStarted = isMyTask && taskStatus === TASK_STATUS.NOT_STARTED;
+  const isInProgress = isMyTask && taskStatus === TASK_STATUS.IN_PROGRESS;
   const canChangeStatus = isNotStarted || isInProgress;
   const isUnderReview = taskStatus === TASK_STATUS.UNDER_REVIEW;
   const isCompleted = taskStatus === TASK_STATUS.COMPLETED;

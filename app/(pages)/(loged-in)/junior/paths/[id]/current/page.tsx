@@ -80,7 +80,7 @@ export default function PathPage({
             currentPath?.description ||
             "Learn HTML, CSS, and build your first websites"
           }
-          progress={currentPath?.progressPercentage || 0}
+          progress={Number((currentPath?.progressPercentage || 0).toFixed(2))}
         />
         <PathTimeline module="junior" missions={missions} />
       </div>

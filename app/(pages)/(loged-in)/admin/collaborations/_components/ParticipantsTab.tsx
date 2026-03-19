@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Skeleton,
   MainCard,
@@ -14,6 +14,7 @@ import {
 import { User, Eye } from "lucide-react";
 import { useGetJuniorRoleRequests } from "../../tanstack/collaborations";
 import { components } from "../../../../../../api-schema";
+import { ParticipantDetailModal } from "./ParticipantDetailModal";
 
 type Application =
   components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetRoleJuniorRequests.GetAdminCollaborationRoleJuniorsModel"];
@@ -23,6 +24,9 @@ interface ParticipantsTabProps {
 }
 
 export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
+  const [selectedParticipant, setSelectedParticipant] =
+    useState<Application | null>(null);
+
   // Fetch Accepted (Participants)
   const { data: participantsResponse, isLoading } = useGetJuniorRoleRequests({
     collaborationId,
@@ -120,7 +124,7 @@ export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
                             {p.juniorName || "Unknown Student"}
                           </div>
                           <div className="text-sm text-gray-400 font-medium">
-                            {p.roleCategoryNameEn || "UI Designer"}
+                            {p.roleCategoryNameEn || "—"}
                           </div>
                         </div>
                       </div>
@@ -138,10 +142,13 @@ export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
                         : "No date"}
                     </TableCell>
                     <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
-                      12
+                      {p.completedTasks}
                     </TableCell>
                     <TableCell className="py-5 px-6 text-right">
-                      <button className="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-main transition-colors">
+                      <button
+                        onClick={() => setSelectedParticipant(p)}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-main transition-colors"
+                      >
                         <Eye className="size-4" />
                         View
                       </button>
@@ -163,6 +170,13 @@ export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
           </EnhancedTable>
         </div>
       </MainCard>
+
+      {selectedParticipant && (
+        <ParticipantDetailModal
+          participant={selectedParticipant}
+          onClose={() => setSelectedParticipant(null)}
+        />
+      )}
     </div>
   );
 }

@@ -2,18 +2,16 @@
 
 import React, { useState } from "react";
 import { Modal, MainCard, Skeleton, Input, Button } from "@components";
-import { User, Calendar, ExternalLink } from "lucide-react";
+import { User, Calendar, ExternalLink, FileText, Download } from "lucide-react";
 import {
   useGetChallengeParticipantById,
   useEvaluateChallengeParticipant,
 } from "../../tanstack/challenges";
 import { toast } from "sonner";
-
-const STATUS_MAP: Record<number, { label: string; className: string }> = {
-  1: { label: "Registered", className: "bg-gray-100 text-gray-600" },
-  2: { label: "In Progress", className: "bg-amber-50 text-amber-600" },
-  3: { label: "Submitted", className: "bg-green-50 text-green-600" },
-};
+import {
+  CHALLENGE_PARTICIPANT_STATUS,
+  CHALLENGE_PARTICIPANT_STATUS_CONFIG,
+} from "../../../../../configs/constants";
 
 interface ParticipantDetailModalProps {
   participantId: number;
@@ -58,7 +56,8 @@ export function ParticipantDetailModal({
   };
 
   const statusInfo =
-    STATUS_MAP[(participant?.status as number) || 1] || STATUS_MAP[1];
+    CHALLENGE_PARTICIPANT_STATUS_CONFIG[(participant?.status as number) || 1] ||
+    CHALLENGE_PARTICIPANT_STATUS_CONFIG[1];
 
   return (
     <Modal
@@ -150,18 +149,45 @@ export function ParticipantDetailModal({
           </div>
 
           {/* Project Submission */}
-          {participant.projectLink && (
+          {(participant.projectLink || participant.submittedFile) && (
             <MainCard classname="p-4 space-y-3">
               <h4 className="font-semibold text-gray-900">Submitted Work</h4>
-              <a
-                href={participant.projectLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-blue-main hover:underline"
-              >
-                <ExternalLink className="size-4" />
-                View Project Submission
-              </a>
+              {participant.projectLink && (
+                <a
+                  href={
+                    participant.projectLink.startsWith("http")
+                      ? participant.projectLink
+                      : `https://${participant.projectLink}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-blue-main hover:underline"
+                >
+                  <ExternalLink className="size-4" />
+                  View Project Submission
+                </a>
+              )}
+              {participant.submittedFile && (
+                <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-100 rounded-xl">
+                  <FileText className="size-4 text-gray-500 shrink-0" />
+                  <p className="text-sm text-gray-600 flex-1 truncate">
+                    {participant.submittedFile.split(/[/\\]/).pop()}
+                  </p>
+                  <a
+                    href={
+                      participant.submittedFile.startsWith("http")
+                        ? participant.submittedFile
+                        : `https://${participant.submittedFile}`
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-blue-main text-xs font-bold hover:underline shrink-0"
+                  >
+                    <Download size={12} />
+                    Download
+                  </a>
+                </div>
+              )}
             </MainCard>
           )}
 
@@ -176,16 +202,9 @@ export function ParticipantDetailModal({
           )}
 
           {/* Evaluation */}
-          <MainCard classname="p-4 space-y-4">
-            <h4 className="font-semibold text-gray-900">Evaluation</h4>
-            {participant.evaluation ? (
-              <div className="text-sm text-gray-600">
-                Current score:{" "}
-                <span className="font-bold text-gray-900">
-                  {participant.evaluation}%
-                </span>
-              </div>
-            ) : (
+          {participant.status === CHALLENGE_PARTICIPANT_STATUS.UNDER_REVIEW && (
+            <MainCard classname="p-4 space-y-4">
+              <h4 className="font-semibold text-gray-900">Evaluation</h4>
               <div className="flex items-end gap-3">
                 <div className="flex-1">
                   <Input
@@ -205,8 +224,21 @@ export function ParticipantDetailModal({
                   {isEvaluating ? "Submitting..." : "Submit"}
                 </Button>
               </div>
+            </MainCard>
+          )}
+
+          {participant.status === CHALLENGE_PARTICIPANT_STATUS.COMPLETED &&
+            !!participant.evaluation && (
+              <MainCard classname="p-4 space-y-4">
+                <h4 className="font-semibold text-gray-900">Evaluation</h4>
+                <div className="text-sm text-gray-600">
+                  Score:{" "}
+                  <span className="font-bold text-gray-900">
+                    {participant.evaluation}%
+                  </span>
+                </div>
+              </MainCard>
             )}
-          </MainCard>
         </div>
       ) : (
         <div className="text-center py-8 text-gray-500">

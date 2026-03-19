@@ -26,7 +26,11 @@ type ButtonIntent = "main" | "main2" | undefined;
 const formatDate = (dateStr?: string) => {
   if (!dateStr) return "";
   const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", { day: "numeric", month: "long" });
+  return date.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 };
 
 const JuniorCollaborations = () => {
@@ -87,7 +91,11 @@ const JuniorCollaborations = () => {
       <ProjectCard
         title={collab.nameEn || collab.nameAr || "Untitled"}
         description={collab.description || ""}
-        progress={isCompleted ? 100 : collab.progressPercentage}
+        progress={
+          isCompleted
+            ? 100
+            : Number((collab.progressPercentage || 0).toFixed(2))
+        }
         membersCurrent={collab.takenJuniorSeats || 0}
         membersTotal={collab.totalJuniorSeats || 0}
         dateEnd={formatDate(collab.registerationDeadline)}

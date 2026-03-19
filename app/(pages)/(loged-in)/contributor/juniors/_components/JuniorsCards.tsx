@@ -3,16 +3,17 @@ import React from "react";
 import { components } from "../../../../../../api-schema";
 import { Button, MainCard, ModalLink, Skeleton } from "@components";
 import { UserCard } from "@components/client";
-import { UserPlus } from "lucide-react";
-import { useJuniorsData } from "../../tanstack";
+import { PackagePlus, UserPlus } from "lucide-react";
+import { useJuniorsData, useAssignJuniorToPackage } from "../../tanstack";
+import { toast } from "sonner";
 
 type JuniorOfEnablerModel =
   components["schemas"]["Sawiha.Services.DTO.JuniorModels.JuniorOfEnablerModel"];
 
 export const JuniorsCards = () => {
   const { data: juniorResponse, isLoading } = useJuniorsData();
+  const assignMutation = useAssignJuniorToPackage();
   const juniorsData = juniorResponse?.data;
-  console.log(juniorsData);
 
   if (isLoading) {
     return (
@@ -47,9 +48,31 @@ export const JuniorsCards = () => {
                 dayStreak: 0,
               }}
             />
-            {/* <Button intent="main2" size="mainDefault" className="w-full">
-              View Progress
-            </Button> */}
+            {!junior.isJoinedToCurrentPackage && (
+              <Button
+                intent="main2"
+                size="mainDefault"
+                className="w-full"
+                icon={<PackagePlus size={18} />}
+                isLoading={
+                  assignMutation.isPending &&
+                  assignMutation.variables === junior.id
+                }
+                onClick={() => {
+                  if (!junior.id) return;
+                  assignMutation.mutate(junior.id, {
+                    onSuccess: () => {
+                      toast.success("Junior assigned to package successfully!");
+                    },
+                    onError: () => {
+                      toast.error("Failed to assign junior to package.");
+                    },
+                  });
+                }}
+              >
+                Assign to Package
+              </Button>
+            )}
           </MainCard>
         ))}
         <ModalLink name="AddJuniors">

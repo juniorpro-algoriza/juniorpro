@@ -90,6 +90,11 @@ export const QUERY_KEYS = {
       roleTaskDetail: (id: number) =>
         ["junior", "collaborations", "role-task-detail", id] as const,
     },
+    challenges: {
+      all: (params: SearchParams) => ["junior", "challenges", params] as const,
+      list: ["junior", "challenges"] as const,
+      detail: (id: number) => ["junior", "challenges", "detail", id] as const,
+    },
     paths: {
       all: (params: SearchParams) => ["junior", "paths", params] as const,
       byId: (id: number) => ["junior", "paths", id] as const,

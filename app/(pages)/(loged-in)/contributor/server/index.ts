@@ -6,3 +6,4 @@ export { getCurrentSubscription } from "./getCurrentSubscription";
 export { postSubscribe } from "./postSubscribe";
 export { postUpgradePlan } from "./postUpgradePlan";
 export { verifyPayment } from "./postVerifyPayment";
+export { postAssignJuniorToPackage } from "./postAssignJuniorToPackage";

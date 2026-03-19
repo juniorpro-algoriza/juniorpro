@@ -245,6 +245,9 @@ export const useAcceptRoleTask = () => {
       queryClient.invalidateQueries({
         queryKey: ["admin", "collaborations", "role-task-details"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "collaborations", "detail"],
+      });
     },
   });
 };

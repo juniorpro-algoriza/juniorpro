@@ -144,7 +144,9 @@ export default function JuniorCollaborationDetailsPage({
             <Sparkles className="size-4 text-yellow-500" />
           )
         }
-        progress={isCompleted ? 100 : collab.progressPercentage || 0}
+        progress={
+          isCompleted ? 100 : Number(collab.progressPercentage?.toFixed(2)) || 0
+        }
         backgroundOverlay="/images/handOnHand.svg"
       >
         <DetailCard.Footer>

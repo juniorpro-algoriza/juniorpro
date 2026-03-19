@@ -43,6 +43,37 @@ export const MISSION_STATUS = {
   2: "InProgress",
   3: "Completed",
 };
+export const ACCESS_COST_OPTIONS = [
+  { label: "Free", value: "1" },
+  { label: "Points", value: "2" },
+  { label: "Subscription", value: "3" },
+];
+
+// ChallengeParticipantStatus: Joined = 1, UnderReview = 2, Completed = 3
+export const CHALLENGE_PARTICIPANT_STATUS = {
+  JOINED: 1,
+  UNDER_REVIEW: 2,
+  COMPLETED: 3,
+} as const;
+
+export const CHALLENGE_PARTICIPANT_STATUS_CONFIG: Record<
+  number,
+  { label: string; className: string }
+> = {
+  [CHALLENGE_PARTICIPANT_STATUS.JOINED]: {
+    label: "Joined",
+    className: "bg-gray-100 text-gray-600",
+  },
+  [CHALLENGE_PARTICIPANT_STATUS.UNDER_REVIEW]: {
+    label: "Under Review",
+    className: "bg-amber-50 text-amber-600",
+  },
+  [CHALLENGE_PARTICIPANT_STATUS.COMPLETED]: {
+    label: "Completed",
+    className: "bg-green-50 text-green-600",
+  },
+};
+
 export const PATH_STATUS = {
   Draft: 1,
   Completed: 2,

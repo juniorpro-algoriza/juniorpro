@@ -182,8 +182,19 @@ export const ProjectCard = ({
                   className="flex justify-between items-center text-sm"
                 >
                   <span className="flex items-center gap-2 text-gray-600 font-medium">
-                    {/* Using generic emoji for place */}
-                    {idx === 0 ? "🥇" : idx === 1 ? "🥈" : "🥉"} {prize.place}
+                    <Image
+                      src={
+                        idx === 0
+                          ? "/images/1st-medal.png"
+                          : idx === 1
+                            ? "/images/2nd-medal.png"
+                            : "/images/3rd-medal.png"
+                      }
+                      width={20}
+                      height={20}
+                      alt={`${idx + 1} place`}
+                    />
+                    {prize.place}
                   </span>
                   <span className="font-bold text-gray-900">
                     {prize.amount}
