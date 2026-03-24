@@ -6,7 +6,7 @@ import {
   Flame,
   Timer,
   ArrowRight,
-  DollarSign,
+  Banknote,
   Rocket,
   Star,
   Target,
@@ -39,11 +39,12 @@ export function ChallengesCards() {
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl mb-8 text-black max-w-5xl mx-auto leading-[1.15] tracking-tight font-extrabold drop-shadow-sm">
-              Galactic Challenges
+              Skill Challenges{" "}
             </h1>
 
             <p className="text-xl md:text-2xl text-[#1F3D8B] font-medium leading-relaxed max-w-3xl mb-12 mx-auto">
-              Win prizes, earn XP, and prove your skills in the arena.
+              Win prizes, earn XP, and test your coding skills in real
+              challenges.{" "}
             </p>
           </div>
 
@@ -110,7 +111,7 @@ export function ChallengesCards() {
 
                     {/* Prize Ticket */}
                     <div className="mt-auto mb-4">
-                      <div className="flex items-center justify-between p-2.5 rounded-xl border-2 border-black/10 bg-gray-50 group-hover:bg-[#FFF5F7] group-hover:border-pink-main/30 transition-colors">
+                      <div className="flex items-center justify-between p-2.5 rounded-xl border-2 border-black/10 bg-gray-50 group-hover:bg-green-50 group-hover:border-green-100 transition-colors">
                         <div className="flex flex-col">
                           <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider">
                             Prize Pool
@@ -120,7 +121,7 @@ export function ChallengesCards() {
                           </span>
                         </div>
                         <div className="w-8 h-8 rounded-full bg-mint-green-main border-2 border-black flex items-center justify-center text-black">
-                          <DollarSign className="w-3.5 h-3.5" strokeWidth={3} />
+                          <Banknote className="w-3.5 h-3.5" strokeWidth={3} />
                         </div>
                       </div>
                     </div>
@@ -168,7 +169,7 @@ export const CHALLENGES = [
     daysLeft: 3,
     difficulty: "Hard",
     prizes: ["MacBook Pro", "SpaceX Tour"],
-    cashPrize: "$2,000",
+    cashPrize: "200 SAR",
     color: "#FF5E73", // Red
     accent: "#FFB3C0",
     tags: ["Game Dev", "Hackathon"],
@@ -176,12 +177,12 @@ export const CHALLENGES = [
   {
     id: "design-dash",
     title: "UI Star Dash",
-    description: "Redesign the dashboard with retro vibes.",
+    description: "Redesign the dashboard.",
     participants: 850,
     daysLeft: 5,
     difficulty: "Medium",
     prizes: ["iPad Pro", "Figma Pro"],
-    cashPrize: "$1,000",
+    cashPrize: "100 SAR",
     color: "#9C7FFF", // Purple
     accent: "#D4C4FF",
     tags: ["UI/UX", "Design"],
@@ -189,12 +190,12 @@ export const CHALLENGES = [
   {
     id: "bug-hunt",
     title: "Alien Bug Hunt",
-    description: "Squash bugs in our repo. Earn XP.",
+    description: "Squash bugs in our repo.",
     participants: 2300,
     daysLeft: 12,
     difficulty: "Easy",
     prizes: ["Swag Pack", "Gift Cards"],
-    cashPrize: "$500",
+    cashPrize: "50 SAR",
     color: "#A7FADC", // Mint
     accent: "#D1FBE9",
     tags: ["Open Source", "Debugging"],

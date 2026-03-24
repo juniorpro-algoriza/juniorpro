@@ -7,7 +7,7 @@ import {
   Heart,
   Sparkles,
   Check,
-  DollarSign,
+  Banknote,
 } from "lucide-react";
 import { Button } from "@components";
 
@@ -29,7 +29,7 @@ export function ActivityAndPricing() {
         >
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-white rounded-full border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-8 transform hover:scale-105 hover:-rotate-2 transition-transform">
-            <DollarSign className="text-pink-main size-5" strokeWidth={3} />
+            <Banknote className="text-pink-main size-5" strokeWidth={3} />
             <span className="text-sm tracking-wide font-black text-black uppercase">
               Flexible Plans
             </span>
@@ -37,15 +37,14 @@ export function ActivityAndPricing() {
 
           {/* Main Heading */}
           <h1 className="mb-6 tracking-tight text-black drop-shadow-sm text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05]">
-            Predictable & Simple
-            <br />
+            Simple, Transparent Pricing <br />
             Pricing.
           </h1>
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-[#1F3D8B] font-medium leading-relaxed max-w-3xl mb-12 mx-auto">
-            Support their learning, boost their confidence, and guide them
-            through Missions, Collaborations, and Challenges.
+            Help them build real skills, gain confidence, and stay motivated
+            through structured missions and hands-on challenges.
           </p>
         </motion.div>
 
