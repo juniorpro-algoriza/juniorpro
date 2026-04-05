@@ -16,6 +16,7 @@ interface ProjectCardProps {
   className?: string;
   levelRequired?: number;
   isLocked?: boolean;
+  lockLabel?: string;
 }
 
 export const ProjectCard = ({
@@ -29,6 +30,7 @@ export const ProjectCard = ({
   className,
   levelRequired,
   isLocked = false,
+  lockLabel,
   type = "collaboration", // "collaboration" | "challenge" | "path"
   rewards,
   skills,
@@ -214,7 +216,7 @@ export const ProjectCard = ({
               <Lock className="size-6 text-gray-400" strokeWidth={2} />
             </div>
             <h4 className="text-gray-900 font-bold text-base mb-3">
-              Collaboration Locked
+              {lockLabel || "Collaboration Locked"}
             </h4>
             {levelRequired && (
               <div className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 border border-orange-200 rounded-full">
