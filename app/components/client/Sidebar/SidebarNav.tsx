@@ -61,6 +61,11 @@ const adminMenuItems: MenuItem[] = [
   //   label: "Points Shop",
   // },
   {
+    href: "/admin/project-managers",
+    image: JuniorsImage.src,
+    label: "Project Managers",
+  },
+  {
     href: "/admin/subscription",
     image: SubscriptionImage.src,
     label: "Subscription",

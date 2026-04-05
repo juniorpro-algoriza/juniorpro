@@ -407,9 +407,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsModel"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsModel"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsModel"];
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsResponse"];
                     };
                 };
             };
@@ -1370,9 +1370,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerLookupModel"][];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerLookupModel"][];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerLookupModel"][];
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAssignedJuniorLookup.GetCollaborationJuniorRoleLookupModel"][];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAssignedJuniorLookup.GetCollaborationJuniorRoleLookupModel"][];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAssignedJuniorLookup.GetCollaborationJuniorRoleLookupModel"][];
                     };
                 };
             };
@@ -3748,9 +3748,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsModel"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsModel"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsModel"];
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsResponse"];
                     };
                 };
             };
@@ -6523,50 +6523,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/project-manager/practice-zone-projects": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    CategoryId?: number;
-                    ProjectManagerId?: number;
-                    ProjectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/Lookup/Skill": {
         parameters: {
             query?: never;
@@ -7774,6 +7730,19 @@ export interface components {
          * @enum {integer}
          */
         "Sawiha.CrossCutting.Model.Entities.EnablerAcceptanceStatus": 1 | 2 | 3;
+        "Sawiha.CrossCutting.Model.Entities.Feature": {
+            /** Format: int32 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            type?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.FeatureType"];
+            key?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.FeatureKey"];
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+            packageFeatures?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PackageFeature"][] | null;
+        };
         /**
          * Format: int32
          * @enum {integer}
@@ -7822,6 +7791,49 @@ export interface components {
             usedPoints?: number;
             isGuided?: boolean;
             juniorLearningPaths?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"][] | null;
+            juniorPackages?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.JuniorPackageSubscription"][] | null;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
+        "Sawiha.CrossCutting.Model.Entities.Package": {
+            /** Format: int32 */
+            id?: number;
+            /** Format: date-time */
+            creationDate?: string;
+            createdById?: string | null;
+            /** Format: date-time */
+            modificationDate?: string | null;
+            modifiedById?: string | null;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            description?: string | null;
+            /** Format: int32 */
+            juniorCapacity?: number;
+            /** Format: double */
+            price?: number;
+            isActivated?: boolean;
+            /** Format: int32 */
+            duration?: number;
+            durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+            features?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PackageFeature"][] | null;
+            enablerPackageSubscriptions?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription"][] | null;
+        };
+        "Sawiha.CrossCutting.Model.Entities.PackageFeature": {
+            /** Format: int32 */
+            id?: number;
+            /** Format: int32 */
+            limitCount?: number | null;
+            isEnabled?: boolean;
+            /** Format: int32 */
+            packageId?: number;
+            package?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Package"];
+            /** Format: int32 */
+            featureId?: number;
+            feature?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Feature"];
             isDeleted?: boolean;
             /** Format: date-time */
             deletedAt?: string | null;
@@ -7987,6 +7999,33 @@ export interface components {
             missionId?: number;
             mission?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.Mission"];
         };
+        "Sawiha.CrossCutting.Model.Entities.Payment": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: date-time */
+            creationDate?: string;
+            createdById?: string | null;
+            /** Format: date-time */
+            modificationDate?: string | null;
+            modifiedById?: string | null;
+            provider?: string | null;
+            providerPaymentId?: string | null;
+            /** Format: double */
+            amount?: number;
+            currency?: string | null;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PaymentStatus"];
+            metadata?: string | null;
+            /** Format: date-time */
+            createdAt?: string;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.CrossCutting.Model.Entities.PaymentStatus": 1 | 2 | 3;
         "Sawiha.CrossCutting.Model.Entities.Project": {
             /** Format: int64 */
             id?: number;
@@ -8170,6 +8209,73 @@ export interface components {
          * @enum {integer}
          */
         "Sawiha.CrossCutting.Model.Entities.ProjectType": 1 | 2 | 3;
+        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: date-time */
+            creationDate?: string;
+            createdById?: string | null;
+            /** Format: date-time */
+            modificationDate?: string | null;
+            modifiedById?: string | null;
+            /** Format: int32 */
+            juniorCapacity?: number;
+            /** Format: double */
+            price?: number;
+            /** Format: int32 */
+            duration?: number;
+            durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionStatus"];
+            /** Format: int32 */
+            packageId?: number;
+            package?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Package"];
+            /** Format: int64 */
+            enablerId?: number;
+            enabler?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Enabler"];
+            /** Format: date-time */
+            startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
+            /** Format: int64 */
+            paymentId?: number | null;
+            payment?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Payment"];
+            isPaymentConfirmed?: boolean;
+            subscriptionFeatures?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionFeature"][] | null;
+            juniorPackages?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.JuniorPackageSubscription"][] | null;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
+        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.JuniorPackageSubscription": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: int64 */
+            packageSubscriptionId?: number;
+            packageSubscription?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription"];
+            /** Format: int64 */
+            juniorId?: number;
+            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
+            /** Format: date-time */
+            assignedDate?: string;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
+        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionFeature": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: int32 */
+            limitCount?: number | null;
+            /** Format: int32 */
+            featureId?: number;
+            feature?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Feature"];
+            /** Format: int64 */
+            packageSubscriptionId?: number;
+            packageSubscription?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription"];
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
         /**
          * Format: int32
          * @enum {integer}
@@ -8403,6 +8509,7 @@ export interface components {
             accessCostType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ChallengeFeature.AccessCostType"];
             /** Format: int32 */
             participantCount?: number;
+            prizeDistributions?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengePrizeDistributionModel"][] | null;
         };
         "Sawiha.Services.DTO.AdminChallengeModels.GetAllParticpants.GetAllChallengeParticipantModel": {
             /** Format: int64 */
@@ -8415,13 +8522,39 @@ export interface components {
             status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ChallengeFeature.ChallengeParticipantStatus"];
             /** Format: date-time */
             registerationDate?: string | null;
+            projectLink?: string | null;
+            additionalNotes?: string | null;
+            submittedFile?: string | null;
             /** Format: date-time */
             submissionDate?: string | null;
             /** Format: date-time */
             actionDate?: string | null;
         };
-        "Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsModel": {
-            challengeDetails?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetAll.GetChallengeListModel"];
+        "Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailModel": {
+            /** Format: int64 */
+            id?: number;
+            nameEn?: string | null;
+            nameAr?: string | null;
+            description?: string | null;
+            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
+            /** Format: date-time */
+            startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
+            /** Format: date-time */
+            registerationDeadline?: string;
+            /** Format: int32 */
+            levelId?: number;
+            /** Format: int32 */
+            categoryId?: number;
+            /** Format: int32 */
+            juniorsCapacity?: number;
+            accessCostType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ChallengeFeature.AccessCostType"];
+            /** Format: int32 */
+            participantCount?: number;
+        };
+        "Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsResponse": {
+            challengeDetails?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailModel"];
             guideSteps?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeGuideModel"][] | null;
             goals?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeGoalModel"][] | null;
             requirements?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeRequirementModel"][] | null;
@@ -8436,6 +8569,9 @@ export interface components {
             juniorName?: string | null;
             /** Format: int32 */
             evaluation?: number;
+            projectLink?: string | null;
+            additionalNotes?: string | null;
+            submittedFile?: string | null;
             status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ChallengeFeature.ChallengeParticipantStatus"];
             /** Format: date-time */
             registerationDate?: string | null;
@@ -8443,8 +8579,6 @@ export interface components {
             submissionDate?: string | null;
             /** Format: date-time */
             actionDate?: string | null;
-            projectLink?: string | null;
-            additionalNotes?: string | null;
         };
         "Sawiha.Services.DTO.AdminCollaborationModels.Add.AddCollaborationDetailsModel": {
             /** Format: int64 */
@@ -8512,6 +8646,14 @@ export interface components {
             /** Format: double */
             progressPercentage?: number;
         };
+        "Sawiha.Services.DTO.AdminCollaborationModels.GetAssignedJuniorLookup.GetCollaborationJuniorRoleLookupModel": {
+            /** Format: int64 */
+            id?: number;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            /** Format: int64 */
+            juniorId?: number;
+        };
         "Sawiha.Services.DTO.AdminCollaborationModels.GetById.GetCollaborationDetailsModel": {
             collaborationDetails?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.GetAll.GetCollaborationListModel"];
             requirements?: components["schemas"]["Sawiha.Services.DTO.AdminCollaborationModels.Add.CollaborationRequirementModel"][] | null;
@@ -8525,6 +8667,8 @@ export interface components {
             juniorName?: string | null;
             status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleJuniorStatus"];
             joiningReason?: string | null;
+            /** Format: int32 */
+            completedTasks?: number;
             actionReason?: string | null;
             /** Format: date-time */
             actionDate?: string | null;
@@ -8805,14 +8949,40 @@ export interface components {
             /** Format: int32 */
             participantCount?: number;
             isJoined?: boolean;
+            prizeDistributions?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengePrizeDistributionModel"][] | null;
         };
-        "Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsModel": {
-            challengeDetails?: components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetAll.GetJuniorChallengeListModel"];
+        "Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailModel": {
+            /** Format: int64 */
+            id?: number;
+            nameEn?: string | null;
+            nameAr?: string | null;
+            description?: string | null;
+            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
+            /** Format: date-time */
+            startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
+            /** Format: date-time */
+            registerationDeadline?: string;
+            accessCostType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ChallengeFeature.AccessCostType"];
+            /** Format: int32 */
+            levelId?: number;
+            /** Format: int32 */
+            categoryId?: number;
+            /** Format: int32 */
+            juniorsCapacity?: number;
+            /** Format: int32 */
+            participantCount?: number;
+            isJoined?: boolean;
+        };
+        "Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailsResponse": {
+            challengeDetails?: components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetById.GetJuniorChallengeDetailModel"];
             guideSteps?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeGuideModel"][] | null;
             goals?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeGoalModel"][] | null;
             requirements?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeRequirementModel"][] | null;
             evaluations?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeEvaluationModel"][] | null;
             prizeDistributions?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengePrizeDistributionModel"][] | null;
+            participantDetail?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetAllParticpants.GetAllChallengeParticipantModel"];
         };
         "Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel": {
             /** Format: int64 */
@@ -8931,6 +9101,7 @@ export interface components {
             completedProjects?: number;
             enablerAcceptanceStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.EnablerAcceptanceStatus"];
             gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
+            isJoinedToCurrentPackage?: boolean;
         };
         "Sawiha.Services.DTO.JuniorModels.JuniorSignUpRequest": {
             firstName: string;

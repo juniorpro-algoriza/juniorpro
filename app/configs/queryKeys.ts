@@ -62,6 +62,20 @@ export const QUERY_KEYS = {
       participantById: (id: number) =>
         ["admin", "challenges", "participant", id] as const,
     },
+    projectManagers: {
+      all: (params: PaginationParams) =>
+        ["admin", "project-managers", params] as const,
+      byId: (id: number) => ["admin", "project-managers", id] as const,
+      list: ["admin", "project-managers"] as const,
+      enablers: (params: PaginationParams) =>
+        ["admin", "project-managers", "enablers", params] as const,
+      juniors: (params: PaginationParams) =>
+        ["admin", "project-managers", "juniors", params] as const,
+      enablerDetail: (id: number) =>
+        ["admin", "project-managers", "enabler", id] as const,
+      juniorDetail: (id: number) =>
+        ["admin", "project-managers", "junior", id] as const,
+    },
   },
   contributor: {
     subscription: ["contributor", "subscription"] as const,
