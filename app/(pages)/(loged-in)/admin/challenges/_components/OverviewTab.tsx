@@ -7,7 +7,7 @@ import { Hammer, Trophy } from "lucide-react";
 import { components } from "../../../../../../api-schema";
 
 type GetChallengeDetailsModel =
-  components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsModel"];
+  components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsResponse"];
 
 const MEDALS = [
   "/images/1st-medal.png",

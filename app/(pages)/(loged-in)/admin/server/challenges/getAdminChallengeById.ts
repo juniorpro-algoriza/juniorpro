@@ -4,7 +4,7 @@ import { customFetch } from "@server/lib";
 import { components } from "../../../../../../api-schema";
 
 type GetChallengeDetailsModel =
-  components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsModel"];
+  components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetById.GetChallengeDetailsResponse"];
 
 export async function getAdminChallengeById(
   id: number

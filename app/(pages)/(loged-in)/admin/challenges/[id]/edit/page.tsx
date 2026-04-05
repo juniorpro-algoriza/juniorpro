@@ -43,28 +43,24 @@ export default function EditChallengePage({
     );
   }
 
-  const details = challenge.challengeDetails as
-    | Record<string, unknown>
-    | undefined;
+  const details = challenge.challengeDetails;
 
   // Map API response back to form data
   const initialData: Partial<ChallengeFormData> = {
-    id: details?.id as number | undefined,
-    nameEn: (details?.nameEn as string) || "",
-    nameAr: (details?.nameAr as string) || "",
-    description: (details?.description as string) || "",
-    levelId: (details?.levelId as number) || null,
-    categoryId: (details?.categoryId as number) || null,
-    juniorsCapacity: (details?.juniorsCapacity as number) || 0,
-    startDate: details?.startDate
-      ? new Date(details.startDate as string)
-      : null,
-    endDate: details?.endDate ? new Date(details.endDate as string) : null,
+    id: details?.id,
+    nameEn: details?.nameEn || "",
+    nameAr: details?.nameAr || "",
+    description: details?.description || "",
+    levelId: details?.levelId || null,
+    categoryId: details?.categoryId || null,
+    juniorsCapacity: details?.juniorsCapacity || 0,
+    startDate: details?.startDate ? new Date(details.startDate) : null,
+    endDate: details?.endDate ? new Date(details.endDate) : null,
     registerationDeadline: details?.registerationDeadline
-      ? new Date(details.registerationDeadline as string)
+      ? new Date(details.registerationDeadline)
       : null,
-    icon: (details?.icon as number) || null,
-    accessCostType: (details?.accessCostType as number) || 1,
+    icon: details?.icon || null,
+    accessCostType: details?.accessCostType || 1,
     guideSteps: (challenge.guideSteps || []).map((s, i) => ({
       id: s.id?.toString() || i.toString(),
       description: s.description || "",
@@ -101,7 +97,7 @@ export default function EditChallengePage({
           { title: "Home", href: "/admin/dashboard" },
           { title: "Challenges", href: "/admin/challenges" },
           {
-            title: (details?.nameEn as string) || "Edit Challenge",
+            title: details?.nameEn || "Edit Challenge",
             href: `/admin/challenges/${id}`,
           },
           { title: "Edit", href: `/admin/challenges/${id}/edit` },

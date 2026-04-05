@@ -99,7 +99,7 @@ export function CollaborationDetails({ team }: { team: CollaborationTeam }) {
                   <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-[#FFF5F7] border-[3px] border-black shadow-thick-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex flex-col">
                       <div className="text-xs text-[#1F3D8B] font-black uppercase tracking-wider mb-1">
-                        Funding Grant
+                        Prize for each member{" "}
                       </div>
                       <div className="text-2xl sm:text-3xl font-black text-black flex items-center gap-2">
                         {team.funding}
@@ -140,7 +140,7 @@ export function CollaborationDetails({ team }: { team: CollaborationTeam }) {
 
               <div className="bg-gray-50 rounded-2xl sm:rounded-4xl border-[3px] border-black p-4 sm:p-6 lg:p-8 h-fit mt-8 lg:mt-0">
                 <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 text-black">
-                  <Users className="w-6 h-6 text-pink-main" /> Crew Manifest
+                  <Users className="w-6 h-6 text-pink-main" /> Team
                 </h3>
 
                 <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">

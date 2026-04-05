@@ -102,8 +102,7 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] mb-6 max-w-5xl tracking-tight"
         >
-          Your Junior's Journey <br />
-          Begins Here
+          Where Young Coders Grow with Confidence
         </motion.h1>
 
         {/* Sub-text */}
@@ -113,8 +112,8 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl md:text-2xl text-[#1F3D8B] font-medium leading-relaxed max-w-3xl mb-12"
         >
-          A guided, playful learning path that grows real skills — one mission
-          at a time.
+          Structured learning paths that build real coding skills through guided
+          missions, projects, and challenges.
         </motion.p>
 
         {/* CTAs - Brainfish Style */}
@@ -129,7 +128,7 @@ export function HeroSection() {
             size="custom"
             className="lg:text-lg px-10 font-black shadow-thick-5 py-5"
           >
-            <Rocket className="size-6" fill="currentColor" /> LAUNCH LEARNING
+            START LEARNING
           </Button>
           <Button
             intent="mainWhite"
@@ -137,7 +136,7 @@ export function HeroSection() {
             className="lg:text-lg px-10 shadow-thick-5 py-5"
           >
             <Play className="inline mr-2 w-5 h-5" fill="currentColor" />
-            Try a Demo Mission
+            Explore a Demo Mission{" "}
           </Button>
         </motion.div>
 
@@ -167,20 +166,22 @@ export function HeroSection() {
                   Sarah
                 </div>
                 <div className="text-blue-saturated text-sm font-medium">
-                  Level 4 • Future System Architect
+                  Level 4 • Future Frontend Developer
                 </div>
               </div>
             </div>
             <div className="flex gap-3">
               <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-main to-[#FFD54F] md:px-4 px-2 py-2 rounded-full border-2 border-black shadow-sm">
                 <span className="text-lg">⚡</span>
-                <span className="text-black text-xs md:text-base">
+                <span className="text-black text-xs md:text-base font-bold">
                   1,240 XP
                 </span>
               </div>
               <div className="flex items-center gap-2 bg-gradient-to-r from-[#FF9ECE] to-[#FF8CF1] px-4 py-2 rounded-full border-2 border-black shadow-sm">
                 <span className="text-lg">🔥</span>
-                <span className="text-white text-sm md:text-base">12</span>
+                <span className="text-white text-sm md:text-base font-bold">
+                  12 Days
+                </span>
               </div>
             </div>
           </div>
@@ -246,8 +247,9 @@ export function HeroSection() {
                 />
               </div>
               <p className="mt-8 text-[#1F3D8B] font-medium text-center text-lg italic">
-                "Every expert was once a beginner. <br />
-                Keep exploring, cadet!"
+                Every <b>pro</b> starts somewhere.
+                <br />
+                Keep building — one mission at a time.{" "}
               </p>
             </div>
 
@@ -301,16 +303,16 @@ export function HeroSection() {
                       animate={{ scale: [1, 1.1, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
-                      +50 Gems 💎
+                      +50 Points 💎
                     </motion.div>
 
                     <div className="flex justify-between items-start mb-2">
                       <span className="text-[10px] font-black text-blue-saturated uppercase tracking-widest flex items-center gap-1.5">
-                        <Brain className="size-3.5 shrink-0" /> System Logic
-                        Track
+                        <Brain className="size-3.5 shrink-0" /> Track: System
+                        Logic
                       </span>
                       <span className="text-[10px] bg-blue-saturated px-2 py-0.5 rounded text-white font-bold">
-                        MISSION 1.2
+                        MISSION 1. HTML
                       </span>
                     </div>
 

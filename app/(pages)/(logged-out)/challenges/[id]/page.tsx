@@ -12,7 +12,7 @@ import {
   Crown,
   Flame,
   Timer,
-  DollarSign,
+  Banknote,
 } from "lucide-react";
 import avatarBoy1 from "@public/landing-pages/avatar-team-1.png";
 import avatarBoy2 from "@public/landing-pages/avatar-team-2.png";
@@ -78,7 +78,7 @@ export default function ChallengePage({
               style={{ backgroundColor: selectedChallenge.color }}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10 pt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10 pt-2">
               {/* Left: Info */}
               <div>
                 {/* Header with Icon */}
@@ -102,7 +102,7 @@ export default function ChallengePage({
                     )}
                   </div>
 
-                  <div className="pt-2">
+                  <div className="">
                     <div className="flex flex-wrap gap-2 mb-3">
                       {selectedChallenge.tags.map((tag) => (
                         <span
@@ -116,7 +116,7 @@ export default function ChallengePage({
                         {selectedChallenge.difficulty} Mode
                       </span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-black tracking-tight text-black leading-[0.9] mb-4">
+                    <h2 className="text-2xl md:text-4xl font-black tracking-tight text-black leading-[0.9] mb-4">
                       {selectedChallenge.title}
                     </h2>
                     <p className="text-xl text-[#1F3D8B] font-bold leading-relaxed">
@@ -144,7 +144,7 @@ export default function ChallengePage({
                       <span className="text-xs font-black uppercase tracking-widest text-purple-main/60">
                         Total Prize
                       </span>
-                      <DollarSign className="w-5 h-5 text-pink-main" />
+                      <Banknote className="w-5 h-5 text-pink-main" />
                     </div>
                     <div className="text-3xl font-black text-black">
                       {selectedChallenge.cashPrize}
@@ -156,7 +156,7 @@ export default function ChallengePage({
                 <div className="mb-10 bg-gray-50 p-6 rounded-2xl border-[3px] border-black/10">
                   <div className="flex items-center justify-between flex-wrap mb-4">
                     <span className="text-xs font-black uppercase tracking-widest text-black/40">
-                      Current Contenders
+                      Current Members
                     </span>
                     <span className="text-xs font-bold text-black">
                       {selectedChallenge.participants} Joined
@@ -201,19 +201,19 @@ export default function ChallengePage({
                     className="w-7 h-7 text-yellow-main group-hover:scale-110 transition-transform"
                     fill="#FFE285"
                   />
-                  Start Mission
+                  Join Challenge{" "}
                 </Button>
               </div>
 
               {/* Right: Rewards Panel */}
               <div className="flex flex-col h-full">
-                <div className="bg-yellow-main text-yellow-main rounded-4xl border-[3px] border-black p-8 h-full shadow-thick-8 relative">
+                <div className="bg-green-50 rounded-4xl border-[3px] border-black p-8 h-full shadow-thick-8 relative">
                   <div className="flex items-center gap-3 mb-8 border-b-[3px] border-black pb-6">
                     <div className="w-12 h-12 shrink-0 rounded-full bg-white border-[3px] border-black flex items-center justify-center">
                       <Trophy className="text-black md:size-6 size-5" />
                     </div>
                     <h3 className="md:text-3xl text-xl font-black text-black uppercase tracking-tighter">
-                      Mission Rewards
+                      Challenge Rewards
                     </h3>
                   </div>
 
@@ -261,7 +261,7 @@ export default function ChallengePage({
                         </li>
                         <li className="flex items-start gap-2">
                           <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-black" />
-                          Teams can have up to 4 cadets.
+                          Teams can have up to 4 members.
                         </li>
                       </ul>
                     </div>
