@@ -51,7 +51,7 @@ export const signIn = async (
   });
 
   const profile = await getUserProfile();
-  const userType = profile.userType;
+  const userType = Number(profile?.userType || 0);
   cookieStore.set("user_type", String(userType), {
     httpOnly: false,
     secure: true,
@@ -62,17 +62,20 @@ export const signIn = async (
   // Handle redirect if present, i used for join project flow
   if (redirectUrl) {
     // Role map for validation
-    const roleMap: Record<string, number> = {
-      "/admin": 1,
-      "/junior": 2,
-      "/contributor": 3,
-      "/project/manager": 4,
+    const rolePermissions: Record<string, number[]> = {
+      "/admin": [1, 4],
+      "/junior": [2],
+      "/contributor": [3],
+      "/project-manager/paths": [4],
+      "/project-manager/challenges": [4],
+      "/project-manager/collaborations": [4],
+      "/project-manager": [4],
     };
 
     // Check if user is authorized for the redirect destination
     let isAuthorized = true;
-    for (const [prefix, requiredType] of Object.entries(roleMap)) {
-      if (redirectUrl.startsWith(prefix) && userType !== requiredType) {
+    for (const [prefix, allowedTypes] of Object.entries(rolePermissions)) {
+      if (redirectUrl.startsWith(prefix) && !allowedTypes.includes(userType)) {
         isAuthorized = false;
         break;
       }
@@ -98,7 +101,7 @@ export const signIn = async (
     case 3:
       redirect("/contributor/dashboard");
     case 4:
-      redirect("/project/dashboard");
+      redirect("/project-manager/paths");
     default:
       redirect("/");
   }

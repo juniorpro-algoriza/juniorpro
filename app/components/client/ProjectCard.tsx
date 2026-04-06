@@ -99,7 +99,7 @@ export const ProjectCard = ({
                   Progress
                 </span>
                 <span className="bg-blue-main/10 border border-blue-main/20 text-blue-main text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-lg">
-                  {progress}%
+                  {progress?.toFixed(0)}%
                 </span>
               </div>
               <Progress width={progress} className="bg-gray-100" />

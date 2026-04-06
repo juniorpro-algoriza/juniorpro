@@ -143,6 +143,24 @@ const juniorMenuItems: MenuItem[] = [
   // { href: "/junior/profile", icon: SettingsIcon, label: "My Profile" },
 ];
 
+const projectManagerMenuItems: MenuItem[] = [
+  {
+    href: "/project-manager/paths",
+    image: MyJourneyImage.src,
+    label: "Learning Paths",
+  },
+  {
+    href: "/project-manager/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
+    href: "/project-manager/collaborations",
+    image: CollaborationImage.src,
+    label: "Collaborations",
+  },
+];
+
 export const SidebarNav = () => {
   const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
@@ -202,7 +220,9 @@ export const SidebarNav = () => {
         ? contributorMenuItems
         : userRole === "junior"
           ? juniorMenuItems
-          : [];
+          : userRole === "projectManager"
+            ? projectManagerMenuItems
+            : [];
 
   const isActive = (href: string) => pathname === href;
 
