@@ -22,16 +22,22 @@ export async function middleware(req: NextRequest) {
 
     if (redirectParam) {
       // Determine if user is authorized for the redirect destination
-      const roleMap = {
-        "/admin": 1,
-        "/junior": 2,
-        "/contributor": 3,
-        "/project/manager": 4,
+      const rolePermissions: Record<string, number[]> = {
+        "/admin": [1, 4],
+        "/junior": [2],
+        "/contributor": [3],
+        "/project-manager/paths": [4],
+        "/project-manager/challenges": [4],
+        "/project-manager/collaborations": [4],
+        "/project-manager": [4],
       };
 
       let isAuthorized = true;
-      for (const [prefix, requiredType] of Object.entries(roleMap)) {
-        if (redirectParam.startsWith(prefix) && userType !== requiredType) {
+      for (const [prefix, allowedTypes] of Object.entries(rolePermissions)) {
+        if (
+          redirectParam.startsWith(prefix) &&
+          !allowedTypes.includes(userType)
+        ) {
           isAuthorized = false;
           break;
         }
@@ -55,7 +61,7 @@ export async function middleware(req: NextRequest) {
         );
       case 4:
         return NextResponse.redirect(
-          new URL("/project/manager/dashboard", req.url)
+          new URL("/project-manager/paths", req.url)
         );
       default:
         return NextResponse.redirect(new URL("/", req.url));
@@ -78,7 +84,10 @@ export async function middleware(req: NextRequest) {
     path.startsWith("/admin") ||
     path.startsWith("/junior") ||
     path.startsWith("/contributor") ||
-    path.startsWith("/project/manager")
+    path.startsWith("/project-manager/manager") ||
+    path.startsWith("/project-manager/paths") ||
+    path.startsWith("/project-manager/challenges") ||
+    path.startsWith("/project-manager/collaborations")
   ) {
     if (!token) {
       const redirectUrl = new URL("/auth/login", req.url);
@@ -92,17 +101,33 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(redirectUrl);
     }
 
+    // --- Project Manager /project-manager prefix routing ---
+    const isPMRoute =
+      path.startsWith("/project-manager/paths") ||
+      path.startsWith("/project-manager/challenges") ||
+      path.startsWith("/project-manager/collaborations");
+
+    if (isPMRoute) {
+      if (userType !== 4 && userType !== 1) {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
+      // No rewrite needed now that folder structure matches URL
+    }
+
     // Role authorization check
-    const roleMap = {
-      "/admin": 1,
-      "/junior": 2,
-      "/contributor": 3,
-      "/project/manager": 4,
+    const rolePermissions: Record<string, number[]> = {
+      "/admin": [1, 4],
+      "/junior": [2],
+      "/contributor": [3],
+      "/project-manager/paths": [4],
+      "/project-manager/challenges": [4],
+      "/project-manager/collaborations": [4],
+      "/project-manager": [4],
     };
 
-    for (const [prefix, type] of Object.entries(roleMap)) {
-      if (path.startsWith(prefix) && userType !== type) {
-        return NextResponse.redirect(new URL("/unauthorized", req.url));
+    for (const [prefix, allowedTypes] of Object.entries(rolePermissions)) {
+      if (path.startsWith(prefix) && !allowedTypes.includes(userType)) {
+        return NextResponse.redirect(new URL("/", req.url)); // Redirect to home if unauthorized
       }
     }
   }
@@ -126,6 +151,6 @@ export const config = {
     "/admin/:path*",
     "/junior/:path*",
     "/contributor/:path*",
-    "/project/manager/:path*",
+    "/project-manager/:path*",
   ],
 };
