@@ -12,9 +12,10 @@ export const DashboardHeader = ({ description }: { description: string }) => {
   const lastName = user?.lastName || "";
   return (
     <Header
-      title={`Welcome Back , ${firstName} ${lastName}!`}
+      title={`Welcome Back , ${firstName} ${lastName}`}
       description={description}
       startIndent
+      loading={!firstName}
       end={
         <Image
           src={BellImage}

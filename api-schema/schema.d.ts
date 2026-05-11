@@ -288,6 +288,182 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin-badge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    Type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminBadgeModels.GetAll.AdminBadgeListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminBadgeModels.GetAll.AdminBadgeListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminBadgeModels.GetAll.AdminBadgeListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "multipart/form-data": {
+                        /** Format: int64 */
+                        Id: number;
+                        /** Format: binary */
+                        Image?: string;
+                        TitleAr: string;
+                        TitleEn: string;
+                        Description?: string;
+                        Type: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+                        /** Format: int32 */
+                        Count: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "multipart/form-data": {
+                        /** Format: int64 */
+                        Id?: number;
+                        TitleAr: string;
+                        TitleEn: string;
+                        Description?: string;
+                        Type: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+                        /** Format: int32 */
+                        Count: number;
+                        /** Format: binary */
+                        Image: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-badge/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.AdminBadgeModels.GetById.AdminBadgeDetailsModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.AdminBadgeModels.GetById.AdminBadgeDetailsModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.AdminBadgeModels.GetById.AdminBadgeDetailsModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin-challenge": {
         parameters: {
             query?: never;
@@ -562,6 +738,87 @@ export interface paths {
                 };
             };
         };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-challenge/distribute-prizes/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-challenge/leaderboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query: {
+                    Id: number;
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminChallengeModels.GetLeaderboard.GetAdminChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminChallengeModels.GetLeaderboard.GetAdminChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminChallengeModels.GetLeaderboard.GetAdminChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -1677,6 +1934,189 @@ export interface paths {
                         "text/plain": components["schemas"]["Sawiha.Services.DTO.AdminDashboardModels.ProjectChartModel"];
                         "application/json": components["schemas"]["Sawiha.Services.DTO.AdminDashboardModels.ProjectChartModel"];
                         "text/json": components["schemas"]["Sawiha.Services.DTO.AdminDashboardModels.ProjectChartModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-level": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "multipart/form-data": {
+                        /** Format: int32 */
+                        Id: number;
+                        /** Format: binary */
+                        Image?: string;
+                        /** Format: int32 */
+                        XPToNextLevel: number;
+                        IsActive?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": boolean;
+                        "application/json": boolean;
+                        "text/json": boolean;
+                    };
+                };
+            };
+        };
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "multipart/form-data": {
+                        /** Format: int32 */
+                        Id?: number;
+                        /** Format: int32 */
+                        XPToNextLevel: number;
+                        /** Format: binary */
+                        Image: string;
+                        IsActive?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-level/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin-level/last-level": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel"];
                     };
                 };
             };
@@ -3850,6 +4290,48 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/junior-challenge/leaderboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query: {
+                    Id: number;
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorChallengeModels.GetChallengeLeaderboard.GetJuniorChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorChallengeModels.GetChallengeLeaderboard.GetJuniorChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorChallengeModels.GetChallengeLeaderboard.GetJuniorChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/junior-collaboration": {
         parameters: {
             query?: never;
@@ -4260,7 +4742,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/junior-dashboard/joined-projects": {
+    "/api/junior-dashboard/current-path-details": {
         parameters: {
             query?: never;
             header?: never;
@@ -4269,13 +4751,7 @@ export interface paths {
         };
         get: {
             parameters: {
-                query?: {
-                    ProjectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-                    Status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
+                query?: never;
                 header?: never;
                 path?: never;
                 cookie?: never;
@@ -4288,9 +4764,157 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardCurrentPath.JuniorDashboardCurrentPathResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardCurrentPath.JuniorDashboardCurrentPathResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardCurrentPath.JuniorDashboardCurrentPathResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-dashboard/mission-stats-tracker": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.JuniorMissionTrackerResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.JuniorMissionTrackerResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.JuniorMissionTrackerResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-dashboard/level": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetJuniorLevel.GetJuniorLevelResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetJuniorLevel.GetJuniorLevelResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetJuniorLevel.GetJuniorLevelResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-dashboard/xp-stats-tracker": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.JuniorXPTrackerResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.JuniorXPTrackerResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.JuniorXPTrackerResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-dashboard/level-achievements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetLevelAchievement.GetJuniorLevelAchievementResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetLevelAchievement.GetJuniorLevelAchievementResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetLevelAchievement.GetJuniorLevelAchievementResponse"];
                     };
                 };
             };
@@ -5203,7 +5827,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Level"][];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"][];
                     };
                 };
             };
@@ -5267,7 +5891,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Level"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"];
                     };
                 };
             };
@@ -5305,7 +5929,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Level"][];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"][];
                     };
                 };
             };
@@ -5345,7 +5969,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Level"][];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"][];
                     };
                 };
             };
@@ -6523,6 +7147,50 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/project-manager/practice-zone-projects": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    CategoryId?: number;
+                    ProjectManagerId?: number;
+                    ProjectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
+                    PageNumber?: number;
+                    PageSize?: number;
+                    SearchText?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Lookup/Skill": {
         parameters: {
             query?: never;
@@ -7263,6 +7931,21 @@ export interface components {
             referenceCode?: string | null;
             readonly isSucceeded?: boolean;
         };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminBadgeModels.GetAll.AdminBadgeListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.AdminBadgeModels.GetAll.AdminBadgeListModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminChallengeModels.GetAll.GetChallengeListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetAll.GetChallengeListModel"][] | null;
@@ -7281,6 +7964,21 @@ export interface components {
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminChallengeModels.GetAllParticpants.GetAllChallengeParticipantModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetAllParticpants.GetAllChallengeParticipantModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.AdminChallengeModels.GetLeaderboard.GetAdminChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetLeaderboard.GetAdminChallengeLeaderboardModel"][] | null;
             code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
             httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
             errorMessage?: string | null;
@@ -7398,6 +8096,21 @@ export interface components {
             /** Format: int64 */
             pg_total?: number;
         };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorChallengeModels.GetChallengeLeaderboard.GetJuniorChallengeLeaderboardModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.JuniorChallengeModels.GetChallengeLeaderboard.GetJuniorChallengeLeaderboardModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel"][] | null;
@@ -7416,21 +8129,6 @@ export interface components {
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.JuniorCollaborationModels.RolesModels.GetAll.GetJuniorCollaborationRoleModel"][] | null;
-            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
-            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
-            errorMessage?: string | null;
-            referenceCode?: string | null;
-            readonly isSucceeded?: boolean;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int64 */
-            pg_total?: number;
-        };
-        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
-            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
-            data?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel"][] | null;
             code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
             httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
             errorMessage?: string | null;
@@ -7476,6 +8174,21 @@ export interface components {
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel"][] | null;
+            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
+            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
+            errorMessage?: string | null;
+            referenceCode?: string | null;
+            readonly isSucceeded?: boolean;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            pg_total?: number;
+        };
+        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
+            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
+            data?: components["schemas"]["Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel"][] | null;
             code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
             httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
             errorMessage?: string | null;
@@ -7665,6 +8378,47 @@ export interface components {
             nameAr?: string | null;
             nameEn?: string | null;
         };
+        "Sawiha.CrossCutting.Model.Entities.BadgeFeature.Badge": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: date-time */
+            creationDate?: string;
+            createdById?: string | null;
+            /** Format: date-time */
+            modificationDate?: string | null;
+            modifiedById?: string | null;
+            titleAr?: string | null;
+            titleEn?: string | null;
+            description?: string | null;
+            imageUrl?: string | null;
+            type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+            /** Format: int32 */
+            count?: number;
+            juniorBadges?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.JuniorBadge"][] | null;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType": 1 | 2 | 3 | 4;
+        "Sawiha.CrossCutting.Model.Entities.BadgeFeature.JuniorBadge": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: int64 */
+            juniorId?: number;
+            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
+            /** Format: int64 */
+            badgeId?: number;
+            badge?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.Badge"];
+            /** Format: date-time */
+            achievedDate?: string;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
         /**
          * Format: int32
          * @enum {integer}
@@ -7790,11 +8544,71 @@ export interface components {
             /** Format: int32 */
             usedPoints?: number;
             isGuided?: boolean;
+            /** Format: date-time */
+            lastLoginDate?: string | null;
+            /** Format: int32 */
+            currentStreak?: number;
+            /** Format: int32 */
+            longestStreak?: number;
             juniorLearningPaths?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"][] | null;
             juniorPackages?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.JuniorPackageSubscription"][] | null;
+            levelProgress?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelProgress"];
+            badges?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.JuniorBadge"][] | null;
             isDeleted?: boolean;
             /** Format: date-time */
             deletedAt?: string | null;
+        };
+        "Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelAchievement": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: int64 */
+            juniorId?: number;
+            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
+            /** Format: int32 */
+            levelId?: number;
+            level?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.Level"];
+            /** Format: date-time */
+            achievedDate?: string;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
+        "Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelProgress": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: int64 */
+            juniorId?: number;
+            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
+            /** Format: int32 */
+            currentLevelId?: number;
+            currentLevel?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.Level"];
+            /** Format: int32 */
+            currentLevelXP?: number;
+            /** Format: int32 */
+            totalXP?: number;
+            /** Format: int32 */
+            maxLevelAchieved?: number;
+            isDeleted?: boolean;
+            /** Format: date-time */
+            deletedAt?: string | null;
+        };
+        "Sawiha.CrossCutting.Model.Entities.LevelFeature.Level": {
+            /** Format: int32 */
+            id?: number;
+            /** Format: date-time */
+            creationDate?: string;
+            createdById?: string | null;
+            /** Format: date-time */
+            modificationDate?: string | null;
+            modifiedById?: string | null;
+            /** Format: int32 */
+            number?: number;
+            /** Format: int32 */
+            xpToNextLevel?: number;
+            imageUrl?: string | null;
+            isActive?: boolean;
+            juniors?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelProgress"][] | null;
+            juniorAchievements?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelAchievement"][] | null;
         };
         "Sawiha.CrossCutting.Model.Entities.Package": {
             /** Format: int32 */
@@ -7968,7 +8782,7 @@ export interface components {
             referenceAnswer?: string | null;
             /** Format: int32 */
             levelId?: number;
-            level?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Level"];
+            level?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"];
             /** Format: int32 */
             skillId?: number;
             skill?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Skill"];
@@ -8061,7 +8875,7 @@ export interface components {
             category?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Category"];
             /** Format: int32 */
             categoryId?: number | null;
-            level?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Level"];
+            level?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"];
             /** Format: int32 */
             levelId?: number | null;
             duration?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Duration"];
@@ -8290,6 +9104,11 @@ export interface components {
          * Format: int32
          * @enum {integer}
          */
+        "Sawiha.CrossCutting.Model.Enums.JuniorLevelAchievementStatus": 1 | 2 | 3;
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
         "Sawiha.CrossCutting.Model.Enums.PlanDurationType": 1 | 2 | 3 | 4;
         /**
          * Format: int32
@@ -8320,7 +9139,7 @@ export interface components {
             isDeleted?: boolean;
             isVisible?: boolean;
         };
-        "Sawiha.CrossCutting.Model.Lookups.Level": {
+        "Sawiha.CrossCutting.Model.Lookups.LevelDifficulty": {
             /** Format: int32 */
             id?: number;
             nameAr?: string | null;
@@ -8422,6 +9241,29 @@ export interface components {
             /** Format: email */
             email: string;
             otp: string;
+        };
+        "Sawiha.Services.DTO.AdminBadgeModels.GetAll.AdminBadgeListModel": {
+            /** Format: int64 */
+            id?: number;
+            titleAr?: string | null;
+            titleEn?: string | null;
+            type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+            /** Format: int32 */
+            count?: number;
+            imageUrl?: string | null;
+            /** Format: int32 */
+            juniors?: number;
+        };
+        "Sawiha.Services.DTO.AdminBadgeModels.GetById.AdminBadgeDetailsModel": {
+            /** Format: int64 */
+            id?: number;
+            titleAr?: string | null;
+            titleEn?: string | null;
+            description?: string | null;
+            type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+            /** Format: int32 */
+            count?: number;
+            imageUrl?: string | null;
         };
         "Sawiha.Services.DTO.AdminChallengeModels.Add.AddChallengeModel": {
             /** Format: int64 */
@@ -8560,6 +9402,17 @@ export interface components {
             requirements?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeRequirementModel"][] | null;
             evaluations?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengeEvaluationModel"][] | null;
             prizeDistributions?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengePrizeDistributionModel"][] | null;
+        };
+        "Sawiha.Services.DTO.AdminChallengeModels.GetLeaderboard.GetAdminChallengeLeaderboardModel": {
+            /** Format: int64 */
+            id?: number;
+            careerNameAr?: string | null;
+            careerNameEn?: string | null;
+            juniorName?: string | null;
+            /** Format: int32 */
+            rank?: number;
+            /** Format: int32 */
+            score?: number;
         };
         "Sawiha.Services.DTO.AdminChallengeModels.GetParticpantById.GetChallengeParticipantDetailsModel": {
             /** Format: int64 */
@@ -8784,6 +9637,8 @@ export interface components {
             roleJuniorId?: number | null;
             /** Format: date-time */
             dueDate?: string | null;
+            /** Format: int32 */
+            xpReward?: number;
         };
         "Sawiha.Services.DTO.CollaborationRoleTaskModels.GetAll.GetAllCollaborationRoleTaskModel": {
             /** Format: int64 */
@@ -8798,6 +9653,8 @@ export interface components {
             roleJuniorId?: number | null;
             /** Format: date-time */
             dueDate?: string | null;
+            /** Format: int32 */
+            xpReward?: number;
             juniorName?: string | null;
         };
         "Sawiha.Services.DTO.CollaborationRoleTaskModels.GetById.GetAllCollaborationRoleTaskDetailsModel": {
@@ -8813,6 +9670,8 @@ export interface components {
             roleJuniorId?: number | null;
             /** Format: date-time */
             dueDate?: string | null;
+            /** Format: int32 */
+            xpReward?: number;
             juniorName?: string | null;
             projectLink?: string | null;
             additionalNotes?: string | null;
@@ -8984,6 +9843,18 @@ export interface components {
             prizeDistributions?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.ChallengePrizeDistributionModel"][] | null;
             participantDetail?: components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetAllParticpants.GetAllChallengeParticipantModel"];
         };
+        "Sawiha.Services.DTO.JuniorChallengeModels.GetChallengeLeaderboard.GetJuniorChallengeLeaderboardModel": {
+            /** Format: int64 */
+            id?: number;
+            careerNameAr?: string | null;
+            careerNameEn?: string | null;
+            juniorName?: string | null;
+            /** Format: int32 */
+            rank?: number;
+            /** Format: int32 */
+            score?: number;
+            isMyRank?: boolean;
+        };
         "Sawiha.Services.DTO.JuniorCollaborationModels.GetAll.GetJuniorCollaborationListModel": {
             /** Format: int64 */
             id?: number;
@@ -9038,28 +9909,124 @@ export interface components {
             tools?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.CollaborationRoleToolModel"][] | null;
             responsibilities?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.CollaborationRoleResponsiblitiesModel"][] | null;
         };
-        "Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardProjectModel": {
+        "Sawiha.Services.DTO.JuniorDashboard.GetJuniorLevel.GetJuniorLevelResponse": {
+            /** Format: int32 */
+            currentLevel?: number;
+            /** Format: int32 */
+            nextLevel?: number;
+            /** Format: int32 */
+            xpRemainingToNextLevel?: number;
+            /** Format: int32 */
+            totalXP?: number;
+            /** Format: double */
+            progressPercentage?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.GetLevelAchievement.GetJuniorLevelAchievementModel": {
+            /** Format: int32 */
+            id?: number;
+            /** Format: int32 */
+            levelNumber?: number;
+            /** Format: int32 */
+            xpRequired?: number;
+            imageUrl?: string | null;
+            /** Format: int32 */
+            currentLevelXP?: number | null;
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.JuniorLevelAchievementStatus"];
+            /** Format: date-time */
+            achievedDate?: string;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.GetLevelAchievement.GetJuniorLevelAchievementResponse": {
+            juniorLevelAchievements?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetLevelAchievement.GetJuniorLevelAchievementModel"][] | null;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardCurrentPath.JuniorDashboardCurrentPathMission": {
             /** Format: int64 */
             id?: number;
-            image?: string | null;
-            projectNameAr?: string | null;
-            projectNameEn?: string | null;
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-            projectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
+            nameAr?: string | null;
+            nameEn?: string | null;
+            /** Format: int32 */
+            levelId?: number;
+            levelNameAr?: string | null;
+            levelNameEn?: string | null;
+            /** Format: int32 */
+            xp?: number;
+            /** Format: int32 */
+            points?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardCurrentPath.JuniorDashboardCurrentPathResponse": {
+            currentPath?: components["schemas"]["Sawiha.Services.DTO.PathModels.JuniorPathsModels.GetJuniorLearningPathListModel"];
+            pathMission?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardCurrentPath.JuniorDashboardCurrentPathMission"];
         };
         "Sawiha.Services.DTO.JuniorDashboard.JuniorDashboardStatsModel": {
             /** Format: int32 */
             dailyStreak?: number;
             /** Format: int32 */
-            finishedTasks?: number;
-            /** Format: int32 */
-            pendingTasks?: number;
+            longestDailyStreak?: number;
             /** Format: int32 */
             myPoints?: number;
+            /** Format: int32 */
+            missions?: number;
+            /** Format: int32 */
+            collaborations?: number;
+            /** Format: int32 */
+            challenges?: number;
+            /** Format: int32 */
+            totalXp?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.JuniorMissionTrackerResponse": {
+            week?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.MissionDaysTracker"][] | null;
+            month?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.MissionWeeksTracker"][] | null;
+            threeMonths?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.MissionMonthsTracker"][] | null;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.MissionDaysTracker": {
+            dayName?: string | null;
+            /** Format: date-time */
+            date?: string;
+            /** Format: int32 */
+            missions?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.MissionMonthsTracker": {
+            /** Format: int32 */
+            year?: number;
+            /** Format: int32 */
+            month?: number;
+            monthName?: string | null;
+            /** Format: int32 */
+            missions?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.MissionWeeksTracker": {
+            /** Format: int32 */
+            weekNumber?: number;
+            weekLabel?: string | null;
+            /** Format: int32 */
+            missions?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.JuniorXPTrackerResponse": {
+            week?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.XPDaysTracker"][] | null;
+            month?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.XPWeeksTracker"][] | null;
+            threeMonths?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.XPMonthsTracker"][] | null;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.XPDaysTracker": {
+            dayName?: string | null;
+            /** Format: date-time */
+            date?: string;
+            /** Format: int32 */
+            xp?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.XPMonthsTracker": {
+            /** Format: int32 */
+            year?: number;
+            /** Format: int32 */
+            month?: number;
+            monthName?: string | null;
+            /** Format: int32 */
+            xp?: number;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.XpStatsTracker.XPWeeksTracker": {
+            /** Format: int32 */
+            weekNumber?: number;
+            weekLabel?: string | null;
+            /** Format: int32 */
+            xp?: number;
         };
         "Sawiha.Services.DTO.JuniorModels.AddJuniorByAdminRequest": {
             firstName: string;
@@ -9210,6 +10177,18 @@ export interface components {
             mentors?: number;
             /** Format: int32 */
             allStudents?: number;
+        };
+        "Sawiha.Services.DTO.LevelFeatureModel.GetAll.GetAdminLevelModel": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: int32 */
+            number?: number;
+            /** Format: int32 */
+            xpToNextLevel?: number;
+            imageUrl?: string | null;
+            isActive?: boolean;
+            /** Format: int32 */
+            juniors?: number;
         };
         "Sawiha.Services.DTO.MissionsModels.AddMissionDetailsModel": {
             /** Format: int64 */
@@ -9501,6 +10480,8 @@ export interface components {
             icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
             /** Format: int32 */
             missionsCount?: number;
+            /** Format: int32 */
+            completedMissionsCount?: number;
             /** Format: int32 */
             totalXP?: number;
             /** Format: int32 */
