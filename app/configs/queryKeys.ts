@@ -86,6 +86,26 @@ export const QUERY_KEYS = {
     }) => ["contributor", "packages", params] as const,
   },
   junior: {
+    dashboard: {
+      stats: ["junior", "dashboard", "stats"] as const,
+      currentPath: ["junior", "dashboard", "current-path"] as const,
+      missionStatsTracker: [
+        "junior",
+        "dashboard",
+        "mission-stats-tracker",
+      ] as const,
+      xpStatsTracker: ["junior", "dashboard", "xp-stats-tracker"] as const,
+      currentChallengeDetails: [
+        "junior",
+        "dashboard",
+        "current-challenge-details",
+      ] as const,
+      currentCollaborationDetails: [
+        "junior",
+        "dashboard",
+        "current-collaboration-details",
+      ] as const,
+    },
     collaborations: {
       all: (params: SearchParams) =>
         ["junior", "collaborations", params] as const,

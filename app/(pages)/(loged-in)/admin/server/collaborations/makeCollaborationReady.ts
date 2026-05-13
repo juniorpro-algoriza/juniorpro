@@ -2,7 +2,7 @@
 
 import { customFetch } from "@server/lib";
 
-export async function makeCollaborationReady(id: number): Promise<boolean> {
+export async function makeCollaborationReady(id: number) {
   const response = await customFetch(
     "/api/admin-collaboration/make-collaboration-ready/{id}",
     {

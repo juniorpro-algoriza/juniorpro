@@ -40,6 +40,7 @@
     "react-dom": "^19.0.0",
     "react-shepherd": "^6.1.9",
     "reactour": "^1.19.4",
+    "recharts": "^3.8.1",
     "shepherd.js": "^14.5.1",
     "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",

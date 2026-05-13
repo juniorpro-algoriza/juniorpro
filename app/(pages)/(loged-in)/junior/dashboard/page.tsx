@@ -1,14 +1,12 @@
-import { DashboardCards, DashboardHeader } from "@components/client";
-import TargetWithArrow from "@public/images/target_with_arrow.png";
-import LightningIcon from "@public/images/lightning-icon.png";
-import TrophyIcon from "@public/images/trophy-icon.png";
-import HandshakeIcon from "@public/images/hand-shake-icon.png";
+import { DashboardHeader } from "@components/client";
 import {
-  DailyGoals,
-  ContinueLearning,
-  UpcomingSession,
-  LeaderBoard,
-  // DashboardBanner,
+  StatsCards,
+  CurrentPath,
+  NextUnlocks,
+  WeeklyChallenges,
+  TeamProjects,
+  DailyMissionTracker,
+  WeeklyXPTrend,
   WelcomePopupTrigger,
   OnboardingTourTrigger,
 } from "./_components";
@@ -23,56 +21,38 @@ const DashboardPage = async () => {
       <Suspense fallback={null}>
         <OnboardingTourTrigger />
       </Suspense>
-      <DashboardHeader description="Ready to level up your coding skills today?" />
-      {/* <DashboardBanner /> */}
-      <DashboardCards cardsData={dashboardCardsData} />
-      <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-8 gap-4 mt-8">
-        <div className="xl:col-span-2 space-y-6">
-          <DailyGoals />
-          <ContinueLearning />
+
+      {/* Header */}
+      <DashboardHeader description="You completed 3 missions this week. Keep it up!" />
+
+      {/* Stats Cards */}
+      <div className="mt-6">
+        <StatsCards />
+      </div>
+
+      {/* Current Path + Next Unlocks */}
+      <div className="grid lg:grid-cols-5 grid-cols-1 gap-4 mt-6">
+        <div className="lg:col-span-3">
+          <CurrentPath />
         </div>
-        <div className="space-y-6">
-          <UpcomingSession />
-          <LeaderBoard />
+        <div className="lg:col-span-2">
+          <NextUnlocks />
         </div>
+      </div>
+
+      {/* Weekly Challenges + Team Projects */}
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-6">
+        <WeeklyChallenges />
+        <TeamProjects />
+      </div>
+
+      {/* Charts Row */}
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-6">
+        <DailyMissionTracker />
+        <WeeklyXPTrend />
       </div>
     </>
   );
 };
 
 export default DashboardPage;
-
-const dashboardCardsData = [
-  {
-    label: "Total XP",
-    value: "10,340",
-    subtext: "+450 this week",
-    subtextColor: "text-green-600",
-    icon: LightningIcon.src,
-    id: "total-xp",
-  },
-  {
-    label: "Missions Completed",
-    value: "24",
-    subtext: "3 in progress",
-    subtextColor: "text-orange-600",
-    icon: TargetWithArrow.src,
-    id: "missions-completed",
-  },
-  {
-    label: "Projects Completed",
-    value: "5",
-    subtext: "2 active teams",
-    subtextColor: "text-green-600",
-    icon: TrophyIcon.src,
-    id: "projects-completed",
-  },
-  {
-    label: "Challenges Won",
-    value: "8",
-    subtext: "1 active entry",
-    subtextColor: "text-green-600",
-    icon: HandshakeIcon.src,
-    id: "challenges-won",
-  },
-];

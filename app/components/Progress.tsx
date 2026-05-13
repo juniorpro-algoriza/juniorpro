@@ -16,10 +16,7 @@ export const Progress = ({
       style={{ height }}
     >
       <div
-        className={cx(
-          "absolute h-full [background:linear-gradient(90deg,#615FFF_0%,#AD46FF_100%)] rounded-full",
-          className
-        )}
+        className={cx("absolute h-full bg-[#615FFF] rounded-full", className)}
         style={{
           width: `${width}%`,
         }}

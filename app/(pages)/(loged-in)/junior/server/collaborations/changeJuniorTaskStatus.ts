@@ -9,7 +9,7 @@ type TaskStatus =
 export async function changeJuniorTaskStatus(params: {
   id: number;
   status: TaskStatus;
-}): Promise<boolean> {
+}) {
   const response = await customFetch(
     "/api/junior-collaboration/change-task-status",
     {
