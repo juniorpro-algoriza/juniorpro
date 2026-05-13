@@ -95,6 +95,16 @@ export const QUERY_KEYS = {
         "mission-stats-tracker",
       ] as const,
       xpStatsTracker: ["junior", "dashboard", "xp-stats-tracker"] as const,
+      currentChallengeDetails: [
+        "junior",
+        "dashboard",
+        "current-challenge-details",
+      ] as const,
+      currentCollaborationDetails: [
+        "junior",
+        "dashboard",
+        "current-collaboration-details",
+      ] as const,
     },
     collaborations: {
       all: (params: SearchParams) =>

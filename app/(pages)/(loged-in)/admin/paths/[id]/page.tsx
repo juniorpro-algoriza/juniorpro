@@ -31,7 +31,7 @@ const EditPathPage = ({ params }: { params: Promise<{ id: string }> }) => {
         title="Edit Path"
         description="Edit a learning path with steps, missions, and resources."
       />
-      <PathCreateEdit pathId={id} initialData={pathData} />
+      <PathCreateEdit pathId={id} initialData={pathData ?? undefined} />
     </>
   );
 };

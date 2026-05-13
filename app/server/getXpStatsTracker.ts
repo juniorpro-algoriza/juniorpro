@@ -3,8 +3,8 @@
 import { customFetch } from "@server/lib";
 
 export async function getXpStatsTracker() {
-  const xpStats = customFetch("/api/junior-dashboard/xp-stats-tracker", {
+  return customFetch("/api/junior-dashboard/xp-stats-tracker", {
     method: "get",
+    graceful404: true,
   });
-  return xpStats;
 }

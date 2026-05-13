@@ -3,11 +3,8 @@
 import { customFetch } from "@server/lib";
 
 export async function getMissionStatsTracker() {
-  const missionStats = customFetch(
-    "/api/junior-dashboard/mission-stats-tracker",
-    {
-      method: "get",
-    }
-  );
-  return missionStats;
+  return customFetch("/api/junior-dashboard/mission-stats-tracker", {
+    method: "get",
+    graceful404: true,
+  });
 }

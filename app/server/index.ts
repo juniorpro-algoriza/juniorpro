@@ -6,3 +6,5 @@ export { getJuniorDashboardStats } from "./getJuniorDashboardStats";
 export { getJuniorCurrentPathDetails } from "./getJuniorCurrentPathDetails";
 export { getMissionStatsTracker } from "./getMissionStatsTracker";
 export { getXpStatsTracker } from "./getXpStatsTracker";
+export { getJuniorCurrentChallengeDetails } from "./getJuniorCurrentChallengeDetails";
+export { getJuniorCurrentCollaborationDetails } from "./getJuniorCurrentCollaborationDetails";

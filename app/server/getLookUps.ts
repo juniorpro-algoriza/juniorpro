@@ -11,12 +11,12 @@ export async function getLookup(
     | "/api/Lookup/Level"
     | "/api/Lookup/Skill"
     | "/api/Lookup/Duration"
-): Promise<Lookup[]> {
+) {
   const lookup = await customFetch(url, {
     method: "get",
   });
 
-  return lookup.map(
+  return lookup?.map(
     (item: {
       id?: number;
       nameAr?: string | null;

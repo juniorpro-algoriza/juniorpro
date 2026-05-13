@@ -2,7 +2,7 @@
 
 import { customFetch } from "@server/lib";
 
-export async function acceptJuniorRole(id: number): Promise<boolean> {
+export async function acceptJuniorRole(id: number) {
   const response = await customFetch(
     "/api/admin-collaboration/accept-junior-role",
     {

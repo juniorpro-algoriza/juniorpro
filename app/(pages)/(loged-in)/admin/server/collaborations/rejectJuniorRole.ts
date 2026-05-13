@@ -5,7 +5,7 @@ import { customFetch } from "@server/lib";
 export async function rejectJuniorRole(params: {
   id: number;
   actionReason: string;
-}): Promise<boolean> {
+}) {
   const response = await customFetch(
     "/api/admin-collaboration/reject-junior-role",
     {

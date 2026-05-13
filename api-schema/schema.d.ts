@@ -4779,6 +4779,80 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/junior-dashboard/current-challenge-details": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentChallenge.CurrentChallengeResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentChallenge.CurrentChallengeResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentChallenge.CurrentChallengeResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-dashboard/current-collaboration-details": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentCollaborationDetails.CurrentCollaborationDetailResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentCollaborationDetails.CurrentCollaborationDetailResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentCollaborationDetails.CurrentCollaborationDetailResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/junior-dashboard/mission-stats-tracker": {
         parameters: {
             query?: never;
@@ -9908,6 +9982,38 @@ export interface components {
             actionReason?: string | null;
             tools?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.GetAll.CollaborationRoleToolModel"][] | null;
             responsibilities?: components["schemas"]["Sawiha.Services.DTO.CollaborationRoleModels.Add.CollaborationRoleResponsiblitiesModel"][] | null;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.CurrentChallenge.CurrentChallengeResponse": {
+            /** Format: int64 */
+            id?: number;
+            nameEn?: string | null;
+            nameAr?: string | null;
+            description?: string | null;
+            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
+            /** Format: date-time */
+            startDate?: string;
+            juniors?: string[] | null;
+            prizes?: number[] | null;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.CurrentCollaborationDetails.CurrentCollaborationDetailResponse": {
+            /** Format: int64 */
+            id?: number;
+            nameAr?: string | null;
+            /** Format: date-time */
+            startDate?: string;
+            juniors?: string[] | null;
+            tasks?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentCollaborationDetails.CurrentCollaborationDetailTaskModel"][] | null;
+        };
+        "Sawiha.Services.DTO.JuniorDashboard.CurrentCollaborationDetails.CurrentCollaborationDetailTaskModel": {
+            /** Format: int64 */
+            id?: number;
+            title?: string | null;
+            /** Format: int32 */
+            count?: number;
+            priority?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleTaskStatus"];
+            /** Format: date-time */
+            dueDate?: string | null;
         };
         "Sawiha.Services.DTO.JuniorDashboard.GetJuniorLevel.GetJuniorLevelResponse": {
             /** Format: int32 */

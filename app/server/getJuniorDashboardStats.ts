@@ -3,8 +3,8 @@
 import { customFetch } from "@server/lib";
 
 export async function getJuniorDashboardStats() {
-  const stats = customFetch("/api/junior-dashboard/stats", {
+  return customFetch("/api/junior-dashboard/stats", {
     method: "get",
+    graceful404: true,
   });
-  return stats;
 }

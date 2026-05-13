@@ -72,7 +72,7 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
   url: P,
   options: M extends AvailableMethods<P> ? FetchOptions<P, M> : never,
   isServer?: boolean
-): Promise<SuccessResponse<P, M>> => {
+): Promise<SuccessResponse<P, M> | null> => {
   // Auto-detect environment if not specified
   const serverSide = isServer ?? typeof window === "undefined";
 
@@ -138,6 +138,10 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
 
     // Handle other errors
     if (!response.ok) {
+      if (options.graceful404 && response.status === 404) {
+        return null;
+      }
+
       let errJson: Record<string, unknown> = {};
 
       // Try to parse error response

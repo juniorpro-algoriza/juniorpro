@@ -48,36 +48,38 @@ export type SuccessResponse<
     ? R
     : never;
 
+// Base options that are common to all fetch calls
+export interface BaseFetchOptions {
+  graceful404?: boolean;
+  headers?: Record<string, string>;
+}
+
 // Modified to require data when endpoint expects it
 export type FetchOptions<P extends Path, M extends HttpMethod> =
   StrictPathParams<P, M> extends never
     ? StrictRequestBody<P, M> extends never
-      ? {
+      ? BaseFetchOptions & {
           method: M;
           data?: never;
           params?: StrictQueryParams<P, M>;
-          headers?: Record<string, string>;
         }
-      : {
+      : BaseFetchOptions & {
           method: M;
           // requestBody may be optional in the schema; allow omitting data
           data?: StrictRequestBody<P, M>;
           params?: StrictQueryParams<P, M>;
-          headers?: Record<string, string>;
         }
     : StrictRequestBody<P, M> extends never
-      ? {
+      ? BaseFetchOptions & {
           method: M;
           path: StrictPathParams<P, M>;
           data?: never;
           params?: StrictQueryParams<P, M>;
-          headers?: Record<string, string>;
         }
-      : {
+      : BaseFetchOptions & {
           method: M;
           path: StrictPathParams<P, M>;
           // requestBody may be optional in the schema; allow omitting data
           data?: StrictRequestBody<P, M>;
           params?: StrictQueryParams<P, M>;
-          headers?: Record<string, string>;
         };
