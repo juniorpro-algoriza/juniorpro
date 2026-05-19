@@ -60,6 +60,13 @@ const Modals: Record<
       default: m.JuniorTaskDetails,
     }))
   ),
+  CreateEditLevel: lazy(() =>
+    import(
+      "../(pages)/(loged-in)/admin/levels/_components/CreateEditLevelModal"
+    ).then((m) => ({
+      default: m.CreateEditLevelModal,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {

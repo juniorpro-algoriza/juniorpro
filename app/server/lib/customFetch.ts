@@ -11,13 +11,15 @@ import {
 import { ApiError } from "./errors";
 
 // Server-side fetch wrapper
-export const createServerFetch = async () => {
+export const createServerFetch = async (isFormData?: boolean) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("auth_token")?.value;
 
   return async (url: string, options: RequestInit = {}) => {
     const requestHeaders = new Headers(options.headers);
-    requestHeaders.set("Content-Type", "application/json");
+    if (!isFormData) {
+      requestHeaders.set("Content-Type", "application/json");
+    }
     requestHeaders.set("Accept", "application/json");
 
     if (token) {
@@ -33,10 +35,12 @@ export const createServerFetch = async () => {
 };
 
 // Client-side fetch wrapper
-export const createClientFetch = async () => {
+export const createClientFetch = async (isFormData?: boolean) => {
   return async (url: string, options: RequestInit = {}) => {
     const requestHeaders = new Headers(options.headers);
-    requestHeaders.set("Content-Type", "application/json");
+    if (!isFormData) {
+      requestHeaders.set("Content-Type", "application/json");
+    }
     requestHeaders.set("Accept", "application/json");
 
     // Get token from client-side cookie (more robust parsing)
@@ -77,9 +81,10 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
   const serverSide = isServer ?? typeof window === "undefined";
 
   try {
+    const isFormData = "data" in options && options.data instanceof FormData;
     const fetchFn = serverSide
-      ? await createServerFetch()
-      : await createClientFetch();
+      ? await createServerFetch(isFormData)
+      : await createClientFetch(isFormData);
 
     let finalUrl = url as string;
 
@@ -112,7 +117,11 @@ export const customFetch = async <P extends Path, M extends HttpMethod>(
 
     // Add body for methods that support it
     if ("data" in options && options.data) {
-      fetchOptions.body = JSON.stringify(options.data);
+      if (options.data instanceof FormData) {
+        fetchOptions.body = options.data;
+      } else {
+        fetchOptions.body = JSON.stringify(options.data);
+      }
     }
 
     const response = await fetchFn(finalUrl, fetchOptions);

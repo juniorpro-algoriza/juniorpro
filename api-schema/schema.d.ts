@@ -9992,6 +9992,8 @@ export interface components {
             icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
             /** Format: date-time */
             startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
             juniors?: string[] | null;
             prizes?: number[] | null;
         };
@@ -10001,6 +10003,8 @@ export interface components {
             nameAr?: string | null;
             /** Format: date-time */
             startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
             juniors?: string[] | null;
             tasks?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.CurrentCollaborationDetails.CurrentCollaborationDetailTaskModel"][] | null;
         };

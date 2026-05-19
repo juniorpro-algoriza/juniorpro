@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
 import { Header } from "@components/client";
 import { Breadcrumb } from "@components";
-import { PathsFilters, PathsList } from "./_components";
+import { LevelsFilters, LevelsList } from "./_components";
 
-const PathsPage = async ({
+const LevelsPage = async ({
   searchParams,
 }: {
   searchParams: Promise<{ query?: string }>;
@@ -20,14 +20,14 @@ const PathsPage = async ({
             href: "/admin/dashboard",
           },
           {
-            title: "Learning Paths",
-            href: "/admin/paths",
+            title: "Levels",
+            href: "/admin/levels",
           },
         ]}
       />
       <Header
-        title="Path Management"
-        description="Create, organize, and track structured learning journeys for your juniors."
+        title="Level Management"
+        description="Define and manage junior progress levels, XP requirements, and badges."
       />
       <div className="xl:max-w-4/5 space-y-5 md:mt-10">
         <Suspense
@@ -35,12 +35,12 @@ const PathsPage = async ({
             <div className="h-12 animate-pulse bg-gray-100 rounded-2xl" />
           }
         >
-          <PathsFilters />
+          <LevelsFilters />
         </Suspense>
-        <PathsList searchText={searchText} />
+        <LevelsList searchText={searchText} />
       </div>
     </>
   );
 };
 
-export default PathsPage;
+export default LevelsPage;

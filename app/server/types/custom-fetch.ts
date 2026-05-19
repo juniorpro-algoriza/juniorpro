@@ -26,7 +26,11 @@ export type StrictRequestBody<
   requestBody?: { content: { "application/json": infer D } };
 }
   ? D
-  : never;
+  : paths[P][M] extends {
+        requestBody?: { content: { "multipart/form-data": infer D } };
+      }
+    ? D
+    : never;
 
 // Enhanced query parameters type
 export type StrictQueryParams<
@@ -43,10 +47,14 @@ export type SuccessResponse<
 }
   ? R
   : paths[P][M] extends {
-        responses: { 201: { content: { "application/json": infer R } } };
+        responses: { 200: { content: { "text/plain": infer R } } };
       }
     ? R
-    : never;
+    : paths[P][M] extends {
+          responses: { 201: { content: { "application/json": infer R } } };
+        }
+      ? R
+      : never;
 
 // Base options that are common to all fetch calls
 export interface BaseFetchOptions {
