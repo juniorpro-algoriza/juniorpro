@@ -30,3 +30,8 @@ export { getLevelById } from "./levels/getLevelById";
 export { postLevel } from "./levels/postLevel";
 export { putLevel } from "./levels/putLevel";
 export { getLastLevel } from "./levels/getLastLevel";
+export { getBadges } from "./badges/getBadges";
+export { getBadgeById } from "./badges/getBadgeById";
+export { postBadge } from "./badges/postBadge";
+export { putBadge } from "./badges/putBadge";
+export { deleteBadge } from "./badges/deleteBadge";

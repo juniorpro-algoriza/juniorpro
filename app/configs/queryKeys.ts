@@ -46,6 +46,12 @@ export const QUERY_KEYS = {
       byId: (id: number) => ["admin", "paths", id] as const,
       list: ["admin", "paths"] as const,
     },
+    badges: {
+      all: (params: PaginationParams & { Type?: number }) =>
+        ["admin", "badges", params] as const,
+      byId: (id: number) => ["admin", "badges", id] as const,
+      list: ["admin", "badges"] as const,
+    },
     missions: {
       all: (params: { SearchText?: string; Id?: number }) =>
         ["admin", "missions", params] as const,
