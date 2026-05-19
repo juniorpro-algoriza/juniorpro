@@ -9,7 +9,7 @@ interface InputProps
   label?: string | ReactNode;
   placeholder?: string;
   error?: string;
-  helperText?: string;
+  helperText?: string | ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   className?: string;
@@ -43,6 +43,7 @@ const Input = ({
   disabled = false,
   state,
   ref,
+  required,
   ...props
 }: InputProps) => {
   const containerClasses = cx("flex flex-col space-y-2 ", containerClassName);
@@ -64,7 +65,12 @@ const Input = ({
 
   return (
     <Field className={containerClasses}>
-      {label && <Label className={labelVariants({ disabled })}>{label}</Label>}
+      {label && (
+        <Label className={labelVariants({ disabled })}>
+          {label}
+          {required && <span className="text-red-500">*</span>}
+        </Label>
+      )}
 
       <div className={inputWrapperClasses}>
         {/* Left Icon */}

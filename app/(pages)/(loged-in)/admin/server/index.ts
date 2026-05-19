@@ -25,3 +25,8 @@ export { getProjectManagerEnablers } from "./project-managers/getProjectManagerE
 export { getProjectManagerJuniors } from "./project-managers/getProjectManagerJuniors";
 export { getEnablerDetails } from "./project-managers/getEnablerDetails";
 export { getJuniorDetails } from "./project-managers/getJuniorDetails";
+export { getLevels } from "./levels/getLevels";
+export { getLevelById } from "./levels/getLevelById";
+export { postLevel } from "./levels/postLevel";
+export { putLevel } from "./levels/putLevel";
+export { getLastLevel } from "./levels/getLastLevel";

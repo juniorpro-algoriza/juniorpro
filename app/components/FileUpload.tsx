@@ -10,14 +10,20 @@ interface FileUploadProps {
   accept?: string;
   maxSizeMB?: number;
   className?: string;
+  helperText?: React.ReactNode;
+  required?: boolean;
+  placeholder?: string;
 }
 
 export const FileUpload = ({
   label,
   onFileSelect,
   accept,
-  maxSizeMB = 10,
+  maxSizeMB = 1,
   className,
+  helperText,
+  required,
+  placeholder,
 }: FileUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -30,6 +36,8 @@ export const FileUpload = ({
     // Validate size
     if (file.size > maxSizeMB * 1024 * 1024) {
       setError(`File size exceeds ${maxSizeMB}MB limit.`);
+      setSelectedFile(null);
+      if (onFileSelect) onFileSelect(null);
       return;
     }
 
@@ -72,7 +80,9 @@ export const FileUpload = ({
   return (
     <div className={cx("space-y-2", className)}>
       {label && (
-        <label className="text-sm font-medium text-midnight">{label}</label>
+        <label className="text-sm font-medium text-midnight">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
       )}
 
       <div
@@ -82,11 +92,13 @@ export const FileUpload = ({
         onClick={() => fileInputRef.current?.click()}
         className={cx(
           "relative mt-2 border-2 border-dashed rounded-[24px] p-8 flex flex-col items-center justify-center space-y-4 transition-all cursor-pointer",
-          isDragging
-            ? "border-blue-main bg-blue-50/50 scale-[1.01]"
-            : selectedFile
-              ? "border-green-200 bg-green-50/20"
-              : "border-gray-100 bg-gray-50/30 hover:border-blue-main/30 hover:bg-gray-50/50"
+          error
+            ? "border-red-300 bg-red-50/20"
+            : isDragging
+              ? "border-blue-main bg-blue-50/50 scale-[1.01]"
+              : selectedFile
+                ? "border-green-200 bg-green-50/20"
+                : "border-gray-100 bg-gray-50/30 hover:border-blue-main/30 hover:bg-gray-50/50"
         )}
       >
         <input
@@ -137,20 +149,26 @@ export const FileUpload = ({
             </div>
             <div className="text-center">
               <p className="text-sm font-bold text-gray-900">
-                Upload your work
+                {placeholder || "Upload your work"}
               </p>
               <p className="text-xs text-gray-400 mt-1">
                 Drag and drop your files here, or click to browse
               </p>
             </div>
-            <button className="px-6 py-2 bg-white border border-gray-100 rounded-xl text-xs font-bold text-gray-600 hover:border-blue-main/30 shadow-sm transition-all active:scale-95">
+            <button
+              type="button"
+              className="px-6 py-2 bg-white border border-gray-100 rounded-xl text-xs font-bold text-gray-600 hover:border-blue-main/30 shadow-sm transition-all active:scale-95"
+            >
               Browse Files
             </button>
           </>
         )}
 
+        {helperText && (
+          <p className="text-xs text-gray-400 mt-1">{helperText}</p>
+        )}
         {error && (
-          <p className="absolute -bottom-6 left-1 text-[10px] font-bold text-red-500 animate-in slide-in-from-top-1 duration-200">
+          <p className=" text-[12px] font-bold text-red-500 animate-in slide-in-from-top-1 duration-200">
             {error}
           </p>
         )}
