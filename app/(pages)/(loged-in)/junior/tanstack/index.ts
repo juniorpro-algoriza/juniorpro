@@ -6,3 +6,4 @@ export * from "./dashboard/useMissionStatsTracker";
 export * from "./dashboard/useXpStatsTracker";
 export * from "./dashboard/useJuniorCurrentChallengeDetails";
 export * from "./dashboard/useJuniorCurrentCollaborationDetails";
+export * from "./achievements/useJuniorAchievements";

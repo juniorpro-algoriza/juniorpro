@@ -145,5 +145,27 @@ export const QUERY_KEYS = {
       currentMissionList: ["junior", "paths", "current-mission"] as const,
       list: ["junior", "paths"] as const,
     },
+    achievements: {
+      recent: ["junior", "achievements", "recent"] as const,
+      streakStats: ["junior", "achievements", "streak-stats"] as const,
+      badges: (badgeType?: number) =>
+        ["junior", "achievements", "badges", badgeType ?? "all"] as const,
+      levels: ["junior", "achievements", "levels"] as const,
+      learningPathMilestones: [
+        "junior",
+        "achievements",
+        "learning-path-milestones",
+      ] as const,
+      collaborationMilestones: [
+        "junior",
+        "achievements",
+        "collaboration-milestones",
+      ] as const,
+      challengeMilestones: [
+        "junior",
+        "achievements",
+        "challenge-milestones",
+      ] as const,
+    },
   },
 } as const;

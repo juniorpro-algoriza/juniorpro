@@ -16,3 +16,14 @@ export { getJuniorCollaborationRoleTasks } from "./collaborations";
 export { getJuniorRoleTaskDetails } from "./collaborations";
 export { postJoinCollaborationRole } from "./collaborations";
 export { submitJuniorTask } from "./collaborations";
+
+// Achievements
+export {
+  getJuniorBadgeAchievements,
+  getJuniorChallengeMilestones,
+  getJuniorCollaborationMilestones,
+  getJuniorLearningPathMilestones,
+  getJuniorLevelAchievements,
+  getJuniorRecentAchievements,
+  getJuniorStreakStats,
+} from "./achievements/getJuniorAchievements";
