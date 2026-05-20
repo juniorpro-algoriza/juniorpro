@@ -24,15 +24,9 @@ import {
   getBadgeCondition,
   getBadgeType,
 } from "./data";
+import { BadgeFormValues, getBadgeFormSchema } from "../_schema/badge.schema";
 
-interface BadgeFormData {
-  titleEn: string;
-  type?: BadgeTypeId;
-  count: number;
-  image: File | null;
-}
-
-const getInitialFormData = (): BadgeFormData => ({
+const getInitialFormData = (): BadgeFormValues => ({
   titleEn: "",
   type: undefined,
   count: 1,
@@ -46,7 +40,8 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
   const addBadgeMutation = useAddBadge();
   const updateBadgeMutation = useUpdateBadge();
 
-  const [formData, setFormData] = useState<BadgeFormData>(getInitialFormData);
+  const [formData, setFormData] = useState<BadgeFormValues>(getInitialFormData);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
@@ -77,6 +72,16 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
   const isSubmitting =
     addBadgeMutation.isPending || updateBadgeMutation.isPending;
 
+  const clearFieldError = (field: keyof BadgeFormValues) => {
+    setFieldErrors((previous) => {
+      if (!previous[field]) return previous;
+
+      const next = { ...previous };
+      delete next[field];
+      return next;
+    });
+  };
+
   const handleTypeChange = (type: BadgeTypeId) => {
     const badgeType = getBadgeType(type);
     setFormData((previous) => ({
@@ -84,6 +89,8 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
       type,
       count: previous.type === type ? previous.count : badgeType.defaultCount,
     }));
+    clearFieldError("type");
+    clearFieldError("count");
   };
 
   const handleCountChange = (value: number) => {
@@ -91,25 +98,35 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
       ...previous,
       count: Math.max(1, value),
     }));
+    clearFieldError("count");
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!formData.titleEn.trim()) {
-      toast.error("Badge title is required.");
+    const result = getBadgeFormSchema(isEditing).safeParse(formData);
+
+    if (!result.success) {
+      const errors: Record<string, string> = {};
+
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0];
+
+        if (typeof field === "string") {
+          errors[field] = issue.message;
+        }
+      });
+
+      setFieldErrors(errors);
+      toast.error("Please fix the highlighted fields.");
       return;
     }
 
-    if (!formData.type) {
-      toast.error("Choose a badge type before creating the badge.");
-      return;
-    }
+    setFieldErrors({});
+    const validatedData = result.data;
+    const badgeType = validatedData.type;
 
-    if (!isEditing && !formData.image) {
-      toast.error("Badge image is required.");
-      return;
-    }
+    if (!badgeType) return;
 
     const payload = new FormData();
 
@@ -117,17 +134,17 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
       payload.append("Id", String(badgeId));
     }
 
-    payload.append("TitleEn", formData.titleEn.trim());
-    payload.append("TitleAr", formData.titleEn.trim());
+    payload.append("TitleEn", validatedData.titleEn);
+    payload.append("TitleAr", validatedData.titleEn);
     payload.append(
       "Description",
-      getBadgeCondition(formData.count, formData.type)
+      getBadgeCondition(validatedData.count, badgeType)
     );
-    payload.append("Type", String(formData.type));
-    payload.append("Count", String(formData.count));
+    payload.append("Type", String(badgeType));
+    payload.append("Count", String(validatedData.count));
 
-    if (formData.image) {
-      payload.append("Image", formData.image);
+    if (validatedData.image) {
+      payload.append("Image", validatedData.image);
     }
 
     try {
@@ -179,14 +196,16 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
                 label="Badge Title"
                 required
                 value={formData.titleEn}
-                onChange={(event) =>
+                onChange={(event) => {
                   setFormData((previous) => ({
                     ...previous,
                     titleEn: event.target.value,
-                  }))
-                }
+                  }));
+                  clearFieldError("titleEn");
+                }}
                 placeholder="e.g., First Steps, Challenge Master"
                 rightIcon={<LockKeyhole className="size-4" />}
+                error={fieldErrors.titleEn}
               />
 
               <FileUpload
@@ -196,9 +215,11 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
                 maxSizeMB={2}
                 placeholder="Drag and drop files here to upload"
                 helperText="Maximum file size allowed is 2 MB, supported file formats include .jpg, .png, and .pdf."
-                onFileSelect={(file) =>
-                  setFormData((previous) => ({ ...previous, image: file }))
-                }
+                error={fieldErrors.image}
+                onFileSelect={(file) => {
+                  setFormData((previous) => ({ ...previous, image: file }));
+                  clearFieldError("image");
+                }}
               />
 
               <div>
@@ -251,6 +272,11 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
                     );
                   })}
                 </div>
+                {fieldErrors.type && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {fieldErrors.type}
+                  </p>
+                )}
               </div>
             </div>
           </MainCard>
@@ -298,6 +324,11 @@ export const BadgeCreateEdit = ({ badgeId }: { badgeId?: number }) => {
                 <p className="mt-2 text-xs font-medium text-semi-blue">
                   {selectedType.helper}
                 </p>
+                {fieldErrors.count && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {fieldErrors.count}
+                  </p>
+                )}
               </div>
             ) : (
               <div className="flex items-center gap-2 rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm font-bold text-indigo-600">

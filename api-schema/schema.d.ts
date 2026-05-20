@@ -4123,6 +4123,267 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/junior-badge/recent-achievements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetRecentAchievements.GetRecentAchievementModel"][];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetRecentAchievements.GetRecentAchievementModel"][];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetRecentAchievements.GetRecentAchievementModel"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-badge/streak-stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"][];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"][];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-badge/achievements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    badgeType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetBadgeAchievements.GetJuniorBadgeAchievementResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetBadgeAchievements.GetJuniorBadgeAchievementResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetBadgeAchievements.GetJuniorBadgeAchievementResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-badge/learning-milestones": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-badge/learning-paths-milestones": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-badge/collaborations-milestones": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/junior-badge/challenges-milestones": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/junior-challenge": {
         parameters: {
             query?: never;
@@ -8477,7 +8738,7 @@ export interface components {
          * Format: int32
          * @enum {integer}
          */
-        "Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType": 1 | 2 | 3 | 4;
+        "Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType": 1 | 2 | 3 | 4 | 5;
         "Sawiha.CrossCutting.Model.Entities.BadgeFeature.JuniorBadge": {
             /** Format: int64 */
             id?: number;
@@ -9864,6 +10125,94 @@ export interface components {
             key?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.FeatureKey"];
             /** Format: int32 */
             usedInPlan?: number;
+        };
+        "Sawiha.Services.DTO.JuniorBadgeModels.GetBadgeAchievements.GetJuniorBadgeAchievementModel": {
+            /** Format: int64 */
+            id?: number;
+            /** Format: int32 */
+            totalCount?: number;
+            /** Format: int32 */
+            completedCount?: number;
+            imageUrl?: string | null;
+            type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+            status?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.JuniorLevelAchievementStatus"];
+            /** Format: date-time */
+            achievedDate?: string;
+        };
+        "Sawiha.Services.DTO.JuniorBadgeModels.GetBadgeAchievements.GetJuniorBadgeAchievementResponse": {
+            juniorBadgeAchievements?: components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetBadgeAchievements.GetJuniorBadgeAchievementModel"][] | null;
+            /** Format: int32 */
+            totalBadges?: number;
+            /** Format: int32 */
+            learningPathBadges?: number;
+            /** Format: int32 */
+            streakBadges?: number;
+            /** Format: int32 */
+            collaborationsBadges?: number;
+            /** Format: int32 */
+            challengeBadges?: number;
+            /** Format: int32 */
+            completedBadges?: number;
+        };
+        "Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.GetJuniorMilestoneResponse": {
+            juniorMilestones?: components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.JuniorMilestoneModel"][] | null;
+            /** Format: int32 */
+            totalMilestones?: number;
+            /** Format: int32 */
+            learningPathMilestones?: number;
+            /** Format: int32 */
+            collaborationMilestones?: number;
+            /** Format: int32 */
+            challengeMilestones?: number;
+        };
+        "Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.JuniorMilestoneModel": {
+            /** Format: int64 */
+            id?: number;
+            type?: components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.MilestoneType"];
+            title?: string | null;
+            description?: string | null;
+            /** Format: int32 */
+            xpEarned?: number;
+            /** Format: int32 */
+            missionsDone?: number | null;
+            /** Format: int32 */
+            hoursLearned?: number | null;
+            /** Format: int32 */
+            rank?: number | null;
+            /** Format: double */
+            prizeEarned?: number | null;
+            /** Format: date-time */
+            completedDate?: string | null;
+        };
+        /**
+         * Format: int32
+         * @enum {integer}
+         */
+        "Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.MilestoneType": 0 | 1 | 2;
+        "Sawiha.Services.DTO.JuniorBadgeModels.GetRecentAchievements.GetRecentAchievementModel": {
+            /** Format: int64 */
+            id?: number;
+            titleAr?: string | null;
+            titleEn?: string | null;
+            imageUrl?: string | null;
+            /** Format: int32 */
+            count?: number;
+            type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
+            /** Format: date-time */
+            achievedDate?: string;
+        };
+        "Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel": {
+            /** Format: int32 */
+            currentStreakDays?: number;
+            /** Format: int32 */
+            longestStreakDays?: number;
+            /** Format: date-time */
+            longestStreakAchievedDate?: string | null;
+            /** Format: int32 */
+            nextBadgeTargetDays?: number;
+            /** Format: int32 */
+            progressDays?: number;
+            nextBadgeImageUrl?: string | null;
         };
         "Sawiha.Services.DTO.JuniorChallengeModels.GetAll.GetJuniorChallengeListModel": {
             /** Format: int64 */

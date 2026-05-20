@@ -4,7 +4,7 @@ import { MainCard } from "@components";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { cx } from "@lib";
 import { useDeleteBadge } from "../../tanstack/badges";
-import { Archive, Edit2, EllipsisVertical, Trash2, Users } from "lucide-react";
+import { Edit2, EllipsisVertical, Trash2, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -18,14 +18,8 @@ export const BadgeCard = ({ badge }: { badge: Badge }) => {
   const deleteBadgeMutation = useDeleteBadge();
   const badgeType = getBadgeType(badge.type);
 
-  const handleDelete = async () => {
+  const deleteSelectedBadge = async () => {
     if (!badge.id) return;
-
-    const shouldDelete = window.confirm(
-      `Delete "${badge.titleEn || "this badge"}"?`
-    );
-
-    if (!shouldDelete) return;
 
     try {
       await deleteBadgeMutation.mutateAsync({ id: badge.id });
@@ -34,6 +28,25 @@ export const BadgeCard = ({ badge }: { badge: Badge }) => {
       console.error("Failed to delete badge:", error);
       toast.error("Failed to delete badge. Please try again.");
     }
+  };
+
+  const handleDelete = () => {
+    if (!badge.id) return;
+
+    const toastId = toast(`Delete "${badge.titleEn || "this badge"}"?`, {
+      description: "This action cannot be undone.",
+      action: {
+        label: "Delete",
+        onClick: () => {
+          toast.dismiss(toastId);
+          void deleteSelectedBadge();
+        },
+      },
+      cancel: {
+        label: "Cancel",
+        onClick: () => toast.dismiss(toastId),
+      },
+    });
   };
 
   return (
@@ -55,16 +68,6 @@ export const BadgeCard = ({ badge }: { badge: Badge }) => {
               Edit
             </Link>
           </MenuItem>
-          <MenuItem>
-            <button
-              type="button"
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[15px] font-medium text-gray-600 data-focus:bg-gray-50"
-            >
-              <Archive className="size-5 text-gray-500" strokeWidth={2} />
-              Archive
-            </button>
-          </MenuItem>
-          <div className="mx-3 my-1.5 h-px bg-gray-200" />
           <MenuItem>
             <button
               type="button"
@@ -91,14 +94,14 @@ export const BadgeCard = ({ badge }: { badge: Badge }) => {
       </div>
 
       <div className="mt-5 flex flex-1 flex-col items-center text-center">
-        <div className="mb-4 flex h-28 w-28 items-center justify-center">
+        <div className="mb-4 flex h-36 w-36 items-center justify-center">
           {badge.imageUrl ? (
             <Image
               src={badge.imageUrl}
               alt={badge.titleEn || "Badge"}
               width={128}
               height={128}
-              className="h-28 w-28 object-contain"
+              className="h-36 w-36 object-contain"
               unoptimized
             />
           ) : (

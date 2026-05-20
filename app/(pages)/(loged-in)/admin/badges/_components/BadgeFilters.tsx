@@ -23,7 +23,8 @@ export const BadgeFilters = ({ selectedType }: { selectedType?: number }) => {
     }
 
     params.delete("page");
-    replace(`${pathname}?${params.toString()}`);
+    const queryString = params.toString();
+    replace(queryString ? `${pathname}?${queryString}` : pathname);
   };
 
   const tabs: { id?: BadgeTypeId; label: string }[] = [
@@ -32,8 +33,8 @@ export const BadgeFilters = ({ selectedType }: { selectedType?: number }) => {
   ];
 
   return (
-    <div className="flex items-center gap-4 flex-wrap">
-      <div className="flex items-center bg-white border border-gray-100 shadow-main rounded-2xl p-1 overflow-x-auto max-w-full">
+    <div className="flex items-center justify-between flex-wrap">
+      <div className="flex space-x-1 rounded-2xl bg-white border border-gray-200 px-4 py-2 mb-3 w-fit max-w-full overflow-auto">
         {tabs.map((tab) => {
           const isActive = selectedType === tab.id;
 
@@ -43,10 +44,10 @@ export const BadgeFilters = ({ selectedType }: { selectedType?: number }) => {
               type="button"
               onClick={() => setType(tab.id)}
               className={cx(
-                "px-4 py-2.5 rounded-xl text-sm font-bold text-nowrap transition-all",
+                "rounded-2xl py-2 px-4 text-sm font-medium leading-5 transition-all w-full outline-none cursor-pointer text-nowrap border",
                 isActive
-                  ? "bg-violet-light text-dark-blue-main shadow-sm"
-                  : "text-yankees-blue hover:bg-gray-50"
+                  ? "border-[#C6D2FF] bg-[#EEF2FF] text-[#432DD7] shadow"
+                  : "text-black border-transparent"
               )}
             >
               {tab.label}
@@ -55,19 +56,23 @@ export const BadgeFilters = ({ selectedType }: { selectedType?: number }) => {
         })}
       </div>
 
-      <div className="min-w-[260px] flex-1 md:max-w-[420px]">
+      <div className="flex sm:items-center sm:gap-4 flex-col sm:flex-row max-sm:w-full">
         <SearchInput
           placeholder="search for badges..."
-          className="rounded-2xl"
+          containerClassName="relative min-w-[200px]"
         />
-      </div>
 
-      <Link href="/admin/badges/create" className="max-sm:w-full">
-        <Button intent="main2" size="mainDefault" className="max-sm:w-full">
-          <Plus className="size-4" />
-          New Badge
-        </Button>
-      </Link>
+        <Link href="/admin/badges/create" className="max-sm:w-full">
+          <Button
+            intent="main2"
+            size="mainDefault"
+            icon={<Plus size={18} />}
+            className="mb-2 w-full"
+          >
+            New Badge
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };
