@@ -13,6 +13,7 @@ import MyJourneyImage from "@public/images/map-icon.png";
 import CollaborationImage from "@public/images/hand-shake-icon.png";
 import ChallengesImage from "@public/images/trophy-icon.png";
 import AchievementsImage from "@public/images/medal-icon.png";
+import BadgeImage from "@public/images/badge-icon.png";
 import JuniorsImage from "@public/images/juniors.png";
 import SubscriptionImage from "@public/images/subscription-icon-3d.png";
 import LogoutImage from "@public/images/logout-icon-3d.png";
@@ -74,6 +75,11 @@ const adminMenuItems: MenuItem[] = [
     href: "/admin/levels",
     image: AchievementsImage.src,
     label: "Levels",
+  },
+  {
+    href: "/admin/badges",
+    image: BadgeImage.src,
+    label: "Badges",
   },
 
   // { href: "/admin/profile", icon: SettingsIcon, label: "My Profile" },

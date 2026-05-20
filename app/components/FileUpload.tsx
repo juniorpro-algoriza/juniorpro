@@ -11,6 +11,7 @@ interface FileUploadProps {
   maxSizeMB?: number;
   className?: string;
   helperText?: React.ReactNode;
+  error?: string;
   required?: boolean;
   placeholder?: string;
 }
@@ -22,6 +23,7 @@ export const FileUpload = ({
   maxSizeMB = 1,
   className,
   helperText,
+  error: externalError,
   required,
   placeholder,
 }: FileUploadProps) => {
@@ -29,6 +31,7 @@ export const FileUpload = ({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const displayError = externalError || error;
 
   const handleFile = (file: File) => {
     setError(null);
@@ -92,7 +95,7 @@ export const FileUpload = ({
         onClick={() => fileInputRef.current?.click()}
         className={cx(
           "relative mt-2 border-2 border-dashed rounded-[24px] p-8 flex flex-col items-center justify-center space-y-4 transition-all cursor-pointer",
-          error
+          displayError
             ? "border-red-300 bg-red-50/20"
             : isDragging
               ? "border-blue-main bg-blue-50/50 scale-[1.01]"
@@ -167,9 +170,9 @@ export const FileUpload = ({
         {helperText && (
           <p className="text-xs text-gray-400 mt-1">{helperText}</p>
         )}
-        {error && (
+        {displayError && (
           <p className=" text-[12px] font-bold text-red-500 animate-in slide-in-from-top-1 duration-200">
-            {error}
+            {displayError}
           </p>
         )}
       </div>
