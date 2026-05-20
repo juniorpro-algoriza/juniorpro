@@ -1,7 +1,6 @@
 import {
   BookOpen,
   Flame,
-  Sparkles,
   Swords,
   Trophy,
   Users,
@@ -81,7 +80,6 @@ export const milestoneTabs: {
   label: string;
   icon: typeof BookOpen;
 }[] = [
-  { id: "all", label: "All", icon: Sparkles },
   { id: "learning", label: "Learning Paths", icon: BookOpen },
   { id: "collaboration", label: "Collaboration", icon: Users },
   { id: "challenge", label: "Challenges", icon: Swords },

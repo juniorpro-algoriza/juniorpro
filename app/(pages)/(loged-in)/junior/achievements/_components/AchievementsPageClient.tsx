@@ -27,14 +27,14 @@ import { MilestoneCollection } from "./MilestoneCollection";
 import { RecentAchievements } from "./RecentAchievements";
 import { Streaks } from "./Streaks";
 
-const DEMO_MODE = true;
+const DEMO_MODE = false;
 
 export const AchievementsPageClient = () => {
   const [selectedBadgeType, setSelectedBadgeType] = useState<
     BadgeType | undefined
   >();
   const [statusFilter, setStatusFilter] = useState<BadgeStatusFilter>("all");
-  const [milestoneTab, setMilestoneTab] = useState<MilestoneTab>("all");
+  const [milestoneTab, setMilestoneTab] = useState<MilestoneTab>("learning");
 
   const [user] = useAtom(userAtom);
   const firstName = user?.firstName || "";
@@ -43,9 +43,15 @@ export const AchievementsPageClient = () => {
   const streakQuery = useJuniorStreakStats();
   const badgeQuery = useJuniorBadgeAchievements(undefined);
   const levelQuery = useJuniorLevelAchievements();
-  const learningMilestonesQuery = useJuniorLearningPathMilestones();
-  const collaborationMilestonesQuery = useJuniorCollaborationMilestones();
-  const challengeMilestonesQuery = useJuniorChallengeMilestones();
+  const learningMilestonesQuery = useJuniorLearningPathMilestones(
+    milestoneTab === "learning"
+  );
+  const collaborationMilestonesQuery = useJuniorCollaborationMilestones(
+    milestoneTab === "collaboration"
+  );
+  const challengeMilestonesQuery = useJuniorChallengeMilestones(
+    milestoneTab === "challenge"
+  );
 
   const recentAchievements = recentQuery.data ?? [];
   const allBadges = useMemo(
@@ -57,7 +63,7 @@ export const AchievementsPageClient = () => {
     return allBadges.filter((badge) => badge.type === selectedBadgeType);
   }, [allBadges, selectedBadgeType]);
   const levels = levelQuery.data?.juniorLevelAchievements ?? [];
-  const streakStats = streakQuery.data?.[0];
+  const streakStats = streakQuery.data;
   const learningMilestones = useMemo(
     () => learningMilestonesQuery.data?.juniorMilestones ?? [],
     [learningMilestonesQuery.data?.juniorMilestones]
@@ -81,9 +87,11 @@ export const AchievementsPageClient = () => {
   );
 
   const milestoneLoading =
-    learningMilestonesQuery.isLoading ||
-    collaborationMilestonesQuery.isLoading ||
-    challengeMilestonesQuery.isLoading;
+    milestoneTab === "learning"
+      ? learningMilestonesQuery.isLoading
+      : milestoneTab === "collaboration"
+        ? collaborationMilestonesQuery.isLoading
+        : challengeMilestonesQuery.isLoading;
 
   const tabCounts = {
     totalBadges: badgeQuery.data?.totalBadges ?? allBadges.length,
@@ -94,31 +102,14 @@ export const AchievementsPageClient = () => {
   };
 
   const milestoneCounts = {
-    all:
-      learningMilestones.length +
-      collaborationMilestones.length +
-      challengeMilestones.length,
     learning: learningMilestones.length,
     collaboration: collaborationMilestones.length,
     challenge: challengeMilestones.length,
   };
 
   const filteredMilestones = useMemo(() => {
-    if (milestoneTab === "all") {
-      return [
-        ...learningMilestones,
-        ...collaborationMilestones,
-        ...challengeMilestones,
-      ];
-    }
     return milestoneData[milestoneTab] ?? [];
-  }, [
-    milestoneTab,
-    learningMilestones,
-    collaborationMilestones,
-    challengeMilestones,
-    milestoneData,
-  ]);
+  }, [milestoneTab, milestoneData]);
 
   return (
     <div className="relative mx-auto w-full max-w-7xl pb-10">
@@ -181,7 +172,11 @@ export const AchievementsPageClient = () => {
           isLoading={milestoneLoading}
         />
 
-        <Streaks stats={streakStats} isLoading={streakQuery.isLoading} />
+        <Streaks
+          demoMode={DEMO_MODE}
+          stats={streakStats}
+          isLoading={streakQuery.isLoading}
+        />
       </div>
     </div>
   );

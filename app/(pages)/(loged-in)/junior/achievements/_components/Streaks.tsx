@@ -13,16 +13,18 @@ import {
 } from "./AchievementShared";
 
 export const Streaks = ({
+  demoMode = false,
   stats,
   isLoading,
 }: {
+  demoMode?: boolean;
   stats?: StreakStat;
   isLoading: boolean;
 }) => {
-  const currentStreak = stats?.currentStreakDays ?? 12;
-  const longestStreak = stats?.longestStreakDays ?? 12;
-  const target = stats?.nextBadgeTargetDays ?? 15;
-  const progressDays = stats?.progressDays ?? 12;
+  const currentStreak = stats?.currentStreakDays ?? (demoMode ? 12 : 0);
+  const longestStreak = stats?.longestStreakDays ?? (demoMode ? 12 : 0);
+  const target = stats?.nextBadgeTargetDays ?? (demoMode ? 15 : 0);
+  const progressDays = stats?.progressDays ?? (demoMode ? 12 : 0);
   const progress = getProgress(progressDays, target);
 
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -114,7 +116,9 @@ export const Streaks = ({
               <span className="text-[#8CA0BD]">
                 {stats?.longestStreakAchievedDate
                   ? formatDate(stats.longestStreakAchievedDate).split(" - ")[0]
-                  : "April 28, 2026"}
+                  : demoMode
+                    ? "April 28, 2026"
+                    : ""}
               </span>
             </div>
           </div>

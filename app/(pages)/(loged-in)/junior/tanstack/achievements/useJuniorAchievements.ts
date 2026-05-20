@@ -44,23 +44,26 @@ export const useJuniorLevelAchievements = () =>
     staleTime: 5 * 60 * 1000,
   });
 
-export const useJuniorLearningPathMilestones = () =>
+export const useJuniorLearningPathMilestones = (enabled: boolean = true) =>
   useQuery({
     queryKey: QUERY_KEYS.junior.achievements.learningPathMilestones,
     queryFn: getJuniorLearningPathMilestones,
+    enabled,
     staleTime: 5 * 60 * 1000,
   });
 
-export const useJuniorCollaborationMilestones = () =>
+export const useJuniorCollaborationMilestones = (enabled: boolean = true) =>
   useQuery({
     queryKey: QUERY_KEYS.junior.achievements.collaborationMilestones,
     queryFn: getJuniorCollaborationMilestones,
+    enabled,
     staleTime: 5 * 60 * 1000,
   });
 
-export const useJuniorChallengeMilestones = () =>
+export const useJuniorChallengeMilestones = (enabled: boolean = true) =>
   useQuery({
     queryKey: QUERY_KEYS.junior.achievements.challengeMilestones,
     queryFn: getJuniorChallengeMilestones,
+    enabled,
     staleTime: 5 * 60 * 1000,
   });

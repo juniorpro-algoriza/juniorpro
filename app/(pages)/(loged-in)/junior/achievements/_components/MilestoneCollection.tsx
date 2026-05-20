@@ -65,7 +65,6 @@ const getMilestonesByTab = (
   items: Milestone[],
   tab: MilestoneTab
 ): Milestone[] => {
-  if (tab === "all") return items;
   if (tab === "learning") {
     return items.filter((milestone) => milestone.type === 0);
   }
@@ -102,7 +101,6 @@ export const MilestoneCollection = ({
     if (!demoMode) return counts;
 
     return {
-      all: fakeMilestones.length,
       learning: getMilestonesByTab(fakeMilestones, "learning").length,
       collaboration: getMilestonesByTab(fakeMilestones, "collaboration").length,
       challenge: getMilestonesByTab(fakeMilestones, "challenge").length,
@@ -135,7 +133,7 @@ export const MilestoneCollection = ({
           tabs={milestoneTabItems}
           selectedIndex={selectedMilestoneTabIndex}
           onTabChange={(index) =>
-            setActiveTab(milestoneTabs[index]?.id ?? "all")
+            setActiveTab(milestoneTabs[index]?.id ?? "learning")
           }
           tabPanelsClassName="hidden"
         >

@@ -14,4 +14,4 @@ export type StreakStat =
   components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"];
 
 export type BadgeStatusFilter = "all" | "completed" | "in-progress" | "locked";
-export type MilestoneTab = "all" | "learning" | "collaboration" | "challenge";
+export type MilestoneTab = "learning" | "collaboration" | "challenge";

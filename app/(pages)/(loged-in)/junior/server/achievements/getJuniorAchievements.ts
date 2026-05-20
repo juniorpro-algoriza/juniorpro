@@ -13,6 +13,7 @@ type LevelAchievement =
   components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.GetLevelAchievement.GetJuniorLevelAchievementModel"];
 type StreakStat =
   components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"];
+type StreakStatsResponse = StreakStat[] | StreakStat | null | undefined;
 
 const formatRecentAchievementImages = async (
   achievements: RecentAchievement[] | null
@@ -53,15 +54,14 @@ const formatLevelAchievementImages = async (
   );
 };
 
-const formatStreakStatImages = async (stats: StreakStat[] | null) => {
-  if (!stats) return stats;
+const formatStreakStatImage = async (stats: StreakStatsResponse) => {
+  const stat = Array.isArray(stats) ? stats[0] : stats;
+  if (!stat) return undefined;
 
-  return Promise.all(
-    stats.map(async (stat) => ({
-      ...stat,
-      nextBadgeImageUrl: await formatImageUrl(stat.nextBadgeImageUrl),
-    }))
-  );
+  return {
+    ...stat,
+    nextBadgeImageUrl: await formatImageUrl(stat.nextBadgeImageUrl),
+  };
 };
 
 export async function getJuniorRecentAchievements() {
@@ -74,12 +74,12 @@ export async function getJuniorRecentAchievements() {
 }
 
 export async function getJuniorStreakStats() {
-  const response = await customFetch("/api/junior-badge/streak-stats", {
+  const response = (await customFetch("/api/junior-badge/streak-stats", {
     method: "get",
     graceful404: true,
-  });
+  })) as StreakStatsResponse;
 
-  return formatStreakStatImages(response);
+  return formatStreakStatImage(response);
 }
 
 export async function getJuniorBadgeAchievements({
