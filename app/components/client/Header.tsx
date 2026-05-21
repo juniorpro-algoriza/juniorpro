@@ -26,7 +26,7 @@ export const Header = ({
             !isOpen && startIndent && "pl-12"
           )}
         >
-          {title} {loading ? <Skeleton className="md:w-60 w-40 h-8" /> : "!"}
+          {title} {loading && <Skeleton className="md:w-60 w-40 h-8" />}
         </h1>
         <p
           className={cx(
