@@ -60,6 +60,11 @@ const Modals: Record<
       default: m.JuniorTaskDetails,
     }))
   ),
+  JoinChallenge: lazy(() =>
+    import("./modals/JoinChallenge").then((m) => ({
+      default: m.JoinChallenge,
+    }))
+  ),
   CreateEditLevel: lazy(() =>
     import(
       "../(pages)/(loged-in)/admin/levels/_components/CreateEditLevelModal"
