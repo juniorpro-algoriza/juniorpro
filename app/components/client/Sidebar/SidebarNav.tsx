@@ -134,6 +134,11 @@ const juniorMenuItems: MenuItem[] = [
     label: "Collaborations",
   },
   {
+    href: "/junior/challenges",
+    image: ChallengesImage.src,
+    label: "Challenges",
+  },
+  {
     href: "/junior/achievements",
     image: AchievementsImage.src,
     label: "Achievements",

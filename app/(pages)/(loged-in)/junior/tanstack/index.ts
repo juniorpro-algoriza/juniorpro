@@ -1,5 +1,6 @@
 export * from "./paths/useJuniorsPaths";
 export * from "./collaborations/useJuniorCollaborations";
+export * from "./challenges/useJuniorChallenges";
 export * from "./dashboard/useJuniorDashboardStats";
 export * from "./dashboard/useJuniorCurrentPathDetails";
 export * from "./dashboard/useMissionStatsTracker";

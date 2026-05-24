@@ -43,6 +43,11 @@ export const MISSION_STATUS = {
   2: "InProgress",
   3: "Completed",
 };
+export const CHALLENGE_PARTICIPANT_STATUS = {
+  JOINED: 1,
+  UNDER_REVIEW: 2,
+  COMPLETED: 3,
+} as const;
 export const PATH_STATUS = {
   Draft: 1,
   Completed: 2,
