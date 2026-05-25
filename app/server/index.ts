@@ -3,6 +3,7 @@ export { getUserProfile } from "./getUserProfile";
 export { confirmGuidance } from "./confirmGuidance";
 export { getAdminCollaborations } from "./getAdminCollaborations";
 export { getJuniorDashboardStats } from "./getJuniorDashboardStats";
+export { getJuniorLevel } from "./getJuniorLevel";
 export { getJuniorCurrentPathDetails } from "./getJuniorCurrentPathDetails";
 export { getMissionStatsTracker } from "./getMissionStatsTracker";
 export { getXpStatsTracker } from "./getXpStatsTracker";

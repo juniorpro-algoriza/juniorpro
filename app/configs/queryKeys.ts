@@ -94,6 +94,7 @@ export const QUERY_KEYS = {
   junior: {
     dashboard: {
       stats: ["junior", "dashboard", "stats"] as const,
+      level: ["junior", "dashboard", "level"] as const,
       currentPath: ["junior", "dashboard", "current-path"] as const,
       missionStatsTracker: [
         "junior",
