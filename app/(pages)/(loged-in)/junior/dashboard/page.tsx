@@ -32,18 +32,22 @@ const DashboardPage = async () => {
 
       {/* Current Path + Next Unlocks */}
       <div className="grid lg:grid-cols-5 grid-cols-1 gap-4 mt-6">
-        <div className="lg:col-span-3">
+        <div id="current-path-section" className="lg:col-span-3">
           <CurrentPath />
         </div>
-        <div className="lg:col-span-2">
+        <div id="next-unlocks-section" className="lg:col-span-2">
           <NextUnlocks />
         </div>
       </div>
 
       {/* Weekly Challenges + Team Projects */}
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-6">
-        <WeeklyChallenges />
-        <TeamProjects />
+        <div id="weekly-challenges-section">
+          <WeeklyChallenges />
+        </div>
+        <div id="team-projects-section">
+          <TeamProjects />
+        </div>
       </div>
 
       {/* Charts Row */}
