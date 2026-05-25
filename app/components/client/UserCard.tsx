@@ -22,6 +22,8 @@ export const UserCard = ({
   pointsId,
   badgesId,
   xpTextId,
+  xpRemainingToNextLevel,
+  nextLevel,
   userDetails,
 }: {
   image?: string | null;
@@ -36,6 +38,8 @@ export const UserCard = ({
   pointsId?: string;
   badgesId?: string;
   xpTextId?: string;
+  xpRemainingToNextLevel?: number;
+  nextLevel?: number;
   userDetails?: {
     levelProgress: number;
     points: number;
@@ -93,7 +97,8 @@ export const UserCard = ({
             <div id={xpTextId} className="flex items-center space-x-2 w-fit">
               <TrendingUp className="size-3 text-blue-main" />
               <p className="text-13 font-medium text-gray-600">
-                250 XP to Level 6
+                {xpRemainingToNextLevel ?? 0} XP to Level{" "}
+                {nextLevel ?? level + 1}
               </p>
             </div>
           </div>

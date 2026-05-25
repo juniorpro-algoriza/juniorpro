@@ -30,10 +30,14 @@ export const useJuniorStreakStats = () =>
     staleTime: 5 * 60 * 1000,
   });
 
-export const useJuniorBadgeAchievements = (badgeType?: BadgeType) =>
+export const useJuniorBadgeAchievements = (
+  badgeType?: BadgeType,
+  enabled: boolean = true
+) =>
   useQuery({
     queryKey: QUERY_KEYS.junior.achievements.badges(badgeType),
     queryFn: () => getJuniorBadgeAchievements({ badgeType }),
+    enabled,
     staleTime: 5 * 60 * 1000,
   });
 

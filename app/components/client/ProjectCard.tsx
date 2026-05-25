@@ -102,7 +102,7 @@ export const ProjectCard = ({
                   {progress?.toFixed(0)}%
                 </span>
               </div>
-              <Progress width={progress} className="bg-gray-100" />
+              <Progress width={progress} />
             </div>
           )}
 
