@@ -343,14 +343,14 @@ export const OnboardingTour = ({
 
     // Step 6
     {
-      selector: "#total-xp",
+      selector: "#missions-completed",
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Your Total XP </h3>
+          <h3 className="text-xl font-extrabold ">Missions Done </h3>
           <p className="text-gray-800 font-semibold">
-            This is all the XP you’ve earned so far. Complete more missions to
-            increase it and reach higher levels.
+            This shows how many missions you've completed. Missions are small
+            tasks that help you learn step by step.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -376,14 +376,14 @@ export const OnboardingTour = ({
 
     // Step 7
     {
-      selector: "#missions-completed",
+      selector: "#total-xp",
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Missions Done </h3>
+          <h3 className="text-xl font-extrabold ">Your Total XP </h3>
           <p className="text-gray-800 font-semibold">
-            This shows how many missions you've completed. Missions are small
-            tasks that help you learn step by step.
+            This is all the XP you've earned so far. Complete more missions to
+            increase it and reach higher levels.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -409,14 +409,14 @@ export const OnboardingTour = ({
 
     // Step 8
     {
-      selector: "#projects-completed",
+      selector: "#weekly-challenges-stat",
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Projects Done </h3>
+          <h3 className="text-xl font-extrabold ">Weekly Challenges Stat </h3>
           <p className="text-gray-800 font-semibold">
-            This shows how many projects you've finished. Projects are bigger
-            builds where you apply what you’ve learned.
+            This shows how many weekly challenges you are currently part of.
+            Join challenges to practice your skills and earn more XP.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -442,14 +442,14 @@ export const OnboardingTour = ({
 
     // Step 9
     {
-      selector: "#challenges-won",
+      selector: "#team-projects-stat",
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Challenges Done </h3>
+          <h3 className="text-xl font-extrabold ">Team Projects Stat </h3>
           <p className="text-gray-800 font-semibold">
-            This shows how many challenges you’ve completed. Challenges test
-            your skills with tougher tasks and bigger rewards.
+            This shows how many team projects you are working on. Team projects
+            help you build with others and practice real collaboration.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -475,14 +475,15 @@ export const OnboardingTour = ({
 
     // Step 10
     {
-      selector: "#daily-goals",
+      selector: "#current-path-section",
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Today’s Goal </h3>
+          <h3 className="text-xl font-extrabold ">Current Path </h3>
           <p className="text-gray-800 font-semibold">
-            This is your daily target. Complete it to earn a bonus and make
-            steady progress
+            This is the path you are learning right now. Track your mission
+            progress here and jump back into the next mission when you are
+            ready.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button
@@ -508,14 +509,14 @@ export const OnboardingTour = ({
 
     // Step 11
     {
-      selector: "#live-sessions",
+      selector: "#next-unlocks-section",
       style: { borderRadius: "20px" },
       content: () => (
         <div className="space-y-4">
-          <h3 className="text-xl font-extrabold ">Upcoming Sessions </h3>
+          <h3 className="text-xl font-extrabold ">Next Unlocks </h3>
           <p className="text-gray-800 font-semibold">
-            This section shows your upcoming mentor sessions. Tap a session to
-            see the details and join on time.{" "}
+            This section shows what you can unlock next, like badges,
+            challenges, and team projects. Complete more missions to open them.
           </p>
           <div className="flex justify-between items-center gap-2 pt-2 w-full">
             <Button

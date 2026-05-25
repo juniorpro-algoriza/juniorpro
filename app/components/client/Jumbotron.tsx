@@ -21,7 +21,7 @@ export const Jumbotron = ({
   return (
     <div
       className={cx(
-        "flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8",
+        "flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 my-8",
         className
       )}
     >
