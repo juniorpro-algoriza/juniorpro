@@ -27,7 +27,7 @@ export const Jumbotron = ({
     >
       <div
         className={cx(
-          "size-16 sm:size-20 bg-blue-main/5 rounded-4xl flex items-center justify-center flex-shrink-0 border border-blue-main/10 rotate-6 shadow-sm overflow-hidden",
+          "size-16 sm:size-18 bg-blue-main/5 rounded-3xl flex items-center justify-center flex-shrink-0 border border-blue-main/10 rotate-6 shadow-sm overflow-hidden",
           imageClassName
         )}
       >

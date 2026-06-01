@@ -17,6 +17,10 @@ interface ProjectCardProps {
   levelRequired?: number;
   isLocked?: boolean;
   lockLabel?: string;
+  buttonOnClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  buttonDisabled?: boolean;
+  buttonLoading?: boolean;
+  titleBadge?: React.ReactNode;
 }
 
 export const ProjectCard = ({
@@ -35,10 +39,14 @@ export const ProjectCard = ({
   rewards,
   skills,
   prizes,
-  buttonText = "View Submission",
+  buttonText,
   buttonIntent = "main", // "main" | "main2"
   buttonIcon,
   buttonIconPosition = "left",
+  buttonOnClick,
+  buttonDisabled = false,
+  buttonLoading = false,
+  titleBadge,
 }: ProjectCardProps & {
   type?: "collaboration" | "challenge" | "path";
   rewards?: string | React.ReactNode;
@@ -49,6 +57,101 @@ export const ProjectCard = ({
   buttonIcon?: React.ReactNode;
   buttonIconPosition?: "left" | "right";
 }) => {
+  if (type === "path") {
+    return (
+      <MainCard
+        classname={cx(
+          "flex h-full flex-col rounded-3xl border-blue-main/20 bg-white p-5 shadow-main transition-shadow hover:shadow-lg",
+          className
+        )}
+      >
+        <div className="mb-5 flex items-start justify-between gap-4">
+          <div className="size-12 shrink-0 rounded-2xl bg-blue-main/5 flex items-center justify-center text-blue-main">
+            {iconSrc && (
+              <Image
+                src={iconSrc}
+                width={42}
+                height={42}
+                alt="icon"
+                className="size-9 object-contain"
+              />
+            )}
+          </div>
+          {titleBadge}
+        </div>
+
+        <div className="mb-5 min-h-[105px]">
+          <h3 className="mb-2 line-clamp-2 text-xl font-extrabold leading-tight text-gray-950">
+            {title}
+          </h3>
+          <p className="line-clamp-3 text-sm font-medium leading-6 text-gray-500">
+            {description}
+          </p>
+        </div>
+
+        {progress !== undefined && (
+          <div className="mb-5">
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                Progress
+              </span>
+              <span className="rounded-full border border-blue-main/10 bg-blue-main/10 px-2.5 py-0.5 text-[10px] font-bold text-blue-main">
+                {progress.toFixed(0)}%
+              </span>
+            </div>
+            <Progress width={progress} />
+          </div>
+        )}
+
+        {skills && skills.length > 0 && (
+          <div className="border-t border-dashed border-gray-100 py-5">
+            <h4 className="mb-3 text-[11px] font-extrabold uppercase tracking-wider text-gray-500">
+              Skills
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-500"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {rewards && (
+          <div className="mt-auto border-t border-dashed border-gray-100 pt-5">
+            <h4 className="mb-3 text-[11px] font-extrabold uppercase tracking-wider text-gray-500">
+              Rewards
+            </h4>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-gray-600">
+              {rewards}
+            </div>
+          </div>
+        )}
+
+        {buttonText && (
+          <Button
+            intent={buttonIntent}
+            size="mainDefault"
+            className="mt-5 w-full justify-center"
+            disabled={isLocked || buttonDisabled}
+            icon={buttonIcon}
+            iconPosition={buttonIconPosition}
+            onClick={buttonOnClick}
+            isLoading={buttonLoading}
+          >
+            {buttonText}
+          </Button>
+        )}
+      </MainCard>
+    );
+  }
+
+  const ctaText = buttonText ?? "View Submission";
+
   return (
     <MainCard
       classname={cx(
@@ -84,6 +187,7 @@ export const ProjectCard = ({
                 <h3 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
                   {title}
                 </h3>
+                {titleBadge}
               </div>
               <p className="text-gray-500 text-xs md:text-sm font-medium line-clamp-2">
                 {description}
@@ -108,12 +212,14 @@ export const ProjectCard = ({
 
           {/* Meta Data Row */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm text-gray-500 mb-6">
-            <div className="flex items-center gap-1.5 md:gap-2">
-              <Calendar size={14} className="md:size-4" />
-              <span className="font-medium whitespace-nowrap">
-                Due: <span className="text-gray-900">{dateEnd}</span>
-              </span>
-            </div>
+            {dateEnd && (
+              <div className="flex items-center gap-1.5 md:gap-2">
+                <Calendar size={14} className="md:size-4" />
+                <span className="font-medium whitespace-nowrap">
+                  Due: <span className="text-gray-900">{dateEnd}</span>
+                </span>
+              </div>
+            )}
             <div className="flex items-center gap-1.5 md:gap-2">
               <Users size={14} className="md:size-4" />
               <span className="font-medium whitespace-nowrap">
@@ -149,34 +255,6 @@ export const ProjectCard = ({
                     height={20}
                     alt="Reward Badge"
                   />
-                  {rewards}
-                </div>
-              </div>
-            )}
-
-            {type === "path" && skills && (
-              <div className="mb-4">
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
-                  Skills
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-2 py-1 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-gray-600"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {type === "path" && rewards && (
-              <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
-                  Rewards
-                </h4>
-                <div className="flex items-center gap-2 text-sm font-medium text-gray-900">
                   {rewards}
                 </div>
               </div>
@@ -236,11 +314,13 @@ export const ProjectCard = ({
           intent={buttonIntent}
           size="mainDefault"
           className="w-full justify-center"
-          disabled={isLocked}
+          disabled={isLocked || buttonDisabled}
           icon={buttonIcon}
           iconPosition={buttonIconPosition}
+          onClick={buttonOnClick}
+          isLoading={buttonLoading}
         >
-          {buttonText}
+          {ctaText}
         </Button>
       </div>
     </MainCard>

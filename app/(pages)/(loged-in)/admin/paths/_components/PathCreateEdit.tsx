@@ -105,6 +105,7 @@ export const PathCreateEdit = ({
           await updatePathMutation.mutateAsync(payload);
           toast.success("Path updated successfully!");
           router.push("/admin/paths");
+          router.refresh();
         } else {
           const response = await addPathMutation.mutateAsync(result.data);
           router.push(`/admin/paths/${response}`);
@@ -134,6 +135,7 @@ export const PathCreateEdit = ({
       await completePathMutation.mutateAsync(Number(pathId));
       toast.success("Learning path completed successfully!");
       router.push("/admin/paths");
+      router.refresh();
     } catch (error) {
       let errorMessage = "Failed to complete path. Please try again.";
 

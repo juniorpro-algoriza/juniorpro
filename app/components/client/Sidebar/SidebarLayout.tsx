@@ -39,7 +39,7 @@ export const SidebarLayout = ({ children }: { children: ReactNode }) => {
                 />
               </div>
             )}
-            <div className="relative z-10">{children}</div>
+            <div className="relative z-10 space-y-5">{children}</div>
           </div>
         </div>
       </div>

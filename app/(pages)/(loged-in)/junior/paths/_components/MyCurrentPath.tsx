@@ -1,8 +1,9 @@
-import { PathCard } from "@components/client";
+import { EmptyData, PathCard } from "@components/client";
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { userAtom } from "@atoms";
+import { Map } from "lucide-react";
 
 export const MyCurrentPath = ({
   paths,
@@ -21,6 +22,7 @@ export const MyCurrentPath = ({
   const router = useRouter();
   const [user] = useAtom(userAtom);
   const hasTriggered = useRef(false);
+  console.log("paths", paths);
 
   useEffect(() => {
     // Prevent multiple triggers
@@ -55,7 +57,13 @@ export const MyCurrentPath = ({
           />
         ))}
         {paths.length === 0 && (
-          <p className="ms-4 text-gray-600">No current paths found.</p>
+          <div className="sm:col-span-2 xl:col-span-3">
+            <EmptyData
+              icon={<Map className="size-6" />}
+              title="No Current Path Yet"
+              description="Join a learning path below to start tracking your progress here."
+            />
+          </div>
         )}
       </div>
     </div>

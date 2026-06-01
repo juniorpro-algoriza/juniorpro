@@ -3,11 +3,31 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Breadcrumb, DetailCard, Tabs, Skeleton } from "@components";
-import { Calendar, Users2, Pencil } from "lucide-react";
+import {
+  Calendar,
+  ClipboardList,
+  FileText,
+  Pencil,
+  Trophy,
+  Users2,
+} from "lucide-react";
 import type { TabData } from "@types";
 import { PATH_ICON } from "../../../../../configs/constants";
-import { OverviewTab, RequirementsTab, ParticipantsTab } from "../_components";
+import {
+  OverviewTab,
+  RequirementsTab,
+  ParticipantsTab,
+  LeaderboardTab,
+} from "../_components";
 import { useGetAdminChallengeById } from "../../tanstack/challenges";
+
+const PRIZE_MEDALS = [
+  "/images/1st-medal.png",
+  "/images/2nd-medal.png",
+  "/images/3rd-medal.png",
+];
+
+const PRIZE_LABELS = ["1st Place", "2nd Place", "3rd Place"];
 
 export default function ChallengeDetailsPage({
   params,
@@ -91,16 +111,45 @@ export default function ChallengeDetailsPage({
 
   const tabs: TabData[] = [
     {
-      name: "Overview",
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <ClipboardList className="size-4" />
+          Overview
+        </span>
+      ),
       content: <OverviewTab challenge={challenge} />,
     },
     {
-      name: "Requirements",
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <FileText className="size-4" />
+          Requirements
+        </span>
+      ),
       content: <RequirementsTab challenge={challenge} />,
     },
     {
-      name: "Participants",
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <Users2 className="size-4" />
+          Participants
+        </span>
+      ),
       content: <ParticipantsTab challengeId={challengeId} />,
+    },
+    {
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <Trophy className="size-4" />
+          Winners
+        </span>
+      ),
+      content: (
+        <LeaderboardTab
+          challengeId={challengeId}
+          prizeDistributions={challenge.prizeDistributions}
+        />
+      ),
     },
   ];
 
@@ -127,35 +176,34 @@ export default function ChallengeDetailsPage({
         progress={0}
         backgroundOverlay="/images/handOnHand.svg"
       >
-        <DetailCard.Footer>
-          <DetailCard.FooterItem
-            className="text-gray-700 font-medium"
-            icon={
-              <Image
-                src="/images/1stBadge.png"
-                width={20}
-                height={20}
-                alt="Badge"
-                className="size-5 object-contain flex-shrink-0"
-              />
-            }
-          >
-            {challenge.prizeDistributions &&
-            challenge.prizeDistributions.length > 0 ? (
-              <>
-                Top prize:{" "}
-                <span className="font-bold">
-                  {challenge.prizeDistributions[0]?.points || 0} Points
+        <DetailCard.Footer className="gap-4 md:gap-8">
+          {challenge.prizeDistributions &&
+          challenge.prizeDistributions.length > 0 ? (
+            challenge.prizeDistributions.slice(0, 3).map((prize, index) => (
+              <DetailCard.FooterItem
+                key={prize.id || index}
+                className="text-gray-700 font-medium"
+                icon={
+                  <Image
+                    src={PRIZE_MEDALS[index]}
+                    width={22}
+                    height={22}
+                    alt={`${PRIZE_LABELS[index]} medal`}
+                    className="size-5 object-contain flex-shrink-0"
+                  />
+                }
+              >
+                <span>{PRIZE_LABELS[index]}</span>{" "}
+                <span className="font-bold text-gray-900">
+                  {prize.points || 0} SAR
                 </span>
-                {" & "}
-                <span className="font-bold">
-                  {challenge.prizeDistributions[0]?.xp || 0} XP
-                </span>
-              </>
-            ) : (
-              "No prizes configured"
-            )}
-          </DetailCard.FooterItem>
+              </DetailCard.FooterItem>
+            ))
+          ) : (
+            <DetailCard.FooterItem className="text-gray-700 font-medium">
+              No prizes configured
+            </DetailCard.FooterItem>
+          )}
 
           <DetailCard.FooterItem
             className="sm:ml-auto"

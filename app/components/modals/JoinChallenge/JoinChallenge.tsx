@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Button, Modal, InfoSection, MainCard, Skeleton } from "@components";
-import { Calendar, Users2, Trophy, ListTodo } from "lucide-react";
+import { AlertCircle, Calendar, Users2, Trophy, ListTodo } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   useJuniorChallengeById,
@@ -18,13 +18,60 @@ const MEDALS = [
   "/images/3rd-medal.png",
 ];
 
+const CHALLENGE_ERROR_MESSAGES: Record<string, string> = {
+  RegistrationDeadlinePassed:
+    "The registration deadline for this challenge has passed.",
+};
+
+const findReadableChallengeError = (value: unknown) => {
+  const text =
+    typeof value === "string" ? value : value ? JSON.stringify(value) : "";
+
+  const matchedCode = Object.keys(CHALLENGE_ERROR_MESSAGES).find((code) =>
+    text.includes(code)
+  );
+
+  return matchedCode ? CHALLENGE_ERROR_MESSAGES[matchedCode] : null;
+};
+
+const getReadableChallengeError = (error: unknown) => {
+  if (!error) return "Unable to join this challenge. Please try again.";
+
+  const knownMessage = findReadableChallengeError(error);
+  if (knownMessage) return knownMessage;
+
+  try {
+    const parsed = JSON.parse((error as Error).message);
+    const parsedKnownMessage = findReadableChallengeError(parsed);
+    if (parsedKnownMessage) return parsedKnownMessage;
+
+    const rawMessage =
+      parsed.errorMessage ||
+      parsed.message ||
+      parsed.code ||
+      parsed.details?.errorMessage ||
+      parsed.details?.message ||
+      parsed.details?.code;
+
+    return rawMessage || "Unable to join this challenge. Please try again.";
+  } catch {
+    return error instanceof Error && error.message
+      ? error.message
+      : "Unable to join this challenge. Please try again.";
+  }
+};
+
 export const JoinChallenge = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const idStr = searchParams.get("id");
   const id = idStr ? parseInt(idStr) : null;
 
-  const { data: challengeData, isLoading } = useJuniorChallengeById(id || 0);
+  const {
+    data: challengeData,
+    isLoading,
+    error: challengeError,
+  } = useJuniorChallengeById(id || 0);
   const joinMutation = useJoinChallenge();
 
   const details = challengeData?.challengeDetails;
@@ -44,16 +91,7 @@ export const JoinChallenge = () => {
       toast.success("You have successfully joined the challenge!");
       router.back();
     } catch (error) {
-      let message = "Failed to join challenge";
-      try {
-        const errorData = JSON.parse((error as Error).message);
-        if (errorData.errorMessage) {
-          message = errorData.errorMessage;
-        }
-      } catch {
-        // use default message
-      }
-      toast.error(message);
+      toast.error(getReadableChallengeError(error));
     }
   };
 
@@ -70,6 +108,36 @@ export const JoinChallenge = () => {
           </div>
           <Skeleton className="h-32 rounded-2xl" />
           <Skeleton className="h-48 rounded-2xl" />
+        </div>
+      </Modal>
+    );
+  }
+
+  if (challengeError) {
+    return (
+      <Modal panelClassName="w-[95%] max-w-xl bg-white rounded-2xl sm:rounded-[32px] shadow-2xl overflow-hidden p-0">
+        <div className="p-6 sm:p-8">
+          <div className="flex items-start gap-3 rounded-2xl border border-red-100 bg-red-50 p-4">
+            <AlertCircle className="mt-0.5 size-5 flex-shrink-0 text-red-500" />
+            <div className="space-y-1">
+              <h2 className="text-base font-bold text-red-700">
+                Challenge unavailable
+              </h2>
+              <p className="text-sm font-medium text-red-600">
+                {getReadableChallengeError(challengeError)}
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 flex justify-end">
+            <Button
+              intent="main"
+              size="mainDefault"
+              className="bg-white hover:bg-gray-50 border border-gray-200 text-gray-500 font-bold px-8 rounded-2xl"
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+          </div>
         </div>
       </Modal>
     );

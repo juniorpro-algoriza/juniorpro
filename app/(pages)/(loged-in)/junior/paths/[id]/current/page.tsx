@@ -68,9 +68,9 @@ export default function PathPage({
           },
         ]}
       />
-      <div className="space-y-7 xl:max-w-4/5">
+      <div className="space-y-7 xl:max-w-4/5 mt-5">
         <PathHeader
-          image={PATH_ICON[String(pathId) as keyof typeof PATH_ICON]}
+          image={PATH_ICON[String(currentPath?.icon) as keyof typeof PATH_ICON]}
           title={
             currentPath?.nameEn ||
             currentPath?.nameAr ||
@@ -81,6 +81,8 @@ export default function PathPage({
             "Learn HTML, CSS, and build your first websites"
           }
           progress={currentPath?.progressPercentage || 0}
+          xp={currentPath?.totalXP || 0}
+          points={currentPath?.totalPoints || 0}
         />
         <PathTimeline module="junior" missions={missions} />
       </div>

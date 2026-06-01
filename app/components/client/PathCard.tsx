@@ -1,17 +1,16 @@
 import Link from "next/link";
 import React, { useCallback } from "react";
-import { MainCard } from "../MainCard";
 import Image from "next/image";
-import { ArrowRight, EllipsisVertical, Target } from "lucide-react";
-import LightningImage from "@public/images/lightning-icon-2.png";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Loader2, Trash2 } from "lucide-react";
+import GraduationImage from "@public/images/graduation.png";
+import LightningImage from "@public/images/lightning-icon.png";
 import DiamondImage from "@public/images/diamond-icon-2.png";
-import { Progress } from "../Progress";
 import { cx } from "@lib";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { toast } from "sonner";
 import { useDeleteLearningPath } from "../../(pages)/(loged-in)/admin/tanstack";
 import { useJoinLearningPath } from "../../(pages)/(loged-in)/junior/tanstack/paths/useJuniorsPaths";
-import { Button } from "../Button";
+import { ProjectCard } from "./ProjectCard";
 import { PATH_STATUS } from "../../configs";
 
 export const PathCard = ({
@@ -37,6 +36,7 @@ export const PathCard = ({
   hasJoinButton?: boolean;
   cardLink?: string;
 }) => {
+  const router = useRouter();
   const deleteMutation = useDeleteLearningPath();
   const joinMutation = useJoinLearningPath();
 
@@ -87,131 +87,153 @@ export const PathCard = ({
       }
     }
   }, [path.id, deleteMutation]);
+
+  const buttonText = hasJoinButton
+    ? isJoining
+      ? "Joining..."
+      : "Join Path"
+    : userType === "admin"
+      ? "View Path"
+      : undefined;
+
+  const handleViewPath = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (cardLink) router.push(cardLink);
+    },
+    [cardLink, router]
+  );
+
+  const titleBadge =
+    userType === "admin" ? (
+      <div className="ml-auto flex items-center gap-2">
+        {path.status === PATH_STATUS.Draft ? (
+          <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">
+            Draft
+          </span>
+        ) : (
+          <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-600">
+            Completed
+          </span>
+        )}
+        {/*
+          Previous menu version kept for reference:
+
+          <Menu>
+            <MenuButton>
+              <EllipsisVertical />
+            </MenuButton>
+            <MenuItems>
+              <MenuItem>
+                <button type="button" onClick={handleDelete}>
+                  Delete
+                </button>
+              </MenuItem>
+            </MenuItems>
+          </Menu>
+        */}
+        <button
+          type="button"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            handleDelete();
+          }}
+          disabled={isDeleting}
+          className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-red-50 text-red-500 transition-colors hover:bg-red-100 disabled:cursor-wait disabled:opacity-80"
+          aria-label="Delete path"
+        >
+          {isDeleting ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <Trash2 className="size-4" />
+          )}
+        </button>
+      </div>
+    ) : path.progress !== undefined ? (
+      <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-600">
+        Joined
+      </span>
+    ) : undefined;
+
+  const cardContent = (
+    <ProjectCard
+      title={path.title}
+      description={path.description}
+      progress={path.progress}
+      membersCurrent={path.missions}
+      membersTotal={path.missions}
+      dateEnd=""
+      iconSrc={path.image}
+      type="path"
+      rewards={<XpAndPoints xp={path.xp} points={path.points} />}
+      buttonText={buttonText}
+      buttonIntent={hasJoinButton ? "main2" : "main"}
+      buttonIcon={<ArrowRight className="size-4" />}
+      buttonIconPosition="right"
+      buttonOnClick={
+        hasJoinButton
+          ? handleJoin
+          : userType === "admin"
+            ? handleViewPath
+            : undefined
+      }
+      buttonDisabled={hasJoinButton && (isJoining || path.missions === 0)}
+      buttonLoading={hasJoinButton && isJoining}
+      titleBadge={titleBadge}
+      className={cardClassName}
+    />
+  );
+
   return (
     <div
       key={path.id}
-      className={cx("relative", !hasJoinButton && "my-current-path")}
+      className={cx("relative h-full", !hasJoinButton && "my-current-path")}
     >
-      {hasJoinButton && path.missions > 0 && (
-        <Button
-          intent="main2"
-          size="mainDefault"
-          onClick={handleJoin}
-          disabled={isJoining}
-          className="cursor-pointer absolute top-5 right-5 z-20"
-        >
-          {isJoining ? "Joining..." : "Join Path"}{" "}
-          <ArrowRight className="size-4" />
-        </Button>
+      {userType === "admin" ? (
+        cardContent
+      ) : (
+        <Link href={cardLink || "#"} className="block h-full">
+          {cardContent}
+        </Link>
       )}
-      {userType === "admin" && (
-        <Menu>
-          <MenuButton className="cursor-pointer focus-visible:outline-0 absolute top-5 right-5 z-20">
-            <EllipsisVertical className="text-gray-600 size-4" />
-          </MenuButton>
-          <MenuItems
-            anchor="bottom end"
-            className="w-40 bg-white border border-gray-200 rounded-xl focus-visible:outline-0"
-          >
-            <MenuItem disabled={isDeleting}>
-              <button
-                type="button"
-                onClick={handleDelete}
-                className="w-full text-sm text-left block text-red-600 data-focus:bg-red-100 py-2 px-4 disabled:opacity-60 cursor-pointer"
-                disabled={isDeleting}
-              >
-                {isDeleting ? "Deleting..." : "Delete"}
-              </button>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
-      )}
-      <Link href={cardLink || "#"}>
-        <MainCard
-          classname={cx(
-            "relative space-y-2 overflow-hidden cursor-pointer",
-            cardClassName
-          )}
-        >
-          <div className="flex items-center justify-between gap-2">
-            <div className="p-1.5 bg-[#EEF2FF80] rounded-xl">
-              <Image
-                src={path.image}
-                alt="Current path Image"
-                width={60}
-                height={60}
-              />
-            </div>
-          </div>
-          <h3 className="font-bold text-lg">
-            {path.title}
-            {userType === "admin" && (
-              <>
-                {path?.status == PATH_STATUS.Draft ? (
-                  <span className="text-gray-600 text-xs ml-2 font-medium bg-gray-100 px-2 py-1 rounded-full">
-                    Draft
-                  </span>
-                ) : (
-                  <span className="text-green-600 text-xs ml-2 font-medium bg-green-100 px-2 py-1 rounded-full">
-                    Completed
-                  </span>
-                )}
-              </>
-            )}
-          </h3>
-          <p className="text-gray-600">{path.description}</p>
-          <hr className="border-gray-100" />
-          {path.progress !== undefined && (
-            <div className="space-y-2">
-              <div className="flex justify-between items-center gap-3">
-                <p className="text-13 font-medium text-gray-600">Progress</p>
-                <p className="text-dark-blue-main font-bold text-13">
-                  {path.progress}%
-                </p>
-              </div>
-              <Progress
-                width={path.progress || 0}
-                height="12px"
-                className="[background:_linear-gradient(90deg,_#615FFF_0%,_#5DA1E8_100%)]"
-              />
-            </div>
-          )}
-          <div className="flex items-center gap-2 flex-wrap mt-4">
-            <div className="px-2 py-1 bg-gray-50 border border-gray-200 rounded-full flex items-center gap-2 text-gray-600">
-              <Target className="size-4" />
-              <p className="text-13">
-                <span className="font-bold">{path.missions}</span>{" "}
-                <span className=" capitalize">missions</span>
-              </p>
-            </div>
-            <XpAndPoints xp={path.xp} points={path.points} />
-          </div>
-        </MainCard>
-      </Link>
     </div>
   );
 };
 export const XpAndPoints = ({ xp, points }: { xp: number; points: number }) => {
   return (
     <>
-      <div className="px-3 py-1 bg-[#E17100]/8 border border-[#E17100]/20 rounded-full flex items-center gap-2 text-[#E17100]">
+      <div className="flex items-center gap-2 text-gray-500">
+        <Image
+          src={GraduationImage}
+          alt="Certificate"
+          width={24}
+          height={24}
+          className="size-6 object-contain"
+        />
+        <span>Certificate</span>
+      </div>
+      <div className="flex items-center gap-2 text-gray-500">
         <Image
           src={LightningImage}
-          alt="Lightning Image"
-          width={20}
-          height={20}
+          alt="XP"
+          width={24}
+          height={24}
+          className="size-6 object-contain"
         />
-        <p className="text-13">
-          +<span className="font-bold">{xp}</span>{" "}
-          <span className=" capitalize">XP</span>
-        </p>
+        <span>{xp} XP</span>
       </div>
-      <div className="px-3 py-1 bg-dark-blue-main/8 border border-dark-blue-main/20 rounded-full flex items-center gap-2 text-dark-blue-main">
-        <Image src={DiamondImage} alt="Diamond Image" width={20} height={20} />
-        <p className="text-13">
-          +<span className="font-bold">{points}</span>{" "}
-          <span className=" capitalize">Points</span>
-        </p>
+      <div className="flex items-center gap-2 text-gray-500">
+        <Image
+          src={DiamondImage}
+          alt="Points"
+          width={24}
+          height={24}
+          className="size-6 object-contain"
+        />
+        <span>{points} Points</span>
       </div>
     </>
   );

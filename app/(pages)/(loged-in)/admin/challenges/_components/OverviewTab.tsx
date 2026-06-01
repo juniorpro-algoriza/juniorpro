@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { InfoSection, MainCard } from "@components";
-import { Hammer, Trophy } from "lucide-react";
+import { CircleDollarSign, Hammer, Medal, Trophy } from "lucide-react";
 import { components } from "../../../../../../api-schema";
 
 type GetChallengeDetailsModel =
@@ -14,6 +14,11 @@ const MEDALS = [
   "/images/2nd-medal.png",
   "/images/3rd-medal.png",
 ];
+
+const PLACE_LABELS = ["1st Place", "2nd Place", "3rd Place"];
+
+const getPlaceLabel = (index: number) =>
+  PLACE_LABELS[index] || `${index + 1}th Place`;
 
 interface OverviewTabProps {
   challenge?: GetChallengeDetailsModel;
@@ -52,54 +57,66 @@ export function OverviewTab({ challenge }: OverviewTabProps) {
 
       {/* Prize Distribution */}
       {prizes.length > 0 && (
-        <div>
-          <div className="flex items-start gap-4 mb-6 px-2">
-            <div className="p-3 bg-dark-blue-main/10 text-dark-blue-main rounded-xl">
-              <Trophy className="size-6" />
+        <MainCard classname="relative overflow-hidden p-5 sm:p-6">
+          <Trophy className="pointer-events-none absolute right-16 top-0 size-40 -translate-y-8 rotate-12 text-gray-100/80" />
+          <div className="relative z-10 flex items-start gap-4">
+            <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-[#EEF4FF]">
+              <Trophy className="size-6 text-dark-blue-main" />
             </div>
-            <div>
+            <div className="pt-1">
               <h3 className="text-lg font-bold text-gray-900">
-                Prize Distribution
+                Prizes Distribution
               </h3>
-              <p className="text-gray-500 text-sm mt-1">
-                Rewards for top performers
+              <p className="mt-2 text-base font-medium text-gray-500">
+                What winners will get
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="relative z-10 mt-7 flex max-w-[720px] flex-col gap-4">
             {prizes.map((prize, index) => (
-              <MainCard key={index} classname="flex items-center gap-4 p-4">
-                <div className="relative size-12 flex-shrink-0">
-                  {index < 3 ? (
-                    <Image
-                      src={MEDALS[index]}
-                      alt={`${index + 1} place medal`}
-                      fill
-                      className="object-contain"
-                    />
-                  ) : (
-                    <div className="size-12 rounded-full bg-gray-100 flex items-center justify-center font-bold text-lg text-dark-blue-main border border-gray-200">
-                      {index + 1}
-                    </div>
-                  )}
-                </div>
-                <div className="flex-1 space-y-1">
-                  <div className="font-semibold text-gray-900">
-                    {prize.titleEn ||
-                      `${index + 1}${index === 0 ? "st" : index === 1 ? "nd" : index === 2 ? "rd" : "th"} Place`}
+              <div
+                key={index}
+                className="flex flex-col gap-4 rounded-3xl border border-gray-100 bg-white/95 px-4 py-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)] sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="flex min-w-0 items-center gap-4">
+                  <div className="relative size-10 shrink-0">
+                    {index < 3 ? (
+                      <Image
+                        src={MEDALS[index]}
+                        alt={`${getPlaceLabel(index)} medal`}
+                        fill
+                        className="object-contain"
+                      />
+                    ) : (
+                      <div className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-base font-bold text-dark-blue-main">
+                        {index + 1}
+                      </div>
+                    )}
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-500">
-                    <span className="font-medium">
-                      {prize.points || 0} Points
-                    </span>
-                    <span className="font-medium">{prize.xp || 0} XP</span>
-                  </div>
+                  <h4 className="truncate text-base font-bold text-gray-900">
+                    {getPlaceLabel(index)}
+                  </h4>
                 </div>
-              </MainCard>
+
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+                  <span className="inline-flex h-9 items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 text-sm font-bold text-emerald-700">
+                    <CircleDollarSign className="size-4" />
+                    {prize.points || 0} SAR
+                  </span>
+                  <span className="inline-flex h-9 items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-4 text-sm font-bold text-cyan-700">
+                    <Trophy className="size-4" />
+                    {prize.xp || 0} XP
+                  </span>
+                  <span className="inline-flex h-9 items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 text-sm font-bold text-purple-700">
+                    <Medal className="size-4" />
+                    {prize.titleEn || "Challenge Champion"}
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
-        </div>
+        </MainCard>
       )}
     </div>
   );

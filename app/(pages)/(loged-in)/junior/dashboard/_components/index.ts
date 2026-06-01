@@ -12,3 +12,4 @@ export { WeeklyChallenges } from "./WeeklyChallenges";
 export { TeamProjects } from "./TeamProjects";
 export { DailyMissionTracker } from "./DailyMissionTracker";
 export { WeeklyXPTrend } from "./WeeklyXPTrend";
+export { JuniorDashboardHeader } from "./JuniorDashboardHeader";

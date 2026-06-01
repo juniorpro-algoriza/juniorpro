@@ -5,6 +5,8 @@ export {
   useUpdateAdminChallenge,
   useDeleteAdminChallenge,
   useGetChallengeParticipants,
+  useGetChallengeLeaderboard,
+  useDistributeChallengePrizes,
   useGetChallengeParticipantById,
   useEvaluateChallengeParticipant,
 } from "./useChallenges";

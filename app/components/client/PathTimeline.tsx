@@ -107,16 +107,17 @@ export const PathTimeline = ({
             className={item.status === "Pending" ? "opacity-50" : ""}
           >
             {module === "admin" && (
-              <Menu>
-                <MenuButton className="cursor-pointer focus-visible:outline-0 absolute top-5 right-5 z-20">
-                  <EllipsisVertical className="text-gray-600 size-4" />
+              <Menu
+                as="div"
+                className="absolute right-5 top-5 z-30"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <MenuButton className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-white text-gray-600 shadow-sm transition-colors hover:bg-gray-50 focus-visible:outline-0">
+                  <EllipsisVertical className="size-4" />
                 </MenuButton>
-                <MenuItems
-                  anchor="bottom end"
-                  className="w-40 bg-white border border-gray-200 rounded-xl focus-visible:outline-0"
-                >
+                <MenuItems className="absolute right-0 top-9 z-50 w-40 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg focus-visible:outline-0">
                   <MenuItem>
-                    <div className="data-focus:bg-blue-100">
+                    <div className="data-focus:bg-blue-50">
                       <ModalLink
                         name="CreateEditMission"
                         query={
@@ -125,7 +126,7 @@ export const PathTimeline = ({
                             : undefined
                         }
                       >
-                        <div className="w-full text-left block py-2 px-4 cursor-pointer text-sm">
+                        <div className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-gray-700">
                           Edit
                         </div>
                       </ModalLink>
@@ -135,7 +136,7 @@ export const PathTimeline = ({
                     <button
                       type="button"
                       onClick={() => handleDelete(item)}
-                      className="w-full text-sm text-left block text-red-600 data-focus:bg-red-100 py-2 px-4 disabled:opacity-60 cursor-pointer"
+                      className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-red-600 data-focus:bg-red-50 disabled:opacity-60"
                       disabled={isDeleting}
                     >
                       {isDeleting ? "Deleting..." : "Delete"}

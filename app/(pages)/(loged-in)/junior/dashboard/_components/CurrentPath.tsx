@@ -3,7 +3,7 @@
 import { MainCard, Progress, Skeleton } from "@components";
 import Image from "next/image";
 import CloudImage from "@public/landing-pages/clouds.png";
-import { Play, ChevronRight, BookOpen, Zap } from "lucide-react";
+import { Play, ChevronRight, BookOpen, Zap, ArrowRight } from "lucide-react";
 import { useJuniorCurrentPathDetails } from "../../tanstack";
 import Link from "next/link";
 
@@ -49,27 +49,35 @@ export const CurrentPath = () => {
     );
   }
 
-  if (error) {
+  if (error || !currentPathData) {
     return (
-      <MainCard classname="relative overflow-hidden bg-gradient-to-br from-indigo-50/80 via-white to-violet-50/60 border-indigo-100/50 ">
-        <div className="relative z-10 flex flex-col items-center justify-center py-6 space-y-3">
-          <div className="size-14 rounded-2xl bg-gray-100 flex items-center justify-center mb-2">
-            <BookOpen className="size-6 text-gray-400" />
-          </div>
-          <div className="text-center">
-            <p className="font-semibold text-gray-700 mb-1 sm:text-base md:text-lg">
-              No Path Yet?
-            </p>
-            <p className="text-sm text-gray-500 max-w-[240px] sm:text-xs">
-              Start your learning journey by choosing a path that matches your
-              goals.
-            </p>
-          </div>
+      <MainCard classname="h-full flex flex-col">
+        {/* Badge */}
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-extrabold tracking-widest text-indigo-600 uppercase bg-indigo-100 px-2.5 py-1 rounded-full">
+            Current Path
+          </span>
+        </div>
 
-          <button className="w-fit mx-auto flex items-center gap-2 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-5 py-2.5 rounded-full transition-colors duration-200 group sm:text-xs">
+        <div className="flex-1 flex flex-col items-center justify-center text-center py-6">
+          <div className="size-14 rounded-2xl bg-dark-blue-main/10 flex items-center justify-center mb-4">
+            <BookOpen className="size-7 text-dark-blue-main" />
+          </div>
+          <h3 className="font-bold text-lg sm:text-base md:text-sm mb-2">
+            No Path Yet?
+          </h3>
+          <p className="text-sm sm:text-xs text-gray-500 max-w-xs mb-6">
+            Start your learning journey by choosing a path that matches your
+            goals.
+          </p>
+
+          <Link
+            href="/junior/paths"
+            className="flex items-center gap-2 text-sm sm:text-xs font-bold text-dark-blue-main border border-dark-blue-main/10 shadow-md hover:bg-dark-blue-main/10 px-4 py-3 rounded-2xl transition-colors duration-200 group"
+          >
             EXPLORE PATHS
-            <ChevronRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+            <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
         </div>
       </MainCard>
     );

@@ -4182,9 +4182,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"][];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"][];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"][];
+                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"];
+                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"];
+                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetStreakStats.GetStreakStatsModel"];
                     };
                 };
             };
@@ -10169,10 +10169,11 @@ export interface components {
             /** Format: int64 */
             id?: number;
             type?: components["schemas"]["Sawiha.Services.DTO.JuniorBadgeModels.GetLearningMilestones.MilestoneType"];
+            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
             title?: string | null;
             description?: string | null;
             /** Format: int32 */
-            xpEarned?: number;
+            xpEarned?: number | null;
             /** Format: int32 */
             missionsDone?: number | null;
             /** Format: int32 */

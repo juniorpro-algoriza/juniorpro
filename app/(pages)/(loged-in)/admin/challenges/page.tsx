@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Plus, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Loader2, Plus, Search, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import {
   Breadcrumb,
   Button,
@@ -12,15 +14,23 @@ import {
   Input,
 } from "@components";
 import { PATH_ICON } from "../../../../configs/constants";
-import { useGetAdminChallenges } from "../tanstack/challenges";
+import {
+  useDeleteAdminChallenge,
+  useGetAdminChallenges,
+} from "../tanstack/challenges";
 import { components } from "../../../../../api-schema";
 
 type GetChallengeListModel =
   components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.GetAll.GetChallengeListModel"];
 
 const Challenges = () => {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+  const [deletingChallengeId, setDeletingChallengeId] = useState<number | null>(
+    null
+  );
+  const deleteChallengeMutation = useDeleteAdminChallenge();
 
   const {
     data: response,
@@ -71,6 +81,26 @@ const Challenges = () => {
     };
   };
 
+  const handleDeleteChallenge = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    challengeId: number
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setDeletingChallengeId(challengeId);
+
+    try {
+      await deleteChallengeMutation.mutateAsync(challengeId);
+      toast.success("Challenge deleted successfully.");
+    } catch (error) {
+      console.error("Failed to delete challenge:", error);
+      toast.error("Failed to delete challenge. Please try again.");
+    } finally {
+      setDeletingChallengeId(null);
+    }
+  };
+
   const renderChallengeCards = () => {
     if (isLoading) {
       return (
@@ -104,12 +134,10 @@ const Challenges = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {challenges.map((challenge) => {
           const formatted = formatChallengeData(challenge);
+          const isDeleting = deletingChallengeId === formatted.id;
+
           return (
-            <Link
-              key={formatted.id}
-              href={`/admin/challenges/${formatted.id}`}
-              className="block h-full transition-transform hover:scale-[1.01]"
-            >
+            <div key={formatted.id} className="h-full">
               <ProjectCard
                 title={formatted.title}
                 description={formatted.description}
@@ -124,8 +152,29 @@ const Challenges = () => {
                 buttonText="View Details"
                 buttonIntent="main"
                 buttonIcon={<ArrowRight size={20} />}
+                buttonOnClick={() =>
+                  router.push(`/admin/challenges/${formatted.id}`)
+                }
+                className="transition-transform hover:scale-[1.01]"
+                titleBadge={
+                  <button
+                    type="button"
+                    onClick={(event) =>
+                      handleDeleteChallenge(event, formatted.id)
+                    }
+                    disabled={isDeleting}
+                    className="ml-auto flex size-8 cursor-pointer items-center justify-center rounded-full bg-red-50 text-red-500 transition-colors hover:bg-red-100 disabled:cursor-wait disabled:opacity-80"
+                    aria-label="Delete challenge"
+                  >
+                    {isDeleting ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <Trash2 className="size-4" />
+                    )}
+                  </button>
+                }
               />
-            </Link>
+            </div>
           );
         })}
       </div>

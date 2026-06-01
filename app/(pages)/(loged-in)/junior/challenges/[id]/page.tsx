@@ -2,16 +2,76 @@
 import React from "react";
 import Image from "next/image";
 import { Breadcrumb, DetailCard, Skeleton, Tabs } from "@components";
-import { Calendar, Users2, Sparkles } from "lucide-react";
+import {
+  AlertCircle,
+  Calendar,
+  ClipboardList,
+  FileText,
+  Sparkles,
+  Trophy,
+  Users2,
+} from "lucide-react";
 import type { TabData } from "@types";
 import {
   OverviewTab,
   RequirementsTab,
   ParticipantsTab,
   SubmissionTab,
+  LeaderboardTab,
 } from "../_components";
 import { PATH_ICON } from "../../../../../configs/constants";
 import { useJuniorChallengeById } from "../../tanstack/challenges";
+
+const PRIZE_MEDALS = [
+  "/images/1st-medal.png",
+  "/images/2nd-medal.png",
+  "/images/3rd-medal.png",
+];
+
+const PRIZE_LABELS = ["1st Place", "2nd Place", "3rd Place"];
+
+const CHALLENGE_ERROR_MESSAGES: Record<string, string> = {
+  RegistrationDeadlinePassed:
+    "The registration deadline for this challenge has passed.",
+};
+
+const findReadableChallengeError = (value: unknown) => {
+  const text =
+    typeof value === "string" ? value : value ? JSON.stringify(value) : "";
+
+  const matchedCode = Object.keys(CHALLENGE_ERROR_MESSAGES).find((code) =>
+    text.includes(code)
+  );
+
+  return matchedCode ? CHALLENGE_ERROR_MESSAGES[matchedCode] : null;
+};
+
+const getReadableChallengeError = (error: unknown) => {
+  if (!error) return "Unable to load this challenge. Please try again.";
+
+  const knownMessage = findReadableChallengeError(error);
+  if (knownMessage) return knownMessage;
+
+  try {
+    const parsed = JSON.parse((error as Error).message);
+    const parsedKnownMessage = findReadableChallengeError(parsed);
+    if (parsedKnownMessage) return parsedKnownMessage;
+
+    const rawMessage =
+      parsed.errorMessage ||
+      parsed.message ||
+      parsed.code ||
+      parsed.details?.errorMessage ||
+      parsed.details?.message ||
+      parsed.details?.code;
+
+    return rawMessage || "Unable to load this challenge. Please try again.";
+  } catch {
+    return error instanceof Error && error.message
+      ? error.message
+      : "Unable to load this challenge. Please try again.";
+  }
+};
 
 export default function JuniorChallengeDetailsPage({
   params,
@@ -21,7 +81,11 @@ export default function JuniorChallengeDetailsPage({
   const { id: idStr } = React.use(params);
   const id = parseInt(idStr);
 
-  const { data: challengeData, isLoading } = useJuniorChallengeById(id);
+  const {
+    data: challengeData,
+    isLoading,
+    error: challengeError,
+  } = useJuniorChallengeById(id);
 
   if (isLoading) {
     return (
@@ -30,6 +94,26 @@ export default function JuniorChallengeDetailsPage({
         <Skeleton className="h-48 rounded-2xl" />
         <Skeleton className="h-12 w-96" />
         <Skeleton className="h-64 rounded-2xl" />
+      </div>
+    );
+  }
+
+  if (challengeError) {
+    return (
+      <div className="space-y-6 p-4 md:p-0">
+        <div className="rounded-3xl border border-red-100 bg-red-50 p-6">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="mt-0.5 size-5 flex-shrink-0 text-red-500" />
+            <div className="space-y-1">
+              <h2 className="text-lg font-bold text-red-700">
+                Challenge unavailable
+              </h2>
+              <p className="text-sm font-medium text-red-600">
+                {getReadableChallengeError(challengeError)}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -68,20 +152,44 @@ export default function JuniorChallengeDetailsPage({
 
   const tabs: TabData[] = [
     {
-      name: "Overview",
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <ClipboardList className="size-4" />
+          Overview
+        </span>
+      ),
       content: (
         <OverviewTab goals={goals} guideSteps={guideSteps} prizes={prizes} />
       ),
     },
     {
-      name: "Requirements",
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <FileText className="size-4" />
+          Requirements
+        </span>
+      ),
       content: <RequirementsTab requirements={requirements} />,
     },
     {
-      name: "Participants",
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <Users2 className="size-4" />
+          Participants
+        </span>
+      ),
       content: (
         <ParticipantsTab participantCount={details.participantCount || 0} />
       ),
+    },
+    {
+      name: (
+        <span className="inline-flex items-center gap-1.5">
+          <Trophy className="size-4" />
+          Winners
+        </span>
+      ),
+      content: <LeaderboardTab challengeId={id} prizeDistributions={prizes} />,
     },
   ];
 
@@ -119,32 +227,33 @@ export default function JuniorChallengeDetailsPage({
         buttonIcon={<Sparkles className="size-4 text-yellow-500" />}
         backgroundOverlay="/images/handOnHand.svg"
       >
-        <DetailCard.Footer>
-          <DetailCard.FooterItem
-            className="text-gray-700 font-medium"
-            icon={
-              <Image
-                src="/images/1stBadge.png"
-                width={20}
-                height={20}
-                alt="Badge"
-                className="size-5 object-contain flex-shrink-0"
-              />
-            }
-          >
-            {prizes.length > 0 ? (
-              <>
-                Top prize:{" "}
-                <span className="font-bold">
-                  {prizes[0]?.points || 0} Points
+        <DetailCard.Footer className="gap-4 md:gap-8">
+          {prizes.length > 0 ? (
+            prizes.slice(0, 3).map((prize, index) => (
+              <DetailCard.FooterItem
+                key={prize.id || index}
+                className="text-gray-700 font-medium"
+                icon={
+                  <Image
+                    src={PRIZE_MEDALS[index]}
+                    width={22}
+                    height={22}
+                    alt={`${PRIZE_LABELS[index]} medal`}
+                    className="size-5 object-contain flex-shrink-0"
+                  />
+                }
+              >
+                <span>{PRIZE_LABELS[index]}</span>{" "}
+                <span className="font-bold text-gray-900">
+                  {prize.points || 0} SAR
                 </span>
-                {" & "}
-                <span className="font-bold">{prizes[0]?.xp || 0} XP</span>
-              </>
-            ) : (
-              "No prizes configured"
-            )}
-          </DetailCard.FooterItem>
+              </DetailCard.FooterItem>
+            ))
+          ) : (
+            <DetailCard.FooterItem className="text-gray-700 font-medium">
+              No prizes configured
+            </DetailCard.FooterItem>
+          )}
 
           <DetailCard.FooterItem
             className="sm:ml-auto"

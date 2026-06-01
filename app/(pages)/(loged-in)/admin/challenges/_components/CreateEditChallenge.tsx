@@ -22,11 +22,13 @@ const stepData = [
 interface CreateEditChallengeProps {
   initialData?: Partial<ChallengeFormData>;
   challengeId?: number;
+  showTitle?: boolean;
 }
 
 export const CreateEditChallenge = ({
   initialData,
   challengeId,
+  showTitle = true,
 }: CreateEditChallengeProps) => {
   const {
     currentStep,
@@ -46,12 +48,14 @@ export const CreateEditChallenge = ({
   return (
     <div className="space-y-6">
       <div className="border-b border-gray-100 pb-4 space-y-5">
-        <div className="text-nowrap">
-          <h2 className="text-xl font-bold text-midnight">{title}</h2>
-          <p className="text-gray-600 text-sm">
-            Design a competitive coding challenge for juniors
-          </p>
-        </div>
+        {showTitle && (
+          <div className="text-nowrap">
+            <h2 className="text-xl font-bold text-midnight">{title}</h2>
+            <p className="text-gray-600 text-sm">
+              Design a competitive coding challenge for juniors
+            </p>
+          </div>
+        )}
 
         <FormStepper
           steps={stepData}

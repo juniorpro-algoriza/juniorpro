@@ -5,6 +5,7 @@ import { QUERY_KEYS } from "../../../../../configs/queryKeys";
 import {
   getJuniorChallenges,
   getJuniorChallengeById,
+  getJuniorChallengeLeaderboard,
   joinChallenge,
 } from "../../server/challenges";
 
@@ -28,6 +29,24 @@ export const useJuniorChallengeById = (id: number) => {
     queryKey: QUERY_KEYS.junior.challenges.detail(id),
     queryFn: () => getJuniorChallengeById(id),
     enabled: !!id,
+  });
+};
+
+export const useJuniorChallengeLeaderboard = (params: {
+  id: number;
+  pageNumber?: number;
+  pageSize?: number;
+  searchText?: string;
+}) => {
+  return useQuery({
+    queryKey: QUERY_KEYS.junior.challenges.leaderboard({
+      Id: params.id,
+      PageNumber: params.pageNumber,
+      PageSize: params.pageSize,
+      SearchText: params.searchText,
+    }),
+    queryFn: () => getJuniorChallengeLeaderboard(params),
+    enabled: !!params.id,
   });
 };
 

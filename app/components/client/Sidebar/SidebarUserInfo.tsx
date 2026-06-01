@@ -19,6 +19,7 @@ export const SidebarUserInfo = () => {
   const isJunior = userType === USER_TYPE.Junior;
   const { data: dashboardStats } = useJuniorDashboardStats(isJunior);
   const { data: level } = useJuniorLevel(isJunior);
+  console.log("level", level);
   const { data: badges } = useJuniorBadgeAchievements(undefined, isJunior);
 
   const currentLevel = level?.currentLevel ?? 0;

@@ -7,6 +7,7 @@ export { OverviewTab } from "./OverviewTab";
 export { RequirementsTab } from "./RequirementsTab";
 export { ParticipantsTab } from "./ParticipantsTab";
 export { ParticipantDetailModal } from "./ParticipantDetailModal";
+export { LeaderboardTab } from "./LeaderboardTab";
 
 export type {
   ChallengeFormData,

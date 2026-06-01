@@ -1,17 +1,14 @@
 "use client";
-import { Header } from "@components/client";
 import React from "react";
-import StarGroup from "@public/images/3d-star-group.png";
 import { MyCurrentPath, RecommendedForYou } from "./_components";
-import { Breadcrumb, Skeleton } from "@components";
+import { Breadcrumb, Jumbotron, Skeleton } from "@components";
 import {
   useJuniorsLearningPathCurrent,
   useJuniorsLearningPaths,
 } from "../tanstack/paths/useJuniorsPaths";
 import { PATH_ICON } from "../../../../configs";
 import { OnboardingTourTrigger } from "../dashboard/_components";
-import Image from "next/image";
-import { cx } from "@lib";
+
 const MyJourneyPage = () => {
   const { data: currentPathData, isLoading: isLoadingCurrent } =
     useJuniorsLearningPathCurrent();
@@ -19,6 +16,8 @@ const MyJourneyPage = () => {
     useJuniorsLearningPaths({});
 
   const recommendedPaths = allPathsData?.data || [];
+  console.log("recommendedPaths", recommendedPaths);
+  console.log("currentPathData", currentPathData);
 
   if (isLoadingCurrent || isLoadingAll) {
     return (
@@ -44,11 +43,13 @@ const MyJourneyPage = () => {
           },
         ]}
       />
-      <Header
-        title={`My Learning Journey`}
-        description="Pick a path to start learning new superpowers!"
+      <Jumbotron
+        title="Learning Paths"
+        description="Design comprehensive learning journeys and track curriculum progress."
+        imageClassName="bg-[linear-gradient(135deg,rgba(156,230,159,0.8)0%,rgba(254,255,255,0)100%)]"
+        imageSrc="/images/plant.png"
       />
-      <div className="xl:w-4/5">
+      {/* <div className="xl:w-4/5">
         <div
           className={cx(
             "bg-[#F5F6F8] rounded-2xl p-3 my-7 flex items-center gap-2",
@@ -74,14 +75,14 @@ const MyJourneyPage = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <MyCurrentPath
         paths={
           currentPathData?.data
             ?.map((path) => ({
               id: path.id || 0,
-              image: PATH_ICON[String(path.id) as keyof typeof PATH_ICON],
+              image: PATH_ICON[String(path.icon) as keyof typeof PATH_ICON],
               title: path.nameEn || path.nameAr || "Learning Path",
               description: path.description || "Learn new skills",
               progress: path.progressPercentage || 0,

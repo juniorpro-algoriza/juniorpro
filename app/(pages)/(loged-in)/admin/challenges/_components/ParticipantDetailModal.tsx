@@ -59,6 +59,11 @@ export function ParticipantDetailModal({
 
   const statusInfo =
     STATUS_MAP[(participant?.status as number) || 1] || STATUS_MAP[1];
+  const hasSubmittedWork =
+    participant?.status === 3 ||
+    !!participant?.submissionDate ||
+    !!participant?.projectLink ||
+    !!participant?.submittedFile;
 
   return (
     <Modal
@@ -178,7 +183,12 @@ export function ParticipantDetailModal({
           {/* Evaluation */}
           <MainCard classname="p-4 space-y-4">
             <h4 className="font-semibold text-gray-900">Evaluation</h4>
-            {participant.evaluation ? (
+            {!hasSubmittedWork ? (
+              <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-4 py-5 text-sm font-medium text-gray-500">
+                Evaluation will be available after the participant submits their
+                work.
+              </div>
+            ) : participant.evaluation ? (
               <div className="text-sm text-gray-600">
                 Current score:{" "}
                 <span className="font-bold text-gray-900">
