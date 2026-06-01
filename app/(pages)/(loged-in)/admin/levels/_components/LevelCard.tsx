@@ -3,14 +3,7 @@
 import React from "react";
 import { MainCard, ModalLink } from "@components";
 import Image from "next/image";
-import {
-  Edit2,
-  Zap,
-  EllipsisVertical,
-  Archive,
-  Trash2,
-  Users,
-} from "lucide-react";
+import { Edit2, Zap, EllipsisVertical, Users } from "lucide-react";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { components } from "../../../../../../api-schema";
 
@@ -39,26 +32,6 @@ export const LevelCard = ({ level }: { level: Level }) => {
                   Edit
                 </div>
               </ModalLink>
-            </div>
-          </MenuItem>
-          <MenuItem>
-            <div className="data-focus:bg-gray-50 rounded-xl">
-              <div className="w-full text-left flex items-center gap-3 py-2.5 px-3 cursor-pointer text-gray-600 font-medium text-[15px]">
-                <Archive className="size-5 text-gray-500" strokeWidth={2} />
-                Archive
-              </div>
-            </div>
-          </MenuItem>
-          <div className="h-px bg-gray-200 my-1.5 mx-3" />
-          <MenuItem>
-            <div className="data-focus:bg-red-50 rounded-xl">
-              <button
-                type="button"
-                className="w-full text-left flex items-center gap-3 py-2.5 px-3 cursor-pointer text-red-600 font-medium text-[15px]"
-              >
-                <Trash2 className="size-5 text-red-600" strokeWidth={2} />
-                Delete
-              </button>
             </div>
           </MenuItem>
         </MenuItems>

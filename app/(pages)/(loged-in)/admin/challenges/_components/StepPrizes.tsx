@@ -13,6 +13,20 @@ const MEDALS = [
   "/images/3rd-medal.png",
 ];
 
+const TOP_PRIZE_CARD_STYLES = [
+  "border-[#F3D872] bg-[#FFFDF1]",
+  "border-[#E6EBF2] bg-[#FCFDFF]",
+  "border-[#F2C796] bg-[#FFF9F3]",
+];
+
+const prizeInputClasses =
+  "h-12 rounded-2xl border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-[0_1px_2px_rgba(15,23,42,0.03)] focus:ring-2";
+
+const prizeInputContainerClasses = "space-y-1.5";
+
+const prizeInputLabelClasses =
+  "uppercase text-[11px] font-bold tracking-wide text-gray-500";
+
 interface StepPrizesProps {
   formData: ChallengeFormData;
   setFormData: Dispatch<SetStateAction<ChallengeFormData>>;
@@ -75,7 +89,11 @@ export const StepPrizes = ({
             formData.prizes.map((prize, index) => (
               <div
                 key={prize.id}
-                className="p-4 border border-gray-200 rounded-xl bg-gray-50/30 flex flex-col gap-4"
+                className={cx(
+                  "p-4 border rounded-xl flex flex-col gap-4 transition-colors",
+                  TOP_PRIZE_CARD_STYLES[index] ||
+                    "border-gray-200 bg-gray-50/30"
+                )}
               >
                 <div className="flex items-center gap-4">
                   <div
@@ -122,10 +140,14 @@ export const StepPrizes = ({
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <Input
-                    label={index === 0 ? "Cash Prize" : undefined}
+                    label={
+                      <span className={prizeInputLabelClasses}>Cash Prize</span>
+                    }
                     placeholder="$ 1000"
                     type="number"
                     value={prize.points || ""}
+                    className={prizeInputClasses}
+                    containerClassName={prizeInputContainerClasses}
                     onChange={(e) =>
                       handlePrizeChange(
                         prize.id,
@@ -136,29 +158,41 @@ export const StepPrizes = ({
                     error={fieldErrors[`prizes.${index}.points`]}
                   />
                   <Input
-                    label={index === 0 ? "Gems" : undefined}
+                    label={<span className={prizeInputLabelClasses}>Gems</span>}
                     placeholder="500"
                     type="number"
                     value={prize.xp || ""}
+                    className={prizeInputClasses}
+                    containerClassName={prizeInputContainerClasses}
                     onChange={(e) =>
                       handlePrizeChange(prize.id, "xp", Number(e.target.value))
                     }
                     error={fieldErrors[`prizes.${index}.xp`]}
                   />
                   <Input
-                    label={index === 0 ? "XP Points" : undefined}
+                    label={
+                      <span className={prizeInputLabelClasses}>XP Points</span>
+                    }
                     placeholder="300"
                     type="number"
                     value={prize.xp || ""}
+                    className={prizeInputClasses}
+                    containerClassName={prizeInputContainerClasses}
                     onChange={(e) =>
                       handlePrizeChange(prize.id, "xp", Number(e.target.value))
                     }
                     error={fieldErrors[`prizes.${index}.xp`]}
                   />
                   <Input
-                    label={index === 0 ? "Badge Title" : undefined}
+                    label={
+                      <span className={prizeInputLabelClasses}>
+                        Badge Title
+                      </span>
+                    }
                     placeholder="Gold Champion"
                     value={prize.titleEn}
+                    className={prizeInputClasses}
+                    containerClassName={prizeInputContainerClasses}
                     onChange={(e) =>
                       handlePrizeChange(prize.id, "titleEn", e.target.value)
                     }

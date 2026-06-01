@@ -52,6 +52,9 @@ export function ParticipantsTab({ challengeId }: ParticipantsTabProps) {
 
   const participants = (response?.data as Participant[] | undefined) || [];
 
+  const getParticipantScore = (participant: Participant) =>
+    participant.evaluation ?? participant.evaluation;
+
   const getStatusBadge = (status?: number) => {
     const statusInfo = STATUS_MAP[status || 1] || STATUS_MAP[1];
     return (
@@ -95,6 +98,9 @@ export function ParticipantsTab({ challengeId }: ParticipantsTabProps) {
                   PARTICIPANT
                 </TableHead>
                 <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
+                  SCORE
+                </TableHead>
+                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
                   REGISTERED
                 </TableHead>
                 <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
@@ -123,6 +129,12 @@ export function ParticipantsTab({ challengeId }: ParticipantsTabProps) {
                     </TableCell>
                     <TableCell className="py-5 px-6">
                       <Skeleton className="h-5 w-32" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-5 w-16" />
+                    </TableCell>
+                    <TableCell className="py-5 px-6">
+                      <Skeleton className="h-5 w-20" />
                     </TableCell>
                     <TableCell className="py-5 px-6">
                       <Skeleton className="h-5 w-20" />
@@ -163,6 +175,11 @@ export function ParticipantsTab({ challengeId }: ParticipantsTabProps) {
                           </div>
                         </div>
                       </div>
+                    </TableCell>
+                    <TableCell className="py-5 px-6 text-sm font-bold text-gray-900">
+                      {getParticipantScore(p) != null
+                        ? `${getParticipantScore(p)}%`
+                        : "—"}
                     </TableCell>
                     <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
                       {p.registerationDate
@@ -205,7 +222,7 @@ export function ParticipantsTab({ challengeId }: ParticipantsTabProps) {
               ) : (
                 <TableRow>
                   <TableCell
-                    colSpan={5}
+                    colSpan={7}
                     className="py-12 text-center text-gray-400 font-medium"
                   >
                     No participants found.

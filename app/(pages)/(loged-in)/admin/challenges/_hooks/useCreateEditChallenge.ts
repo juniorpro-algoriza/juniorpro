@@ -20,6 +20,37 @@ import { components } from "../../../../../../api-schema";
 type AddChallengeRequest =
   components["schemas"]["Sawiha.Services.DTO.AdminChallengeModels.Add.AddChallengeRequest"];
 
+type PersistedChallengeItemIds = {
+  guideSteps: Set<string>;
+  goals: Set<string>;
+  requirements: Set<string>;
+  evaluations: Set<string>;
+  prizes: Set<string>;
+};
+
+const createPersistedIdSet = <T extends { id: string }>(items?: T[]) =>
+  new Set(
+    (items || [])
+      .map((item) => item.id)
+      .filter((id) => {
+        const numericId = Number(id);
+        return Number.isInteger(numericId) && numericId > 0;
+      })
+  );
+
+const createPersistedIds = (
+  initialData?: Partial<ChallengeFormData>
+): PersistedChallengeItemIds => ({
+  guideSteps: createPersistedIdSet(initialData?.guideSteps),
+  goals: createPersistedIdSet(initialData?.goals),
+  requirements: createPersistedIdSet(initialData?.requirements),
+  evaluations: createPersistedIdSet(initialData?.evaluations),
+  prizes: createPersistedIdSet(initialData?.prizes),
+});
+
+const getPersistedId = (id: string, persistedIds: Set<string>) =>
+  persistedIds.has(id) ? Number(id) : 0;
+
 const getInitialFormData = (
   initialData?: Partial<ChallengeFormData>
 ): ChallengeFormData => ({
@@ -53,7 +84,10 @@ const getInitialFormData = (
   ...initialData,
 });
 
-function mapFormToApiPayload(formData: ChallengeFormData): AddChallengeRequest {
+function mapFormToApiPayload(
+  formData: ChallengeFormData,
+  persistedIds?: PersistedChallengeItemIds
+): AddChallengeRequest {
   return {
     challengeDetails: {
       id: formData.id || undefined,
@@ -84,33 +118,39 @@ function mapFormToApiPayload(formData: ChallengeFormData): AddChallengeRequest {
     },
     guideSteps: formData.guideSteps
       .filter((s) => s.description.trim())
-      .map((s, i) => ({
-        id: i,
+      .map((s) => ({
+        id: persistedIds
+          ? getPersistedId(s.id, persistedIds.guideSteps)
+          : undefined,
         description: s.description,
       })),
     goals: formData.goals
       .filter((g) => g.description.trim())
       .map((g) => ({
-        id: null,
+        id: persistedIds ? getPersistedId(g.id, persistedIds.goals) : undefined,
         description: g.description,
       })),
     requirements: formData.requirements
       .filter((r) => r.description.trim())
       .map((r) => ({
-        id: undefined,
+        id: persistedIds
+          ? getPersistedId(r.id, persistedIds.requirements)
+          : undefined,
         description: r.description,
       })),
     evaluations: formData.evaluations
       .filter((e) => e.titleEn.trim())
       .map((e) => ({
-        id: null,
+        id: persistedIds
+          ? getPersistedId(e.id, persistedIds.evaluations)
+          : undefined,
         titleEn: e.titleEn,
         titleAr: e.titleAr || e.titleEn,
         description: e.description || "",
         percentage: e.percentage,
       })),
     prizeDistributions: formData.prizes.map((p, index) => ({
-      id: null,
+      id: persistedIds ? getPersistedId(p.id, persistedIds.prizes) : undefined,
       titleEn: p.titleEn,
       titleAr: p.titleAr || p.titleEn,
       xp: p.xp,
@@ -136,6 +176,7 @@ export const useCreateEditChallenge = (options?: {
 
   const createMutation = useCreateAdminChallenge();
   const updateMutation = useUpdateAdminChallenge();
+  const persistedIds = createPersistedIds(options?.initialData);
 
   const handleSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -168,9 +209,13 @@ export const useCreateEditChallenge = (options?: {
       setIsSubmitting(true);
 
       try {
-        const payload = mapFormToApiPayload(formData);
+        const payload = mapFormToApiPayload(
+          formData,
+          isEditMode ? persistedIds : undefined
+        );
 
         if (isEditMode) {
+          console.log("Update challenge payload:", payload);
           await updateMutation.mutateAsync(payload);
           toast.success("Challenge updated successfully!");
         } else {
@@ -197,7 +242,7 @@ export const useCreateEditChallenge = (options?: {
         setIsSubmitting(false);
       }
     },
-    [formData, isEditMode, createMutation, updateMutation, router]
+    [formData, isEditMode, persistedIds, createMutation, updateMutation, router]
   );
 
   const canProceedToNextStep = useCallback(() => {

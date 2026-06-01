@@ -10,6 +10,7 @@ import {
 } from "../../tanstack/project-managers";
 import {
   addProjectManagerSchema,
+  PROJECT_MANAGER_PASSWORD_MESSAGE,
   updateProjectManagerSchema,
 } from "../_schema/projectManager.schema";
 
@@ -164,6 +165,7 @@ export function CreateEditProjectManager({
           value={formData.password}
           onChange={(e) => handleChange("password", e.target.value)}
           error={errors.password}
+          helperText={!errors.password ? PROJECT_MANAGER_PASSWORD_MESSAGE : ""}
         />
       )}
 

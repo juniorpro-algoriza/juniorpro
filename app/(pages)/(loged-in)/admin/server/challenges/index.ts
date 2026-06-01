@@ -6,3 +6,5 @@ export { deleteAdminChallenge } from "./deleteAdminChallenge";
 export { getChallengeParticipants } from "./getChallengeParticipants";
 export { getChallengeParticipantById } from "./getChallengeParticipantById";
 export { evaluateChallengeParticipant } from "./evaluateChallengeParticipant";
+export { getChallengeLeaderboard } from "./getChallengeLeaderboard";
+export { distributeChallengePrizes } from "./distributeChallengePrizes";

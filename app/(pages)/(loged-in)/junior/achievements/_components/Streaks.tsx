@@ -12,6 +12,19 @@ import {
   Section,
 } from "./AchievementShared";
 
+const WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+const getMondayBasedDayIndex = (date: Date) => (date.getDay() + 6) % 7;
+
+const getRollingWeekDays = (today = new Date()) => {
+  const todayIndex = getMondayBasedDayIndex(today);
+
+  return Array.from({ length: WEEK_DAYS.length }, (_, index) => {
+    const dayIndex = (todayIndex + index + 1) % WEEK_DAYS.length;
+    return WEEK_DAYS[dayIndex];
+  });
+};
+
 export const Streaks = ({
   demoMode = false,
   stats,
@@ -27,8 +40,13 @@ export const Streaks = ({
   const progressDays = stats?.progressDays ?? (demoMode ? 12 : 0);
   const progress = getProgress(progressDays, target);
 
-  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  const isDayChecked = (index: number) => index < 4;
+  const rollingWeekDays = getRollingWeekDays();
+  const checkedStreakDays = Math.min(
+    Math.max(currentStreak, 0),
+    rollingWeekDays.length
+  );
+  const isDayChecked = (index: number) =>
+    index >= rollingWeekDays.length - checkedStreakDays;
 
   return (
     <Section title="My Streaks">
@@ -66,7 +84,7 @@ export const Streaks = ({
 
             <div className="mt-6 rounded-2xl border border-[#E8ECF4] bg-white px-5 py-4 shadow-[0_10px_24px_rgba(18,24,40,0.03)]">
               <div className="grid grid-cols-7 gap-3">
-                {days.map((day, index) => {
+                {rollingWeekDays.map((day, index) => {
                   const checked = isDayChecked(index);
                   return (
                     <div key={day} className="flex flex-col items-center gap-3">

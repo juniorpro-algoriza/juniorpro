@@ -74,12 +74,47 @@ const getMilestonesByTab = (
   return items.filter((milestone) => milestone.type === 2);
 };
 
+const emptyStateByTab = {
+  learning: {
+    image: LetsStartJourneyImage,
+    title: "Let's start your learning journey",
+    description:
+      "Begin your first learning path, build your skills, and track your progress along the way.",
+    actionLabel: "Start Learning",
+    href: "/junior/paths",
+  },
+  collaboration: {
+    image: LetsStartJourneyImage,
+    title: "Let's start your team journey",
+    description:
+      "Join your first collaboration, work with a team, and collect milestones as you deliver together.",
+    actionLabel: "Find Collaboration",
+    href: "/junior/collaborations",
+  },
+  challenge: {
+    image: LetsStartJourneyImage,
+    title: "Your challenge wins are waiting",
+    description:
+      "Join your first challenge, submit your work, and track every competitive milestone you earn.",
+    actionLabel: "Explore Challenges",
+    href: "/junior/challenges",
+  },
+} satisfies Record<
+  MilestoneTab,
+  {
+    image: typeof LetsStartJourneyImage;
+    title: string;
+    description: string;
+    actionLabel: string;
+    href: string;
+  }
+>;
+
 export const MilestoneCollection = ({
   demoMode = false,
   activeTab,
   setActiveTab,
   milestones,
-  counts,
   isLoading,
 }: {
   demoMode?: boolean;
@@ -97,15 +132,6 @@ export const MilestoneCollection = ({
       demoMode ? getMilestonesByTab(fakeMilestones, activeTab) : milestones,
     [activeTab, demoMode, milestones]
   );
-  const displayCounts = useMemo(() => {
-    if (!demoMode) return counts;
-
-    return {
-      learning: getMilestonesByTab(fakeMilestones, "learning").length,
-      collaboration: getMilestonesByTab(fakeMilestones, "collaboration").length,
-      challenge: getMilestonesByTab(fakeMilestones, "challenge").length,
-    };
-  }, [counts, demoMode]);
   const selectedMilestoneTabIndex = Math.max(
     0,
     milestoneTabs.findIndex((tab) => tab.id === activeTab)
@@ -117,14 +143,13 @@ export const MilestoneCollection = ({
       name: (
         <div className="flex items-center gap-2">
           <Icon className="size-4" />
-          <span>
-            {tab.label} ({displayCounts[tab.id]})
-          </span>
+          <span>{tab.label}</span>
         </div>
       ),
       content: null,
     };
   });
+  const emptyState = emptyStateByTab[activeTab];
 
   return (
     <Section title="Learning Milestone Collection">
@@ -153,17 +178,17 @@ export const MilestoneCollection = ({
         <LoadingRows rows={3} />
       ) : displayMilestones.length === 0 ? (
         <EmptyState
-          image={LetsStartJourneyImage}
-          title="Let's start your learning journey"
-          description="Begin your first learning path, build your skills, and track your progress along the way."
+          image={emptyState.image}
+          title={emptyState.title}
+          description={emptyState.description}
           action={
             <Button
               intent="main2"
               size="mainDefault"
               className="mt-4"
-              onClick={() => router.push("/junior/paths")}
+              onClick={() => router.push(emptyState.href)}
             >
-              Start Learning
+              {emptyState.actionLabel}
             </Button>
           }
         />

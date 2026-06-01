@@ -141,9 +141,9 @@ export const StepRequirements = ({
       {/* Guidelines / Evaluation Criteria Section */}
       <div className="space-y-4">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Guidelines</h3>
+          <h3 className="text-lg font-semibold">Evaluation Criteria</h3>
           <p className="text-sm text-gray-600">
-            Define how submissions will be judged (percentages must total 100%)
+            Define how submissions will be judged
           </p>
         </div>
 
@@ -173,6 +173,8 @@ export const StepRequirements = ({
                   <Input
                     label="Weight %"
                     type="number"
+                    min={0}
+                    max={100}
                     placeholder="40"
                     value={evalItem.percentage}
                     onChange={(e) =>
@@ -204,13 +206,14 @@ export const StepRequirements = ({
               className="flex items-center gap-2 text-gray-500 hover:text-dark-blue-main font-medium px-4 py-2 border border-dashed border-gray-300 rounded-lg hover:border-dark-blue-main transition-all flex-1 mr-4 justify-center"
             >
               <Plus size={18} />
-              Add Guidline
+              Add Criterion
             </button>
 
             <div
-              className={`px-4 py-2 rounded-lg font-medium text-sm ${totalPercentage === 100 ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"}`}
+              className={`px-4 py-2 rounded-2xl border font-medium text-sm ${totalPercentage === 100 ? "bg-green-100 text-green-700 border-green-300" : "bg-red-100 text-red-700 border-red-300"}`}
             >
               Total: {totalPercentage}%
+              {totalPercentage !== 100 && "(must be 100%)"}
             </div>
           </div>
           {fieldErrors.evaluations && (

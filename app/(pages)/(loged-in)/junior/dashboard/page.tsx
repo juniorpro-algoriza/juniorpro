@@ -1,4 +1,3 @@
-import { DashboardHeader } from "@components/client";
 import {
   StatsCards,
   CurrentPath,
@@ -9,6 +8,7 @@ import {
   WeeklyXPTrend,
   WelcomePopupTrigger,
   OnboardingTourTrigger,
+  JuniorDashboardHeader,
 } from "./_components";
 import { Suspense } from "react";
 
@@ -23,7 +23,7 @@ const DashboardPage = async () => {
       </Suspense>
 
       {/* Header */}
-      <DashboardHeader description="You completed 3 missions this week. Keep it up!" />
+      <JuniorDashboardHeader />
 
       {/* Stats Cards */}
       <div className="mt-6">

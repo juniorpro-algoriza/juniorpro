@@ -26,7 +26,7 @@ const CreateChallenges = () => {
         title="Create Challenges"
         description="Design a competitive coding challenge for juniors"
       />
-      <CreateEditChallenge />
+      <CreateEditChallenge showTitle={false} />
     </>
   );
 };

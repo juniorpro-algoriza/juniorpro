@@ -11,6 +11,8 @@ import {
   getChallengeParticipants,
   getChallengeParticipantById,
   evaluateChallengeParticipant,
+  getChallengeLeaderboard,
+  distributeChallengePrizes,
 } from "../../server/challenges";
 
 export const useGetAdminChallenges = (params: {
@@ -90,6 +92,43 @@ export const useGetChallengeParticipants = (params: {
     }),
     queryFn: () => getChallengeParticipants(params),
     enabled: !!params.id,
+  });
+};
+
+export const useGetChallengeLeaderboard = (params: {
+  id: number;
+  pageNumber?: number;
+  pageSize?: number;
+  searchText?: string;
+}) => {
+  return useQuery({
+    queryKey: QUERY_KEYS.admin.challenges.leaderboard({
+      Id: params.id,
+      PageNumber: params.pageNumber,
+      PageSize: params.pageSize,
+      SearchText: params.searchText,
+    }),
+    queryFn: () => getChallengeLeaderboard(params),
+    enabled: !!params.id,
+  });
+};
+
+export const useDistributeChallengePrizes = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: distributeChallengePrizes,
+    onSuccess: (_data, challengeId) => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "challenges", "leaderboard"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.admin.challenges.byId(challengeId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "challenges", "participants"],
+      });
+    },
   });
 };
 

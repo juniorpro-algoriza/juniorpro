@@ -1,4 +1,5 @@
-import { PathCard } from "@components/client";
+import { EmptyData, PathCard } from "@components/client";
+import { BookOpen } from "lucide-react";
 import React from "react";
 export const RecommendedForYou = ({
   paths,
@@ -29,7 +30,13 @@ export const RecommendedForYou = ({
           />
         ))}
         {paths.length === 0 && (
-          <p className="ms-4 text-gray-600">No learning paths found.</p>
+          <div className="sm:col-span-2 xl:col-span-3">
+            <EmptyData
+              icon={<BookOpen className="size-6" />}
+              title="No Learning Paths Available"
+              description="New learning paths will appear here once they are ready."
+            />
+          </div>
         )}
       </div>
     </div>

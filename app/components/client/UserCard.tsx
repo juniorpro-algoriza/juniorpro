@@ -15,7 +15,7 @@ export const UserCard = ({
   lastName,
   level,
   xp,
-  gender = "female",
+  gender = "male",
   userType,
   levelId,
   dayStreakId,
@@ -96,7 +96,7 @@ export const UserCard = ({
             <Progress width={userDetails.levelProgress} />
             <div id={xpTextId} className="flex items-center space-x-2 w-fit">
               <TrendingUp className="size-3 text-blue-main" />
-              <p className="text-13 font-medium text-gray-600">
+              <p className="text-13 font-medium text-dark-blue-main">
                 {xpRemainingToNextLevel ?? 0} XP to Level{" "}
                 {nextLevel ?? level + 1}
               </p>

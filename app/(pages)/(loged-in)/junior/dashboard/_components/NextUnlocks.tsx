@@ -1,7 +1,7 @@
 "use client";
 
 import { MainCard } from "@components";
-import { Trophy, Swords, Users, Lock, Target } from "lucide-react";
+import { Lock, Target, Sparkles, Trophy, Swords, Users } from "lucide-react";
 
 interface UnlockItem {
   tag: string;
@@ -10,7 +10,6 @@ interface UnlockItem {
   title: string;
   description: string;
   iconBg: string;
-  iconColor: string;
   icon: React.ReactNode;
 }
 
@@ -20,9 +19,8 @@ const unlocks: UnlockItem[] = [
     tagBg: "bg-[#F3F4F6]",
     tagColor: "text-[#94A3B8]",
     title: "Explorer Badge",
-    description: "Finish 2 more missions to earn  your next achivement",
+    description: "Finish 2 more missions to earn your next achievement",
     iconBg: "bg-[#FFFBEB]",
-    iconColor: "text-[#F59E0B]",
     icon: <Trophy className="size-5 text-[#D97706]" />,
   },
   {
@@ -32,7 +30,6 @@ const unlocks: UnlockItem[] = [
     title: "Weekly Challenges",
     description: "Unlocks after 2 more missions and start competing",
     iconBg: "bg-[#FFF1F2]",
-    iconColor: "text-[#FB7185]",
     icon: <Swords className="size-5 text-[#E11D48]" />,
   },
   {
@@ -40,14 +37,15 @@ const unlocks: UnlockItem[] = [
     tagBg: "bg-[#F3F4F6]",
     tagColor: "text-[#94A3B8]",
     title: "Team Projects",
-    description: "Complete 2 more missions to Join real team work",
+    description: "Complete 2 more missions to join real team work",
     iconBg: "bg-[#EEF2FF]",
-    iconColor: "text-[#818CF8]",
     icon: <Users className="size-5 text-[#4F46E5]" />,
   },
 ];
 
 export const NextUnlocks = () => {
+  const hasNextUnlocks = false;
+
   return (
     <MainCard classname="h-full relative overflow-hidden ">
       {/* Decorative arc rings – top-right corner */}
@@ -63,44 +61,50 @@ export const NextUnlocks = () => {
         </h3>
       </div>
 
-      {/* Items */}
-      <div className="space-y-3 relative">
-        {unlocks.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-5 bg-white border border-[#F1F5F9] rounded-3xl p-3 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)]"
-          >
-            {/* Icon with lock badge */}
-            <div className="relative flex-shrink-0 ">
-              <div
-                className={`size-11 rounded-2xl ${item.iconBg} flex items-center justify-center shadow-sm`}
-              >
-                {item.icon}
+      {hasNextUnlocks ? (
+        <div className="relative space-y-3">
+          {unlocks.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-5 rounded-3xl border border-[#F1F5F9] bg-white p-3 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)]"
+            >
+              <div className="relative flex-shrink-0">
+                <div
+                  className={`size-11 rounded-2xl ${item.iconBg} flex items-center justify-center shadow-sm`}
+                >
+                  {item.icon}
+                </div>
+                <div className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full border-2 border-white bg-[#CBD5E1] shadow-lg">
+                  <Lock className="size-3 text-white" />
+                </div>
               </div>
-              {/* Lock badge */}
-              <div className="absolute -bottom-1 shadow-lg -right-1 size-6 rounded-full bg-[#CBD5E1] flex items-center justify-center border-2 border-white">
-                <Lock className="size-3 text-white" />
-              </div>
-            </div>
 
-            {/* Text */}
-            <div className="flex-1 min-w-0">
-              {/* Tag pill */}
-              <span
-                className={`inline-block text-[10px] sm:text-[8px] font-bold tracking-wider uppercase px-2 rounded-sm ${item.tagBg} ${item.tagColor} mb-1.5`}
-              >
-                {item.tag}
-              </span>
-              <p className="font-bold text-sm sm:text-xs text-[#1E293B] leading-tight">
-                {item.title}
-              </p>
-              <p className="text-[10px] sm:text-[8px] text-[#64748B] mt-1 font-bold">
-                {item.description}
-              </p>
+              <div className="min-w-0 flex-1">
+                <span
+                  className={`mb-1.5 inline-block rounded-sm px-2 text-[10px] font-bold uppercase tracking-wider sm:text-[8px] ${item.tagBg} ${item.tagColor}`}
+                >
+                  {item.tag}
+                </span>
+                <p className="text-sm font-bold leading-tight text-[#1E293B] sm:text-xs">
+                  {item.title}
+                </p>
+                <p className="mt-1 text-[10px] font-bold text-[#64748B] sm:text-[8px]">
+                  {item.description}
+                </p>
+              </div>
             </div>
+          ))}
+        </div>
+      ) : (
+        <div className="relative flex min-h-56 flex-1 flex-col items-center justify-center rounded-3xl border border-dashed border-[#E2E8F0] bg-white/70 p-6 text-center">
+          <div className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-[#EEF2FF] shadow-[0px_4px_0px_0px_#E0E7FF]">
+            <Sparkles className="size-7 text-[#4F46E5]" />
           </div>
-        ))}
-      </div>
+          <p className="text-xl font-extrabold text-[#1E293B] sm:text-lg">
+            Comming soon
+          </p>
+        </div>
+      )}
     </MainCard>
   );
 };

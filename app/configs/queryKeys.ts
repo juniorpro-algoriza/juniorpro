@@ -65,6 +65,8 @@ export const QUERY_KEYS = {
       list: ["admin", "challenges"] as const,
       participants: (params: PaginationParams) =>
         ["admin", "challenges", "participants", params] as const,
+      leaderboard: (params: PaginationParams) =>
+        ["admin", "challenges", "leaderboard", params] as const,
       participantById: (id: number) =>
         ["admin", "challenges", "participant", id] as const,
     },
@@ -135,6 +137,8 @@ export const QUERY_KEYS = {
       all: (params: SearchParams) => ["junior", "challenges", params] as const,
       list: ["junior", "challenges"] as const,
       detail: (id: number) => ["junior", "challenges", "detail", id] as const,
+      leaderboard: (params: PaginationParams) =>
+        ["junior", "challenges", "leaderboard", params] as const,
     },
     paths: {
       all: (params: SearchParams) => ["junior", "paths", params] as const,

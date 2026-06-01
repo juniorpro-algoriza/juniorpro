@@ -52,6 +52,7 @@ export const CreateEditLevelModal = ({
   const [xpToNextLevel, setXpToNextLevel] = useState(
     activeLevelData?.xpToNextLevel || ""
   );
+  const [xpError, setXpError] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   // Sync state if activeLevelData finishes loading asynchronously
@@ -94,9 +95,20 @@ export const CreateEditLevelModal = ({
     e.preventDefault();
 
     if (!xpToNextLevel) {
-      toast.error("Please enter XP requirement");
+      const message = "Please enter XP requirement";
+      setXpError(message);
+      toast.error(message);
       return;
     }
+
+    if (Number(xpToNextLevel) <= 0) {
+      const message = "XP requirement must be more than 0";
+      setXpError(message);
+      toast.error(message);
+      return;
+    }
+
+    setXpError("");
 
     const formData = new FormData();
     formData.append("XPToNextLevel", xpToNextLevel.toString());
@@ -183,17 +195,14 @@ export const CreateEditLevelModal = ({
                 type="number"
                 placeholder="e.g., 1500"
                 value={xpToNextLevel}
-                onChange={(e) => setXpToNextLevel(e.target.value)}
+                onChange={(e) => {
+                  setXpToNextLevel(e.target.value);
+                  setXpError("");
+                }}
                 leftIcon={<Zap className="size-4 text-dark-blue-main" />}
-                min={(lastLevelData?.xpToNextLevel || 0) + 1}
-                defaultValue={(lastLevelData?.xpToNextLevel || 0) + 1}
-                helperText={
-                  <div className="flex items-center gap-1">
-                    <Info className="size-3" />
-                    Must be greater than previous level's XP (
-                    {lastLevelData?.xpToNextLevel})
-                  </div>
-                }
+                min={1}
+                defaultValue={1}
+                error={xpError}
                 required
               />
 

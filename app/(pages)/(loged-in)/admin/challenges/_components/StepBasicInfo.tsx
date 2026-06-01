@@ -113,7 +113,27 @@ export const StepBasicInfo = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Input
+            label="Registration Deadline *"
+            type="datetime-local"
+            value={
+              formData.registerationDeadline
+                ? new Date(
+                    formData.registerationDeadline.getTime() -
+                      formData.registerationDeadline.getTimezoneOffset() * 60000
+                  )
+                    .toISOString()
+                    .slice(0, 16)
+                : ""
+            }
+            onChange={(e) => {
+              const date = e.target.value ? new Date(e.target.value) : null;
+              handleChange("registerationDeadline", date);
+            }}
+            error={fieldErrors.registerationDeadline}
+          />
+
           <Input
             label="Start Date & Time *"
             type="datetime-local"

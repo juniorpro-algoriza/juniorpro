@@ -104,6 +104,12 @@ export const useJoinLearningPath = () => {
     mutationFn: postJuniorsLearningPathJoin,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.junior.paths.list });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.dashboard.currentPath,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.paths.current,
+      });
     },
   });
 };
@@ -124,6 +130,21 @@ export const useSubmitMission = () => {
       });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.junior.paths.list,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.dashboard.stats,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.dashboard.level,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.achievements.badges(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.achievements.recent,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.junior.achievements.learningPathMilestones,
       });
     },
   });
