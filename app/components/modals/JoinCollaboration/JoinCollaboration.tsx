@@ -28,6 +28,14 @@ import {
 import { toast } from "sonner";
 import { JUNIOR_STATUS } from "../../../configs/constants";
 
+const getReadableCollaborationError = (error: unknown) => {
+  const message = error instanceof Error ? error.message : String(error);
+
+  return message.includes("JuniorHasNoPackage")
+    ? "You are not assigned to a package."
+    : "Failed to join collaboration";
+};
+
 export const JoinCollaboration = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -68,8 +76,8 @@ export const JoinCollaboration = () => {
       });
       toast.success("Your request has been submitted and is pending approval!");
       router.back();
-    } catch {
-      toast.error("Failed to join collaboration");
+    } catch (error) {
+      toast.error(getReadableCollaborationError(error));
     }
   };
 

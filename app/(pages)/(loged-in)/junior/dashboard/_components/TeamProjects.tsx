@@ -9,6 +9,7 @@ import {
   RefreshCcw,
   AlarmClock,
 } from "lucide-react";
+import Link from "next/link";
 import { useJuniorCurrentCollaborationDetails } from "../../tanstack";
 import { components } from "../../../../../../api-schema";
 import {
@@ -82,10 +83,13 @@ export const TeamProjects = () => {
             Join team projects to build together, share skills, and create
             amazing work.
           </p>
-          <button className="flex items-center gap-2 text-sm sm:text-xs font-bold text-dark-blue-main border border-dark-blue-main/10 shadow-md hover:bg-dark-blue-main/10 px-4 py-3 rounded-2xl transition-colors duration-200 group">
+          <Link
+            href="/junior/collaborations"
+            className="flex items-center gap-2 text-sm sm:text-xs font-bold text-dark-blue-main border border-dark-blue-main/10 shadow-md hover:bg-dark-blue-main/10 px-4 py-3 rounded-2xl transition-colors duration-200 group"
+          >
             JOIN A TEAM
             <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          </Link>
         </div>
       </MainCard>
     );

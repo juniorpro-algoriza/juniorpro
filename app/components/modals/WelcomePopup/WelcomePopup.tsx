@@ -12,9 +12,7 @@ export const WelcomePopup = () => {
   const router = useRouter();
 
   const handleStartTour = () => {
-    // Close modal by removing modal query param and add tour param
-    const currentPath = window.location.pathname;
-    router.push(`${currentPath}?tour=true`);
+    router.push("/junior/dashboard?tour=true&step=0");
   };
 
   return (
