@@ -9,6 +9,17 @@ import {
   joinChallenge,
 } from "../../server/challenges";
 
+const isServerErrorResponse = (
+  value: unknown
+): value is { __error: true; errorMessage: string } => {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "__error" in value &&
+    (value as { __error?: unknown }).__error === true
+  );
+};
+
 // --- Query Hooks ---
 
 export const useJuniorChallenges = (params: {
@@ -27,7 +38,15 @@ export const useJuniorChallenges = (params: {
 export const useJuniorChallengeById = (id: number) => {
   return useQuery({
     queryKey: QUERY_KEYS.junior.challenges.detail(id),
-    queryFn: () => getJuniorChallengeById(id),
+    queryFn: async () => {
+      const result = await getJuniorChallengeById(id);
+
+      if (isServerErrorResponse(result)) {
+        throw new Error(result.errorMessage);
+      }
+
+      return result;
+    },
     enabled: !!id,
   });
 };
@@ -56,7 +75,15 @@ export const useJoinChallenge = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => joinChallenge(id),
+    mutationFn: async (id: number) => {
+      const result = await joinChallenge(id);
+
+      if (!result.success) {
+        throw new Error(result.errorMessage);
+      }
+
+      return result.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.junior.challenges.list,

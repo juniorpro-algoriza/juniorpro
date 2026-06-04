@@ -2,6 +2,7 @@
 
 import { MainCard, Skeleton } from "@components";
 import { Swords, ArrowRight, Trophy, AlarmClock } from "lucide-react";
+import Link from "next/link";
 import { useJuniorCurrentChallengeDetails } from "../../tanstack";
 import { components } from "../../../../../../api-schema";
 
@@ -67,10 +68,13 @@ export const WeeklyChallenges = () => {
             Join weekly challenges to compete with others and earn bonus XP
             rewards.
           </p>
-          <button className="flex items-center gap-2 text-sm sm:text-xs font-bold text-rose-600 border border-rose-100 shadow-md hover:bg-rose-50 px-4 py-3 rounded-2xl transition-colors duration-200 group">
+          <Link
+            href="/junior/challenges"
+            className="flex items-center gap-2 text-sm sm:text-xs font-bold text-rose-600 border border-rose-100 shadow-md hover:bg-rose-50 px-4 py-3 rounded-2xl transition-colors duration-200 group"
+          >
             BROWSE CHALLENGES
             <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          </Link>
         </div>
       </MainCard>
     );
