@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MainCard, Skeleton } from "@components";
 import { TrendingUp } from "lucide-react";
 import { cx } from "@lib";
+import Link from "next/link";
 import {
   BarChart,
   Bar,
@@ -159,10 +160,13 @@ export const DailyMissionTracker = () => {
           <p className="text-sm text-gray-500 max-w-xs mb-6">
             Start completing missions to see your progress tracked here.
           </p>
-          <button className="flex items-center gap-2 text-sm font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl transition-colors duration-200 group">
+          <Link
+            href="/junior/paths"
+            className="flex items-center gap-2 text-sm font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl transition-colors duration-200 group"
+          >
             START MISSIONS
             <TrendingUp className="size-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          </Link>
         </div>
       </MainCard>
     );
