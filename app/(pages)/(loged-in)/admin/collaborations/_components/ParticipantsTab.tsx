@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import {
+  ModalLink,
   Skeleton,
   MainCard,
   EnhancedTable,
@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@components";
-import { User, Eye } from "lucide-react";
+import { Eye, User } from "lucide-react";
 import { useGetJuniorRoleRequests } from "../../tanstack/collaborations";
 import { components } from "../../../../../../api-schema";
 
@@ -21,6 +21,24 @@ type Application =
 interface ParticipantsTabProps {
   collaborationId: number;
 }
+
+const formatDate = (date?: string | null) => {
+  if (!date) return "No date";
+
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
+const getInitials = (name?: string | null) => {
+  return name
+    ?.split(" ")
+    .map((n: string) => n[0])
+    .join("")
+    .toUpperCase();
+};
 
 export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
   // Fetch Accepted (Participants)
@@ -106,11 +124,7 @@ export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
                       <div className="flex items-center gap-4">
                         <div className="size-12 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 border border-gray-200">
                           {p.juniorName ? (
-                            p.juniorName
-                              .split(" ")
-                              .map((n: string) => n[0])
-                              .join("")
-                              .toUpperCase()
+                            getInitials(p.juniorName)
                           ) : (
                             <User className="size-5" />
                           )}
@@ -129,22 +143,23 @@ export function ParticipantsTab({ collaborationId }: ParticipantsTabProps) {
                       12
                     </TableCell>
                     <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
-                      {p.actionDate
-                        ? new Date(p.actionDate).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })
-                        : "No date"}
+                      {formatDate(p.actionDate)}
                     </TableCell>
                     <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
-                      12
+                      {p.completedTasks ?? 0}
                     </TableCell>
                     <TableCell className="py-5 px-6 text-right">
-                      <button className="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-main transition-colors">
+                      <ModalLink
+                        name="ParticipantDetails"
+                        query={{
+                          collaborationId,
+                          participantId: p.id ?? 0,
+                        }}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-main transition-colors"
+                      >
                         <Eye className="size-4" />
                         View
-                      </button>
+                      </ModalLink>
                     </TableCell>
                   </TableRow>
                 ))

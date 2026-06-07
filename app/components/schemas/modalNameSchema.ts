@@ -13,4 +13,5 @@ export const modalNameSchema = z.enum([
   "JuniorTaskDetails",
   "JoinChallenge",
   "CreateEditLevel",
+  "ParticipantDetails",
 ]);

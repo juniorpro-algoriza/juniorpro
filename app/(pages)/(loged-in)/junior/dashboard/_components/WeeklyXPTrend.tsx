@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MainCard, Skeleton } from "@components";
 import { Award } from "lucide-react";
 import { cx } from "@lib";
+import Link from "next/link";
 import {
   AreaChart,
   Area,
@@ -147,10 +148,13 @@ export const WeeklyXPTrend = () => {
             Complete missions and challenges to start earning XP and see your
             progress here.
           </p>
-          <button className="flex items-center gap-2 text-sm font-bold text-violet-600 bg-violet-50 hover:bg-violet-100 px-4 py-2 rounded-xl transition-colors duration-200 group">
+          <Link
+            href="/junior/challenges"
+            className="flex items-center gap-2 text-sm font-bold text-violet-600 bg-violet-50 hover:bg-violet-100 px-4 py-2 rounded-xl transition-colors duration-200 group"
+          >
             START EARNING XP
             <Award className="size-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          </Link>
         </div>
       </MainCard>
     );

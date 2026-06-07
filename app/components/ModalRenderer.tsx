@@ -72,6 +72,11 @@ const Modals: Record<
       default: m.CreateEditLevelModal,
     }))
   ),
+  ParticipantDetails: lazy(() =>
+    import("./modals/ParticipantDetails").then((m) => ({
+      default: m.ParticipantDetails,
+    }))
+  ),
 };
 
 export const ModalRenderer = () => {
