@@ -5,4 +5,5 @@ export { postInviteJunior } from "./postInviteJunior";
 export { getCurrentSubscription } from "./getCurrentSubscription";
 export { postSubscribe } from "./postSubscribe";
 export { postUpgradePlan } from "./postUpgradePlan";
+export { postAssignJuniorToPackage } from "./postAssignJuniorToPackage";
 export { verifyPayment } from "./postVerifyPayment";

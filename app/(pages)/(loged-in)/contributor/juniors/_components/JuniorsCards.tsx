@@ -4,15 +4,38 @@ import { components } from "../../../../../../api-schema";
 import { Button, MainCard, ModalLink, Skeleton } from "@components";
 import { UserCard } from "@components/client";
 import { UserPlus } from "lucide-react";
-import { useJuniorsData } from "../../tanstack";
+import { toast } from "sonner";
+import {
+  useJuniorsData,
+  useCurrentSubscription,
+  useAssignJuniorToPackage,
+} from "../../tanstack";
 
 type JuniorOfEnablerModel =
   components["schemas"]["Sawiha.Services.DTO.JuniorModels.JuniorOfEnablerModel"];
 
 export const JuniorsCards = () => {
   const { data: juniorResponse, isLoading } = useJuniorsData();
+  const { data: currentSubscription } = useCurrentSubscription();
+  const assignJuniorToPackage = useAssignJuniorToPackage();
   const juniorsData = juniorResponse?.data;
-  console.log(juniorsData);
+  const currentSubscriptionId =
+    currentSubscription?.id ??
+    (currentSubscription as { data?: { id?: number } } | undefined)?.data?.id;
+
+  const handleAssignJunior = async (juniorId?: number) => {
+    if (!juniorId || !currentSubscriptionId) {
+      toast.error("No active package found for assignment.");
+      return;
+    }
+
+    try {
+      await assignJuniorToPackage.mutateAsync(juniorId);
+      toast.success("Junior assigned to the current package.");
+    } catch {
+      toast.error("Failed to assign junior to the package.");
+    }
+  };
 
   if (isLoading) {
     return (
@@ -31,7 +54,7 @@ export const JuniorsCards = () => {
       <div className="grid xl:grid-cols-3 sm:grid-cols-2 xl:gap-5 gap-2 ">
         {juniorsData?.map((junior: JuniorOfEnablerModel, index: number) => (
           <MainCard
-            key={index}
+            key={junior.id ?? index}
             classname="space-y-5 hover:scale-102 transition-all"
           >
             <UserCard
@@ -47,9 +70,18 @@ export const JuniorsCards = () => {
                 dayStreak: 0,
               }}
             />
-            {/* <Button intent="main2" size="mainDefault" className="w-full">
-              View Progress
-            </Button> */}
+            {!junior.isJoinedToCurrentPackage && (
+              <Button
+                intent="main2"
+                size="mainDefault"
+                className="w-full"
+                onClick={() => handleAssignJunior(junior.id)}
+                isLoading={assignJuniorToPackage.isPending}
+                disabled={!currentSubscriptionId}
+              >
+                Assign to a Package
+              </Button>
+            )}
           </MainCard>
         ))}
         <ModalLink name="AddJuniors">
