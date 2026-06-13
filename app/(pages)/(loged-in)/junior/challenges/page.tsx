@@ -13,7 +13,7 @@ import {
   ModalLink,
 } from "@components";
 import { PATH_ICON } from "../../../../configs/constants";
-import { useJuniorChallenges } from "../tanstack";
+import { useJuniorChallenges, useJuniorDashboardStats } from "../tanstack";
 import { useSearchParams } from "next/navigation";
 
 const formatDate = (dateStr?: string) => {
@@ -34,6 +34,9 @@ const JuniorChallenges = () => {
     searchText: searchText || undefined,
   });
 
+  const { data: stats } = useJuniorDashboardStats();
+  const completedMissions = stats?.missions ?? 0;
+
   const allChallenges = useMemo(() => challenges || [], [challenges]);
 
   const activeChallenges = useMemo(
@@ -43,7 +46,9 @@ const JuniorChallenges = () => {
 
   const renderCard = (challenge: (typeof allChallenges)[0], idx: number) => {
     const isJoined = challenge.isJoined;
-    const isLocked = challenge.accessCostType !== 1 && !isJoined;
+    const isMissionsLocked = !isJoined && completedMissions < 5;
+    const isLocked =
+      (challenge.accessCostType !== 1 && !isJoined) || isMissionsLocked;
     const isJoinAction = !isJoined && !isLocked;
 
     const buttonText = isLocked
@@ -89,8 +94,20 @@ const JuniorChallenges = () => {
         buttonIcon={isLocked ? undefined : <ArrowRight size={20} />}
         isLocked={isLocked}
         lockLabel="Challenge Locked"
+        lockSubLabel={isMissionsLocked ? "5 Missions Required" : undefined}
       />
     );
+
+    if (isLocked) {
+      return (
+        <div
+          key={challenge.id || idx}
+          className="block h-full cursor-not-allowed"
+        >
+          {CardContent}
+        </div>
+      );
+    }
 
     if (isJoinAction) {
       return (
@@ -102,14 +119,6 @@ const JuniorChallenges = () => {
         >
           {CardContent}
         </ModalLink>
-      );
-    }
-
-    if (isLocked) {
-      return (
-        <div key={challenge.id || idx} className="block h-full">
-          {CardContent}
-        </div>
       );
     }
 

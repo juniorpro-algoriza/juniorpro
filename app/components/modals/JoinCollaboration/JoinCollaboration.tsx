@@ -158,7 +158,7 @@ export const JoinCollaboration = () => {
                 className="sm:w-5 sm:h-5"
               />
               <span className="text-gray-400 font-bold whitespace-nowrap">
-                Each member will get
+                You will get
               </span>
               <span className="text-gray-900 font-bold whitespace-nowrap">
                 {rewardText}

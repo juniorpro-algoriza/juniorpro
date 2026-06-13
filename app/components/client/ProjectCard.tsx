@@ -17,6 +17,7 @@ interface ProjectCardProps {
   levelRequired?: number;
   isLocked?: boolean;
   lockLabel?: string;
+  lockSubLabel?: string;
   buttonOnClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   buttonDisabled?: boolean;
   buttonLoading?: boolean;
@@ -35,6 +36,7 @@ export const ProjectCard = ({
   levelRequired,
   isLocked = false,
   lockLabel,
+  lockSubLabel,
   type = "collaboration", // "collaboration" | "challenge" | "path"
   rewards,
   skills,
@@ -296,11 +298,11 @@ export const ProjectCard = ({
             <h4 className="text-gray-900 font-bold text-base mb-3">
               {lockLabel || "Collaboration Locked"}
             </h4>
-            {levelRequired && (
+            {(levelRequired || lockSubLabel) && (
               <div className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 border border-orange-200 rounded-full">
                 <Lock className="size-3 text-orange-500" />
                 <span className="text-orange-600 text-xs font-bold">
-                  Level {levelRequired} Required
+                  {lockSubLabel || `Level ${levelRequired} Required`}
                 </span>
               </div>
             )}
@@ -309,20 +311,22 @@ export const ProjectCard = ({
       </div>
 
       {/* Button */}
-      <div className="mt-auto">
-        <Button
-          intent={buttonIntent}
-          size="mainDefault"
-          className="w-full justify-center"
-          disabled={isLocked || buttonDisabled}
-          icon={buttonIcon}
-          iconPosition={buttonIconPosition}
-          onClick={buttonOnClick}
-          isLoading={buttonLoading}
-        >
-          {ctaText}
-        </Button>
-      </div>
+      {!isLocked && (
+        <div className="mt-auto">
+          <Button
+            intent={buttonIntent}
+            size="mainDefault"
+            className="w-full justify-center"
+            disabled={isLocked || buttonDisabled}
+            icon={buttonIcon}
+            iconPosition={buttonIconPosition}
+            onClick={buttonOnClick}
+            isLoading={buttonLoading}
+          >
+            {ctaText}
+          </Button>
+        </div>
+      )}
     </MainCard>
   );
 };

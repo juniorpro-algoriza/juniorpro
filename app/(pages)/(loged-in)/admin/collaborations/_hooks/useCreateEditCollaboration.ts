@@ -44,6 +44,7 @@ const getInitialFormData = (): CollaborationFormData => ({
     },
   ],
   requirements: [{ id: "0", text: "" }],
+  requiredMissions: 0,
 });
 
 const transformApiDataToFormData = (
@@ -74,6 +75,7 @@ const transformApiDataToFormData = (
       id: r.id?.toString() || i.toString(),
       text: r.description || "",
     })) || [{ id: "0", text: "" }],
+    requiredMissions: details?.requiredMissions || 0,
   };
 };
 
@@ -172,7 +174,7 @@ export const useCreateEditCollaboration = (
               payload.startDate?.toISOString() || new Date().toISOString(),
             endDate: payload.endDate?.toISOString() || new Date().toISOString(),
             registerationDeadline: payload.registrationDeadline?.toISOString(),
-            requiredMissions: 1,
+            requiredMissions: payload.requiredMissions,
             xpReward: payload.xpReward,
             points: payload.gemsPoints,
             money: payload.money,
@@ -503,7 +505,7 @@ export const useCreateEditCollaboration = (
               payload.startDate?.toISOString() || new Date().toISOString(),
             endDate: payload.endDate?.toISOString() || new Date().toISOString(),
             registerationDeadline: payload.registrationDeadline?.toISOString(),
-            requiredMissions: 1,
+            requiredMissions: payload.requiredMissions,
             xpReward: payload.xpReward,
             points: payload.gemsPoints,
             money: payload.money,

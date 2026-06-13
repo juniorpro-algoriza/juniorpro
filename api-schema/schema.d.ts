@@ -3805,43 +3805,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/junior/statistics": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.JuniorModels.JuniorStatisticsResponse"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.JuniorModels.JuniorStatisticsResponse"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.JuniorModels.JuniorStatisticsResponse"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/junior/add": {
         parameters: {
             query?: never;
@@ -9853,6 +9816,8 @@ export interface components {
             roleCategoryNameAr?: string | null;
             roleCategoryNameEn?: string | null;
             juniorName?: string | null;
+            /** Format: int32 */
+            juniorLevel?: number;
             status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.CollaborationRoleJuniorStatus"];
             joiningReason?: string | null;
             /** Format: int32 */
@@ -10431,6 +10396,8 @@ export interface components {
             challenges?: number;
             /** Format: int32 */
             totalXp?: number;
+            /** Format: int32 */
+            badges?: number;
         };
         "Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.JuniorMissionTrackerResponse": {
             week?: components["schemas"]["Sawiha.Services.DTO.JuniorDashboard.MissionStatsTracker.MissionDaysTracker"][] | null;
@@ -10543,16 +10510,6 @@ export interface components {
             password: string;
             /** Format: password */
             confirmPassword: string;
-        };
-        "Sawiha.Services.DTO.JuniorModels.JuniorStatisticsResponse": {
-            /** Format: int32 */
-            dailyStreak?: number;
-            /** Format: int32 */
-            finishedTasks?: number;
-            /** Format: int32 */
-            pendingTasks?: number;
-            /** Format: int32 */
-            points?: number;
         };
         "Sawiha.Services.DTO.JuniorModels.UpdateJuniorByAdminRequest": {
             /** Format: int64 */
