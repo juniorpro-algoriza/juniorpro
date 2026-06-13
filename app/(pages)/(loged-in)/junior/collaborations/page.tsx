@@ -17,7 +17,7 @@ import {
   COLLABORATION_STATUS,
   JUNIOR_STATUS,
 } from "../../../../configs/constants";
-import { useJuniorCollaborations } from "../tanstack";
+import { useJuniorCollaborations, useJuniorDashboardStats } from "../tanstack";
 import { OnboardingTourTrigger } from "../dashboard/_components";
 import { useSearchParams } from "next/navigation";
 
@@ -36,6 +36,9 @@ const JuniorCollaborations = () => {
   const { data: collaborations, isLoading } = useJuniorCollaborations({
     searchText: searchText || undefined,
   });
+
+  const { data: stats } = useJuniorDashboardStats();
+  const completedMissions = stats?.missions ?? 0;
 
   const allCollabs = collaborations || [];
 
@@ -61,20 +64,32 @@ const JuniorCollaborations = () => {
       !isPending &&
       collab.status !== COLLABORATION_STATUS.COMPLETED;
 
+    const lacksRequiredMissions =
+      !collab.isJoined &&
+      collab.requiredMissions !== undefined &&
+      collab.requiredMissions !== null &&
+      completedMissions < collab.requiredMissions;
+
+    const isLocked = isPending || lacksRequiredMissions;
+
     const buttonText = isPending
       ? "Pending Approval"
-      : isRejected
-        ? "Join Again"
-        : isJoinAction
-          ? "Join Collaboration"
-          : isCompleted
-            ? "View History"
-            : "View Details";
-    const buttonIntent: ButtonIntent = isPending
-      ? "main"
-      : isJoinAction || isRejected
-        ? "main2"
-        : "main";
+      : lacksRequiredMissions
+        ? "Locked"
+        : isRejected
+          ? "Join Again"
+          : isJoinAction
+            ? "Join Collaboration"
+            : isCompleted
+              ? "View History"
+              : "View Details";
+
+    const buttonIntent: ButtonIntent =
+      isPending || lacksRequiredMissions
+        ? "main"
+        : isJoinAction || isRejected
+          ? "main2"
+          : "main";
 
     const iconKey = (collab.icon?.toString() || "1") as keyof typeof PATH_ICON;
     const rewardText = collab.money
@@ -96,18 +111,35 @@ const JuniorCollaborations = () => {
         rewards={
           rewardText ? (
             <div className="flex items-center gap-2 text-sm font-medium text-gray-900 flex-wrap">
-              Each member will get{" "}
-              <span className="font-bold">{rewardText}</span> after completion
+              You will get <span className="font-bold">{rewardText}</span> after
+              completion
             </div>
           ) : undefined
         }
         buttonText={buttonText}
         buttonIntent={buttonIntent}
-        buttonIcon={isPending ? undefined : <ArrowRight size={20} />}
-        isLocked={isPending}
-        lockLabel="Pending Approval"
+        buttonIcon={
+          isPending || lacksRequiredMissions ? undefined : (
+            <ArrowRight size={20} />
+          )
+        }
+        isLocked={isLocked}
+        lockLabel={isPending ? "Pending Approval" : "Collaboration Locked"}
+        lockSubLabel={
+          lacksRequiredMissions
+            ? `${collab.requiredMissions} Missions Required`
+            : undefined
+        }
       />
     );
+
+    if (isLocked) {
+      return (
+        <div key={collab.id || idx} className="block h-full cursor-not-allowed">
+          {CardContent}
+        </div>
+      );
+    }
 
     if (isJoinAction || isRejected) {
       return (
@@ -119,14 +151,6 @@ const JuniorCollaborations = () => {
         >
           {CardContent}
         </ModalLink>
-      );
-    }
-
-    if (isPending) {
-      return (
-        <div key={collab.id || idx} className="block h-full">
-          {CardContent}
-        </div>
       );
     }
 

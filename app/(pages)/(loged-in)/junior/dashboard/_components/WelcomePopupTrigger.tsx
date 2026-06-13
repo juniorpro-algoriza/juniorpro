@@ -12,6 +12,9 @@ export const WelcomePopupTrigger = () => {
   const hasTriggered = useRef(false);
 
   useEffect(() => {
+    // Wait for the user profile to load
+    if (!user?.id) return;
+
     // Prevent multiple triggers
     if (hasTriggered.current) return;
 
@@ -26,7 +29,7 @@ export const WelcomePopupTrigger = () => {
         router.push("?modal=WelcomePopup");
       }, 0);
     }
-  }, [router, searchParams, user.isGuided]);
+  }, [router, searchParams, user.isGuided, user?.id]);
 
   return null;
 };

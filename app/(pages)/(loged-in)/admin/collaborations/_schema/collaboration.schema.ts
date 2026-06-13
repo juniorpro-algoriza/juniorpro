@@ -109,6 +109,11 @@ export const collaborationSchemaObject = z.object({
 
   // Step 4: Requirements
   requirements: z.array(requirementSchema).default([]),
+  requiredMissions: z.coerce
+    .number()
+    .min(0, "Required missions must be a non-negative number")
+    .int("Required missions must be a whole number")
+    .default(0),
 });
 
 export const collaborationFormSchema = collaborationSchemaObject;
@@ -136,6 +141,7 @@ export const step2Schema = collaborationSchemaObject.pick({
 // Step 3: Requirements
 export const step3Schema = collaborationSchemaObject.pick({
   requirements: true,
+  requiredMissions: true,
 });
 
 // Step 4: Roles & Team

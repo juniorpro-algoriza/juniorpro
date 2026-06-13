@@ -75,7 +75,15 @@ export const useJoinCollaborationRole = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: postJoinCollaborationRole,
+    mutationFn: async (
+      input: Parameters<typeof postJoinCollaborationRole>[0]
+    ) => {
+      const res = await postJoinCollaborationRole(input);
+      if (!res.success) {
+        throw new Error(res.error);
+      }
+      return res.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.junior.collaborations.list,

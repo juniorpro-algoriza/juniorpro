@@ -91,7 +91,7 @@ export const DetailCard = ({
               Progress
             </span>
             <span className="bg-blue-main/10 border border-blue-main/20 text-blue-main text-xs font-bold px-2 py-1 rounded-xl">
-              {progress}%
+              {progress.toFixed(2)}%
             </span>
           </div>
           <Progress width={progress} height="12px" />

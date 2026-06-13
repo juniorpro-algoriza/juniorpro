@@ -197,7 +197,8 @@ export const PathTimeline = ({
                         size="mainDefault"
                         id="continue-mission"
                       >
-                        CONTINUE <ArrowRight className="size-4" />
+                        START
+                        <ArrowRight className="size-4" />
                       </Button>
                     </Link>
                   ) : null}

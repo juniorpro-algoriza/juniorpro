@@ -45,10 +45,39 @@ export const StepRequirements = ({
 
   return (
     <div className="space-y-8 py-2">
+      {/* Required Missions Section */}
+      <div className="space-y-4">
+        <div className="space-y-1">
+          <h3 className="text-lg font-semibold">Participation Requirements</h3>
+          <p className="text-sm text-gray-600">
+            Specify the number of completed missions required to join this
+            collaboration.
+          </p>
+        </div>
+        <div>
+          <Input
+            label="Required Missions *"
+            placeholder="0"
+            type="number"
+            min={0}
+            value={formData.requiredMissions}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                requiredMissions: Number(e.target.value),
+              }))
+            }
+            error={fieldErrors.requiredMissions}
+          />
+        </div>
+      </div>
+
+      <hr className="border-gray-100" />
+
       {/* Requirements Section */}
       <div className="space-y-4">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Requirements</h3>
+          <h3 className="text-lg font-semibold">General Requirements</h3>
           <p className="text-sm text-gray-600">
             What students need before starting
           </p>

@@ -161,8 +161,8 @@ export default function JuniorCollaborationDetailsPage({
                 />
               }
             >
-              Each member will get{" "}
-              <span className="font-bold">{rewardText}</span> after completion
+              You will get <span className="font-bold">{rewardText}</span> after
+              completion
             </DetailCard.FooterItem>
           )}
 

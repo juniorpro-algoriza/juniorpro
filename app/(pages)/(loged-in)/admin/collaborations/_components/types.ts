@@ -47,6 +47,8 @@ export interface CollaborationFormData {
   // Step 3: Roles & Team
   roles: Role[];
 
+  requiredMissions: number;
+
   // Step 4: Requirements
   requirements: Requirement[];
 }
