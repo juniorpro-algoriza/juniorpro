@@ -6,3 +6,7 @@ export * from "./usePackagesData";
 export * from "./useSubscribe";
 export * from "./useUpgradePlan";
 export * from "./useVerifyPayment";
+export * from "./usePointsAllocation";
+export * from "./useJuniorsProjects";
+export * from "./useAssignPoints";
+export * from "./useInviteJunior";

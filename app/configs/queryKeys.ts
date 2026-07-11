@@ -86,6 +86,15 @@ export const QUERY_KEYS = {
     },
   },
   contributor: {
+    dashboard: {
+      pointsAllocation: [
+        "contributor",
+        "dashboard",
+        "points-allocation",
+      ] as const,
+      juniorsProjects: (params: PaginationParams) =>
+        ["contributor", "dashboard", "juniors-projects", params] as const,
+    },
     subscription: ["contributor", "subscription"] as const,
     juniors: ["contributor", "juniors"] as const,
     packages: (params: {
