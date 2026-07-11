@@ -53,7 +53,7 @@ export const PathHeader = ({
       const res = await joinMutation.mutateAsync({ id: pathId });
       console.log("res", res);
       toast.success("Successfully joined learning path!");
-      router.push(`/junior/paths/${res}/current/`);
+      router.push(`/junior/paths/${pathId}/current/`);
     } catch (error) {
       console.error("Failed to join path:", error);
       toast.error("Failed to join learning path");

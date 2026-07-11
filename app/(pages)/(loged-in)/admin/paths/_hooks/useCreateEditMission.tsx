@@ -124,9 +124,7 @@ export const useCreateEditMission = (
           points: formData.points,
           referenceAnswer: formData.solutionCode,
         },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         steps: formData.guideSteps.map(({ id: _id, ...step }) => step),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         learningResources: formData.resources.map(
           ({ id: _id, ...resource }) => ({
             titleEn: resource.titleEn,
@@ -135,7 +133,6 @@ export const useCreateEditMission = (
             duration: resource.duration ?? undefined,
           })
         ),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         successCriterias: formData.criteria.map(({ id: _id, ...criteria }) => ({
           description: criteria.label,
         })),

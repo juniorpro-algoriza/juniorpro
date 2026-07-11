@@ -1,3 +1,7 @@
-export { YourJuniors } from "./YourJuniors";
-export { UpcomingSessions } from "./UpcomingSessions";
-export { TrackYourJuniors } from "./TrackYourJuniors";
+export * from "./ContributorDashboardHeader";
+export * from "./ContributorStatsCards";
+export * from "./JuniorsPointsAllocation";
+export * from "./JuniorsProjects";
+export * from "./ManageJuniorsWidget";
+export * from "./AssignPointsWidget";
+export * from "./CurrentSubscriptionWidget";

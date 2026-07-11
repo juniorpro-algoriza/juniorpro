@@ -40,7 +40,7 @@ const JuniorCollaborations = () => {
   const { data: stats } = useJuniorDashboardStats();
   const completedMissions = stats?.missions ?? 0;
 
-  const allCollabs = collaborations || [];
+  const allCollabs = useMemo(() => collaborations || [], [collaborations]);
 
   const activeCollabs = useMemo(
     () =>

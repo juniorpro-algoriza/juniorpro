@@ -1,21 +1,44 @@
-import { DashboardCards, DashboardHeader } from "@components/client";
-import TargetWithArrow from "@public/images/target_with_arrow.png";
-import HoursLearnedIcon from "@public/images/hours-learned.png";
-import TrophyIcon from "@public/images/trophy-icon.png";
-import HandshakeIcon from "@public/images/hand-shake-icon.png";
-import { TrackYourJuniors, UpcomingSessions, YourJuniors } from "./_components";
-const DashboardPage = async () => {
-  // const pointsData = await getPointsData();
+import {
+  ContributorDashboardHeader,
+  ContributorStatsCards,
+  JuniorsPointsAllocation,
+  JuniorsProjects,
+  ManageJuniorsWidget,
+  AssignPointsWidget,
+  CurrentSubscriptionWidget,
+} from "./_components";
 
+const DashboardPage = async () => {
   return (
     <>
-      <DashboardHeader description="Here's what's happening with your juniors today." />
-      <DashboardCards cardsData={dashboardCardsData} />
-      <div className="grid xl:grid-cols-3 md:grid-cols-2 xl:gap-5 gap-4">
-        <YourJuniors />
-        <div className="xl:space-y-5 space-y-4">
-          <UpcomingSessions />
-          <TrackYourJuniors />
+      {/* Header */}
+      <ContributorDashboardHeader />
+
+      {/* Stats Cards */}
+      <div className="mt-6">
+        <ContributorStatsCards />
+      </div>
+
+      {/* Main Content Sections - First Row */}
+      <div className="grid lg:grid-cols-5 grid-cols-1 gap-4 mt-6">
+        <div id="juniors-projects-section" className="lg:col-span-3">
+          <JuniorsProjects />
+        </div>
+        <div id="juniors-points-allocation-section" className="lg:col-span-2">
+          <JuniorsPointsAllocation />
+        </div>
+      </div>
+
+      {/* New Interactive Widgets - Second Row */}
+      <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 mt-4 items-start">
+        <div id="manage-juniors-section" className="lg:col-span-1">
+          <ManageJuniorsWidget />
+        </div>
+        <div id="assign-points-section" className="lg:col-span-1">
+          <AssignPointsWidget />
+        </div>
+        <div id="current-subscription-section" className="lg:col-span-1">
+          <CurrentSubscriptionWidget />
         </div>
       </div>
     </>
@@ -23,33 +46,3 @@ const DashboardPage = async () => {
 };
 
 export default DashboardPage;
-const dashboardCardsData = [
-  {
-    label: "Hours Learned",
-    value: "4.5",
-    subtext: "Across all juniors this week",
-    subtextColor: "text-gray-600",
-    icon: HoursLearnedIcon.src,
-  },
-  {
-    label: "Missions Completed",
-    value: "12",
-    subtext: "Across all juniors this week",
-    subtextColor: "text-gray-600",
-    icon: TargetWithArrow.src,
-  },
-  {
-    label: "Challenges Won ",
-    value: "5",
-    subtext: "Across all juniors this week",
-    subtextColor: "text-gray-600",
-    icon: TrophyIcon.src,
-  },
-  {
-    label: "Projects Completed",
-    value: "8",
-    subtext: "2 active teams",
-    subtextColor: "text-gray-600",
-    icon: HandshakeIcon.src,
-  },
-];

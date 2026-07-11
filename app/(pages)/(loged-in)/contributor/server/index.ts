@@ -7,3 +7,6 @@ export { postSubscribe } from "./postSubscribe";
 export { postUpgradePlan } from "./postUpgradePlan";
 export { postAssignJuniorToPackage } from "./postAssignJuniorToPackage";
 export { verifyPayment } from "./postVerifyPayment";
+export { getPointsAllocation } from "./getPointsAllocation";
+export { getJuniorsProjects } from "./getJuniorsProjects";
+export * from "./postAssignPoints";

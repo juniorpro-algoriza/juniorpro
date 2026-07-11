@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import React, { useState, useEffect } from "react";
 import { Modal, Input, Button, FileUpload } from "@components";
 import { Zap, ImageIcon, Info } from "lucide-react";
@@ -232,10 +234,12 @@ export const CreateEditLevelModal = ({
                     </span>
                   </div>
                   <div className="p-3 bg-white rounded-2xl border border-gray-100 shadow-main">
-                    <img
+                    <Image
                       src={activeLevelData.imageUrl}
                       alt="Current Badge"
-                      className="w-20 h-20 object-contain"
+                      width={80}
+                      height={80}
+                      className="object-contain"
                     />
                   </div>
                 </div>
