@@ -10496,6 +10496,18 @@ export interface components {
             enablerAcceptanceStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.EnablerAcceptanceStatus"];
             gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
             isJoinedToCurrentPackage?: boolean;
+            /** Format: int32 */
+            currentStreak?: number;
+            /** Format: int32 */
+            currentLevel?: number;
+            /** Format: int32 */
+            xpRemainingToNextLevel?: number;
+            /** Format: int32 */
+            totalXP?: number;
+            /** Format: double */
+            progressPercentage?: number;
+            /** Format: int32 */
+            badges?: number;
         };
         "Sawiha.Services.DTO.JuniorModels.JuniorSignUpRequest": {
             firstName: string;

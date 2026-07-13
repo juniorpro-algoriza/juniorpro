@@ -2,7 +2,7 @@
 
 import { MainCard, Skeleton } from "@components";
 import { cx } from "@lib";
-import { Coins, Wallet, CreditCard } from "lucide-react";
+import { Coins, Wallet } from "lucide-react";
 import { usePointsAllocation } from "../../tanstack";
 import { components } from "../../../../../../api-schema";
 
@@ -35,25 +35,17 @@ const getStatsData = (
       icon: <Wallet className="size-6 text-white" />,
       iconBg: "bg-blue-500",
     },
-    {
-      id: "cash-balance",
-      label: "CASH BALANCE",
-      value: data?.cashBalance?.toString() || "0",
-      subtext: "current cash balance",
-      icon: <CreditCard className="size-6 text-white" />,
-      iconBg: "bg-amber-500",
-    },
   ];
 };
 
-const loadingCardIds = ["points-allocation", "points-balance", "cash-balance"];
+const loadingCardIds = ["points-allocation", "points-balance"];
 
 export const ContributorStatsCards = () => {
   const { data: statsData, isLoading, error } = usePointsAllocation();
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
         {loadingCardIds.map((id) => (
           <div key={id} id={id}>
             <MainCard classname="relative overflow-hidden h-full">
@@ -81,7 +73,7 @@ export const ContributorStatsCards = () => {
   const statsCards = getStatsData(statsData || {});
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
       {statsCards.map((card, index) => (
         <div key={index} id={card.id}>
           <MainCard classname="relative overflow-hidden group h-full">

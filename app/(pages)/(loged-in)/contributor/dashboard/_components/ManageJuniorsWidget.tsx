@@ -113,7 +113,8 @@ export const ManageJuniorsWidget = () => {
                     {junior.name}
                   </p>
                   <p className="text-xs text-gray-500">
-                    {junior.points} Points
+                    Level {junior.currentLevel || 1} •{" "}
+                    {junior.totalXP || junior.points || 0} XP
                   </p>
                 </div>
               </div>
