@@ -59,15 +59,16 @@ export const JuniorsCards = () => {
           >
             <UserCard
               firstName={junior.name || "John"}
-              level={1}
-              xp={junior.points || 1250}
+              level={junior.currentLevel || 1}
+              xp={junior.totalXP || junior.points || 0}
+              xpRemainingToNextLevel={junior.xpRemainingToNextLevel || 0}
               userType={2}
               gender="male"
               userDetails={{
-                levelProgress: 50,
-                points: junior.points || 1250,
-                badges: 0,
-                dayStreak: 0,
+                levelProgress: junior.progressPercentage || 0,
+                points: junior.totalXP || junior.points || 0,
+                badges: junior.badges || 0,
+                dayStreak: junior.currentStreak || 0,
               }}
             />
             {!junior.isJoinedToCurrentPackage && (
