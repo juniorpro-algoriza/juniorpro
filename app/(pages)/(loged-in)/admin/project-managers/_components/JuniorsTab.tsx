@@ -71,9 +71,6 @@ export function JuniorsTab({ projectManagerId }: JuniorsTabProps) {
                   STATUS
                 </TableHead>
                 <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
-                  PROJECTS
-                </TableHead>
-                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
                   JOINED
                 </TableHead>
                 <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-right">
@@ -96,9 +93,6 @@ export function JuniorsTab({ projectManagerId }: JuniorsTabProps) {
                     </TableCell>
                     <TableCell className="py-5 px-6">
                       <Skeleton className="h-5 w-20" />
-                    </TableCell>
-                    <TableCell className="py-5 px-6">
-                      <Skeleton className="h-5 w-12" />
                     </TableCell>
                     <TableCell className="py-5 px-6">
                       <Skeleton className="h-5 w-28" />
@@ -145,9 +139,6 @@ export function JuniorsTab({ projectManagerId }: JuniorsTabProps) {
                       >
                         {junior.status || "—"}
                       </span>
-                    </TableCell>
-                    <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
-                      {junior.projectsCount ?? 0}
                     </TableCell>
                     <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
                       {junior.joiningDate

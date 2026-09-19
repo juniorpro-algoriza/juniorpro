@@ -1,4 +1,5 @@
 import {
+  EmptyData,
   EnhancedTable,
   MainCard,
   Skeleton,
@@ -8,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@components";
+import { ListCheck } from "lucide-react";
 import { components } from "../../../../../../api-schema";
 import { FEATURE_TYPE } from "../../../../../configs";
 
@@ -51,6 +53,16 @@ export function FeaturesTable({ features, isLoading }: FeaturesTableProps) {
             <TableRow>
               <TableCell colSpan={3}>
                 <Skeleton className="h-20" />
+              </TableCell>
+            </TableRow>
+          ) : featuresList.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={3} className="p-6">
+                <EmptyData
+                  icon={<ListCheck className="size-6" />}
+                  title="No Features Found"
+                  description="No subscription features are currently configured."
+                />
               </TableCell>
             </TableRow>
           ) : (

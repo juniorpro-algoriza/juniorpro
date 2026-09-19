@@ -1,8 +1,8 @@
 "use client";
 
-import { Button, Skeleton } from "@components";
+import { Button, EmptyData, Skeleton } from "@components";
 import { useBadges } from "../../tanstack/badges";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Award } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { components } from "../../../../../../api-schema";
 import { BadgeCard } from "./BadgeCard";
@@ -72,14 +72,11 @@ export const BadgesList = ({
       </div>
 
       {badges.length === 0 && (
-        <div className="rounded-2xl border border-gray-100 bg-white py-16 text-center">
-          <p className="text-lg font-bold text-yankees-blue">
-            No badges found.
-          </p>
-          <p className="mt-1 text-sm font-medium text-semi-blue">
-            Create a badge or adjust the current filters.
-          </p>
-        </div>
+        <EmptyData
+          icon={<Award className="size-6" />}
+          title="No Badges Found"
+          description="Create a badge or adjust the current filters."
+        />
       )}
 
       {totalPages > 1 && (

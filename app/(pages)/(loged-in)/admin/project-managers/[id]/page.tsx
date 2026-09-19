@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Breadcrumb, DetailCard, Tabs, Skeleton } from "@components";
-import { Calendar, Users2, Pencil, Briefcase, User } from "lucide-react";
+import { Calendar, Users2, Users, Pencil, User } from "lucide-react";
 import type { TabData } from "@types";
 import { OverviewTab, EnablersTab, JuniorsTab } from "../_components";
 import { useGetProjectManagerById } from "../../tanstack/project-managers";
@@ -127,12 +127,12 @@ export default function ProjectManagerDetailsPage({
         <DetailCard.Footer>
           <DetailCard.FooterItem
             className="text-gray-700 font-medium"
-            icon={<Briefcase className="size-5 flex-shrink-0" />}
+            icon={<Users className="size-5 flex-shrink-0" />}
           >
             <span className="font-bold text-gray-900">
-              {projectManager.projectsCount ?? 0}
+              {projectManager.enablersCount ?? 0}
             </span>{" "}
-            projects
+            enablers
           </DetailCard.FooterItem>
 
           <DetailCard.FooterItem

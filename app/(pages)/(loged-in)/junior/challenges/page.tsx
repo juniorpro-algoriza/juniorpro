@@ -2,9 +2,10 @@
 import React, { Suspense, useMemo } from "react";
 import Link from "next/link";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Trophy } from "lucide-react";
 import {
   Breadcrumb,
+  EmptyData,
   Jumbotron,
   ProjectCard,
   SearchInput,
@@ -146,9 +147,11 @@ const JuniorChallenges = () => {
 
     if (items.length === 0) {
       return (
-        <div className="py-10 text-center text-gray-500 font-medium">
-          No challenges found.
-        </div>
+        <EmptyData
+          icon={<Trophy className="size-6" />}
+          title="No Challenges Available"
+          description="New challenges and competitions will be listed here once active."
+        />
       );
     }
 

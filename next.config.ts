@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "dev-api.sawiha.com",
+      },
+      {
+        protocol: "https",
         hostname: "juniorpro-001-site1.ntempurl.com",
       },
       {

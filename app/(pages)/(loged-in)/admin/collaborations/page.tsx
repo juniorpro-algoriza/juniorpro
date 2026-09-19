@@ -2,10 +2,11 @@
 import React from "react";
 import Link from "next/link";
 
-import { ArrowRight, Plus, Search } from "lucide-react";
+import { ArrowRight, Plus, Search, Users2 } from "lucide-react";
 import {
   Breadcrumb,
   Button,
+  EmptyData,
   Jumbotron,
   ProjectCard,
   Tabs,
@@ -92,11 +93,15 @@ const Collaborations = () => {
 
     if (collaborations.length === 0) {
       return (
-        <div className="text-gray-500 py-10 text-center font-medium">
-          {filters.search
-            ? "No collaborations found matching your search."
-            : "No collaborations found."}
-        </div>
+        <EmptyData
+          icon={<Users2 className="size-6" />}
+          title="No Collaborations Found"
+          description={
+            filters.search
+              ? "No collaborations found matching your search."
+              : "Collaborations will appear here once created."
+          }
+        />
       );
     }
 

@@ -1909,43 +1909,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/admin-dashboard/project-chart": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.AdminDashboardModels.ProjectChartModel"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.AdminDashboardModels.ProjectChartModel"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.AdminDashboardModels.ProjectChartModel"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/admin-level": {
         parameters: {
             query?: never;
@@ -3299,50 +3262,6 @@ export interface paths {
                         "text/plain": components["schemas"]["Sawiha.Services.DTO.EnablerDashboard.PointsAllocationResponse"];
                         "application/json": components["schemas"]["Sawiha.Services.DTO.EnablerDashboard.PointsAllocationResponse"];
                         "text/json": components["schemas"]["Sawiha.Services.DTO.EnablerDashboard.PointsAllocationResponse"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/Enabler-dashboard/juniors-projects": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    JuniorId?: number;
-                    ProjectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-                    Status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
                     };
                 };
             };
@@ -5590,50 +5509,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/landing-home-page/projects": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    CategoryId?: number;
-                    ProjectManagerId?: number;
-                    ProjectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/landing-home-page/juniors-feedbacks": {
         parameters: {
             query?: never;
@@ -5696,45 +5571,6 @@ export interface paths {
                         "text/plain": components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingStatsModel"];
                         "application/json": components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingStatsModel"];
                         "text/json": components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingStatsModel"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/landing-home-page/project-details/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingProjectDetailsResponse"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingProjectDetailsResponse"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingProjectDetailsResponse"];
                     };
                 };
             };
@@ -6520,604 +6356,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/project": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    CategoryId?: number;
-                    ProjectManagerId?: number;
-                    ProjectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                    };
-                };
-            };
-        };
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.UpdateProjectRequest"];
-                    "text/json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.UpdateProjectRequest"];
-                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.UpdateProjectRequest"];
-                };
-            };
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.AddProjectRequest"];
-                    "text/json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.AddProjectRequest"];
-                    "application/*+json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.AddProjectRequest"];
-                };
-            };
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/project/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectDetailsResponse"];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectDetailsResponse"];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectDetailsResponse"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/join": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: {
-                    projectId?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/GetJuniorsJoinedProjectLookup/{projectId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    projectId: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Domain.Models.LookupResponse"][];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Domain.Models.LookupResponse"][];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Domain.Models.LookupResponse"][];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/AssignTaskForJunior/{taskId}/{juniorId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    taskId: number;
-                    juniorId: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/upload-task": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put: {
-            parameters: {
-                query?: {
-                    TaskId?: number;
-                    TaskComment?: string;
-                    FileUrl?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/pending-reviewed-list": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    Status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJuniorTaskStatus"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/accept-task": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put: {
-            parameters: {
-                query?: {
-                    id?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/reject-task": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put: {
-            parameters: {
-                query?: {
-                    id?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/juniors-requests-for-team-project": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    Status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.ProjectJuniorTeamRequestModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.ProjectJuniorTeamRequestModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.ProjectJuniorTeamRequestModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/accept-junior-request": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put: {
-            parameters: {
-                query?: {
-                    id?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/reject-junior-request": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put: {
-            parameters: {
-                query?: {
-                    id?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": boolean;
-                        "application/json": boolean;
-                        "text/json": boolean;
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/projectjunior/junior-tasks/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: number;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.Services.DTO.ProjectJuniorModel.JuniorTaskModel"][];
-                        "application/json": components["schemas"]["Sawiha.Services.DTO.ProjectJuniorModel.JuniorTaskModel"][];
-                        "text/json": components["schemas"]["Sawiha.Services.DTO.ProjectJuniorModel.JuniorTaskModel"][];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/project-manager/add": {
         parameters: {
             query?: never;
@@ -7445,50 +6683,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/project-manager/practice-zone-projects": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    CategoryId?: number;
-                    ProjectManagerId?: number;
-                    ProjectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-                    PageNumber?: number;
-                    PageSize?: number;
-                    SearchText?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "application/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                        "text/json": components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/Lookup/Skill": {
         parameters: {
             query?: never;
@@ -7526,7 +6720,6 @@ export interface paths {
                     NameEn?: string;
                     IsDeleted?: boolean;
                     IsVisible?: boolean;
-                    Projects?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"][];
                     Id?: number;
                 };
                 header?: never;
@@ -7739,7 +6932,6 @@ export interface paths {
                     NameEn?: string;
                     IsDeleted?: boolean;
                     IsVisible?: boolean;
-                    Projects?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"][];
                     Id?: number;
                 };
                 header?: never;
@@ -8349,21 +7541,6 @@ export interface components {
             /** Format: int64 */
             pg_total?: number;
         };
-        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
-            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
-            data?: components["schemas"]["Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel"][] | null;
-            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
-            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
-            errorMessage?: string | null;
-            referenceCode?: string | null;
-            readonly isSucceeded?: boolean;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int64 */
-            pg_total?: number;
-        };
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.Enablers.EnablerDetailModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.Enablers.EnablerDetailModel"][] | null;
@@ -8457,21 +7634,6 @@ export interface components {
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.JuniorModels.JuniorOfEnablerModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.JuniorModels.JuniorOfEnablerModel"][] | null;
-            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
-            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
-            errorMessage?: string | null;
-            referenceCode?: string | null;
-            readonly isSucceeded?: boolean;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int64 */
-            pg_total?: number;
-        };
-        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
-            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
-            data?: components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel"][] | null;
             code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
             httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
             errorMessage?: string | null;
@@ -8604,54 +7766,9 @@ export interface components {
             /** Format: int64 */
             pg_total?: number;
         };
-        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
-            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
-            data?: components["schemas"]["Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel"][] | null;
-            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
-            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
-            errorMessage?: string | null;
-            referenceCode?: string | null;
-            readonly isSucceeded?: boolean;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int64 */
-            pg_total?: number;
-        };
-        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectJuniorModel.ProjectJuniorTeamRequestModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
-            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
-            data?: components["schemas"]["Sawiha.Services.DTO.ProjectJuniorModel.ProjectJuniorTeamRequestModel"][] | null;
-            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
-            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
-            errorMessage?: string | null;
-            referenceCode?: string | null;
-            readonly isSucceeded?: boolean;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int64 */
-            pg_total?: number;
-        };
         "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectMangerModels.ProjectMangerDetailModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
             status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
             data?: components["schemas"]["Sawiha.Services.DTO.ProjectMangerModels.ProjectMangerDetailModel"][] | null;
-            code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
-            httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
-            errorMessage?: string | null;
-            referenceCode?: string | null;
-            readonly isSucceeded?: boolean;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int64 */
-            pg_total?: number;
-        };
-        "Sawiha.CrossCutting.Common.OperationResponse.PagedResponse`1[[System.Collections.Generic.List`1[[Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel, Sawiha.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]": {
-            status?: components["schemas"]["Sawiha.CrossCutting.Common.OperationResponse.OperationOutputStatus"];
-            data?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel"][] | null;
             code?: components["schemas"]["Sawiha.CrossCutting.Common.IErrorCodes"];
             httpErrorCode?: components["schemas"]["Sawiha.CrossCutting.Common.API.HttpErrorCode"];
             errorMessage?: string | null;
@@ -8670,53 +7787,11 @@ export interface components {
             /** Format: int64 */
             expires?: number;
         };
-        "Sawiha.CrossCutting.Domain.Models.LookupResponse": {
-            /** Format: int64 */
-            id?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.BadgeFeature.Badge": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            titleAr?: string | null;
-            titleEn?: string | null;
-            description?: string | null;
-            imageUrl?: string | null;
-            type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType"];
-            /** Format: int32 */
-            count?: number;
-            juniorBadges?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.JuniorBadge"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
         /**
          * Format: int32
          * @enum {integer}
          */
         "Sawiha.CrossCutting.Model.Entities.BadgeFeature.BadgeType": 1 | 2 | 3 | 4 | 5;
-        "Sawiha.CrossCutting.Model.Entities.BadgeFeature.JuniorBadge": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int64 */
-            juniorId?: number;
-            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
-            /** Format: int64 */
-            badgeId?: number;
-            badge?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.Badge"];
-            /** Format: date-time */
-            achievedDate?: string;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
         /**
          * Format: int32
          * @enum {integer}
@@ -8752,49 +7827,11 @@ export interface components {
          * @enum {integer}
          */
         "Sawiha.CrossCutting.Model.Entities.CollaborationsFeatures.TaskPrority": 1 | 2 | 3;
-        "Sawiha.CrossCutting.Model.Entities.Enabler": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameEn?: string | null;
-            nameAr?: string | null;
-            appUserId?: string | null;
-            user?: components["schemas"]["Sawiha.CrossCutting.Model.Security.ApplicationUser"];
-            juniors?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"][] | null;
-            /** Format: int32 */
-            points?: number;
-            /** Format: int32 */
-            usedPoints?: number;
-            /** Format: int64 */
-            projectManagerId?: number | null;
-            projectManager?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectManager"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
         /**
          * Format: int32
          * @enum {integer}
          */
         "Sawiha.CrossCutting.Model.Entities.EnablerAcceptanceStatus": 1 | 2 | 3;
-        "Sawiha.CrossCutting.Model.Entities.Feature": {
-            /** Format: int32 */
-            id?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            description?: string | null;
-            type?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.FeatureType"];
-            key?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.FeatureKey"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-            packageFeatures?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PackageFeature"][] | null;
-        };
         /**
          * Format: int32
          * @enum {integer}
@@ -8809,200 +7846,7 @@ export interface components {
          * Format: int32
          * @enum {integer}
          */
-        "Sawiha.CrossCutting.Model.Entities.JoinProjectStatus": 1 | 2 | 3 | 4;
-        "Sawiha.CrossCutting.Model.Entities.Junior": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameEn?: string | null;
-            nameAr?: string | null;
-            appUserId?: string | null;
-            user?: components["schemas"]["Sawiha.CrossCutting.Model.Security.ApplicationUser"];
-            about?: string | null;
-            /** Format: date-time */
-            birthDate?: string | null;
-            profileUrl?: string | null;
-            linkedInUrl?: string | null;
-            enablerAcceptanceStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.EnablerAcceptanceStatus"];
-            enabler?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Enabler"];
-            /** Format: int64 */
-            enablerId?: number | null;
-            /** Format: int32 */
-            careerId?: number | null;
-            career?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Career"];
-            projectJuniors?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJunior"][] | null;
-            gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
-            /** Format: int32 */
-            points?: number;
-            /** Format: int32 */
-            usedPoints?: number;
-            isGuided?: boolean;
-            /** Format: date-time */
-            lastLoginDate?: string | null;
-            /** Format: int32 */
-            currentStreak?: number;
-            /** Format: int32 */
-            longestStreak?: number;
-            juniorLearningPaths?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"][] | null;
-            juniorPackages?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.JuniorPackageSubscription"][] | null;
-            levelProgress?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelProgress"];
-            badges?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.BadgeFeature.JuniorBadge"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelAchievement": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int64 */
-            juniorId?: number;
-            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
-            /** Format: int32 */
-            levelId?: number;
-            level?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.Level"];
-            /** Format: date-time */
-            achievedDate?: string;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelProgress": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int64 */
-            juniorId?: number;
-            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
-            /** Format: int32 */
-            currentLevelId?: number;
-            currentLevel?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.Level"];
-            /** Format: int32 */
-            currentLevelXP?: number;
-            /** Format: int32 */
-            totalXP?: number;
-            /** Format: int32 */
-            maxLevelAchieved?: number;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.LevelFeature.Level": {
-            /** Format: int32 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            /** Format: int32 */
-            number?: number;
-            /** Format: int32 */
-            xpToNextLevel?: number;
-            imageUrl?: string | null;
-            isActive?: boolean;
-            juniors?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelProgress"][] | null;
-            juniorAchievements?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.LevelFeature.JuniorLevelAchievement"][] | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.Package": {
-            /** Format: int32 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            description?: string | null;
-            /** Format: int32 */
-            juniorCapacity?: number;
-            /** Format: double */
-            price?: number;
-            isActivated?: boolean;
-            /** Format: int32 */
-            duration?: number;
-            durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-            features?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PackageFeature"][] | null;
-            enablerPackageSubscriptions?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription"][] | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.PackageFeature": {
-            /** Format: int32 */
-            id?: number;
-            /** Format: int32 */
-            limitCount?: number | null;
-            isEnabled?: boolean;
-            /** Format: int32 */
-            packageId?: number;
-            package?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Package"];
-            /** Format: int32 */
-            featureId?: number;
-            feature?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Feature"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        /**
-         * Format: int32
-         * @enum {integer}
-         */
         "Sawiha.CrossCutting.Model.Entities.PathFeature.IconType": 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            /** Format: int64 */
-            learningPathId?: number;
-            learningPath?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPath"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPathStatus"];
-            /** Format: int64 */
-            juniorId?: number;
-            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
-            juniorPathMissions?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorPathMission"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        /**
-         * Format: int32
-         * @enum {integer}
-         */
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPathStatus": 1 | 2;
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorPathMission": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            submissionLink?: string | null;
-            submissionNotes?: string | null;
-            /** Format: int64 */
-            juniorLearningPathId?: number;
-            juniorLearningPath?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorPathMissionStatus"];
-            /** Format: int64 */
-            missionId?: number;
-            mission?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.Mission"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
         /**
          * Format: int32
          * @enum {integer}
@@ -9013,381 +7857,11 @@ export interface components {
          * @enum {integer}
          */
         "Sawiha.CrossCutting.Model.Entities.PathFeature.LearnResourceType": 1 | 2 | 3 | 4;
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPath": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameEn?: string | null;
-            nameAr?: string | null;
-            description?: string | null;
-            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPathStatus"];
-            missions?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.Mission"][] | null;
-            juniorLearningPaths?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.JuniorLearningPath"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
         /**
          * Format: int32
          * @enum {integer}
          */
         "Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPathStatus": 1 | 2;
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.LearningResource": {
-            /** Format: int64 */
-            id?: number;
-            titleAr?: string | null;
-            titleEn?: string | null;
-            icon?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.IconType"];
-            url?: string | null;
-            type?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.LearnResourceType"];
-            /** Format: int32 */
-            duration?: number;
-            /** Format: int64 */
-            missionId?: number | null;
-            mission?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.Mission"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.Mission": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameEn?: string | null;
-            nameAr?: string | null;
-            description?: string | null;
-            /** Format: int64 */
-            pathId?: number;
-            path?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.LearningPath"];
-            /** Format: int32 */
-            durationId?: number;
-            duration?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Duration"];
-            /** Format: int32 */
-            xp?: number;
-            /** Format: int32 */
-            points?: number;
-            referenceAnswer?: string | null;
-            /** Format: int32 */
-            levelId?: number;
-            level?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"];
-            /** Format: int32 */
-            skillId?: number;
-            skill?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Skill"];
-            guideSteps?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.MissionGuide"][] | null;
-            successCriterias?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.MissionCriteria"][] | null;
-            learningResources?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.LearningResource"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.MissionCriteria": {
-            /** Format: int64 */
-            id?: number;
-            description?: string | null;
-            /** Format: int64 */
-            missionId?: number;
-            mission?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.Mission"];
-        };
-        "Sawiha.CrossCutting.Model.Entities.PathFeature.MissionGuide": {
-            /** Format: int64 */
-            id?: number;
-            titleAr?: string | null;
-            titleEn?: string | null;
-            subTitle?: string | null;
-            description?: string | null;
-            codeReference?: string | null;
-            /** Format: int64 */
-            missionId?: number;
-            mission?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PathFeature.Mission"];
-        };
-        "Sawiha.CrossCutting.Model.Entities.Payment": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            provider?: string | null;
-            providerPaymentId?: string | null;
-            /** Format: double */
-            amount?: number;
-            currency?: string | null;
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.PaymentStatus"];
-            metadata?: string | null;
-            /** Format: date-time */
-            createdAt?: string;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        /**
-         * Format: int32
-         * @enum {integer}
-         */
-        "Sawiha.CrossCutting.Model.Entities.PaymentStatus": 1 | 2 | 3;
-        "Sawiha.CrossCutting.Model.Entities.Project": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameEn?: string | null;
-            nameAr?: string | null;
-            image?: string | null;
-            /** Format: int32 */
-            numberOfPlaces?: number;
-            projectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectStatus"];
-            /** Format: date-time */
-            startDate?: string;
-            /** Format: date-time */
-            endDate?: string;
-            description?: string | null;
-            attachment?: string | null;
-            /** Format: int64 */
-            projectManagerId?: number;
-            projectManager?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectManager"];
-            projectJuniors?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJunior"][] | null;
-            tasks?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectTask"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-            skills?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectSkill"][] | null;
-            tools?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectTool"][] | null;
-            category?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Category"];
-            /** Format: int32 */
-            categoryId?: number | null;
-            level?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.LevelDifficulty"];
-            /** Format: int32 */
-            levelId?: number | null;
-            duration?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Duration"];
-            /** Format: int32 */
-            durationId?: number | null;
-            ageRange?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectAgeRange"];
-            /** Format: int32 */
-            points?: number;
-        };
-        /**
-         * Format: int32
-         * @enum {integer}
-         */
-        "Sawiha.CrossCutting.Model.Entities.ProjectAgeRange": 1 | 2 | 3;
-        "Sawiha.CrossCutting.Model.Entities.ProjectJunior": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            /** Format: int64 */
-            projectId?: number;
-            project?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-            /** Format: int64 */
-            juniorId?: number;
-            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
-            projectJuniorTasks?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJuniorTask"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-            /** Format: int32 */
-            points?: number;
-        };
-        "Sawiha.CrossCutting.Model.Entities.ProjectJuniorTask": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            comment?: string | null;
-            file?: string | null;
-            projectJuniorTaskStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJuniorTaskStatus"];
-            /** Format: int32 */
-            grade?: number | null;
-            /** Format: int64 */
-            projectTaskId?: number;
-            projectTask?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectTask"];
-            /** Format: int64 */
-            projectJuniorId?: number | null;
-            projectJunior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJunior"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        /**
-         * Format: int32
-         * @enum {integer}
-         */
-        "Sawiha.CrossCutting.Model.Entities.ProjectJuniorTaskStatus": 1 | 2 | 3 | 4;
-        "Sawiha.CrossCutting.Model.Entities.ProjectManager": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameEn?: string | null;
-            nameAr?: string | null;
-            appUserId?: string | null;
-            user?: components["schemas"]["Sawiha.CrossCutting.Model.Security.ApplicationUser"];
-            projects?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"][] | null;
-            enablers?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Enabler"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.ProjectSkill": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int64 */
-            projectId?: number;
-            project?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"];
-            /** Format: int32 */
-            skillId?: number;
-            skill?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Skill"];
-        };
-        /**
-         * Format: int32
-         * @enum {integer}
-         */
-        "Sawiha.CrossCutting.Model.Entities.ProjectStatus": 1 | 2 | 3;
-        "Sawiha.CrossCutting.Model.Entities.ProjectTask": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            nameEn?: string | null;
-            nameAr?: string | null;
-            deadline?: string | null;
-            description?: string | null;
-            attachment?: string | null;
-            taskSkills?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectTaskSkill"][] | null;
-            /** Format: int64 */
-            projectId?: number;
-            project?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.ProjectTaskSkill": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int64 */
-            projectTaskId?: number;
-            projectTask?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectTask"];
-            /** Format: int32 */
-            skillId?: number;
-            skill?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Skill"];
-        };
-        "Sawiha.CrossCutting.Model.Entities.ProjectTool": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int64 */
-            projectId?: number;
-            project?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"];
-            /** Format: int32 */
-            toolId?: number;
-            tool?: components["schemas"]["Sawiha.CrossCutting.Model.Lookups.Tool"];
-        };
-        /**
-         * Format: int32
-         * @enum {integer}
-         */
-        "Sawiha.CrossCutting.Model.Entities.ProjectType": 1 | 2 | 3;
-        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: date-time */
-            creationDate?: string;
-            createdById?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            modifiedById?: string | null;
-            /** Format: int32 */
-            juniorCapacity?: number;
-            /** Format: double */
-            price?: number;
-            /** Format: int32 */
-            duration?: number;
-            durationType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.PlanDurationType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionStatus"];
-            /** Format: int32 */
-            packageId?: number;
-            package?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Package"];
-            /** Format: int64 */
-            enablerId?: number;
-            enabler?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Enabler"];
-            /** Format: date-time */
-            startDate?: string;
-            /** Format: date-time */
-            endDate?: string;
-            /** Format: int64 */
-            paymentId?: number | null;
-            payment?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Payment"];
-            isPaymentConfirmed?: boolean;
-            subscriptionFeatures?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionFeature"][] | null;
-            juniorPackages?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.JuniorPackageSubscription"][] | null;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.JuniorPackageSubscription": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int64 */
-            packageSubscriptionId?: number;
-            packageSubscription?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription"];
-            /** Format: int64 */
-            juniorId?: number;
-            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
-            /** Format: date-time */
-            assignedDate?: string;
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
-        "Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.PackageSubscriptionFeature": {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int32 */
-            limitCount?: number | null;
-            /** Format: int32 */
-            featureId?: number;
-            feature?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Feature"];
-            /** Format: int64 */
-            packageSubscriptionId?: number;
-            packageSubscription?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.SubscriptionFeature.EnablerPackageSubscription"];
-            isDeleted?: boolean;
-            /** Format: date-time */
-            deletedAt?: string | null;
-        };
         /**
          * Format: int32
          * @enum {integer}
@@ -9452,7 +7926,6 @@ export interface components {
             nameEn?: string | null;
             isDeleted?: boolean;
             isVisible?: boolean;
-            projects?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"][] | null;
         };
         "Sawiha.CrossCutting.Model.Lookups.Tool": {
             /** Format: int32 */
@@ -9461,44 +7934,6 @@ export interface components {
             nameEn?: string | null;
             isDeleted?: boolean;
             isVisible?: boolean;
-            projects?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Project"][] | null;
-        };
-        "Sawiha.CrossCutting.Model.Security.ApplicationUser": {
-            id?: string | null;
-            userName?: string | null;
-            normalizedUserName?: string | null;
-            email?: string | null;
-            normalizedEmail?: string | null;
-            emailConfirmed?: boolean;
-            passwordHash?: string | null;
-            securityStamp?: string | null;
-            concurrencyStamp?: string | null;
-            phoneNumber?: string | null;
-            phoneNumberConfirmed?: boolean;
-            twoFactorEnabled?: boolean;
-            /** Format: date-time */
-            lockoutEnd?: string | null;
-            lockoutEnabled?: boolean;
-            /** Format: int32 */
-            accessFailedCount?: number;
-            name?: string | null;
-            firstName?: string | null;
-            lastName?: string | null;
-            otp?: string | null;
-            isVerified?: boolean;
-            userType?: components["schemas"]["Sawiha.CrossCutting.Model.Enums.UserType"];
-            image?: string | null;
-            coverImage?: string | null;
-            location?: string | null;
-            /** Format: int64 */
-            juniorId?: number | null;
-            junior?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Junior"];
-            /** Format: int64 */
-            enablerId?: number | null;
-            enabler?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.Enabler"];
-            /** Format: int64 */
-            projectManagerId?: number | null;
-            projectManager?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectManager"];
         };
         "Sawiha.Services.DTO.Account.ResetPassword.ChangePasswordRequest": {
             /** Format: email */
@@ -9833,8 +8268,6 @@ export interface components {
             enablers?: number;
             /** Format: int32 */
             projectManagers?: number;
-            /** Format: int32 */
-            activeProjects?: number;
         };
         "Sawiha.Services.DTO.AdminDashboardModels.EnablerStatsModel": {
             /** Format: int32 */
@@ -9849,14 +8282,6 @@ export interface components {
             todaysSessions?: number;
             /** Format: int32 */
             activeJuniors?: number;
-            /** Format: int32 */
-            pendingReviews?: number;
-        };
-        "Sawiha.Services.DTO.AdminDashboardModels.ProjectChartModel": {
-            /** Format: double */
-            teamProject?: number;
-            /** Format: double */
-            practiceZone?: number;
         };
         "Sawiha.Services.DTO.AdminDashboardModels.ProjectManagerStatsModel": {
             /** Format: int32 */
@@ -9865,8 +8290,6 @@ export interface components {
             activeProjectManager?: number;
             /** Format: double */
             wallet?: number;
-            /** Format: int32 */
-            waitingList?: number;
         };
         "Sawiha.Services.DTO.CollaborationRoleModels.Add.AddCollaborationRoleModel": {
             /** Format: int64 */
@@ -9981,20 +8404,6 @@ export interface components {
             actionReason?: string | null;
             /** Format: date-time */
             actionDate?: string | null;
-        };
-        "Sawiha.Services.DTO.EnablerDashboard.EnablerDashboardProjectModel": {
-            /** Format: int64 */
-            id?: number;
-            image?: string | null;
-            projectNameAr?: string | null;
-            projectNameEn?: string | null;
-            projectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            juniorName?: string | null;
         };
         "Sawiha.Services.DTO.EnablerDashboard.PointAllocationJuniorModel": {
             /** Format: int32 */
@@ -10478,8 +8887,6 @@ export interface components {
             enablerName?: string | null;
             /** Format: int32 */
             points?: number;
-            /** Format: int32 */
-            projects?: number;
             /** Format: date-time */
             joiningDate?: string;
         };
@@ -10489,10 +8896,6 @@ export interface components {
             name?: string | null;
             /** Format: int32 */
             points?: number;
-            /** Format: int32 */
-            activeProjects?: number;
-            /** Format: int32 */
-            completedProjects?: number;
             enablerAcceptanceStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.EnablerAcceptanceStatus"];
             gender?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.GenderType"];
             isJoinedToCurrentPackage?: boolean;
@@ -10506,8 +8909,6 @@ export interface components {
             totalXP?: number;
             /** Format: double */
             progressPercentage?: number;
-            /** Format: int32 */
-            badges?: number;
         };
         "Sawiha.Services.DTO.JuniorModels.JuniorSignUpRequest": {
             firstName: string;
@@ -10541,65 +8942,7 @@ export interface components {
             age?: number;
             userImage?: string | null;
         };
-        "Sawiha.Services.DTO.LandingHomePageModels.LandingProjectDetailsModel": {
-            /** Format: int64 */
-            id?: number;
-            image?: string | null;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            projectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectStatus"];
-            description?: string | null;
-            /** Format: int32 */
-            categoryId?: number | null;
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            /** Format: int32 */
-            levelId?: number | null;
-            levelNameAr?: string | null;
-            levelNameEn?: string | null;
-            /** Format: int32 */
-            durationId?: number | null;
-            durationNameAr?: string | null;
-            durationNameEn?: string | null;
-            ageRange?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectAgeRange"];
-            /** Format: date-time */
-            startDate?: string;
-            /** Format: date-time */
-            endDate?: string;
-            joinProjectStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-            /** Format: int64 */
-            projectJuniorId?: number | null;
-        };
-        "Sawiha.Services.DTO.LandingHomePageModels.LandingProjectDetailsResponse": {
-            projectDetails?: components["schemas"]["Sawiha.Services.DTO.LandingHomePageModels.LandingProjectDetailsModel"];
-            tools?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectToolModel"][] | null;
-            skills?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectSkillModel"][] | null;
-            tasks?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectTaskModel"][] | null;
-        };
-        "Sawiha.Services.DTO.LandingHomePageModels.LandingProjectsResponseModel": {
-            /** Format: int64 */
-            id?: number;
-            image?: string | null;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            description?: string | null;
-            projectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectStatus"];
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            ageRange?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectAgeRange"];
-            durationAr?: string | null;
-            durationEn?: string | null;
-            joinProjectStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-            /** Format: date-time */
-            modificationDate?: string | null;
-            /** Format: int32 */
-            feedBack?: number;
-        };
         "Sawiha.Services.DTO.LandingHomePageModels.LandingStatsModel": {
-            /** Format: int32 */
-            projects?: number;
             /** Format: int32 */
             activeStudents?: number;
             /** Format: int32 */
@@ -10958,51 +9301,6 @@ export interface components {
             personaId?: number | null;
             isGuided?: boolean | null;
         };
-        "Sawiha.Services.DTO.ProjectJuniorModel.GetProjectJuniorTaskListModel": {
-            /** Format: int64 */
-            id?: number;
-            image?: string | null;
-            projectNameAr?: string | null;
-            projectNameEn?: string | null;
-            taskName?: string | null;
-            /** Format: int64 */
-            projectId?: number;
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectStatus"];
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            juniorName?: string | null;
-        };
-        "Sawiha.Services.DTO.ProjectJuniorModel.JuniorTaskModel": {
-            /** Format: int64 */
-            id?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            deadline?: string | null;
-            description?: string | null;
-            attachment?: string | null;
-            /** Format: int64 */
-            projectJuniorTaskId?: number | null;
-            nameOfJuniorAssignedTo?: string | null;
-            taskSkillIds?: number[] | null;
-            comment?: string | null;
-            file?: string | null;
-            juniorTaskStatus?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectJuniorTaskStatus"];
-        };
-        "Sawiha.Services.DTO.ProjectJuniorModel.ProjectJuniorTeamRequestModel": {
-            /** Format: int64 */
-            id?: number;
-            image?: string | null;
-            projectNameAr?: string | null;
-            projectNameEn?: string | null;
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.JoinProjectStatus"];
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            juniorName?: string | null;
-        };
         "Sawiha.Services.DTO.ProjectMangerModels.ProjectMangerDetailModel": {
             /** Format: int64 */
             id?: number;
@@ -11010,130 +9308,9 @@ export interface components {
             email?: string | null;
             status?: string | null;
             /** Format: int32 */
-            projectsCount?: number;
-            /** Format: int32 */
-            practiceContentsCount?: number;
-            /** Format: int32 */
             enablersCount?: number;
             /** Format: date-time */
             joiningDate?: string;
-        };
-        "Sawiha.Services.DTO.ProjectModels.AddProjectDetailsModel": {
-            image?: string | null;
-            /** Format: int32 */
-            numberOfPlaces?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            projectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectStatus"];
-            description?: string | null;
-            attachment?: string | null;
-            /** Format: int32 */
-            categoryId?: number | null;
-            /** Format: int32 */
-            levelId?: number | null;
-            /** Format: int32 */
-            durationId?: number | null;
-            ageRange?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectAgeRange"];
-            /** Format: int32 */
-            points?: number;
-            /** Format: int64 */
-            projectManagerId?: number | null;
-            skillIds?: number[] | null;
-            toolIds?: number[] | null;
-            /** Format: date-time */
-            startDate?: string;
-            /** Format: date-time */
-            endDate?: string;
-        };
-        "Sawiha.Services.DTO.ProjectModels.AddProjectRequest": {
-            projectDetails?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.AddProjectDetailsModel"];
-            projectTasks?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectTaskModel"][] | null;
-        };
-        "Sawiha.Services.DTO.ProjectModels.GetAllProjectsModel": {
-            /** Format: int64 */
-            id?: number;
-            image?: string | null;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectStatus"];
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            levelNameAr?: string | null;
-            levelNameEn?: string | null;
-            /** Format: date-time */
-            modificationDate?: string | null;
-            ageRange?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectAgeRange"];
-        };
-        "Sawiha.Services.DTO.ProjectModels.ProjectDetailsModel": {
-            /** Format: int64 */
-            id?: number;
-            image?: string | null;
-            /** Format: int32 */
-            numberOfPlaces?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            projectType?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectType"];
-            status?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectStatus"];
-            description?: string | null;
-            attachment?: string | null;
-            /** Format: int32 */
-            categoryId?: number | null;
-            categoryNameAr?: string | null;
-            categoryNameEn?: string | null;
-            /** Format: int32 */
-            levelId?: number | null;
-            levelNameAr?: string | null;
-            levelNameEn?: string | null;
-            /** Format: int32 */
-            durationId?: number | null;
-            durationNameAr?: string | null;
-            durationNameEn?: string | null;
-            ageRange?: components["schemas"]["Sawiha.CrossCutting.Model.Entities.ProjectAgeRange"];
-            projectManagerName?: string | null;
-            /** Format: date-time */
-            startDate?: string;
-            /** Format: date-time */
-            endDate?: string;
-        };
-        "Sawiha.Services.DTO.ProjectModels.ProjectDetailsResponse": {
-            projectDetails?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectDetailsModel"];
-            tools?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectToolModel"][] | null;
-            skills?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectSkillModel"][] | null;
-            tasks?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectTaskModel"][] | null;
-        };
-        "Sawiha.Services.DTO.ProjectModels.ProjectSkillModel": {
-            /** Format: int32 */
-            id?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-        };
-        "Sawiha.Services.DTO.ProjectModels.ProjectTaskModel": {
-            /** Format: int64 */
-            id?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-            deadline?: string | null;
-            description?: string | null;
-            attachment?: string | null;
-            /** Format: int64 */
-            projectJuniorTaskId?: number | null;
-            nameOfJuniorAssignedTo?: string | null;
-            taskSkillIds?: number[] | null;
-        };
-        "Sawiha.Services.DTO.ProjectModels.ProjectToolModel": {
-            /** Format: int32 */
-            id?: number;
-            nameAr?: string | null;
-            nameEn?: string | null;
-        };
-        "Sawiha.Services.DTO.ProjectModels.UpdateProjectRequest": {
-            /** Format: int64 */
-            id?: number;
-            projectDetails?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.AddProjectDetailsModel"];
-            newProjectTasks?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectTaskModel"][] | null;
-            updatedProjectTasks?: components["schemas"]["Sawiha.Services.DTO.ProjectModels.ProjectTaskModel"][] | null;
-            deletedProjectTasks?: number[] | null;
         };
         "Sawiha.Services.DTO.Security.LoginModel": {
             email: string;

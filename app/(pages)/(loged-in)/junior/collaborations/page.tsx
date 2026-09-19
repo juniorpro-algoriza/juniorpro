@@ -2,9 +2,10 @@
 import React, { Suspense, useMemo } from "react";
 import Link from "next/link";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Users2 } from "lucide-react";
 import {
   Breadcrumb,
+  EmptyData,
   Jumbotron,
   ProjectCard,
   SearchInput,
@@ -178,9 +179,11 @@ const JuniorCollaborations = () => {
 
     if (items.length === 0) {
       return (
-        <div className="py-10 text-center text-gray-500 font-medium">
-          No collaborations found.
-        </div>
+        <EmptyData
+          icon={<Users2 className="size-6" />}
+          title="No Collaborations Available"
+          description="New team collaborations will appear here once open for registration."
+        />
       );
     }
 

@@ -68,14 +68,12 @@ export const signUp = async (
 
     if (contributorEmail) payload.contributorEmail = contributorEmail;
 
-    const res = await fetch(
-      `https://juniorpro-001-site1.ntempurl.com/api/${url}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }
-    );
+    const baseUrl = process.env.API_ROOT_URL || "https://dev-api.sawiha.com";
+    const res = await fetch(`${baseUrl}/api/${url}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
     if (!res.ok) return { success: false, error: "Failed to sign up" };
 
