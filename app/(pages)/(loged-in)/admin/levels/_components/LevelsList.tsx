@@ -2,7 +2,8 @@
 
 import React from "react";
 import { useLevels } from "../../tanstack/levels/useLevels";
-import { Skeleton } from "@components";
+import { EmptyData, Skeleton } from "@components";
+import { Layers } from "lucide-react";
 import { LevelCard } from "./LevelCard";
 import { components } from "../../../../../../api-schema";
 
@@ -32,8 +33,16 @@ export const LevelsList = ({ searchText }: { searchText: string }) => {
         <LevelCard key={level.id} level={level} />
       ))}
       {levels?.length === 0 && (
-        <div className="col-span-full py-20 text-center">
-          <p className="text-gray-500 text-lg">No levels found.</p>
+        <div className="col-span-full">
+          <EmptyData
+            icon={<Layers className="size-6" />}
+            title="No Levels Found"
+            description={
+              searchText
+                ? "No levels found matching your search query."
+                : "Levels will appear here once created."
+            }
+          />
         </div>
       )}
     </div>

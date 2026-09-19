@@ -5,7 +5,8 @@ import { PathCard } from "@components/client";
 import { useLearningPaths } from "../../tanstack/paths/useLearningPaths";
 import { PATH_ICON, PATH_STATUS } from "../../../../../configs";
 import { components } from "../../../../../../api-schema";
-import { Skeleton } from "@components";
+import { EmptyData, Skeleton } from "@components";
+import { Map } from "lucide-react";
 
 export const PathsList = ({ searchText }: { searchText: string }) => {
   const { data: getLearningPathsResponse, isLoading } = useLearningPaths({
@@ -48,7 +49,19 @@ export const PathsList = ({ searchText }: { searchText: string }) => {
           cardLink={`/admin/paths/${path.id}`}
         />
       ))}
-      {paths?.length === 0 && <p className="text-gray-600">No paths found.</p>}
+      {paths?.length === 0 && (
+        <div className="col-span-full md:col-span-2">
+          <EmptyData
+            icon={<Map className="size-6" />}
+            title="No Learning Paths Found"
+            description={
+              searchText
+                ? "No paths found matching your search criteria."
+                : "Create your first learning path to get started."
+            }
+          />
+        </div>
+      )}
     </div>
   );
 };

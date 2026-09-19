@@ -1,4 +1,4 @@
-import { Button, Input, MainCard, CodeBlockInput } from "@components";
+import { Button, Input, MainCard, CodeEditor } from "@components";
 import { Plus, XIcon } from "lucide-react";
 import { GuideStep } from "./types";
 
@@ -24,26 +24,33 @@ export const StepGuide = ({
         intent="main"
         size="mainDefault"
         type="button"
+        className="!cursor-pointer"
         onClick={addGuideStep}
       >
-        <Plus /> Add Step
+        <Plus className="w-4 h-4 mr-2" />
+        Add Step
       </Button>
     </div>
 
     <div className="space-y-4">
       {guideSteps.map((step, index) => (
-        <MainCard key={step.id} classname="p-0 ">
-          <div className="px-5 py-3 border-b border-gray-100 text-gray-600 flex items-center justify-between gap-3 bg-[#F9FAFB80]">
-            <p className="text-sm">Step {index + 1}</p>
-            <XIcon
-              className="size-4 cursor-pointer hover:text-red-500 transition-colors"
-              onClick={() => removeGuideStep(step.id)}
-            />
+        <MainCard key={step.id} classname="p-4 relative">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-medium">Step {index + 1}</h4>
+            {guideSteps.length > 1 && (
+              <button
+                type="button"
+                onClick={() => removeGuideStep(step.id)}
+                className="text-gray-400 hover:text-red-500 cursor-pointer"
+              >
+                <XIcon className="w-4 h-4" />
+              </button>
+            )}
           </div>
 
-          <div className="p-5 space-y-2">
+          <div className="space-y-3">
             <Input
-              label="Step Name"
+              label="Title"
               name={`steps[${index}][titleEn]`}
               value={step.titleEn}
               onChange={(e) =>
@@ -62,14 +69,17 @@ export const StepGuide = ({
               placeholder="Describe the step..."
               error={fieldErrors[`steps.${index}.description`]}
             />
-            <CodeBlockInput
+            <CodeEditor
               label="Code Reference"
-              name={`steps[${index}][codeReference]`}
+              optionalHint="Optional"
               value={step.codeReference}
-              onChange={(e) =>
-                updateGuideStep(step.id, "codeReference", e.target.value)
+              onChange={(code) =>
+                updateGuideStep(step.id, "codeReference", code)
               }
               placeholder="// Code helper for this step..."
+              minHeight="140px"
+              showLanguageSelect={false}
+              showStatusBar={false}
             />
           </div>
         </MainCard>

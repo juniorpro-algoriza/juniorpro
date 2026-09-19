@@ -1,4 +1,7 @@
-import { CodeBlockInput } from "@components";
+"use client";
+
+import { useState } from "react";
+import { CodeEditor, type CodeLanguage } from "@components";
 
 interface StepSolutionProps {
   solutionCode: string;
@@ -11,15 +14,19 @@ export const StepSolution = ({
   updateSolution,
   fieldErrors = {},
 }: StepSolutionProps) => {
+  const [language, setLanguage] = useState<CodeLanguage>("javascript");
+
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-lg">Reference Answer</h3>
 
-      <CodeBlockInput
+      <CodeEditor
         value={solutionCode}
-        onChange={(e) => updateSolution(e.target.value)}
-        placeholder="// Paste the complete solution code here..."
-        className="min-h-[300px] font-mono"
+        onChange={updateSolution}
+        language={language}
+        onLanguageChange={setLanguage}
+        placeholder="// Paste or write the complete solution code here..."
+        minHeight="320px"
         error={fieldErrors.referenceAnswer}
       />
     </div>

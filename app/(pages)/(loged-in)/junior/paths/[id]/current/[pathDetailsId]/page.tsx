@@ -72,6 +72,7 @@ export default function PathDetailPage({
         successCriterias={currentMission?.successCriterias}
         learningResources={currentMission?.learningResources}
         submissionLink={currentMission?.missionDetails?.submissionLink}
+        submissionNotes={currentMission?.missionDetails?.submissionNotes}
         referenceAnswer={currentMission?.missionDetails?.referenceAnswer}
         missionId={parseInt(pathDetailsId)}
         points={currentMission?.missionDetails?.points}

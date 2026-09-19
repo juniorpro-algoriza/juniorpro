@@ -12,14 +12,12 @@ export const resendOtp = async (): Promise<ActionState> => {
       return { success: false, error: "Email not found, please sign up again" };
     }
 
-    const res = await fetch(
-      "https://juniorpro-001-site1.ntempurl.com/api/account/resend-otp",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      }
-    );
+    const baseUrl = process.env.API_ROOT_URL || "https://dev-api.sawiha.com";
+    const res = await fetch(`${baseUrl}/api/account/resend-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
 
     if (!res.ok) {
       return { success: false, error: "Failed to resend OTP" };

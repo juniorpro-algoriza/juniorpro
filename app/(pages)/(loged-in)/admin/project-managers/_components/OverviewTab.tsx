@@ -2,7 +2,7 @@
 
 import React from "react";
 import { MainCard } from "@components";
-import { Briefcase, Users, BookOpen, Calendar } from "lucide-react";
+import { Briefcase, Users, Calendar } from "lucide-react";
 import { components } from "../../../../../../api-schema";
 
 type ProjectManagerDetail =
@@ -15,22 +15,27 @@ interface OverviewTabProps {
 export function OverviewTab({ projectManager }: OverviewTabProps) {
   const stats = [
     {
-      label: "Projects",
-      value: projectManager.projectsCount ?? 0,
-      icon: <Briefcase className="size-5" />,
-      color: "bg-blue-main/10 text-blue-main",
-    },
-    {
       label: "Enablers",
       value: projectManager.enablersCount ?? 0,
       icon: <Users className="size-5" />,
       color: "bg-purple-main/10 text-purple-main",
     },
     {
-      label: "Practice Contents",
-      value: projectManager.practiceContentsCount ?? 0,
-      icon: <BookOpen className="size-5" />,
+      label: "Status",
+      value: projectManager.status || "Active",
+      icon: <Briefcase className="size-5" />,
       color: "bg-green-50 text-green-600",
+    },
+    {
+      label: "Joined",
+      value: projectManager.joiningDate
+        ? new Date(projectManager.joiningDate).toLocaleDateString("en-US", {
+            month: "short",
+            year: "numeric",
+          })
+        : "—",
+      icon: <Calendar className="size-5" />,
+      color: "bg-blue-main/10 text-blue-main",
     },
   ];
 

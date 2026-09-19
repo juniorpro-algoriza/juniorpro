@@ -16,6 +16,7 @@ export const PathDetailsTabs = ({
   learningResources,
   referenceAnswer,
   submissionLink,
+  submissionNotes,
   missionId,
   points,
   xp,
@@ -32,6 +33,7 @@ export const PathDetailsTabs = ({
     | null;
   referenceAnswer?: string | null;
   submissionLink?: string | null;
+  submissionNotes?: string | null;
   missionId?: number;
   points?: number;
   xp?: number;
@@ -116,6 +118,7 @@ export const PathDetailsTabs = ({
         <SubmitYourWork
           referenceAnswer={referenceAnswer}
           submissionLink={submissionLink}
+          submissionNotes={submissionNotes}
           missionId={missionId}
           points={points}
           xp={xp}
