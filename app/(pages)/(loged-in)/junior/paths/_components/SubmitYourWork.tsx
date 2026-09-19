@@ -1,9 +1,17 @@
 "use client";
-import { Animate, Button, Input, MainCard, Textarea } from "@components";
+import {
+  Animate,
+  Button,
+  CodeEditor,
+  Input,
+  MainCard,
+  Textarea,
+} from "@components";
+import type { CodeLanguage, SyntaxIssue } from "@components";
 import { Tip } from "@components/client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import LambImage from "@public/images/lamb.png";
-import { ExternalLink, Link2 } from "lucide-react";
+import { CheckCircle2, ExternalLink, Link2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import RocketImage from "@public/images/rocket-icon.png";
@@ -16,6 +24,7 @@ const submissionSchema = z.object({
   id: z.number(),
   submissionLink: z.string().url("Please enter a valid URL"),
   submissionNotes: z.string().optional(),
+  solutionCode: z.string().optional(),
 });
 
 type SubmissionFormData = z.infer<typeof submissionSchema>;
@@ -44,41 +53,65 @@ export const SubmitYourWork = ({
     id: missionId || 0,
     submissionLink: "",
     submissionNotes: "",
+    solutionCode: "",
   });
+  const [codeLanguage, setCodeLanguage] = useState<CodeLanguage>("javascript");
+  const [syntaxIssues, setSyntaxIssues] = useState<SyntaxIssue[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
-    try {
-      submissionSchema.parse(formData);
-      setErrors({});
-      return true;
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        error.issues.forEach((err) => {
-          const pathKey = err.path[0];
-          if (typeof pathKey === "string") {
-            newErrors[pathKey] = err.message;
-          }
-        });
-        setErrors(newErrors);
-      }
-      return false;
+    const newErrors: Record<string, string> = {};
+
+    const result = submissionSchema.safeParse(formData);
+    if (!result.success) {
+      result.error.issues.forEach((err) => {
+        const pathKey = err.path[0];
+        if (typeof pathKey === "string") {
+          newErrors[pathKey] = err.message;
+        }
+      });
     }
+
+    if (syntaxIssues.length > 0) {
+      newErrors.solutionCode = `Fix the ${syntaxIssues.length} syntax ${
+        syntaxIssues.length === 1 ? "error" : "errors"
+      } in your code before submitting`;
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
+
+  const handleIssuesChange = useCallback((issues: SyntaxIssue[]) => {
+    setSyntaxIssues(issues);
+    if (issues.length === 0) {
+      setErrors((prev) => ({ ...prev, solutionCode: "" }));
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
+      if (syntaxIssues.length > 0) {
+        toast.error("Your code still has syntax errors. Fix them to submit.");
+      }
       return;
     }
+
+    const code = formData.solutionCode?.trim();
+    const notes = formData.submissionNotes?.trim() || "";
+    const combinedNotes = code
+      ? notes
+        ? `${notes}\n\n\`\`\`${codeLanguage}\n${code}\n\`\`\``
+        : `\`\`\`${codeLanguage}\n${code}\n\`\`\``
+      : notes || undefined;
 
     try {
       await submitMutation.mutateAsync({
         id: formData.id,
         submissionLink: formData.submissionLink,
-        submissionNotes: formData.submissionNotes,
+        submissionNotes: combinedNotes,
       });
 
       // Create new params based on current ones
@@ -148,13 +181,25 @@ export const SubmitYourWork = ({
               }
               // className="w-full border-[#DFE1E8]"
             />
+            <CodeEditor
+              label="Your Code"
+              optionalHint="Optional"
+              value={formData.solutionCode ?? ""}
+              onChange={(code) => handleInputChange("solutionCode", code)}
+              language={codeLanguage}
+              onLanguageChange={setCodeLanguage}
+              onIssuesChange={handleIssuesChange}
+              placeholder="Paste or write your solution here..."
+              error={errors.solutionCode}
+              className="mb-5"
+            />
           </div>
           <Tip
             title="Tip: "
             description="Include information about challenges you overcame, unique features you implemented, and the impact of your solution."
             image={LambImage.src}
             isOneLiner
-            className="mt-0 mb-5"
+            className="mt-5 mb-5"
           />
           <Button
             type="submit"
@@ -214,13 +259,20 @@ export const SubmitYourWork = ({
       </MainCard>
       <Animate>
         {showSolution && (
-          <MainCard classname=" space-y-2 ">
-            <p className="text-sm text-green-600 font-semibold">
-              Reference Solution
-            </p>
-            <pre className="text-sm p-5 rounded-2xl  bg-gray-50 border border-gray-200 overflow-x-auto">
-              {referenceAnswer || ""}
-            </pre>
+          <MainCard classname="space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-green-600 font-semibold flex items-center gap-2">
+                <CheckCircle2 className="size-4" /> Reference Solution
+              </p>
+            </div>
+            <CodeEditor
+              value={referenceAnswer || ""}
+              language={codeLanguage}
+              readOnly
+              enableClear={false}
+              showStatusBar
+              minHeight="200px"
+            />
           </MainCard>
         )}
       </Animate>

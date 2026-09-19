@@ -2,11 +2,19 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Loader2, Plus, Search, Trash2 } from "lucide-react";
+import {
+  ArrowRight,
+  Loader2,
+  Plus,
+  Search,
+  Trash2,
+  Trophy,
+} from "lucide-react";
 import { toast } from "sonner";
 import {
   Breadcrumb,
   Button,
+  EmptyData,
   Jumbotron,
   ProjectCard,
   Tabs,
@@ -122,11 +130,15 @@ const Challenges = () => {
 
     if (challenges.length === 0) {
       return (
-        <div className="text-gray-500 py-10 text-center font-medium">
-          {search
-            ? "No challenges found matching your search."
-            : "No challenges found."}
-        </div>
+        <EmptyData
+          icon={<Trophy className="size-6" />}
+          title="No Challenges Found"
+          description={
+            search
+              ? "No challenges found matching your search."
+              : "Challenges will appear here once created."
+          }
+        />
       );
     }
 

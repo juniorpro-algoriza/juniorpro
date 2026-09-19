@@ -36,9 +36,6 @@ const DashboardPage = async () => {
         <div id="current-subscription-section">
           <CurrentSubscriptionWidget />
         </div>
-        {/* <div id="juniors-projects-section" className="lg:col-span-2 hidden">
-          <JuniorsProjects />
-        </div> */}
       </div>
     </>
   );

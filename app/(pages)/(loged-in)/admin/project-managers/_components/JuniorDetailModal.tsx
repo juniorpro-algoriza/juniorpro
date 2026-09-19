@@ -2,14 +2,7 @@
 
 import React from "react";
 import { Modal, MainCard, Skeleton } from "@components";
-import {
-  User,
-  Calendar,
-  Mail,
-  CheckCircle,
-  Star,
-  Briefcase,
-} from "lucide-react";
+import { User, Calendar, Mail, CheckCircle, Star } from "lucide-react";
 import { useGetJuniorDetails } from "../../tanstack/project-managers";
 
 interface JuniorDetailModalProps {
@@ -88,11 +81,11 @@ export function JuniorDetailModal({
 
             <MainCard classname="p-4 space-y-1">
               <div className="flex items-center gap-2 text-xs text-gray-500 font-medium">
-                <Briefcase className="size-3.5" />
-                Projects
+                <Star className="size-3.5 text-amber-500" />
+                Points
               </div>
               <div className="text-sm font-semibold text-gray-900">
-                {junior.projects ?? 0}
+                {junior.points ?? 0}
               </div>
             </MainCard>
 

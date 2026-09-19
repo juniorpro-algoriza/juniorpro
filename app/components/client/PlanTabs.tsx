@@ -6,6 +6,8 @@ import { components } from "../../../api-schema";
 import { useCurrentSubscription } from "../../(pages)/(loged-in)/contributor/tanstack";
 import { PlanCard } from "./PlanCard";
 import { Skeleton } from "../Skeleton";
+import { EmptyData } from "./EmptyData";
+import { CreditCard } from "lucide-react";
 
 type Package =
   | components["schemas"]["Sawiha.Services.DTO.PackageModels.GetPackageListModel"]
@@ -84,8 +86,12 @@ export const PlanTabs = ({
           />
         ))}
         {packages.length === 0 && !loadingPackages && (
-          <div className="flex items-center text-gray-600">
-            No plans available.
+          <div className="col-span-full md:col-span-2">
+            <EmptyData
+              icon={<CreditCard className="size-6" />}
+              title="No Plans Available"
+              description={`No ${period}ly subscription plans found at this time.`}
+            />
           </div>
         )}
       </div>

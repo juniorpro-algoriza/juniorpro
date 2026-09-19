@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Plus, Search, Trash2, User, AlertTriangle } from "lucide-react";
+import { Plus, Search, Trash2, User, Users, AlertTriangle } from "lucide-react";
 import {
   Breadcrumb,
   Button,
+  EmptyData,
   Modal,
   Jumbotron,
   Skeleton,
@@ -82,9 +83,6 @@ const ProjectManagers = () => {
                     STATUS
                   </TableHead>
                   <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
-                    PROJECTS
-                  </TableHead>
-                  <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
                     ENABLERS
                   </TableHead>
                   <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
@@ -114,9 +112,6 @@ const ProjectManagers = () => {
                       <Skeleton className="h-5 w-12" />
                     </TableCell>
                     <TableCell className="py-5 px-6">
-                      <Skeleton className="h-5 w-12" />
-                    </TableCell>
-                    <TableCell className="py-5 px-6">
                       <Skeleton className="h-5 w-28" />
                     </TableCell>
                     <TableCell className="py-5 px-6 text-right">
@@ -141,11 +136,15 @@ const ProjectManagers = () => {
 
     if (projectManagers.length === 0) {
       return (
-        <div className="text-gray-500 py-10 text-center font-medium">
-          {search
-            ? "No project managers found matching your search."
-            : "No project managers found."}
-        </div>
+        <EmptyData
+          icon={<Users className="size-6" />}
+          title="No Project Managers Found"
+          description={
+            search
+              ? "No project managers found matching your search."
+              : "No project managers have been added yet."
+          }
+        />
       );
     }
 
@@ -174,9 +173,6 @@ const ProjectManagers = () => {
                 </TableHead>
                 <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
                   STATUS
-                </TableHead>
-                <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
-                  PROJECTS
                 </TableHead>
                 <TableHead className="py-4 px-6 text-xs font-bold uppercase tracking-wider">
                   ENABLERS
@@ -229,9 +225,6 @@ const ProjectManagers = () => {
                     >
                       {pm.status || "—"}
                     </span>
-                  </TableCell>
-                  <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
-                    {pm.projectsCount ?? 0}
                   </TableCell>
                   <TableCell className="py-5 px-6 text-sm text-gray-500 font-medium">
                     {pm.enablersCount ?? 0}

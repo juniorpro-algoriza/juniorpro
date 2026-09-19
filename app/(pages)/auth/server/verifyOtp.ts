@@ -17,14 +17,12 @@ export const verifyOtp = async (
       return { success: false, error: "Email not found, please sign up again" };
     }
 
-    const res = await fetch(
-      "https://juniorpro-001-site1.ntempurl.com/api/account/verify-otp",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
-      }
-    );
+    const baseUrl = process.env.API_ROOT_URL || "https://dev-api.sawiha.com";
+    const res = await fetch(`${baseUrl}/api/account/verify-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp }),
+    });
 
     if (!res.ok) {
       return { success: false, error: "OTP verification failed" };

@@ -31,6 +31,14 @@ export {
   StepperTrigger,
 } from "./Stepper";
 export { CodeBlockInput } from "./CodeBlockInput";
+export { CodeEditor, CODE_LANGUAGES } from "./CodeEditor";
+export type {
+  CodeLanguage,
+  SyntaxIssue,
+  EditorTheme,
+  CursorPosition,
+  CodeEditorProps,
+} from "./CodeEditor";
 export {
   Table as EnhancedTable,
   TableBody,
@@ -53,3 +61,4 @@ export { RoleCard } from "./RoleCard";
 export { Carousel } from "./Carousel";
 export { DetailCard } from "./client/DetailCard";
 export { FileUpload } from "./FileUpload";
+export { EmptyData } from "./client/EmptyData";

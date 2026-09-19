@@ -1,5 +1,5 @@
 "use client";
-import { MainCard } from "@components";
+import { CodeEditor, MainCard } from "@components";
 import { cx } from "@lib";
 import { ChevronDown, CircleCheck } from "lucide-react";
 import React from "react";
@@ -60,9 +60,16 @@ export const StepByStepGuide = ({
               <p className="text-sm text-gray-600">{item.description}</p>
 
               {item.codeReference && (
-                <pre className="text-sm p-5 rounded-2xl  bg-gray-50 overflow-x-auto border border-gray-200">
-                  {item.codeReference}
-                </pre>
+                <div className="mt-3">
+                  <CodeEditor
+                    value={item.codeReference}
+                    readOnly
+                    enableClear={false}
+                    showLanguageSelect={false}
+                    showStatusBar={false}
+                    minHeight="120px"
+                  />
+                </div>
               )}
             </div>
           )}

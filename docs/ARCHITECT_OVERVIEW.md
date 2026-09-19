@@ -1,6 +1,6 @@
 # SAWIHA - Architect Overview
 
-This document provides a high-level overview of the technologies, architecture, and implementation patterns used in the SAWIHA project.
+This document provides a high-level overview of the technologies, architecture, and implementation patterns used in the SAWIHA .
 
 ## 🚀 Technologies
 

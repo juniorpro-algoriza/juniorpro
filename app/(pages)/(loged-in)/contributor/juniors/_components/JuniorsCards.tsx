@@ -67,7 +67,6 @@ export const JuniorsCards = () => {
               userDetails={{
                 levelProgress: junior.progressPercentage || 0,
                 points: junior.totalXP || junior.points || 0,
-                badges: junior.badges || 0,
                 dayStreak: junior.currentStreak || 0,
               }}
             />

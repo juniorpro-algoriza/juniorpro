@@ -44,7 +44,7 @@ export const UserCard = ({
     levelProgress: number;
     points: number;
     dayStreak: number;
-    badges: number;
+    badges?: number;
   };
 }) => {
   return (
@@ -102,7 +102,11 @@ export const UserCard = ({
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-2 user-stats-grid">
+          <div
+            className={`grid ${
+              userDetails.badges !== undefined ? "grid-cols-3" : "grid-cols-2"
+            } gap-2 user-stats-grid`}
+          >
             <div
               id={dayStreakId}
               className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1"
@@ -123,16 +127,18 @@ export const UserCard = ({
                 Points
               </p>
             </div>
-            <div
-              id={badgesId}
-              className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1"
-            >
-              <Image src={badge} alt="badge" width={30} height={30} />
-              <p className="font-bold">{userDetails.badges}</p>
-              <p className="text-10 text-gray-600 font-medium text-center">
-                Badges
-              </p>
-            </div>
+            {userDetails.badges !== undefined && (
+              <div
+                id={badgesId}
+                className="p-3 rounded-3xl border border-gray-100 flex flex-col justify-center items-center gap-1"
+              >
+                <Image src={badge} alt="badge" width={30} height={30} />
+                <p className="font-bold">{userDetails.badges}</p>
+                <p className="text-10 text-gray-600 font-medium text-center">
+                  Badges
+                </p>
+              </div>
+            )}
           </div>
         </>
       )}
